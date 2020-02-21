@@ -13,14 +13,11 @@
         android:strokeWidth="2"
         android:strokeLineJoin="round"
         android:strokeLineCap="round"
-        android:pathData="M11 17L20 10L29 17V28C29 28.5304 28.7893 29.0391 28.4142 29.4142C28.0391 29.7893 27.5304 30 27 30H13C12.4696 30 11.9609 29.7893 11.5858 29.4142C11.2107 29.0391 11 28.5304 11 28V17Z" />
-    <path
-        android:fillColor="#FD9016"
-        android:pathData="M17 30V20H23V30" />
+        android:pathData="M12 27.5C12 26.837 12.2634 26.2011 12.7322 25.7322C13.2011 25.2634 13.837 25 14.5 25H28" />
     <path
         android:strokeColor="#FD9016"
         android:strokeWidth="2"
         android:strokeLineJoin="round"
         android:strokeLineCap="round"
-        android:pathData="M17 30V20H23V30" />
+        android:pathData="M14.5 10H28V30H14.5C13.837 30 13.2011 29.7366 12.7322 29.2678C12.2634 28.7989 12 28.163 12 27.5V12.5C12 11.837 12.2634 11.2011 12.7322 10.7322C13.2011 10.2634 13.837 10 14.5 10Z" />
 </vector>
