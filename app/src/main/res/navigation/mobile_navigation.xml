@@ -58,4 +58,14 @@
         android:name="com.example.tsj.ui.history.fragments.AccountFragment"
         android:label="@string/history"
         tools:layout="@layout/fragment_account" />
+    <fragment
+        android:id="@+id/navigation_bid_add"
+        android:name="com.example.tsj.ui.bid.fragments.BidAddFragment"
+        android:label="fragment_bid_add"
+        tools:layout="@layout/fragment_bid_add" />
+    <fragment
+        android:id="@+id/navigation_bid_detail"
+        android:name="com.example.tsj.ui.bid.fragments.BidDetailFragment"
+        android:label="fragment_bid_detail"
+        tools:layout="@layout/fragment_bid_detail" />
 </navigation>

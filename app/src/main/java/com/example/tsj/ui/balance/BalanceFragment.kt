@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import com.example.tsj.R
 import kotlinx.android.synthetic.main.fragment_balance.*
@@ -25,6 +26,8 @@ class BalanceFragment : Fragment() {
         showBalanceButton.setOnClickListener {
           findNavController().navigate(R.id.navigation_balance_detail)
         }
+        (activity as AppCompatActivity).supportActionBar?.show()
+
         return root
     }
 }

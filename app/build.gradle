@@ -51,10 +51,6 @@ dependencies {
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
 
 
-
-
-
-
     //test
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

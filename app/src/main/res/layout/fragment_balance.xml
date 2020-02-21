@@ -9,25 +9,28 @@
     tools:context=".ui.balance.BalanceFragment">
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/name_text_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="15dp"
+        android:hint="Адрес">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/balance_adres_edittext"
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteTextView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Адрес" />
+            android:layout_height="50dp"
+            android:drawableEnd="@drawable/ic_expend"
+            android:paddingEnd="8dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:layout_marginStart="1dp"
-        android:layout_marginEnd="1dp"
         android:id="@+id/balance_show_button"
         style="@style/RoundedOrangeBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="1dp"
         android:text="Показать"
         android:textColor="@color/whiteColor" />
 
