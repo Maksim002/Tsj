@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_news">
+
+    <fragment
+        android:id="@+id/navigation_news"
+        android:name="com.example.tsj.ui.news.NewsFragment"
+        android:label="@string/title_news"
+        tools:layout="@layout/fragment_news" />
+
+    <fragment
+        android:id="@+id/navigation_message"
+        android:name="com.example.tsj.ui.message.MessageFragment"
+        android:label="@string/title_message"
+        tools:layout="@layout/fragment_message" />
+
+    <fragment
+        android:id="@+id/navigation_contacts"
+        android:name="com.example.tsj.ui.contact.ContactFragment"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_contacts" />
+
+    <fragment
+        android:id="@+id/navigation_history"
+        android:name="com.example.tsj.ui.history.HistoryFragment"
+        android:label="@string/history"
+        tools:layout="@layout/fragment_history"/>
+
+    <fragment
+        android:id="@+id/navigation_balance"
+        android:name="com.example.tsj.ui.balance.BalanceFragment"
+        android:label="@string/title_balance"
+        tools:layout="@layout/fragment_balance" />
+
+    <fragment
+        android:id="@+id/navigation_bid"
+        android:name="com.example.tsj.ui.bid.BidFragment"
+        android:label="@string/title_bid"
+        tools:layout="@layout/fragment_bid" />
+
+    <fragment
+        android:id="@+id/navigation_personal"
+        android:name="com.example.tsj.ui.personal.PersonalFragment"
+        android:label="@string/history"
+        tools:layout="@layout/fragment_personal" />
+
+    <fragment
+        android:id="@+id/navigation_balance_detail"
+        android:name="com.example.tsj.ui.balance.BalanceDetailFragment"
+        android:label="@string/title_balance"
+        tools:layout="@layout/fragment_balance_detail" />
+
+    <fragment
+        android:id="@+id/navigation_Fragment"
+        android:name="com.example.tsj.ui.history.fragments.AccountFragment"
+        android:label="@string/history"
+        tools:layout="@layout/fragment_account" />
+</navigation>

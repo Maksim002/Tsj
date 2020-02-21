@@ -1,0 +1,45 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        app:name="titleTextColor"@color/orangeColor"
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="toolbarStyle">@style/CustomToolBarStyle</item>
+        <item name="actionBarTheme">@style/MyApp.ActionBarTheme</item>
+
+        <item name="android:statusBarColor" tools:ignore="NewApi">@color/colorPrimaryDark</item>
+        <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
+    </style>
+
+    <style name="aaa">
+        <item name="android:spinnerItemStyle">
+            @style/Widget.MaterialComponents.TextInputLayout.OutlinedBox
+        </item>
+    </style>
+
+    <style name="CustomToolBarStyle" parent="@style/Widget.AppCompat.Toolbar">
+        <item name="titleTextColor">@color/orangeColor</item>
+    </style>
+
+    <style name="AppTheme.RoundedCornerMaterialButton" parent="Widget.AppCompat.ImageButton">
+        <item name="android:background">@drawable/circle_green_backround</item>
+    </style>
+
+    <style name="RoundedOrangeBackground" parent="Widget.AppCompat.ImageButton">
+        <item name="android:background">@drawable/circle_orange_backround</item>
+    </style>
+
+    <style name="MyApp.ActionBarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <!-- THIS is where you can color the arrow! -->
+        <item name="colorControlNormal">@color/orangeColor</item>
+    </style>
+
+    <style name="NoToolbar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+</resources>
