@@ -57,9 +57,7 @@ class HistoryListFragment : Fragment() {
                 Address.defaultHintTextColor = col
                 val selectedItem = parent.getItemAtPosition(position).toString()
             }
-        autoAddress.setOnClickListener {
-            autoAddress.showDropDown()
-        }
+
         autoAddress.onFocusChangeListener = View.OnFocusChangeListener { view, b ->
             if (b) {
                 try {

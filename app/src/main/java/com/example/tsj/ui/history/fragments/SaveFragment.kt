@@ -53,6 +53,6 @@ class SaveFragment : Fragment(), SaveListener {
         bundle.putInt("id", save.id)
         bundle.putString("title",save.title)
         Navigation.findNavController(Objects.requireNonNull<View>(view))
-            .navigate(R.id.navigation_Fragment, bundle)
+            .navigate(R.id.navigation_account, bundle)
     }
 }

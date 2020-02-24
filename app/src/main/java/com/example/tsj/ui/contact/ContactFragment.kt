@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -22,6 +23,12 @@ class ContactFragment : Fragment() {
         val imageHistory: ImageView = root.findViewById(R.id.imageHistory)
         val imageBalance: ImageView = root.findViewById(R.id.imageBalance)
         val imageBid: ImageView = root.findViewById(R.id.imageBid)
+
+        val ref: LinearLayout = root.findViewById(R.id.reference)
+
+        ref.setOnClickListener {
+            findNavController().navigate(R.id.navigation_reference)
+        }
 
         imageHistory.setOnClickListener {
             findNavController().navigate(R.id.navigation_history)

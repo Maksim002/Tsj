@@ -54,8 +54,20 @@
         tools:layout="@layout/fragment_balance_detail" />
 
     <fragment
-        android:id="@+id/navigation_Fragment"
+        android:id="@+id/navigation_account"
         android:name="com.example.tsj.ui.history.fragments.AccountFragment"
         android:label="@string/history"
         tools:layout="@layout/fragment_account" />
+
+    <fragment
+        android:id="@+id/navigation_new_reference"
+        android:name="com.example.tsj.ui.reference.NewReferenceFragment"
+        android:label="Новая справка"
+        tools:layout="@layout/fragment_new_reference" />
+
+    <fragment
+        android:id="@+id/navigation_reference"
+        android:name="com.example.tsj.ui.reference.ReferenceFragment"
+        android:label="Справка"
+        tools:layout="@layout/fragment_reference" />
 </navigation>
