@@ -34,6 +34,7 @@ class NewReferenceFragment : Fragment() {
 
         (activity as AppCompatActivity).supportActionBar!!.show()
         return root
+        //dwdw
     }
 
     override fun onStart() {
