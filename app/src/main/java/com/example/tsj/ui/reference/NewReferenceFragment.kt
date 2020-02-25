@@ -3,25 +3,20 @@ package com.example.tsj.ui.reference
 
 import android.app.DatePickerDialog
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
+import androidx.navigation.fragment.findNavController
 import com.example.tsj.R
-import kotlinx.android.synthetic.main.fragment_new_llistener.*
 import kotlinx.android.synthetic.main.fragment_new_reference.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-/**
- * A simple [Fragment] subclass.
- */
 class NewReferenceFragment : Fragment() {
     private lateinit var col: ColorStateList
 
@@ -31,14 +26,24 @@ class NewReferenceFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_new_reference, container, false)
         col = ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
-
         (activity as AppCompatActivity).supportActionBar!!.show()
+
+        val layout_new = root.findViewById<LinearLayout>(R.id.layout_new_Ref)
+        layout_new.setOnClickListener { v ->
+            findNavController().navigate(R.id.navigation_families)
+        }
         return root
     }
 
     override fun onStart() {
         super.onStart()
 
+        getEditRef()
+        getEditReferenceS()
+        getEditReferenceDo()
+
+    }
+    private fun getEditRef(){
         edit_ref.setOnFocusChangeListener{ pref, boolean ->
             if (boolean){
                 lRef.defaultHintTextColor = col
@@ -46,7 +51,9 @@ class NewReferenceFragment : Fragment() {
                 lRef.defaultHintTextColor = col
             }
         }
+    }
 
+    private fun getEditReferenceS(){
         editReferenceS.setKeyListener(null);
         editReferenceS.setOnFocusChangeListener { view, b ->
             if (b) {
@@ -68,8 +75,8 @@ class NewReferenceFragment : Fragment() {
                 picker.show()
             }
         }
-
-
+    }
+    private fun getEditReferenceDo(){
         editReferenceDo.setKeyListener(null);
         editReferenceDo.setOnFocusChangeListener { view, b ->
             if (b){

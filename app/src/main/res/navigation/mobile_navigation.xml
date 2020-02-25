@@ -68,6 +68,18 @@
     <fragment
         android:id="@+id/navigation_reference"
         android:name="com.example.tsj.ui.reference.ReferenceFragment"
-        android:label="Справка"
+        android:label="@string/references"
         tools:layout="@layout/fragment_reference" />
+
+    <fragment
+        android:id="@+id/navigation_families"
+        android:name="com.example.tsj.ui.reference.FamiliesFragment"
+        android:label="@string/families"
+        tools:layout="@layout/fragment_families" />
+
+    <fragment
+        android:id="@+id/navigation_final_references"
+        android:name="com.example.tsj.ui.reference.FinalReferencesFragment"
+        android:label="@string/references"
+        tools:layout="@layout/fragment_final_references" />
 </navigation>

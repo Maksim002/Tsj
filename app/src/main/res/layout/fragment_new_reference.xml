@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#E5E5E5"
     tools:context=".ui.reference.NewReferenceFragment"
     android:orientation="vertical">
 
@@ -21,7 +22,7 @@
             android:textSize="16sp"
             android:padding="16dp"
             android:background="@null"
-            android:textColor="#DE747474"/>
+            android:textColor="#001"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <ImageView
@@ -81,6 +82,7 @@
         android:src="@drawable/ic_divider"/>
 
     <LinearLayout
+        android:id="@+id/layout_new_Ref"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

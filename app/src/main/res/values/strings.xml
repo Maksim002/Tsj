@@ -11,5 +11,7 @@
     <string name="save_2425">Лицевой счет №2425</string>
     <string name="title_balance">Текущий баланс</string>
     <string name="title_bid">Мои заявки</string>
+    <string name="families">Состав семьи</string>
+    <string name="references">Справка</string>
 
 </resources>
