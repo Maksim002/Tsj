@@ -2,6 +2,7 @@ package com.example.tsj.ui.reference
 
 
 import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.res.ColorStateList
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -16,6 +17,7 @@ import com.example.tsj.R
 import kotlinx.android.synthetic.main.fragment_new_reference.*
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.properties.Delegates
 
 class NewReferenceFragment : Fragment() {
     private lateinit var col: ColorStateList
@@ -43,17 +45,18 @@ class NewReferenceFragment : Fragment() {
         getEditReferenceDo()
 
     }
-    private fun getEditRef(){
-        edit_ref.setOnFocusChangeListener{ pref, boolean ->
-            if (boolean){
+
+    private fun getEditRef() {
+        edit_ref.setOnFocusChangeListener { pref, boolean ->
+            if (boolean) {
                 lRef.defaultHintTextColor = col
-            }else{
+            } else {
                 lRef.defaultHintTextColor = col
             }
         }
     }
 
-    private fun getEditReferenceS(){
+    private fun getEditReferenceS() {
         editReferenceS.setKeyListener(null);
         editReferenceS.setOnFocusChangeListener { view, b ->
             if (b) {
@@ -76,10 +79,11 @@ class NewReferenceFragment : Fragment() {
             }
         }
     }
-    private fun getEditReferenceDo(){
+
+    private fun getEditReferenceDo() {
         editReferenceDo.setKeyListener(null);
         editReferenceDo.setOnFocusChangeListener { view, b ->
-            if (b){
+            if (b) {
                 if (editReferenceS.text.length == 0) {
                     Toast.makeText(context, "Error", Toast.LENGTH_LONG).show()
                 } else {
@@ -88,23 +92,32 @@ class NewReferenceFragment : Fragment() {
                         val day = cldr.get(Calendar.DAY_OF_MONTH)
                         val month = cldr.get(Calendar.MONTH)
                         val year = cldr.get(Calendar.YEAR)
-                        val col = ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
+                        val col =
+                            ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
                         referenceDo.defaultHintTextColor = col
                         val picker: DatePickerDialog
                         picker =
-                            DatePickerDialog(activity!!, { datePicker, year1, monthOfYear, dayOfMonth ->
-                                if (monthOfYear + 1 < 10) {
-                                    editReferenceDo.setText(dayOfMonth.toString() + "." + "0" + (monthOfYear + 1) + "." + year1)
-                                } else {
-                                    editReferenceDo.setText(dayOfMonth.toString() + "." + "0" + (monthOfYear + 1) + "." + year1)
-                                }
+                            DatePickerDialog(
+                                activity!!,
+                                { datePicker, year1, monthOfYear, dayOfMonth ->
+                                    if (monthOfYear + 1 < 10) {
+                                        editReferenceDo.setText(dayOfMonth.toString() + "." + "0" + (monthOfYear + 1) + "." + year1)
+                                    } else {
+                                        editReferenceDo.setText(dayOfMonth.toString() + "." + "0" + (monthOfYear + 1) + "." + year1)
+                                    }
 
-                            }, year, month, day)
+                                },
+                                year,
+                                month,
+                                day
+                            )
                         try {
-                            val timeS = SimpleDateFormat("dd/MM/yyyy").parse(editReferenceS.text.toString()).getTime()
+                            val timeS =
+                                SimpleDateFormat("dd/MM/yyyy").parse(editReferenceS.text.toString())
+                                    .getTime()
                             picker.datePicker.minDate = timeS + 1000
 
-                        }catch (e:Exception){
+                        } catch (e: Exception) {
                             picker.datePicker.minDate = System.currentTimeMillis() - 1000
                         }
 
