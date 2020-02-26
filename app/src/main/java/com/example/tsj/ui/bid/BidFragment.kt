@@ -5,19 +5,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.example.tsj.R
 import com.example.tsj.adapters.bid.BidAdapter
 import com.example.tsj.model.BidModel
+import com.example.tsj.ui.bid.fragments.BidClickItemListener
 import kotlinx.android.synthetic.main.fragment_bid.*
+import java.util.*
 
-class BidFragment : Fragment() {
-
+class BidFragment : Fragment(), BidClickItemListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
+        (activity as AppCompatActivity).supportActionBar?.show()
+
         return inflater.inflate(R.layout.fragment_bid, container, false)
     }
 
@@ -25,28 +31,44 @@ class BidFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
+        bid_create.setOnClickListener {
+            findNavController().navigate(R.id.navigation_bid_add)
+        }
         val items = arrayListOf(
 
-            BidModel( "18.02.2020 16:16","Заявка на ремонт", "Тестовая заявка на ремонт", true),
-            BidModel("18.02.2020 16:16","Жалоба", "Тестовая заявка на ремонт", true),BidModel("18.02.2020 16:16","Заявка на ремонт", "Тестовая заявка на ремонт", true),
-            BidModel("18.02.2020 16:16","Жалоба", "Тестовая заявка на ремонт", false),BidModel("18.02.2020 16:16","Заявка на ремонт", "Тестовая заявка на ремонт", true),
-            BidModel("18.02.2020 16:16","Жалоба", "Тестовая заявка на ремонт", true),BidModel("18.02.2020 16:16","Заявка на ремонт", "Тестовая заявка на ремонт", true),
-            BidModel("18.02.2020 16:16","Жалоба", "Тестовая заявка на ремонт", true),BidModel("18.02.2020 16:16","Заявка на ремонт", "Тестовая заявка на ремонт", true),
-            BidModel("18.02.2020 16:16","Жалоба", "Тестовая заявка на ремонт", true),BidModel("18.02.2020 16:16","Заявка на ремонт", "Тестовая заявка на ремонт", true),
-            BidModel("18.02.2020 16:16","Жалоба", "Тестовая заявка на ремонт", false)
+            BidModel("18.02.2020 16:16", "Заявка на ремонт", "Тестовая заявка на ремонт", true),
+            BidModel("18.02.2020 16:16", "Жалоба", "Тестовая заявка на ремонт", true),
+            BidModel("18.02.2020 16:16", "Заявка на ремонт", "Тестовая заявка на ремонт", true),
+            BidModel("18.02.2020 16:16", "Жалоба", "Тестовая заявка на ремонт", false),
+            BidModel("18.02.2020 16:16", "Заявка на ремонт", "Тестовая заявка на ремонт", true),
+            BidModel("18.02.2020 16:16", "Жалоба", "Тестовая заявка на ремонт", true),
+            BidModel("18.02.2020 16:16", "Заявка на ремонт", "Тестовая заявка на ремонт", true),
+            BidModel("18.02.2020 16:16", "Жалоба", "Тестовая заявка на ремонт", true),
+            BidModel("18.02.2020 16:16", "Заявка на ремонт", "Тестовая заявка на ремонт", true),
+            BidModel("18.02.2020 16:16", "Жалоба", "Тестовая заявка на ремонт", true),
+            BidModel("18.02.2020 16:16", "Заявка на ремонт", "Тестовая заявка на ремонт", true),
+            BidModel("18.02.2020 16:16", "Жалоба", "Тестовая заявка на ремонт", false)
         )
 
-        val adapter = BidAdapter (items)
+        val adapter = BidAdapter(this, items)
 
-        if (adapter.itemCount != 0){
+        if (adapter.itemCount != 0) {
             bid_is_empty_textview.visibility = View.GONE
             bid_recyclerview.visibility = View.VISIBLE
-        }else{
+        } else {
             bid_is_empty_textview.visibility = View.VISIBLE
             bid_recyclerview.visibility = View.GONE
         }
         bid_recyclerview!!.adapter = adapter
 
+    }
+
+    override fun onClickBid(item: BidModel) {
+        val bundle = Bundle()
+        bundle.putInt("id", item.id)
+
+        Navigation.findNavController(Objects.requireNonNull<View>(view))
+            .navigate(R.id.navigation_bid_detail, bundle)
     }
 
 }

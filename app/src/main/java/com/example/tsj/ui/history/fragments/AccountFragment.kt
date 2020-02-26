@@ -47,12 +47,12 @@ class AccountFragment : Fragment() {
         idI = arguments!!.getInt("id")
         title = arguments!!.getString("title")
     }
-
+//
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.account_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
-
+///
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.account -> {

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.bid.fragments.BidDetailFragment">
+
+    <TextView
+        android:id="@+id/bid_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/marginHorizontal"
+        android:layout_marginTop="24dp"
+        android:text="Заявка на ремонт"
+        android:textColor="@color/blackTextColor"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/marginHorizontal"
+        android:elevation="4dp"
+        app:cardCornerRadius="8dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/marginHorizontal"
+            android:layout_marginBottom="23dp">
+
+            <TextView
+                android:id="@+id/bid_adres_static"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/marginHorizontal"
+                android:layout_marginEnd="@dimen/marginHorizontal"
+                android:text="Адрес"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/bid_adres_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/marginHorizontal"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="@dimen/marginHorizontal"
+                android:text="7 небо, Токомбаева, д.53/2 кв 11"
+                android:textColor="@color/blackTextColor"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bid_adres_static" />
+
+            <TextView
+                android:id="@+id/bid_porch_static"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/marginHorizontal"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="@dimen/marginHorizontal"
+                android:text="Подъезд"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bid_adres_content" />
+
+            <TextView
+                android:id="@+id/bid_porch_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/marginHorizontal"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="@dimen/marginHorizontal"
+                android:text="1"
+                android:textColor="@color/blackTextColor"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bid_porch_static" />
+
+            <TextView
+                android:id="@+id/bid_flat_static"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Этаж"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/bid_porch_static"
+                app:layout_constraintTop_toTopOf="@id/bid_porch_static" />
+
+            <TextView
+                android:id="@+id/bid_flat_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="3"
+                android:textColor="@color/blackTextColor"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/bid_flat_static"
+                app:layout_constraintTop_toBottomOf="@id/bid_flat_static" />
+
+            <View
+                android:id="@+id/bid_divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/marginHorizontal"
+                android:background="#EEE9E9"
+                app:layout_constraintTop_toBottomOf="@id/bid_flat_content" />
+
+
+            <TextView
+                android:id="@+id/bid_description_static"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/marginHorizontal"
+                android:layout_marginTop="@dimen/marginHorizontal"
+                android:text="Описание"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bid_divider" />
+
+            <TextView
+                android:id="@+id/bid_description_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/marginHorizontal"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="@dimen/marginHorizontal"
+                android:text="Тестовая заявка на ремонт"
+                android:textColor="@color/blackTextColor"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/bid_description_static" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+</LinearLayout>
