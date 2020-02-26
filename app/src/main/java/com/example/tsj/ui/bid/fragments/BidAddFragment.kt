@@ -11,9 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.tsj.R
 import kotlinx.android.synthetic.main.fragment_bid_add.*
 
-/**
- * A simple [Fragment] subclass.
- */
 class BidAddFragment : Fragment() {
 
     override fun onCreateView(
