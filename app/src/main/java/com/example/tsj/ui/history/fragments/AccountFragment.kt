@@ -52,7 +52,7 @@ class AccountFragment : Fragment() {
         inflater.inflate(R.menu.account_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
-
+///
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.account -> {
