@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.tsj.R
 import kotlinx.android.synthetic.main.fragment_contacts.*
+import kotlinx.android.synthetic.main.fragment_contacts.view.*
 
 class ContactFragment : Fragment() {
 
@@ -24,6 +26,12 @@ class ContactFragment : Fragment() {
         val imageBalance: ImageView = root.findViewById(R.id.imageBalance)
         val imageBid: ImageView = root.findViewById(R.id.imageBid)
 
+        val ref: LinearLayout = root.findViewById(R.id.reference)
+
+        ref.setOnClickListener {
+            findNavController().navigate(R.id.navigation_reference)
+        }
+
         imageHistory.setOnClickListener {
             findNavController().navigate(R.id.navigation_history)
         }
@@ -34,8 +42,8 @@ class ContactFragment : Fragment() {
             findNavController().navigate(R.id.navigation_bid)
         }
 
-        contactstt.setOnClickListener {
-            findNavController().navigate(R.id.feedback_company)
+        root.contacts.setOnClickListener {
+            findNavController().navigate(R.id.navigation_feedback)
         }
 
         (activity as AppCompatActivity).supportActionBar?.hide()

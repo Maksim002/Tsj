@@ -54,10 +54,34 @@
         tools:layout="@layout/fragment_balance_detail" />
 
     <fragment
-        android:id="@+id/navigation_Fragment"
+        android:id="@+id/navigation_account"
         android:name="com.example.tsj.ui.history.fragments.AccountFragment"
         android:label="@string/history"
         tools:layout="@layout/fragment_account" />
+
+    <fragment
+        android:id="@+id/navigation_new_reference"
+        android:name="com.example.tsj.ui.reference.NewReferenceFragment"
+        android:label="Новая справка"
+        tools:layout="@layout/fragment_new_reference" />
+
+    <fragment
+        android:id="@+id/navigation_reference"
+        android:name="com.example.tsj.ui.reference.ReferenceFragment"
+        android:label="@string/references"
+        tools:layout="@layout/fragment_reference" />
+
+    <fragment
+        android:id="@+id/navigation_families"
+        android:name="com.example.tsj.ui.reference.FamiliesFragment"
+        android:label="@string/families"
+        tools:layout="@layout/fragment_families" />
+
+    <fragment
+        android:id="@+id/navigation_final_references"
+        android:name="com.example.tsj.ui.reference.FinalReferencesFragment"
+        android:label="@string/references"
+        tools:layout="@layout/fragment_final_references" />
     <fragment
         android:id="@+id/navigation_bid_add"
         android:name="com.example.tsj.ui.bid.fragments.BidAddFragment"

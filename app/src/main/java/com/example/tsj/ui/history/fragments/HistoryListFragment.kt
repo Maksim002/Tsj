@@ -21,7 +21,6 @@ import java.util.*
 
 class HistoryListFragment : Fragment() {
 
-    private lateinit var booking: BookingRequest
     private lateinit var to_showB: Button
 
     override fun onCreateView(
@@ -42,20 +41,28 @@ class HistoryListFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        val address = arrayOf("7 небо, Токомбаева, д.53/2 кв 11")
-        val service = arrayOf("Техобслуживание")
-        val operation = arrayOf("Платежи")
+        getAutoAddress()
+        getAutoService()
+        getAutoOperation()
 
-        val adapterA =
+        getAutoDatesS()
+        getAutoDatesDo()
+
+    }
+    private fun getAutoAddress(){
+        val address = arrayOf("7 небо, Токомбаева, д.53/2 кв 11")
+        val adapterP =
             ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, address)
-        autoAddress.setAdapter(adapterA)
+        autoAddress.setAdapter(adapterP)
         autoAddress.setKeyListener(null);
+
         autoAddress.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
                 autoAddress.showDropDown()
                 val col = ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
                 Address.defaultHintTextColor = col
                 val selectedItem = parent.getItemAtPosition(position).toString()
+
             }
         autoAddress.setOnClickListener {
             autoAddress.showDropDown()
@@ -65,11 +72,14 @@ class HistoryListFragment : Fragment() {
                 try {
                     autoAddress.showDropDown()
                 } catch (e: Exception) {
+                    println()
                 }
             }
         }
+    }
 
-
+    private fun getAutoService(){
+        val service = arrayOf("Техобслуживание")
         val adapterP =
             ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, service)
         autoService.setAdapter(adapterP)
@@ -95,8 +105,10 @@ class HistoryListFragment : Fragment() {
                 }
             }
         }
+    }
 
-
+    private fun getAutoOperation(){
+        val operation = arrayOf("Платежи")
         val adapterO =
             ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, operation)
         autoOperation.setAdapter(adapterO)
@@ -122,9 +134,9 @@ class HistoryListFragment : Fragment() {
                 }
             }
         }
+    }
 
-
-
+    private fun getAutoDatesS(){
         autoDatesS.setKeyListener(null);
         autoDatesS.setOnFocusChangeListener { view, b ->
             if (b) {
@@ -144,45 +156,48 @@ class HistoryListFragment : Fragment() {
                         }
                     }, year, month, day)
                 picker.show()
+                goneL.requestFocus()
             }
         }
+    }
 
-
+    private fun getAutoDatesDo(){
         autoDatesDo.setKeyListener(null);
         autoDatesDo.setOnFocusChangeListener { view, b ->
             if (b){
-            if (autoDatesS.text.length == 0) {
-                Toast.makeText(context, "Error", Toast.LENGTH_LONG).show()
-            } else {
-                if (b) {
-                    val cldr = Calendar.getInstance()
-                    val day = cldr.get(Calendar.DAY_OF_MONTH)
-                    val month = cldr.get(Calendar.MONTH)
-                    val year = cldr.get(Calendar.YEAR)
-                    val col = ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
-                    DatesDo.defaultHintTextColor = col
-                    val picker: DatePickerDialog
-                    picker =
-                        DatePickerDialog(activity!!, { datePicker, year1, monthOfYear, dayOfMonth ->
-                            if (monthOfYear + 1 < 10) {
-                                autoDatesDo.setText(dayOfMonth.toString() + "." + "0" + (monthOfYear + 1) + "." + year1)
-                            } else {
-                                autoDatesDo.setText(dayOfMonth.toString() + "." + "0" + (monthOfYear + 1) + "." + year1)
-                            }
+                if (autoDatesS.text.length == 0) {
+                    Toast.makeText(context, "Error", Toast.LENGTH_LONG).show()
+                } else {
+                    if (b) {
+                        val cldr = Calendar.getInstance()
+                        val day = cldr.get(Calendar.DAY_OF_MONTH)
+                        val month = cldr.get(Calendar.MONTH)
+                        val year = cldr.get(Calendar.YEAR)
+                        val col = ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
+                        DatesDo.defaultHintTextColor = col
+                        val picker: DatePickerDialog
+                        picker =
+                            DatePickerDialog(activity!!, { datePicker, year1, monthOfYear, dayOfMonth ->
+                                if (monthOfYear + 1 < 10) {
+                                    autoDatesDo.setText(dayOfMonth.toString() + "." + "0" + (monthOfYear + 1) + "." + year1)
+                                } else {
+                                    autoDatesDo.setText(dayOfMonth.toString() + "." + "0" + (monthOfYear + 1) + "." + year1)
+                                }
 
-                        }, year, month, day)
-                    try {
-                        val timeS = SimpleDateFormat("dd/MM/yyyy").parse(autoDatesS.text.toString()).getTime()
-                        picker.datePicker.minDate = timeS + 1000
+                            }, year, month, day)
+                        try {
+                            val timeS = SimpleDateFormat("dd/MM/yyyy").parse(autoDatesS.text.toString()).getTime()
+                            picker.datePicker.minDate = timeS + 1000
 
-                    }catch (e:Exception){
-                        picker.datePicker.minDate = System.currentTimeMillis() - 1000
+                        }catch (e:Exception){
+                            picker.datePicker.minDate = System.currentTimeMillis() - 1000
+                        }
+
+                        picker.show()
+                        goneL.requestFocus()
                     }
-
-                    picker.show()
                 }
             }
         }
-      }
     }
 }

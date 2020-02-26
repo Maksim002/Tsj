@@ -149,4 +149,7 @@
         android:textColor="#FFFFFF"
         style="@style/RoundedOrangeBackground"/>
 
+    <include layout="@layout/item_focus"
+        android:id="@+id/goneL"/>
+
 </LinearLayout>

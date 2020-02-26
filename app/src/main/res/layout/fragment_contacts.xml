@@ -74,7 +74,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/hom"
+            android:id="@+id/reference"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="26dp"
@@ -104,7 +104,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/hom">
+            app:layout_constraintTop_toBottomOf="@+id/reference">
 
             <ImageView
                 android:id="@+id/contactstt"
