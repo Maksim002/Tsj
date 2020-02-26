@@ -82,4 +82,24 @@
         android:name="com.example.tsj.ui.reference.FinalReferencesFragment"
         android:label="@string/references"
         tools:layout="@layout/fragment_final_references" />
+    <fragment
+        android:id="@+id/navigation_bid_add"
+        android:name="com.example.tsj.ui.bid.fragments.BidAddFragment"
+        android:label="fragment_bid_add"
+        tools:layout="@layout/fragment_bid_add" />
+    <fragment
+        android:id="@+id/navigation_bid_detail"
+        android:name="com.example.tsj.ui.bid.fragments.BidDetailFragment"
+        android:label="fragment_bid_detail"
+        tools:layout="@layout/fragment_bid_detail" />
+    <fragment
+        android:id="@+id/navigation_feedback"
+        android:name="com.example.tsj.ui.feedback.FeedbackFragment"
+        android:label="fragment_feedback"
+        tools:layout="@layout/fragment_feedback" />
+    <fragment
+        android:id="@+id/navigation_send_feedback"
+        android:name="com.example.tsj.ui.feedback.SendFeedbackFragment"
+        android:label="fragment_send_feedback"
+        tools:layout="@layout/fragment_send_feedback" />
 </navigation>

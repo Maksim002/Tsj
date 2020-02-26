@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.tsj.R
+import kotlinx.android.synthetic.main.fragment_contacts.*
+import kotlinx.android.synthetic.main.fragment_contacts.view.*
 
 class ContactFragment : Fragment() {
 
@@ -38,6 +40,10 @@ class ContactFragment : Fragment() {
         }
         imageBid.setOnClickListener {
             findNavController().navigate(R.id.navigation_bid)
+        }
+
+        root.contacts.setOnClickListener {
+            findNavController().navigate(R.id.navigation_feedback)
         }
 
         (activity as AppCompatActivity).supportActionBar?.hide()

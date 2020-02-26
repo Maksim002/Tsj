@@ -13,5 +13,14 @@
     <string name="title_bid">Мои заявки</string>
     <string name="families">Состав семьи</string>
     <string name="references">Справка</string>
+    <string name="company_adres">г. Бишкек, Кыргызстан.\n ул. Игембердиева 1а,\n БЦ "Аврора", офис 603, 604 </string>
+    <string name="company_contacts">Контакты</string>
+    <string name="company_phone">Телефон</string>
+    <string name="company_numberphone">+996 (312) 97 - 92 - 39</string>
+    <string name="company_mails">Поддержка: support@timelysoft.net\n Маркетинг: tsj@timelysoft.net</string>
+    <string name="for_who">Кому</string>
+    <string name="ur_email">Ваша почта</string>
+    <string name="write_msg">Написать письмо</string>
+
 
 </resources>
