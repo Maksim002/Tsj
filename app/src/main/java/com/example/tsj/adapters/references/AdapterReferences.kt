@@ -7,7 +7,6 @@ import com.example.tsj.R
 import com.example.tsj.common.GenericRecyclerAdapter
 import com.example.tsj.common.ViewHolder
 import com.example.tsj.model.ReferencesModel
-import kotlinx.android.synthetic.main.item_personal.view.*
 import kotlinx.android.synthetic.main.item_personal.view.number
 import kotlinx.android.synthetic.main.item_references.view.*
 

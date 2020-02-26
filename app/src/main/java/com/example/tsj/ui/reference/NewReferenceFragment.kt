@@ -76,6 +76,7 @@ class NewReferenceFragment : Fragment() {
                         }
                     }, year, month, day)
                 picker.show()
+                goneL.requestFocus()
             }
         }
     }
@@ -122,6 +123,7 @@ class NewReferenceFragment : Fragment() {
                         }
 
                         picker.show()
+                        goneL.requestFocus()
                     }
                 }
             }
