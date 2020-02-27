@@ -1,36 +1,17 @@
 package com.example.tsj.ui.login
 
-import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
-import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.renderscript.Short4
-import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.findNavController
 import com.example.tsj.MainActivity
 import com.example.tsj.R
 import com.example.tsj.service.AppPreferences
-import com.example.tsj.service.RetrofitService
-import com.example.tsj.service.model.AuthModel
-import com.example.tsj.ui.contact.ContactFragment
 import kotlinx.android.synthetic.main.activity_login.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.util.HashMap
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-
-
+import java.util.*
 
 
 class LoginActivity : AppCompatActivity() {
