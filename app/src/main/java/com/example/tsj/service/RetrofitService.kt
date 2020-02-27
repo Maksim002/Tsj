@@ -7,7 +7,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-object RetrofitFactory {
+object RetrofitService {
 
     private val authInterceptor = Interceptor { chain ->
         val newUrl = chain.request().url
@@ -16,7 +16,7 @@ object RetrofitFactory {
 
         val newRequest = chain.request()
             .newBuilder()
-            .addHeader("Authorization", "Token")
+            .addHeader("api_key", "Bearer " + AppPreferences.token)
             .url(newUrl)
             .build()
 
@@ -33,12 +33,13 @@ object RetrofitFactory {
             .build()
 
 
-    private fun retrofit(baseUrl: String = ""): Retrofit = Retrofit.Builder()
-        .client(client)
-        .baseUrl(baseUrl)
-        .addConverterFactory(GsonConverterFactory.create())
-        .addCallAdapterFactory(CoroutineCallAdapterFactory())
-        .build()
+    private fun retrofit(baseUrl: String = "http://167.114.201.175:204/api/"): Retrofit =
+        Retrofit.Builder()
+            .client(client)
+            .baseUrl(baseUrl)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
+            .build()
 
 
     fun apiServise(): ApiService {

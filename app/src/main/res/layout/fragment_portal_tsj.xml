@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.portal.PoralFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"
+        android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="#3E3E3E"
+        android:text="О портале ТСЖ."
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/o_portale"
+        android:textColor="#757373"
+        android:layout_marginTop="8dp"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="#3E3E3E"
+        android:layout_marginTop="24dp"
+        android:text="Для кого предназначен Портал?"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="12dp">
+
+        <ImageView
+            android:layout_width="16.67dp"
+            android:layout_height="16.67dp"
+            android:src="@drawable/ic_accept"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Члены ТСЖ;"
+            android:layout_marginLeft="16dp"
+            android:textSize="16sp"
+            android:textColor="#757373"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="12dp">
+
+        <ImageView
+            android:layout_width="16.67dp"
+            android:layout_height="16.67dp"
+            android:src="@drawable/ic_accept"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Председатель ТСЖ;"
+            android:layout_marginLeft="16dp"
+            android:textSize="16sp"
+            android:textColor="#757373"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="12dp">
+
+        <ImageView
+            android:layout_width="16.67dp"
+            android:layout_height="16.67dp"
+            android:src="@drawable/ic_accept"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Бухгалтер ТСЖ."
+            android:layout_marginLeft="16dp"
+            android:textSize="16sp"
+            android:textColor="#757373"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="#3E3E3E"
+        android:layout_marginTop="24dp"
+        android:text="Портал ТСЖ для членов ТСЖ"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dlz_hlenov"
+        android:textColor="#757373"
+        android:layout_marginTop="8dp"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="#3E3E3E"
+        android:layout_marginTop="24dp"
+        android:text="Портал ТСЖ для членов ТСЖ"
+        android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/dla_hen"
+            android:textColor="#757373"
+            android:layout_marginTop="8dp"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="#3E3E3E"
+            android:layout_marginTop="24dp"
+            android:text="Защита информации на Портале ТСЖ"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/wdw"
+            android:textColor="#757373"
+            android:layout_marginTop="8dp"
+            android:textSize="16sp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="12dp">
+
+            <ImageView
+                android:layout_width="16.67dp"
+                android:layout_height="16.67dp"
+                android:src="@drawable/ic_warning"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/portal_ef"
+                android:layout_marginLeft="16dp"
+                android:textSize="16sp"
+                android:textColor="#757373"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="12dp">
+
+            <ImageView
+                android:layout_width="16.67dp"
+                android:layout_height="16.67dp"
+                android:src="@drawable/ic_lock"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/por_vap"
+                android:layout_marginLeft="16dp"
+                android:textSize="16sp"
+                android:textColor="#757373"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="12dp">
+
+            <ImageView
+                android:layout_width="16.67dp"
+                android:layout_height="16.67dp"
+                android:src="@drawable/ic_base_date"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/vop"
+                android:layout_marginLeft="16dp"
+                android:textSize="16sp"
+                android:layout_marginBottom="12dp"
+                android:textColor="#757373"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/baza"
+            android:layout_marginLeft="16dp"
+            android:textSize="16sp"
+            android:textColor="#757373"/>
+
+</LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

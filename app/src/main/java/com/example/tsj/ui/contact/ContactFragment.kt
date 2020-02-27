@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.tsj.R
+import com.example.tsj.service.AppPreferences
 import kotlinx.android.synthetic.main.fragment_contacts.*
 import kotlinx.android.synthetic.main.fragment_contacts.view.*
 
@@ -28,6 +29,11 @@ class ContactFragment : Fragment() {
 
         val ref: LinearLayout = root.findViewById(R.id.reference)
 
+        if (AppPreferences.isLogined == true){
+            ref.visibility = View.GONE
+        }else {
+            ref.visibility = View.VISIBLE
+        }
         ref.setOnClickListener {
             findNavController().navigate(R.id.navigation_reference)
         }
@@ -44,6 +50,10 @@ class ContactFragment : Fragment() {
 
         root.contacts.setOnClickListener {
             findNavController().navigate(R.id.navigation_feedback)
+        }
+
+        root.linearPortalTSJ.setOnClickListener {
+            findNavController().navigate(R.id.navigation_portalTSJ)
         }
 
         (activity as AppCompatActivity).supportActionBar?.hide()
