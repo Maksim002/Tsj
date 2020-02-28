@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.tsj.MainActivity
+import com.example.tsj.adapters.NewsAdapter
 import com.example.tsj.service.AppPreferences
 import com.example.tsj.service.RetrofitService
 import com.example.tsj.service.model.AuthModel
@@ -23,9 +24,9 @@ class LoginViewModel : ViewModel() {
         RetrofitService.apiServise().auth(map).enqueue(object : Callback<AuthModel> {
             override fun onResponse(call: Call<AuthModel>, response: Response<AuthModel>) {
                 if (response.code() == 200) {
-                    result.value = true
                     AppPreferences.token = response.body()?.accessToken
                     AppPreferences.isLogined = true
+                    result.value = true
                 } else {
                     result.value = false
                 }

@@ -5,14 +5,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tsj.R
 import com.example.tsj.adapters.news.NewsViewHolder
-import com.example.tsj.model.NewsModel
+import com.example.tsj.service.model.NewsModel
 
 class NewsAdapter() : RecyclerView.Adapter<NewsViewHolder>() {
 
-    private var model: List<NewsModel> = ArrayList()
+    private var list: List<NewsModel> = ArrayList()
 
-    fun submitList(list: List<NewsModel>) {
-        model = list
+    fun setList(list: List<NewsModel>) {
+        this.list = list
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
@@ -22,10 +23,10 @@ class NewsAdapter() : RecyclerView.Adapter<NewsViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
-        holder.bind(model[position])
+        holder.bind(list[position])
     }
 
     override fun getItemCount(): Int {
-        return model.size
+        return list.size
     }
 }
