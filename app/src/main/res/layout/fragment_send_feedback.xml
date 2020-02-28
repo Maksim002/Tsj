@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:background="@null"
-        android:hint="@string/write_msg" />
+        android:hint="Написать письмо" />
 
 
 </LinearLayout>

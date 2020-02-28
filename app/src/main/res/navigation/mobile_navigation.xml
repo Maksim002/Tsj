@@ -109,7 +109,7 @@
 
     <fragment
         android:id="@+id/navigation_portalTSJ"
-        android:name="com.example.tsj.ui.portal.PoralFragment"
+        android:name="com.example.tsj.ui.portal.PortalFragment"
         android:label="fragment_portal_tsj"
         tools:layout="@layout/fragment_portal_tsj" />
 </navigation>

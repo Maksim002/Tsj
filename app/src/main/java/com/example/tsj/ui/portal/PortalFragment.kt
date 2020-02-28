@@ -11,7 +11,7 @@ import com.example.tsj.R
 /**
  * A simple [Fragment] subclass.
  */
-class PoralFragment : Fragment() {
+class PortalFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

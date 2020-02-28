@@ -37,4 +37,10 @@ object AppPreferences {
         set(value) = preferences.edit {
             it.putBoolean("isLogined", value)
         }
+
+    var started: Boolean
+            get() = preferences.getBoolean("started", false)
+            set(e) = preferences.edit(){
+                it.putBoolean("started", e)
+            }
 }

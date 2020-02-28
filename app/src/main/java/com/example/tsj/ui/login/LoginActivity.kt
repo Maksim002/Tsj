@@ -26,15 +26,18 @@ class LoginActivity : AppCompatActivity() {
 
         viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
 
+        if (AppPreferences.started) {
+            startActivity(Intent(this, MainActivity::class.java))
+        }
+        AppPreferences.started = true
+
         login_skip.setOnClickListener {
             AppPreferences.isLogined = false
             startActivity(
                 Intent(this, MainActivity::class.java)
             )
-
         }
     }
-
 
     override fun onBackPressed() {
         if (doubleBackToExitPressedOnce) {
@@ -51,14 +54,6 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-
-        if (AppPreferences.isLogined) {
-            startActivity(Intent(this, MainActivity::class.java))
-
-            val e = AppPreferences.preferences.edit()
-            e.putBoolean("TsjDom", true)
-            e.apply()
-        }
 
         main_enter_button.setOnClickListener {
 
