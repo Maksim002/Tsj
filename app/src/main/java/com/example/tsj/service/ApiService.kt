@@ -1,12 +1,14 @@
 package com.example.tsj.service
 
-import com.example.tsj.service.model.Example
-import retrofit2.Response
-import retrofit2.http.GET
+import com.example.tsj.service.model.AuthModel
+import retrofit2.Call
+import retrofit2.http.*
 
 
 interface ApiService {
 
-    @GET("example")
-    suspend fun example(): Response<Example>
+    @Headers("Content-Type: application/x-www-form-urlencoded")
+    @FormUrlEncoded
+    @POST("Token")
+    fun auth(@FieldMap params:Map<String, String> ): Call<AuthModel>
 }
