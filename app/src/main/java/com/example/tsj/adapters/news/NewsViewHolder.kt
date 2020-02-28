@@ -27,5 +27,5 @@ class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         return result
     }
-
+    //
 }
