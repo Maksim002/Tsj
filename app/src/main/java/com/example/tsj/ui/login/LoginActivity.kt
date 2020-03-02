@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.tsj.MainActivity
 import com.example.tsj.R
 import com.example.tsj.service.AppPreferences
+import com.example.tsj.ui.login.forgot.ForgotActivity
 import kotlinx.android.synthetic.main.activity_login.*
 import java.util.*
 
@@ -36,6 +37,16 @@ class LoginActivity : AppCompatActivity() {
             startActivity(
                 Intent(this, MainActivity::class.java)
             )
+        }
+
+        forgotPassword()
+    }
+
+    private fun forgotPassword() {
+
+        main_forgot_textview.setOnClickListener {
+            val forgotPassword = Intent (this, ForgotActivity::class.java)
+            startActivity(forgotPassword)
         }
     }
 
