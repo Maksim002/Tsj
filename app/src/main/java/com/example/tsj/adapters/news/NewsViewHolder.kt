@@ -18,7 +18,7 @@ class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun formateDate(date: String): String {
         val yymmdd = date.substring(0, 10)
-        yymmdd.replace('-', '.', true)
+        yymmdd.replace('-', '.',  true)
 
         val hhmmss = date.substring(11, 19)
         hhmmss.replace(':', '.', true)
