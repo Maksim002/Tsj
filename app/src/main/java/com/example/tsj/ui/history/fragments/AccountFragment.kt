@@ -28,7 +28,7 @@ class AccountFragment : Fragment() {
 
         textAccounts = root.findViewById(R.id.textAccount)
         initArguments()
-        textAccounts.setText(title)
+        textAccounts.text = title
 
         setHasOptionsMenu(true)
 
