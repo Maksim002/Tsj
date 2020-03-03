@@ -16,7 +16,7 @@ object RetrofitService {
 
         val newRequest = chain.request()
             .newBuilder()
-            .addHeader("api_key", "Bearer " + AppPreferences.token)
+            .addHeader("Authorization", "bearer " + AppPreferences.token)
             .url(newUrl)
             .build()
 

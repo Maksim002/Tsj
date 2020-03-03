@@ -20,6 +20,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/linearLayout"
             style="@style/AppTheme.RoundedCornerMaterialButton"
             android:layout_width="match_parent"
@@ -55,13 +56,28 @@
                 android:src="@drawable/ic_application" />
         </LinearLayout>
 
+        <Button
+            android:id="@+id/button_contacts"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            style="@style/RoundedOrangeBackground"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:text="Подключить"
+            android:textColor="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="@+id/imageC"
+            app:layout_constraintTop_toBottomOf="@+id/imageC"/>
+
         <LinearLayout
             android:id="@+id/lT"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="40dp"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+            app:layout_constraintTop_toBottomOf="@+id/imageC">
 
             <TextView
                 android:id="@+id/textR"
