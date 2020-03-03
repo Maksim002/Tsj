@@ -19,7 +19,7 @@ class AccountFragment : Fragment() {
     private lateinit var textAccounts: TextView
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,   container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         var root = inflater.inflate(R.layout.fragment_account, container, false)
@@ -28,7 +28,7 @@ class AccountFragment : Fragment() {
 
         textAccounts = root.findViewById(R.id.textAccount)
         initArguments()
-        textAccounts.setText(title)
+        textAccounts.text = title
 
         setHasOptionsMenu(true)
 

@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.tsj.MainActivity
 import com.example.tsj.R
 import com.example.tsj.service.AppPreferences
+import com.example.tsj.ui.login.forgot.ForgotActivity
 import kotlinx.android.synthetic.main.activity_login.*
 import java.util.*
 
@@ -43,6 +44,16 @@ class LoginActivity : AppCompatActivity() {
                 Intent(this, MainActivity::class.java)
             )
         }
+
+        forgotPassword()
+    }
+
+    private fun forgotPassword() {
+
+        main_forgot_textview.setOnClickListener {
+            val forgotPassword = Intent (this, ForgotActivity::class.java)
+            startActivity(forgotPassword)
+        }
     }
 
     override fun onBackPressed() {
@@ -70,7 +81,7 @@ class LoginActivity : AppCompatActivity() {
 
             viewModel.auth(map).observe(this, Observer { result ->
 
-                if (AppPreferences.isLogined == true) {
+                if (AppPreferences.isLogined) {
                     startActivity(
                         Intent(this, MainActivity::class.java)
                     )

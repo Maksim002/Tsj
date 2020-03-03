@@ -1,4 +1,4 @@
-package com.example.tsj.ui.bid.fragments
+package com.example.tsj.adapters.bid
 
 import com.example.tsj.model.BidModel
 import java.text.FieldPosition

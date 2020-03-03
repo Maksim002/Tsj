@@ -55,4 +55,5 @@ class SaveFragment : Fragment(), SaveListener {
         Navigation.findNavController(Objects.requireNonNull<View>(view))
             .navigate(R.id.navigation_account, bundle)
     }
+
 }

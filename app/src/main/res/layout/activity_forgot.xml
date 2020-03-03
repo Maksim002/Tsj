@@ -37,7 +37,7 @@
             android:layout_marginHorizontal="@dimen/marginHorizontal"
             android:layout_marginTop="70dp"
             android:maxLines="1"
-            android:text="@string/welcome"
+            android:text="Забыли пароль?"
             android:textColor="@color/blackTextColor"
             android:textSize="24sp"
             app:layout_constraintTop_toTopOf="parent" />
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/marginHorizontal"
             android:layout_marginTop="4dp"
-            android:text="@string/auth_to_contiune"
+            android:text="мы отправим вам код восстановления"
             android:textColor="@color/blackTextColor"
             android:textSize="16sp" />
 
@@ -69,25 +69,6 @@
                 android:inputType="textEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/main_container_password_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/marginHorizontal"
-            android:layout_marginTop="13dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/text_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_key_24dp"
-                android:drawablePadding="8dp"
-                android:hint="@string/password"
-                android:inputType="textPassword"
-                android:maxLines="1" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
         <Button
             android:id="@+id/main_enter_button"
             android:layout_width="match_parent"
@@ -95,19 +76,9 @@
             android:layout_marginHorizontal="@dimen/marginHorizontal"
             android:layout_marginTop="32dp"
             android:background="@color/orangeColor"
-            android:text="@string/login"
+            android:text="Отправить"
             android:textColor="@color/whiteColor" />
 
-        <TextView
-            android:id="@+id/main_forgot_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="@dimen/marginHorizontal"
-            android:text="Забыли пароль?"
-            android:textColor="@color/orangeColor"
-            android:textSize="14sp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
