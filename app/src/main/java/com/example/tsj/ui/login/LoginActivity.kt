@@ -81,7 +81,7 @@ class LoginActivity : AppCompatActivity() {
 
             viewModel.auth(map).observe(this, Observer { result ->
 
-                if (AppPreferences.isLogined == true) {
+                if (AppPreferences.isLogined) {
                     startActivity(
                         Intent(this, MainActivity::class.java)
                     )
