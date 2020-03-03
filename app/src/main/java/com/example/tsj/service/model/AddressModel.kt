@@ -3,7 +3,7 @@ package com.example.tsj.service.model
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class AddressListModel {
+class AddressModel {
 
     @SerializedName("LicNumber")
     @Expose

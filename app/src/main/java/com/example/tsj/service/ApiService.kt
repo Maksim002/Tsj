@@ -1,6 +1,6 @@
 package com.example.tsj.service
 
-import com.example.tsj.service.model.AddressListModel
+import com.example.tsj.service.model.AddressModel
 import com.example.tsj.service.model.AuthModel
 import com.example.tsj.service.model.BalanceStatusModel
 import com.example.tsj.service.model.NewsModel
@@ -19,7 +19,7 @@ interface ApiService {
     fun news(): Call<List<NewsModel>>
 
     @GET("Balance/Addresses")
-    fun addresses(): Call<List<AddressListModel>>
+    fun addresses(): Call<List<AddressModel>>
 
     @GET("Balance/{id}/Services/Balance")
     fun services(@Path("id") id:Int): Call<List<BalanceStatusModel>>

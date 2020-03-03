@@ -13,7 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.tsj.R
-import com.example.tsj.service.model.AddressListModel
+import com.example.tsj.service.model.AddressModel
 import kotlinx.android.synthetic.main.fragment_balance.*
 import kotlinx.android.synthetic.main.fragment_balance.view.*
 
@@ -21,7 +21,7 @@ class BalanceFragment : Fragment() {
     private lateinit var viewModel: BalanceViewModel
     private var placementId: Int = 0
     private lateinit var address: String
-    private lateinit var model: AddressListModel
+    private lateinit var model: AddressModel
     private lateinit var storeTV: AutoCompleteTextView
 
     override fun onCreateView(
@@ -34,7 +34,7 @@ class BalanceFragment : Fragment() {
 
         storeTV = root.findViewById(R.id.autoCompleteTextView)
 
-        model = AddressListModel()
+        model = AddressModel()
 
         root.balance_show_button.setOnClickListener {
             if (placementId != 0) {
@@ -46,34 +46,25 @@ class BalanceFragment : Fragment() {
             } else {
                 Toast.makeText(context, "Не выбраны данные", Toast.LENGTH_LONG).show()
             }
-
         }
         (activity as AppCompatActivity).supportActionBar?.show()
         return root
     }
-
     override fun onStart() {
         super.onStart()
         getAutoOperation()
-
     }
-
     fun getAutoOperation() {
-        var listAddress = ArrayList<AddressListModel>()
+        var listAddress = ArrayList<AddressModel>()
         viewModel.addresses().observe(this, Observer { addres ->
             val list = addres.map {
                 it.address
             }
-
-            listAddress = addres as ArrayList<AddressListModel>
+            listAddress = addres as ArrayList<AddressModel>
             val adapterO =
                 ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
-            storeTV.setAdapter(adapterO)
-        })
-
-
+            storeTV.setAdapter(adapterO)})
         storeTV.setKeyListener(null)
-
         storeTV.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
                 storeTV.showDropDown()
