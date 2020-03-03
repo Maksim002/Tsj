@@ -7,12 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.RecyclerView
 import com.example.tsj.R
 import com.example.tsj.adapters.balance.BalanceAdapter
-import com.example.tsj.model.BalanceModel
 import kotlinx.android.synthetic.main.fragment_balance_detail.*
+import kotlinx.android.synthetic.main.fragment_balance_detail.view.*
 
 class BalanceDetailFragment : Fragment() {
+    private lateinit var viewModel: BalanceDetailViewModel
+    private lateinit var fAdapter: BalanceAdapter
+    private lateinit var recyclerViewF: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -20,27 +26,41 @@ class BalanceDetailFragment : Fragment() {
     ): View? {
 
         (activity as AppCompatActivity).supportActionBar?.show()
-        return inflater.inflate(R.layout.fragment_balance_detail, container, false)
+        val root = inflater.inflate(R.layout.fragment_balance_detail, container, false)
+
+
+        viewModel = ViewModelProviders.of(this).get(BalanceDetailViewModel::class.java)
+
+        recyclerViewF = root.findViewById(R.id.balance_summ_recyclerview)
+        getRecyclerView()
+
+        return root
+
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initRecycler()
+    private fun getRecyclerView() {
+        fAdapter = BalanceAdapter()
+        recyclerViewF.apply {
+            adapter = fAdapter
+        }
     }
 
-    private fun initRecycler() {
-        val items = arrayListOf(
+    override fun onStart() {
+        super.onStart()
+        val id = try {
+            arguments!!.getInt("placementId")
+        } catch (e: Exception) {
+            0
+        }
 
-            BalanceModel("Техобслуживание", 145F),
-            BalanceModel("Лифт", 152.4F),
-            BalanceModel("Техобслуживание", 145F),
-            BalanceModel("Лифт", 152.4F),
-            BalanceModel("Техобслуживание", 145F),
-            BalanceModel("Лифт", 152.4F)
-        )
+        textBalance.text = try {
+            arguments!!.getString("address")
+        } catch (e: Exception) {
+            ""
+        }
 
-        val adapter = BalanceAdapter(items)
-        balance_summ_recyclerview.adapter = adapter
-
+        viewModel.services(id).observe(this, Observer { list ->
+            fAdapter.setList(list)
+        })
     }
 }
