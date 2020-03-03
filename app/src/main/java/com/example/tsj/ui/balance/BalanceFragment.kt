@@ -92,6 +92,5 @@ class BalanceFragment : Fragment() {
             } catch (e: Exception) {
             }
         }
-//        wef
     }
 }
