@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Tsj</string>
     <string name="title_news">Новости</string>
-    <string name="title_message">Message</string>
+    <string name="title_message">Сообщения</string>
     <string name="title_notifications">Notifications</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -29,6 +29,23 @@
     <string name="encryption_keys_tsj">ключи шифрования хранятся отдельно от информационной базы, что предотвращает незаконное распространение информации</string>
     <string name="when_encrypting_information_tsj">при шифровании информации применяется уникальный для каждого лицевого счета ключ</string>
     <string name="is_stored_tsj">информация на Портале ТСЖ хранится в зашифрованном виде</string>
-
+    <string name="about_portal">О портале</string>
+    <string name="new_msg">Новое сообщение</string>
+    <string name="contacts">Контакты</string>
+    <string name="bid">Заявка</string>
+    <string name="new_bid">Новоя заявка</string>
+    <string name="new_reference">Новая справка</string>
+    <string name="heading">Заголовок</string>
+    <string name="test_msg">В столице Мордовии осудили корыстную председательницу ТСЖ. Женщина, пользуясь служебным положением, наживалась на жильцах двух многоквартирных домов по улице М. Расковой. Об этом рассказали в Ленинском районном суде Саранска.</string>
+    <string name="answer">ОТВЕТИТЬ</string>
+    <string name="detail_msg">Сообщение</string>
+    <string name="auth_to_contiune">авторизуйтесь чтобы продолжить</string>
+    <string name="welcome">Добро пожаловать,</string>
+    <string name="enter_email">Введите ваш e-mail</string>
+    <string name="password">Пароль</string>
+    <string name="login">Войти</string>
+    <string name="house">Дом</string>
+    <string name="apartment">Квартира</string>
+    <string name="title">Заголовок</string>
 
 </resources>

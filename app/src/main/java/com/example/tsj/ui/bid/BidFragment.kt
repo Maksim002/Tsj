@@ -12,7 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.tsj.R
 import com.example.tsj.adapters.bid.BidAdapter
 import com.example.tsj.model.BidModel
-import com.example.tsj.ui.bid.fragments.BidClickItemListener
+import com.example.tsj.adapters.bid.BidClickItemListener
 import kotlinx.android.synthetic.main.fragment_bid.*
 import java.util.*
 
