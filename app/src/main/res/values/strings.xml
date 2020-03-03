@@ -44,5 +44,8 @@
     <string name="enter_email">Введите ваш e-mail</string>
     <string name="password">Пароль</string>
     <string name="login">Войти</string>
+    <string name="house">Дом</string>
+    <string name="apartment">Квартира</string>
+    <string name="title">Заголовок</string>
 
 </resources>

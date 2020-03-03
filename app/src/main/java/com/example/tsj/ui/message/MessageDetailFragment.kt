@@ -9,9 +9,6 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import com.example.tsj.R
 
-/**
- * A simple [Fragment] subclass.
- */
 class MessageDetailFragment : Fragment() {
 
     override fun onCreateView(

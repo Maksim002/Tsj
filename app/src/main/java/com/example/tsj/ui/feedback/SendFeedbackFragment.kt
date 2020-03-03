@@ -24,6 +24,16 @@ class SendFeedbackFragment : Fragment() {
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return super.onOptionsItemSelected(item)
+        when (item.itemId) {
+            R.id.send_feedback -> {
+                senFeedBack()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+
+    }
+
+    private fun senFeedBack() {
 
     }
 }

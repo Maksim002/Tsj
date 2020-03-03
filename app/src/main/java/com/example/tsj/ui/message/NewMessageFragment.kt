@@ -2,10 +2,8 @@ package com.example.tsj.ui.message
 
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import com.example.tsj.R
 
@@ -20,6 +18,11 @@ class NewMessageFragment : Fragment() {
 
         (activity as AppCompatActivity).supportActionBar?.show()
         return inflater.inflate(R.layout.fragment_new_message, container, false)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        
     }
 
 
