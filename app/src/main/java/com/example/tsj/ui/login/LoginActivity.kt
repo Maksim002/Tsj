@@ -26,7 +26,13 @@ class LoginActivity : AppCompatActivity() {
 
         viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
 
-        if (AppPreferences.started) {
+        val transition = try {
+           intent.extras!!.getBoolean("transition")
+        } catch (e: Exception) {
+            false
+        }
+
+        if (AppPreferences.started && !transition) {
             startActivity(Intent(this, MainActivity::class.java))
         }
         AppPreferences.started = true
@@ -63,7 +69,8 @@ class LoginActivity : AppCompatActivity() {
             map.put("password", text_password.text.toString())
 
             viewModel.auth(map).observe(this, Observer { result ->
-                if (AppPreferences.isLogined == true){
+
+                if (AppPreferences.isLogined == true) {
                     startActivity(
                         Intent(this, MainActivity::class.java)
                     )
@@ -72,5 +79,4 @@ class LoginActivity : AppCompatActivity() {
             })
         }
     }
-    //
 }

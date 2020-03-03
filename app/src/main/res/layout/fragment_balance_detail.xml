@@ -49,6 +49,7 @@
                     android:textSize="12sp" />
 
                 <TextView
+                    android:id="@+id/textBalance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="7 небо, Токомбаева, д.53/2 кв 11"
@@ -74,7 +75,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/marginHorizontal"
-                android:layout_marginBottom="@dimen/marginHorizontal">
+                android:paddingBottom="-2dp">
 
                 <TextView
                     android:id="@+id/statice_service_textview"
@@ -117,32 +118,6 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintTop_toBottomOf="@id/statice_debt_divider"
                     tools:listitem="@layout/item_balance" />
-
-                <TextView
-                    android:id="@+id/static_all_textview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/marginHorizontal"
-                    android:layout_marginTop="@dimen/marginHorizontal"
-                    android:text="Итого"
-                    android:textColor="@color/blackTextColor"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@id/balance_summ_recyclerview"
-                    app:layout_constraintTop_toBottomOf="@id/balance_summ_recyclerview" />
-
-                <TextView
-                    android:id="@+id/balance_all_sum"
-                    android:layout_width="14dp"
-                    android:layout_height="14dp"
-                    android:layout_marginEnd="@dimen/marginHorizontal"
-                    android:maxLines="1"
-                    android:text="124"
-                    android:textColor="@color/blackTextColor"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@id/static_all_textview"
-                    app:layout_constraintEnd_toEndOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
