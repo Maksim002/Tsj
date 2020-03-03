@@ -8,12 +8,17 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tsj.R
 import com.example.tsj.adapters.NewsAdapter
-import com.example.tsj.model.NewsModel
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.tsj.service.AppPreferences
+
 class NewsFragment : Fragment() {
 
     private lateinit var fAdapter: NewsAdapter
     private lateinit var recyclerViewF: RecyclerView
+    private lateinit var viewModel: NewsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,30 +29,26 @@ class NewsFragment : Fragment() {
 
         recyclerViewF = root.findViewById(R.id.recyclerViewFile)
         getRecyclerView()
-        fAdapter.submitList(getDataSource())
+
+        viewModel = ViewModelProviders.of(this).get(NewsViewModel::class.java)
 
         (activity as AppCompatActivity).supportActionBar?.show()
 
         return root
     }
-    private fun getDataSource(): ArrayList<NewsModel>{
-            val list = ArrayList<NewsModel>()
-            list.add(NewsModel("Скоро в ваших ТСЖ будет возможно оплатить через  терминалы Pay24!","17.01.2020 7:41:19 AM"))
-            list.add(NewsModel("Изменение тарифов  на коммунальные услуги","17.01.2020 7:41:19 AM"))
-            list.add(NewsModel("О начислении ТКО","17.01.2020 7:41:19 AM"))
-            list.add(NewsModel("Поправки в закон о Рекламе","17.01.2020 7:41:19 AM"))
-            list.add(NewsModel("C 1 июля меняется схема субсидирования граждан при компенсации роста цен","17.01.2020 7:41:19 AM"))
-            list.add(NewsModel("Скоро в ваших ТСЖ будет возможно оплатить через  терминалы Pay24!","17.01.2020 7:41:19 AM"))
-            list.add(NewsModel("Изменение тарифов  на коммунальные услуги","17.01.2020 7:41:19 AM"))
-            list.add(NewsModel("О начислении ТКО","17.01.2020 7:41:19 AM"))
-            list.add(NewsModel("Поправки в закон о Рекламе","17.01.2020 7:41:19 AM"))
-            list.add(NewsModel("C 1 июля меняется схема субсидирования граждан при компенсации роста цен","17.01.2020 7:41:19 AM"))
-            return list
-    }
+
     private fun getRecyclerView() {
+        fAdapter = NewsAdapter()
         recyclerViewF.apply {
-            fAdapter = NewsAdapter()
             adapter = fAdapter
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        viewModel.news().observe(this, Observer { list->
+            fAdapter.setList(list)
+        })
     }
 }
