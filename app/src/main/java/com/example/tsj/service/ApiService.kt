@@ -1,9 +1,6 @@
 package com.example.tsj.service
 
-import com.example.tsj.service.model.AddressModel
-import com.example.tsj.service.model.AuthModel
-import com.example.tsj.service.model.BalanceStatusModel
-import com.example.tsj.service.model.NewsModel
+import com.example.tsj.service.model.*
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -22,6 +19,15 @@ interface ApiService {
     fun addresses(): Call<List<AddressModel>>
 
     @GET("Balance/{id}/Services/Balance")
-    fun services(@Path("id") id:Int): Call<List<BalanceStatusModel>>
+    fun servicesA(@Path("id") id:Int): Call<List<BalanceStatusModel>>
+
+    @GET("Balance/Operations")
+    fun operations(): Call<List<OperationsModel>>
+
+    @GET("Balance/Periods")
+    fun periods(): Call<PeriodsModel>
+
+    @GET("Balance/{id}/Services")
+    fun servicesB(@Path("id") id: Int): Call<List<ServicesModel>>
 
 }
