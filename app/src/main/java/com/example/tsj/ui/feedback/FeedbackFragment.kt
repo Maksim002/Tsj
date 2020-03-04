@@ -27,6 +27,6 @@ class FeedbackFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         write_msg_button.setOnClickListener { findNavController().navigate(R.id.navigation_send_feedback) }
     }
-
+//
 
 }
