@@ -12,25 +12,37 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.example.tsj.R
-import com.example.tsj.model.BookingRequest
+import com.example.tsj.service.model.AddressModel
+import com.example.tsj.service.model.OperationsModel
+import com.example.tsj.service.model.PeriodsModel
+import com.example.tsj.service.model.ServicesModel
+import com.example.tsj.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_new_llistener.*
+import kotlinx.android.synthetic.main.item_references.*
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class HistoryListFragment : Fragment() {
-
+    private lateinit var viewModelHistory: HistoryViewModel
+    private lateinit var model: ServicesModel
     private lateinit var to_showB: Button
+
+    private var placementId: Int = 0
+    private var servicesId: Int = 0
+    private var operationsId: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         var root = inflater.inflate(R.layout.fragment_new_llistener, container, false)
+        viewModelHistory = ViewModelProviders.of(this).get(HistoryViewModel::class.java)
 
         to_showB = root.findViewById(R.id.show)
-
         to_showB.setOnClickListener { v->
             Navigation.findNavController(root).navigate(R.id.navigation_personal)
         }
@@ -40,29 +52,52 @@ class HistoryListFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-
+        autoService.setKeyListener(null)
         getAutoAddress()
-        getAutoService()
         getAutoOperation()
-
         getAutoDatesS()
         getAutoDatesDo()
+        getDate()
 
+        show.setOnClickListener {
+            val a = placementId
+            val b = servicesId
+            val c = operationsId
+
+            val to = MyUtils.toServerDate(autoDatesS.text.toString())
+            val from= MyUtils.toServerDate(autoDatesDo.text.toString())
+            println()
+        }
     }
+
+    private fun getDate() {
+        viewModelHistory.periods().observe(this,androidx.lifecycle.Observer { periods ->
+            autoDatesS.setText(MyUtils.toMyDate(periods.from!!))
+            autoDatesDo.setText(MyUtils.toMyDate(periods.to!!))
+        })
+    }
+
     private fun getAutoAddress(){
-        val address = arrayOf("7 небо, Токомбаева, д.53/2 кв 11")
-        val adapterP =
-            ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, address)
-        autoAddress.setAdapter(adapterP)
-        autoAddress.setKeyListener(null);
+        var listAddress = ArrayList<AddressModel>()
+        viewModelHistory.addresses().observe(this, androidx.lifecycle.Observer { address ->
+            val list = address.map {
+                it.address
+            }
+            listAddress = address as ArrayList<AddressModel>
+
+        val adapterP = ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
+        autoAddress.setAdapter(adapterP)})
+        autoAddress.setKeyListener(null)
 
         autoAddress.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
                 autoAddress.showDropDown()
-                val col = ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
-                Address.defaultHintTextColor = col
-                val selectedItem = parent.getItemAtPosition(position).toString()
-
+                Address.defaultHintTextColor = ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
+                parent.getItemAtPosition(position).toString()
+                placementId = listAddress.get(position).placementId!!
+                viewModelHistory.servicesB(placementId).observe(this,androidx.lifecycle.Observer {
+                   getAutoService()
+                })
             }
         autoAddress.setOnClickListener {
             autoAddress.showDropDown()
@@ -79,19 +114,21 @@ class HistoryListFragment : Fragment() {
     }
 
     private fun getAutoService(){
-        val service = arrayOf("Техобслуживание")
-        val adapterP =
-            ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, service)
-        autoService.setAdapter(adapterP)
-        autoService.setKeyListener(null);
+        var listServices = ArrayList<ServicesModel>()
+            viewModelHistory.servicesB(placementId).observe(this, androidx.lifecycle.Observer { services ->
+                val list = services.map {
+                    it.serviceName
+                }
+                listServices = services as ArrayList<ServicesModel>
+                val adapterO = ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
+                adapterO.notifyDataSetChanged()
+                autoService.setAdapter(adapterO)})
 
         autoService.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
                 autoService.showDropDown()
-                val col = ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
-                Service.defaultHintTextColor = col
-                val selectedItem = parent.getItemAtPosition(position).toString()
-
+                Service.defaultHintTextColor = ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
+                servicesId = listServices.get(position).serviceId!!
             }
         autoService.setOnClickListener {
             autoService.showDropDown()
@@ -108,18 +145,22 @@ class HistoryListFragment : Fragment() {
     }
 
     private fun getAutoOperation(){
-        val operation = arrayOf("Платежи")
-        val adapterO =
-            ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, operation)
-        autoOperation.setAdapter(adapterO)
-        autoOperation.setKeyListener(null);
+        var listOperations = ArrayList<OperationsModel>()
+        viewModelHistory.operations().observe(this, androidx.lifecycle.Observer { operations ->
+            val list = operations.map {
+                it.operationName
+            }
+            listOperations = operations as ArrayList<OperationsModel>
+            val adapterP = ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
+            autoOperation.setAdapter(adapterP)})
+            autoOperation.setKeyListener(null);
 
         autoOperation.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
                 autoOperation.showDropDown()
-                val col = ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
-                Operation.defaultHintTextColor = col
-                val selectedItem = parent.getItemAtPosition(position).toString()
+                Operation.defaultHintTextColor = ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
+
+                operationsId =  listOperations.get(position).operationId!!
 
             }
         autoOperation.setOnClickListener {

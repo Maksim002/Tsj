@@ -11,9 +11,6 @@ import retrofit2.Response
 
 class BalanceViewModel : ViewModel() {
 
-
-
-
     fun addresses(): LiveData<List<AddressModel>> {
         val data = MutableLiveData<List<AddressModel>>()
 
