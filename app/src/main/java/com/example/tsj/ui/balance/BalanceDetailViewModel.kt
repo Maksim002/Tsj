@@ -22,11 +22,9 @@ class BalanceDetailViewModel : ViewModel() {
                     response: Response<List<BalanceStatusModel>>
                 ) {
                     data.value = response.body()
-                println()
                 }
 
                 override fun onFailure(call: Call<List<BalanceStatusModel>>, t: Throwable) {
-
                 }
             })
 

@@ -18,7 +18,6 @@ class FeedbackFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         (activity as AppCompatActivity).supportActionBar?.show()
         return inflater.inflate(R.layout.fragment_feedback, container, false)
     }
@@ -27,6 +26,4 @@ class FeedbackFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         write_msg_button.setOnClickListener { findNavController().navigate(R.id.navigation_send_feedback) }
     }
-
-
 }
