@@ -219,7 +219,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/portal_access_tsj"
-            android:layout_marginLeft="16dp"
             android:textSize="16sp"
             android:textColor="#757373"/>
 

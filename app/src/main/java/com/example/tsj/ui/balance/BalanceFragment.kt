@@ -29,11 +29,8 @@ class BalanceFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_balance, container, false)
-
         viewModel = ViewModelProviders.of(this).get(BalanceViewModel::class.java)
-
         storeTV = root.findViewById(R.id.autoCompleteTextView)
-
         model = AddressModel()
 
         root.balance_show_button.setOnClickListener {
