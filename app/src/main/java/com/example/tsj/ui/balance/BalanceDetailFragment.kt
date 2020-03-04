@@ -13,12 +13,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tsj.R
 import com.example.tsj.adapters.balance.BalanceAdapter
 import kotlinx.android.synthetic.main.fragment_balance_detail.*
-import kotlinx.android.synthetic.main.fragment_balance_detail.view.*
 
 class BalanceDetailFragment : Fragment() {
     private lateinit var viewModel: BalanceDetailViewModel
-    private lateinit var fAdapter: BalanceAdapter
-    private lateinit var recyclerViewF: RecyclerView
+    private lateinit var balanceAdapter: BalanceAdapter
+    private lateinit var balance_rv: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,7 +30,7 @@ class BalanceDetailFragment : Fragment() {
 
         viewModel = ViewModelProviders.of(this).get(BalanceDetailViewModel::class.java)
 
-        recyclerViewF = root.findViewById(R.id.balance_summ_recyclerview)
+        balance_rv = root.findViewById(R.id.balance_summ_recyclerview)
         getRecyclerView()
 
         return root
@@ -39,9 +38,9 @@ class BalanceDetailFragment : Fragment() {
     }
 
     private fun getRecyclerView() {
-        fAdapter = BalanceAdapter()
-        recyclerViewF.apply {
-            adapter = fAdapter
+        balanceAdapter = BalanceAdapter()
+        balance_rv.apply {
+            adapter = balanceAdapter
         }
     }
 
@@ -60,7 +59,7 @@ class BalanceDetailFragment : Fragment() {
         }
 
         viewModel.services(id).observe(this, Observer { list ->
-            fAdapter.setList(list)
+            balanceAdapter.setList(list)
         })
     }
 }
