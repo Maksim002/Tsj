@@ -22,7 +22,7 @@ class BalanceFragment : Fragment() {
     private var placementId: Int = 0
     private lateinit var address: String
     private lateinit var model: AddressModel
-    private lateinit var storeTV: AutoCompleteTextView
+    private lateinit var textComplete: AutoCompleteTextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,7 +30,7 @@ class BalanceFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_balance, container, false)
         viewModel = ViewModelProviders.of(this).get(BalanceViewModel::class.java)
-        storeTV = root.findViewById(R.id.autoCompleteTextView)
+        textComplete = root.findViewById(R.id.autoCompleteTextView)
         model = AddressModel()
 
         root.balance_show_button.setOnClickListener {
@@ -60,22 +60,22 @@ class BalanceFragment : Fragment() {
             listAddress = addres as ArrayList<AddressModel>
             val adapterO =
                 ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
-            storeTV.setAdapter(adapterO)})
-        storeTV.setKeyListener(null)
-        storeTV.onItemClickListener =
+            textComplete.setAdapter(adapterO)})
+        textComplete.setKeyListener(null)
+        textComplete.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
-                storeTV.showDropDown()
+                textComplete.showDropDown()
                 name_text_input.defaultHintTextColor = ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
                 placementId = listAddress.get(position).placementId!!
                 address = listAddress.get(position).address!!
 
             }
-        storeTV.setOnClickListener {
-            storeTV.showDropDown()
+        textComplete.setOnClickListener {
+            textComplete.showDropDown()
         }
-        storeTV.onFocusChangeListener = View.OnFocusChangeListener { view, b ->
+        textComplete.onFocusChangeListener = View.OnFocusChangeListener { view, b ->
             try {
-                storeTV.showDropDown()
+                textComplete.showDropDown()
                 println()
             } catch (e: Exception) {
             }
