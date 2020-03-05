@@ -11,7 +11,8 @@
         android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Адрес">
+        android:hint="Адрес"
+        android:focusableInTouchMode="true">
 
         <AutoCompleteTextView
             android:id="@+id/autoAddress"
@@ -37,7 +38,8 @@
         android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Услуга">
+        android:hint="Услуга"
+        android:focusableInTouchMode="true">
 
         <AutoCompleteTextView
             android:id="@+id/autoService"
@@ -63,7 +65,8 @@
         android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Операция">
+        android:hint="Операция"
+        android:focusableInTouchMode="true">
 
         <AutoCompleteTextView
             android:id="@+id/autoOperation"

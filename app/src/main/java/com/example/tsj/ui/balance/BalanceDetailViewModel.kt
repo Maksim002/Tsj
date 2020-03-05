@@ -15,18 +15,16 @@ class BalanceDetailViewModel : ViewModel() {
         val data = MutableLiveData<List<BalanceStatusModel>>()
 
 
-        RetrofitService.apiServise().services(placementId)
+        RetrofitService.apiServise().status(placementId)
             .enqueue(object : Callback<List<BalanceStatusModel>> {
                 override fun onResponse(
                     call: Call<List<BalanceStatusModel>>,
                     response: Response<List<BalanceStatusModel>>
                 ) {
                     data.value = response.body()
-                println()
                 }
 
                 override fun onFailure(call: Call<List<BalanceStatusModel>>, t: Throwable) {
-
                 }
             })
 
