@@ -73,26 +73,21 @@ class HistoryViewModel : ViewModel() {
         return data
     }
 
-    fun  servicesB(id: Int): LiveData<List<ServicesModel>> {
+    fun  services(id: Int): LiveData<List<ServicesModel>> {
         val data = MutableLiveData<List<ServicesModel>>()
 
         RetrofitService.apiServise().services(id).enqueue(object : Callback<List<ServicesModel>> {
             override fun onFailure(call: Call<List<ServicesModel>>, t: Throwable) {
-
             }
-
             override fun onResponse(
                 call: Call<List<ServicesModel>>,
                 response: Response<List<ServicesModel>>
             ) {
                 if (response.isSuccessful) {
                     data.value = response.body()
-
                 }
             }
-
         })
-
         return data
     }
 }

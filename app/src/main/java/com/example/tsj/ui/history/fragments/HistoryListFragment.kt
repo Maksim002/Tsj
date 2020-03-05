@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Button
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
@@ -26,7 +25,6 @@ import kotlin.collections.ArrayList
 
 class HistoryListFragment : Fragment() {
     private lateinit var viewmodel: HistoryViewModel
-    private lateinit var to_showB: Button
 
     private var placementId: Int = 0
     private var servicesId: Int = 0
@@ -38,7 +36,6 @@ class HistoryListFragment : Fragment() {
     ): View? {
         var root = inflater.inflate(R.layout.fragment_new_llistener, container, false)
         viewmodel = ViewModelProviders.of(this).get(HistoryViewModel::class.java)
-
 
         return root
     }
@@ -52,8 +49,8 @@ class HistoryListFragment : Fragment() {
         getDate()
 
         show.setOnClickListener {
-            val to = MyUtils.toServerDate(autoDatesS.text.toString())
-            val from= MyUtils.toServerDate(autoDatesDo.text.toString())
+//            val to = MyUtils.toServerDate(autoDatesS.text.toString())
+//            val from= MyUtils.toServerDate(autoDatesDo.text.toString())
         Navigation.findNavController(it).navigate(R.id.navigation_personal)
         }
     }
@@ -73,8 +70,8 @@ class HistoryListFragment : Fragment() {
             }
             listAddress = address as ArrayList<AddressModel>
 
-        val adapterP = ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
-        autoAddress.setAdapter(adapterP)})
+        val adapterAddress = ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
+        autoAddress.setAdapter(adapterAddress)})
         autoAddress.setKeyListener(null)
 
         autoAddress.onItemClickListener =
@@ -83,7 +80,7 @@ class HistoryListFragment : Fragment() {
                 Address.defaultHintTextColor = ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
                 parent.getItemAtPosition(position).toString()
                 placementId = listAddress.get(position).placementId!!
-                viewmodel.servicesB(placementId).observe(this,androidx.lifecycle.Observer {
+                viewmodel.services(placementId).observe(this,androidx.lifecycle.Observer {
                         getAutoService()
                 })
             }
@@ -102,14 +99,14 @@ class HistoryListFragment : Fragment() {
     }
     private fun getAutoService(){
         var listServices = ArrayList<ServicesModel>()
-            viewmodel.servicesB(placementId).observe(this, androidx.lifecycle.Observer { services ->
+            viewmodel.services(placementId).observe(this, androidx.lifecycle.Observer { services ->
                 val list = services.map {
                     it.serviceName
                 }
                 listServices = services as ArrayList<ServicesModel>
-                val adapterO = ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
-                adapterO.notifyDataSetChanged()
-                autoService.setAdapter(adapterO)})
+                val adapterServices = ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
+                adapterServices.notifyDataSetChanged()
+                autoService.setAdapter(adapterServices)})
                 autoService.setKeyListener(null)
 
         autoService.onItemClickListener =
@@ -131,7 +128,6 @@ class HistoryListFragment : Fragment() {
             }
         }
     }
-
     private fun getAutoOperation(){
         var listOperations = ArrayList<OperationsModel>()
         viewmodel.operations().observe(this, androidx.lifecycle.Observer { operations ->
@@ -139,8 +135,8 @@ class HistoryListFragment : Fragment() {
                 it.operationName
             }
             listOperations = operations as ArrayList<OperationsModel>
-            val adapterP = ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
-            autoOperation.setAdapter(adapterP)})
+            val adapterOperations = ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
+            autoOperation.setAdapter(adapterOperations)})
             autoOperation.setKeyListener(null);
 
         autoOperation.onItemClickListener =
@@ -164,7 +160,6 @@ class HistoryListFragment : Fragment() {
             }
         }
     }
-
     private fun getAutoDatesS(){
         autoDatesS.setKeyListener(null);
         autoDatesS.setOnFocusChangeListener { view, b ->
@@ -189,7 +184,6 @@ class HistoryListFragment : Fragment() {
             }
         }
     }
-
     private fun getAutoDatesDo(){
         autoDatesDo.setKeyListener(null);
         autoDatesDo.setOnFocusChangeListener { view, b ->
