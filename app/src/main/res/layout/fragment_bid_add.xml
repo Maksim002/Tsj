@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.bid.fragments.BidAddFragment">
+    tools:context=".ui.requests.RequestAddFragment">
 
     <LinearLayout
         android:id="@+id/bid_linear_container"
@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/name_text_input"
+            android:id="@+id/request_type_out"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -25,21 +25,23 @@
             <AutoCompleteTextView
                 android:id="@+id/bid_add_type"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:drawableEnd="@drawable/ic_expend"
                 android:paddingEnd="8dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/request_entrance_out"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/bid_add_porch"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="Подъезд" />
+                android:layout_height="wrap_content"
+                android:hint="Подъезд"
+                android:inputType="number" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -50,8 +52,9 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/bid_add_flat"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="Этаж" />
+                android:layout_height="wrap_content"
+                android:hint="Этаж"
+                android:inputType="number" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -63,7 +66,7 @@
             <AutoCompleteTextView
                 android:id="@+id/bid_add_adres"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:drawableEnd="@drawable/ic_expend"
                 android:paddingEnd="8dp" />
 
@@ -75,8 +78,9 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/request_description"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:hint="Описание" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -85,7 +89,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/bid_add_create"
+        android:id="@+id/request_add"
         style="@style/RoundedOrangeBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -96,5 +100,5 @@
         android:text="Создать"
         android:textColor="#FFF"
         app:layout_constraintTop_toBottomOf="@id/bid_linear_container" />
-        
+
 </androidx.constraintlayout.widget.ConstraintLayout>
