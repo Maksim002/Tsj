@@ -19,7 +19,7 @@ interface ApiService {
     fun addresses(): Call<List<AddressModel>>
 
     @GET("Balance/{id}/Services/Balance")
-    fun servicesA(@Path("id") id:Int): Call<List<BalanceStatusModel>>
+    fun status(@Path("id") id:Int): Call<List<BalanceStatusModel>>
 
     @GET("Balance/Operations")
     fun operations(): Call<List<OperationsModel>>
@@ -28,6 +28,6 @@ interface ApiService {
     fun periods(): Call<PeriodsModel>
 
     @GET("Balance/{id}/Services")
-    fun servicesB(@Path("id") id: Int): Call<List<ServicesModel>>
+    fun services(@Path("id") id: Int): Call<List<ServicesModel>>
 
 }

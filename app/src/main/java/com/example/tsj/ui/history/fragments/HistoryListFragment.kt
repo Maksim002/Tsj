@@ -17,18 +17,15 @@ import androidx.navigation.Navigation
 import com.example.tsj.R
 import com.example.tsj.service.model.AddressModel
 import com.example.tsj.service.model.OperationsModel
-import com.example.tsj.service.model.PeriodsModel
 import com.example.tsj.service.model.ServicesModel
 import com.example.tsj.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_new_llistener.*
-import kotlinx.android.synthetic.main.item_references.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
 class HistoryListFragment : Fragment() {
-    private lateinit var viewModelHistory: HistoryViewModel
-    private lateinit var model: ServicesModel
+    private lateinit var viewmodel: HistoryViewModel
     private lateinit var to_showB: Button
 
     private var placementId: Int = 0
@@ -40,19 +37,14 @@ class HistoryListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         var root = inflater.inflate(R.layout.fragment_new_llistener, container, false)
-        viewModelHistory = ViewModelProviders.of(this).get(HistoryViewModel::class.java)
+        viewmodel = ViewModelProviders.of(this).get(HistoryViewModel::class.java)
 
-        to_showB = root.findViewById(R.id.show)
-        to_showB.setOnClickListener { v->
-            Navigation.findNavController(root).navigate(R.id.navigation_personal)
-        }
 
         return root
     }
 
     override fun onStart() {
         super.onStart()
-        autoService.setKeyListener(null)
         getAutoAddress()
         getAutoOperation()
         getAutoDatesS()
@@ -60,18 +52,14 @@ class HistoryListFragment : Fragment() {
         getDate()
 
         show.setOnClickListener {
-            val a = placementId
-            val b = servicesId
-            val c = operationsId
-
             val to = MyUtils.toServerDate(autoDatesS.text.toString())
             val from= MyUtils.toServerDate(autoDatesDo.text.toString())
-            println()
+        Navigation.findNavController(it).navigate(R.id.navigation_personal)
         }
     }
 
     private fun getDate() {
-        viewModelHistory.periods().observe(this,androidx.lifecycle.Observer { periods ->
+        viewmodel.periods().observe(this,androidx.lifecycle.Observer { periods ->
             autoDatesS.setText(MyUtils.toMyDate(periods.from!!))
             autoDatesDo.setText(MyUtils.toMyDate(periods.to!!))
         })
@@ -79,7 +67,7 @@ class HistoryListFragment : Fragment() {
 
     private fun getAutoAddress(){
         var listAddress = ArrayList<AddressModel>()
-        viewModelHistory.addresses().observe(this, androidx.lifecycle.Observer { address ->
+        viewmodel.addresses().observe(this, androidx.lifecycle.Observer { address ->
             val list = address.map {
                 it.address
             }
@@ -95,8 +83,8 @@ class HistoryListFragment : Fragment() {
                 Address.defaultHintTextColor = ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
                 parent.getItemAtPosition(position).toString()
                 placementId = listAddress.get(position).placementId!!
-                viewModelHistory.servicesB(placementId).observe(this,androidx.lifecycle.Observer {
-                   getAutoService()
+                viewmodel.servicesB(placementId).observe(this,androidx.lifecycle.Observer {
+                        getAutoService()
                 })
             }
         autoAddress.setOnClickListener {
@@ -112,10 +100,9 @@ class HistoryListFragment : Fragment() {
             }
         }
     }
-
     private fun getAutoService(){
         var listServices = ArrayList<ServicesModel>()
-            viewModelHistory.servicesB(placementId).observe(this, androidx.lifecycle.Observer { services ->
+            viewmodel.servicesB(placementId).observe(this, androidx.lifecycle.Observer { services ->
                 val list = services.map {
                     it.serviceName
                 }
@@ -123,6 +110,7 @@ class HistoryListFragment : Fragment() {
                 val adapterO = ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
                 adapterO.notifyDataSetChanged()
                 autoService.setAdapter(adapterO)})
+                autoService.setKeyListener(null)
 
         autoService.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
@@ -146,7 +134,7 @@ class HistoryListFragment : Fragment() {
 
     private fun getAutoOperation(){
         var listOperations = ArrayList<OperationsModel>()
-        viewModelHistory.operations().observe(this, androidx.lifecycle.Observer { operations ->
+        viewmodel.operations().observe(this, androidx.lifecycle.Observer { operations ->
             val list = operations.map {
                 it.operationName
             }
