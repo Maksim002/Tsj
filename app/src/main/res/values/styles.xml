@@ -19,6 +19,14 @@
         </item>
     </style>
 
+         <style name="ToolBarStyle" parent="Theme.MaterialComponents.Light">
+             <item name="colorPrimary" >@color/whiteColor</item>
+             <item name="android:textColorPrimary">@color/colorDrawer</item>
+             <item name="android:textColorSecondary">@color/colorDrawer</item>
+             <item name="actionMenuTextColor">@color/colorDrawer</item>
+         </style>
+
+
     <style name="CustomToolBarStyle" parent="@style/Widget.AppCompat.Toolbar">
         <item name="titleTextColor">@color/orangeColor</item>
     </style>
