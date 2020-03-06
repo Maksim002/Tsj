@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.bid.BidFragment">
+    tools:context=".ui.requests.RequestFragment">
 
     <TextView
         android:id="@+id/bid_is_empty_textview"
