@@ -31,10 +31,11 @@ class PersonalViewModel : ViewModel(){
                     response: Response<CurrentBalance>) {
 
                     if (response.isSuccessful){
-                        data.value =response.body()
+                        data.value = response.body()
                     }
                 }
             })
             return data
         }
+    //
 }
