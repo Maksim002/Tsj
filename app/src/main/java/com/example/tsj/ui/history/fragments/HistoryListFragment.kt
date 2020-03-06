@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.example.tsj.R
@@ -20,7 +21,7 @@ import com.example.tsj.service.model.ServicesModel
 import com.example.tsj.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_new_llistener.*
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
 import kotlin.collections.ArrayList
 
 class HistoryListFragment : Fragment() {
@@ -56,6 +57,12 @@ class HistoryListFragment : Fragment() {
         getAutoDatesDo()
         getDate()
 
+        if (autoAddress != null){
+            getAutoService()
+        }else{
+            getAutoAddress()
+        }
+
         show.setOnClickListener {
             val bundle = Bundle()
             bundle.putInt("res", licNumber)
@@ -75,7 +82,7 @@ class HistoryListFragment : Fragment() {
     }
 
     private fun getDate() {
-        viewmodel.periods().observe(this, androidx.lifecycle.Observer { periods ->
+        viewmodel.periods().observe(this, Observer { periods ->
             autoDatesS.setText(MyUtils.toMyDate(periods.from!!))
             autoDatesDo.setText(MyUtils.toMyDate(periods.to!!))
         })
@@ -83,7 +90,7 @@ class HistoryListFragment : Fragment() {
 
     private fun getAutoAddress() {
         var listAddress = ArrayList<AddressModel>()
-        viewmodel.addresses().observe(this, androidx.lifecycle.Observer { address ->
+        viewmodel.addresses().observe(this, Observer { address ->
             val list = address.map {
                 it.address
             }
@@ -104,7 +111,7 @@ class HistoryListFragment : Fragment() {
                 placementId = listAddress.get(position).placementId!!
                 licNumber = listAddress.get(position).licNumber!!
                 address = listAddress.get(position).address!!
-                viewmodel.services(placementId).observe(this, androidx.lifecycle.Observer {
+                viewmodel.services(placementId).observe(this, Observer {
                     getAutoService()
                 })
             }
@@ -124,7 +131,7 @@ class HistoryListFragment : Fragment() {
 
     private fun getAutoService() {
         var listServices = ArrayList<ServicesModel>()
-        viewmodel.services(placementId).observe(this, androidx.lifecycle.Observer { services ->
+        viewmodel.services(placementId).observe(this, Observer { services ->
             val list = services.map {
                 it.serviceName
             }
@@ -161,7 +168,7 @@ class HistoryListFragment : Fragment() {
 
     private fun getAutoOperation() {
         var listOperations = ArrayList<OperationsModel>()
-        viewmodel.operations().observe(this, androidx.lifecycle.Observer { operations ->
+        viewmodel.operations().observe(this, Observer { operations ->
             val list = operations.map {
                 it.operationName
             }

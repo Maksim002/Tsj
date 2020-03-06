@@ -64,14 +64,13 @@ class PersonalFragment : Fragment() {
         getBtn()
         getTextCurrant()
 
-        viewModel.invoices(servicesId, operationsId, placementId, MyUtils.toServerDate(to!!), MyUtils.toServerDate(from!!))
+        viewModel.invoices(servicesId, operationsId, placementId, MyUtils.toServerDate(from!!), MyUtils.toServerDate(to!!))
             .observe(this, Observer { list ->
                 textBalance.setText("Текущий баланс " + list.balance)
+
+                list.invoicesHistory?.let { adapters.submitList(it) }
             })
 
-        viewModel.account(servicesId, operationsId, placementId, MyUtils.toServerDate(to!!), MyUtils.toServerDate(from!!)).observe(this, Observer {
-            println()
-        })
 
     }
 
@@ -140,7 +139,7 @@ class PersonalFragment : Fragment() {
         textAddress.setText(address.toString())
         textOperation.setText(operationName.toString())
         textService.setText(serviceName.toString())
-        textToFrom.setText("История оплат с " + to + "-" + from)
+        textToFrom.setText("История оплат с " + to + " - " + from)
 
     }
     private fun getRecyclerView() {

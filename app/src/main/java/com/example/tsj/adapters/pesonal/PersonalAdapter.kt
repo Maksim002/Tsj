@@ -5,13 +5,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tsj.R
 import com.example.tsj.model.PersonalModel
+import com.example.tsj.service.model.InvoicesAccounts
 
 class PersonalAdapter: RecyclerView.Adapter<PersonalViewHolder>() {
 
-    private var model: List<PersonalModel> = ArrayList()
+    private var model: List<InvoicesAccounts> = ArrayList()
 
-    fun submitList(list: List<PersonalModel>) {
+    fun submitList(list: List<InvoicesAccounts>) {
         model = list
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonalViewHolder {

@@ -1,6 +1,7 @@
 package com.example.tsj.service
 
 import com.example.tsj.service.model.*
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -37,14 +38,4 @@ interface ApiService {
         @Query("operationId") operationId: Int,
         @Query("dateTo") dateTo: String,
         @Query("dateFrom") dateFrom: String): Call<CurrentBalance>
-
-
-
-    @GET("Balance/CurrentBalance")
-    fun invoices2(
-        @Query("placementId") placementId: Int,
-        @Query("serviceId") serviceId: Int,
-        @Query("operationId") operationId: Int,
-        @Query("dateTo") dateTo: String,
-        @Query("dateFrom") dateFrom: String): Call<String>
 }
