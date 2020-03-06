@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.item_account.view.*
 
 class PersonalAdapterAccounts(item: List<PaymentHistory> = ArrayList() ): GenericRecyclerAdapter<PaymentHistory>(item){
 
-    fun getUpdate(items: List<PaymentHistory>) {
+    fun listUpdate(items: List<PaymentHistory>) {
         this.items = items
         notifyDataSetChanged()
     }

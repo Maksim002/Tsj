@@ -18,7 +18,7 @@ class PersonalAdapterPlatei(listene: PersonalListener) :
     }
 
 
-    fun submitList(list: List<InvoicesAccounts>) {
+    fun listUpdate(list: List<InvoicesAccounts>) {
         model = list
         notifyDataSetChanged()
     }

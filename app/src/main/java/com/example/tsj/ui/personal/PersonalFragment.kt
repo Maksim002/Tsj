@@ -20,8 +20,6 @@ import kotlinx.android.synthetic.main.fragment_personal.*
 import java.lang.Exception
 
 class PersonalFragment : Fragment(), PersonalListener {
-
-
     private lateinit var adapterPlatei: PersonalAdapterPlatei
     private lateinit var adapterAccount: PersonalAdapterAccounts
     private lateinit var recyclerViewPlatei: RecyclerView
@@ -50,7 +48,6 @@ class PersonalFragment : Fragment(), PersonalListener {
         val root = inflater.inflate(R.layout.fragment_personal, container, false)
         viewModel = ViewModelProviders.of(this).get(PersonalViewModel::class.java)
         initViews(root)
-
         return root
     }
 
@@ -161,11 +158,11 @@ class PersonalFragment : Fragment(), PersonalListener {
         )
             .observe(this, Observer {
                 if (it.paymentsHistory?.size != 0) {
-                    adapterAccount.getUpdate(it.paymentsHistory!!)
+                    adapterAccount.listUpdate(it.paymentsHistory!!)
                     recyclerViewAccount.visibility = View.VISIBLE
                     layoutPayments.visibility = View.VISIBLE
                 } else {
-                    adapterPlatei.submitList(it.invoicesHistory!!)
+                    adapterPlatei.listUpdate(it.invoicesHistory!!)
                     recyclerViewPlatei.visibility = View.VISIBLE
                     layoutAccounts.visibility = View.VISIBLE
                 }
