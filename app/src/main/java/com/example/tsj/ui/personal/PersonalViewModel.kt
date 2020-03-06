@@ -37,5 +37,4 @@ class PersonalViewModel : ViewModel(){
             })
             return data
         }
-    //
 }
