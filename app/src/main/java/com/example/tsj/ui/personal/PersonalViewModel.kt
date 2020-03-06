@@ -23,6 +23,7 @@ class PersonalViewModel : ViewModel(){
             val data = MutableLiveData<CurrentBalance>()
             RetrofitService.apiServise().invoices(placementId,servicesId,operationsId,tos!!,froms!!).enqueue(object : Callback<CurrentBalance> {
                 override fun onFailure(call: Call<CurrentBalance>, t: Throwable) {
+                    println()
                 }
 
                 override fun onResponse(

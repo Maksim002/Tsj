@@ -147,6 +147,46 @@
                  android:orientation="vertical">
 
                  <LinearLayout
+                     android:visibility="gone"
+                     android:id="@+id/payments"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:orientation="horizontal"
+                     android:padding="16dp">
+
+                     <TextView
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:layout_weight="1"
+                         android:text="Оплату совершил"
+                         android:textSize="13sp"
+                         android:textStyle="bold"
+                         android:textColor="#3E3E3E"/>
+
+                     <TextView
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:layout_weight="1.5"
+                         android:text="Сумма"
+                         android:gravity="center"
+                         android:textSize="13sp"
+                         android:textStyle="bold"
+                         android:textColor="#3E3E3E"/>
+
+                     <TextView
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:layout_weight="1.3"
+                         android:text="Дата"
+                         android:gravity="center"
+                         android:textSize="13sp"
+                         android:textStyle="bold"
+                         android:textColor="#3E3E3E"/>
+                 </LinearLayout>
+
+                 <LinearLayout
+                     android:visibility="gone"
+                     android:id="@+id/accounts"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
                      android:orientation="horizontal"
@@ -177,9 +217,18 @@
                      android:src="@drawable/ic_divider"/>
 
                  <androidx.recyclerview.widget.RecyclerView
+                     android:visibility="gone"
                      android:id="@+id/recyclerPersonal"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
+                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                     android:nestedScrollingEnabled="false"/>
+
+                 <androidx.recyclerview.widget.RecyclerView
+                     android:visibility="gone"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:id="@+id/recyclerViewAccount"
                      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                      android:nestedScrollingEnabled="false"/>
 
