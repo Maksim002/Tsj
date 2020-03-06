@@ -32,7 +32,7 @@ object RetrofitService {
             .build()
 
 
-    private fun retrofit(baseUrl: String = "http://192.168.1.199:205/api/"): Retrofit =
+    private fun retrofit(baseUrl: String = "http://167.114.201.175:204/api/"): Retrofit =
         Retrofit.Builder()
             .client(client)
             .baseUrl(baseUrl)
@@ -45,4 +45,17 @@ object RetrofitService {
         return retrofit().create(ApiService::class.java)
     }
 
+
+    private fun retrofit2(baseUrl: String = "http://192.168.1.199:206/api/"): Retrofit =
+        Retrofit.Builder()
+            .client(client)
+            .baseUrl(baseUrl)
+//            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
+            .build()
+
+
+    fun apiServise2(): ApiService {
+        return retrofit2().create(ApiService::class.java)
+    }
 }

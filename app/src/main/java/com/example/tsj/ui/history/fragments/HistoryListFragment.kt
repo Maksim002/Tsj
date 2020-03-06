@@ -26,9 +26,16 @@ import kotlin.collections.ArrayList
 class HistoryListFragment : Fragment() {
     private lateinit var viewmodel: HistoryViewModel
 
-    private var placementId: Int = 0
-    private var servicesId: Int = 0
+    private var operationName: String? = null
     private var operationsId: Int = 0
+
+    private var serviceName: String? = null
+    private var servicesId: Int = 0
+
+    private var address: String? = null
+    private var placementId: Int = 0
+
+    private var licNumber: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,6 +49,7 @@ class HistoryListFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        autoService.setKeyListener(null)
         getAutoAddress()
         getAutoOperation()
         getAutoDatesS()
@@ -49,20 +57,31 @@ class HistoryListFragment : Fragment() {
         getDate()
 
         show.setOnClickListener {
-//            val to = MyUtils.toServerDate(autoDatesS.text.toString())
-//            val from= MyUtils.toServerDate(autoDatesDo.text.toString())
-        Navigation.findNavController(it).navigate(R.id.navigation_personal)
+            val bundle = Bundle()
+            bundle.putInt("res", licNumber)
+            bundle.putString("serviceName", serviceName)
+            bundle.putInt("servicesId", servicesId)
+
+            bundle.putString("operationName", operationName)
+            bundle.putInt("operationsId", operationsId)
+
+            bundle.putString("address", address)
+            bundle.putInt("placementId",placementId)
+
+            bundle.putString("to", autoDatesS.text.toString())
+            bundle.putString("from", autoDatesDo.text.toString())
+            Navigation.findNavController(it).navigate(R.id.navigation_personal, bundle)
         }
     }
 
     private fun getDate() {
-        viewmodel.periods().observe(this,androidx.lifecycle.Observer { periods ->
+        viewmodel.periods().observe(this, androidx.lifecycle.Observer { periods ->
             autoDatesS.setText(MyUtils.toMyDate(periods.from!!))
             autoDatesDo.setText(MyUtils.toMyDate(periods.to!!))
         })
     }
 
-    private fun getAutoAddress(){
+    private fun getAutoAddress() {
         var listAddress = ArrayList<AddressModel>()
         viewmodel.addresses().observe(this, androidx.lifecycle.Observer { address ->
             val list = address.map {
@@ -70,18 +89,23 @@ class HistoryListFragment : Fragment() {
             }
             listAddress = address as ArrayList<AddressModel>
 
-        val adapterAddress = ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
-        autoAddress.setAdapter(adapterAddress)})
+            val adapterAddress =
+                ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
+            autoAddress.setAdapter(adapterAddress)
+        })
         autoAddress.setKeyListener(null)
 
         autoAddress.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
                 autoAddress.showDropDown()
-                Address.defaultHintTextColor = ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
+                Address.defaultHintTextColor =
+                    ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
                 parent.getItemAtPosition(position).toString()
                 placementId = listAddress.get(position).placementId!!
-                viewmodel.services(placementId).observe(this,androidx.lifecycle.Observer {
-                        getAutoService()
+                licNumber = listAddress.get(position).licNumber!!
+                address = listAddress.get(position).address!!
+                viewmodel.services(placementId).observe(this, androidx.lifecycle.Observer {
+                    getAutoService()
                 })
             }
         autoAddress.setOnClickListener {
@@ -97,23 +121,29 @@ class HistoryListFragment : Fragment() {
             }
         }
     }
-    private fun getAutoService(){
+
+    private fun getAutoService() {
         var listServices = ArrayList<ServicesModel>()
-            viewmodel.services(placementId).observe(this, androidx.lifecycle.Observer { services ->
-                val list = services.map {
-                    it.serviceName
-                }
-                listServices = services as ArrayList<ServicesModel>
-                val adapterServices = ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
-                adapterServices.notifyDataSetChanged()
-                autoService.setAdapter(adapterServices)})
-                autoService.setKeyListener(null)
+        viewmodel.services(placementId).observe(this, androidx.lifecycle.Observer { services ->
+            val list = services.map {
+                it.serviceName
+            }
+            listServices = services as ArrayList<ServicesModel>
+            val adapterServices =
+                ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
+            adapterServices.notifyDataSetChanged()
+            autoService.setAdapter(adapterServices)
+        })
+
 
         autoService.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
                 autoService.showDropDown()
-                Service.defaultHintTextColor = ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
+                Service.defaultHintTextColor =
+                    ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
+                parent.getItemAtPosition(position).toString()
                 servicesId = listServices.get(position).serviceId!!
+                serviceName = listServices.get(position).serviceName!!
             }
         autoService.setOnClickListener {
             autoService.showDropDown()
@@ -128,23 +158,28 @@ class HistoryListFragment : Fragment() {
             }
         }
     }
-    private fun getAutoOperation(){
+
+    private fun getAutoOperation() {
         var listOperations = ArrayList<OperationsModel>()
         viewmodel.operations().observe(this, androidx.lifecycle.Observer { operations ->
             val list = operations.map {
                 it.operationName
             }
             listOperations = operations as ArrayList<OperationsModel>
-            val adapterOperations = ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
-            autoOperation.setAdapter(adapterOperations)})
-            autoOperation.setKeyListener(null);
+            val adapterOperations =
+                ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
+            autoOperation.setAdapter(adapterOperations)
+        })
+        autoOperation.setKeyListener(null);
 
         autoOperation.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
                 autoOperation.showDropDown()
-                Operation.defaultHintTextColor = ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
-
-                operationsId =  listOperations.get(position).operationId!!
+                Operation.defaultHintTextColor =
+                    ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
+                parent.getItemAtPosition(position).toString()
+                operationsId = listOperations.get(position).operationId!!
+                operationName = listOperations.get(position).operationName!!
 
             }
         autoOperation.setOnClickListener {
@@ -160,7 +195,8 @@ class HistoryListFragment : Fragment() {
             }
         }
     }
-    private fun getAutoDatesS(){
+
+    private fun getAutoDatesS() {
         autoDatesS.setKeyListener(null);
         autoDatesS.setOnFocusChangeListener { view, b ->
             if (b) {
@@ -184,10 +220,11 @@ class HistoryListFragment : Fragment() {
             }
         }
     }
-    private fun getAutoDatesDo(){
+
+    private fun getAutoDatesDo() {
         autoDatesDo.setKeyListener(null);
         autoDatesDo.setOnFocusChangeListener { view, b ->
-            if (b){
+            if (b) {
                 if (autoDatesS.text.length == 0) {
                     Toast.makeText(context, "Error", Toast.LENGTH_LONG).show()
                 } else {
@@ -196,23 +233,32 @@ class HistoryListFragment : Fragment() {
                         val day = cldr.get(Calendar.DAY_OF_MONTH)
                         val month = cldr.get(Calendar.MONTH)
                         val year = cldr.get(Calendar.YEAR)
-                        val col = ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
+                        val col =
+                            ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
                         DatesDo.defaultHintTextColor = col
                         val picker: DatePickerDialog
                         picker =
-                            DatePickerDialog(activity!!, { datePicker, year1, monthOfYear, dayOfMonth ->
-                                if (monthOfYear + 1 < 10) {
-                                    autoDatesDo.setText(dayOfMonth.toString() + "." + "0" + (monthOfYear + 1) + "." + year1)
-                                } else {
-                                    autoDatesDo.setText(dayOfMonth.toString() + "." + "0" + (monthOfYear + 1) + "." + year1)
-                                }
+                            DatePickerDialog(
+                                activity!!,
+                                { datePicker, year1, monthOfYear, dayOfMonth ->
+                                    if (monthOfYear + 1 < 10) {
+                                        autoDatesDo.setText(dayOfMonth.toString() + "." + "0" + (monthOfYear + 1) + "." + year1)
+                                    } else {
+                                        autoDatesDo.setText(dayOfMonth.toString() + "." + "0" + (monthOfYear + 1) + "." + year1)
+                                    }
 
-                            }, year, month, day)
+                                },
+                                year,
+                                month,
+                                day
+                            )
                         try {
-                            val timeS = SimpleDateFormat("dd/MM/yyyy").parse(autoDatesS.text.toString()).getTime()
+                            val timeS =
+                                SimpleDateFormat("dd/MM/yyyy").parse(autoDatesS.text.toString())
+                                    .getTime()
                             picker.datePicker.minDate = timeS + 1000
 
-                        }catch (e:Exception){
+                        } catch (e: Exception) {
                             picker.datePicker.minDate = System.currentTimeMillis() - 1000
                         }
 

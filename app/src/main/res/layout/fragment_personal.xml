@@ -19,6 +19,7 @@
          android:padding="16dp">
 
          <TextView
+             android:id="@+id/list_currant"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:text="Лицевой счет № 2425"
@@ -27,6 +28,7 @@
              android:textStyle="bold"/>
 
          <TextView
+             android:id="@+id/text_balance"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:text="Текущий баланс -08.14c"
@@ -78,6 +80,7 @@
                      android:layout_marginTop="4dp">
 
                      <TextView
+                         android:id="@+id/text_service_name"
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
                          android:text="Техобслуживание"
@@ -86,6 +89,7 @@
                          android:layout_weight="1"/>
 
                      <TextView
+                         android:id="@+id/text_operation_name"
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
                          android:text="Платежи"
@@ -109,6 +113,7 @@
                          android:textSize="12sp"/>
 
                      <TextView
+                         android:id="@+id/text_address"
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
                          android:text="7 небо, Токомбаева, д.53/2 кв 11"
@@ -121,6 +126,7 @@
          </androidx.cardview.widget.CardView>
 
          <TextView
+             android:id="@+id/text_to_from"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:text="История оплат с 12/11/2019 - 12/02/2020"

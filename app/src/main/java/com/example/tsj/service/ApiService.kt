@@ -10,7 +10,7 @@ interface ApiService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     @FormUrlEncoded
     @POST("Token")
-    fun auth(@FieldMap params:Map<String, String> ): Call<AuthModel>
+    fun auth(@FieldMap params: Map<String, String>): Call<AuthModel>
 
     @GET("News")
     fun news(): Call<List<NewsModel>>
@@ -19,7 +19,7 @@ interface ApiService {
     fun addresses(): Call<List<AddressModel>>
 
     @GET("Balance/{id}/Services/Balance")
-    fun status(@Path("id") id:Int): Call<List<BalanceStatusModel>>
+    fun status(@Path("id") id: Int): Call<List<BalanceStatusModel>>
 
     @GET("Balance/Operations")
     fun operations(): Call<List<OperationsModel>>
@@ -30,4 +30,21 @@ interface ApiService {
     @GET("Balance/{id}/Services")
     fun services(@Path("id") id: Int): Call<List<ServicesModel>>
 
+    @GET("Balance/CurrentBalance")
+    fun invoices(
+        @Query("placementId") placementId: Int,
+        @Query("serviceId") serviceId: Int,
+        @Query("operationId") operationId: Int,
+        @Query("dateTo") dateTo: String,
+        @Query("dateFrom") dateFrom: String): Call<CurrentBalance>
+
+
+
+    @GET("Balance/CurrentBalance")
+    fun invoices2(
+        @Query("placementId") placementId: Int,
+        @Query("serviceId") serviceId: Int,
+        @Query("operationId") operationId: Int,
+        @Query("dateTo") dateTo: String,
+        @Query("dateFrom") dateFrom: String): Call<String>
 }
