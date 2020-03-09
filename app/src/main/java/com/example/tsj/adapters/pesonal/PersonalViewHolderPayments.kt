@@ -9,7 +9,7 @@ import com.example.tsj.service.model.InvoicesAccounts
 import com.example.tsj.ui.personal.PersonalListener
 import com.example.tsj.utils.MyUtils
 
-class ViewHolderPlatei(itemView: View, listener: PersonalListener) :
+class PersonalViewHolderPayments(itemView: View, listener: PersonalListener) :
     RecyclerView.ViewHolder(itemView) {
 
     var title = itemView.findViewById<TextView>(R.id.scrip)

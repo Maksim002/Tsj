@@ -21,14 +21,14 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tsj.R
 import com.example.tsj.adapters.pesonal.PersonalAdapterAccounts
-import com.example.tsj.adapters.pesonal.PersonalAdapterPlatei
+import com.example.tsj.adapters.pesonal.PersonalAdapterPayments
 import com.example.tsj.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_personal.*
 import java.lang.Exception
 
 class PersonalFragment : Fragment(), PersonalListener {
     private val STORAGE_PERMISION_CODE: Int = 1000
-    private lateinit var adapterPlatei: PersonalAdapterPlatei
+    private lateinit var adapterPayments: PersonalAdapterPayments
     private lateinit var adapterAccount: PersonalAdapterAccounts
     private lateinit var recyclerViewPlatei: RecyclerView
     private lateinit var recyclerViewAccount: RecyclerView
@@ -60,8 +60,8 @@ class PersonalFragment : Fragment(), PersonalListener {
     }
 
     private fun initRV() {
-        adapterPlatei = PersonalAdapterPlatei(this)
-        recyclerViewPlatei.adapter = adapterPlatei
+        adapterPayments = PersonalAdapterPayments(this)
+        recyclerViewPlatei.adapter = adapterPayments
         adapterAccount = PersonalAdapterAccounts()
         recyclerViewAccount.adapter = adapterAccount
     }
@@ -169,7 +169,7 @@ class PersonalFragment : Fragment(), PersonalListener {
                     recyclerViewAccount.visibility = View.VISIBLE
                     layoutPayments.visibility = View.VISIBLE
                 } else {
-                    adapterPlatei.listUpdate(it.invoicesHistory!!)
+                    adapterPayments.listUpdate(it.invoicesHistory!!)
                     recyclerViewPlatei.visibility = View.VISIBLE
                     layoutAccounts.visibility = View.VISIBLE
                 }
