@@ -32,7 +32,7 @@ object RetrofitService {
             .build()
 
 
-    private fun retrofit(baseUrl: String = "http://167.114.201.175:204/api/"): Retrofit =
+    private fun retrofit(baseUrl: String = "https://test.tsjdom.com:204/api/"): Retrofit =
         Retrofit.Builder()
             .client(client)
             .baseUrl(baseUrl)
