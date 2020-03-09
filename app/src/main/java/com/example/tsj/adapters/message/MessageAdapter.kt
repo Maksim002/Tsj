@@ -9,21 +9,21 @@ import com.example.tsj.model.MessageModel
 import kotlinx.android.synthetic.main.item_message.view.*
 
 
-class MessageAdapter(listener : MessageCliclItemListener, items: ArrayList<MessageModel>) : GenericRecyclerAdapter<MessageModel>(items) {
-    private var listener : MessageCliclItemListener = listener
+class MessageAdapter(listener: MessageClicklItemListener, items: List<MessageModel>) :
+    GenericRecyclerAdapter<MessageModel>(items) {
+    private var listener: MessageClicklItemListener = listener
 
     override fun bind(item: MessageModel, holder: ViewHolder) {
-        holder.itemView.msg_sender.text = item.sender
-        holder.itemView.msg_date.text = item.date
-        holder.itemView.msg_title.text = item.title
-        holder.itemView.msg_value.text = item.value
+        holder.itemView.setOnClickListener { listener.onClickMessage(item) }
 
-        holder.itemView.setOnClickListener { listener.onClickMessage(item)}
+        holder.itemView.msg_sender.text = item.personName
+        holder.itemView.msg_title.text = item.title
+        holder.itemView.msg_date.text = item.sendDate
     }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return super.onCreateViewHolder(parent, R.layout.item_message)
-
     }
+
 }

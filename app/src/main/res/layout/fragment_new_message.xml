@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:drawableEnd="@drawable/ic_expend"
-            android:hint="@string/for_who"
+            android:hint="Ваше имя"
             android:paddingEnd="8dp" />
     </com.google.android.material.textfield.TextInputLayout>
 

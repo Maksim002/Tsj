@@ -7,9 +7,10 @@
     tools:context=".ui.login.LoginActivity">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="112dp"
+        android:layout_height="32dp"
         android:layout_margin="16dp"
+        android:src="@drawable/tsj_logo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -104,6 +105,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:layout_marginTop="8dp"
+            android:paddingBottom="@dimen/marginHorizontal"
             android:layout_marginEnd="@dimen/marginHorizontal"
             android:text="Забыли пароль?"
             android:textColor="@color/orangeColor"

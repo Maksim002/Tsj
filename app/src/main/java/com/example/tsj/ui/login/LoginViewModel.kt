@@ -1,14 +1,8 @@
 package com.example.tsj.ui.login
 
-import android.annotation.SuppressLint
-import android.content.Intent
-import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.tsj.MainActivity
-import com.example.tsj.adapters.NewsAdapter
 import com.example.tsj.service.AppPreferences
 import com.example.tsj.service.RetrofitService
 import com.example.tsj.service.model.AuthModel
@@ -21,7 +15,7 @@ class LoginViewModel : ViewModel() {
 
     fun auth(map: HashMap<String, String>): LiveData<Boolean> {
         val result = MutableLiveData<Boolean>()
-        RetrofitService.apiServise().auth(map).enqueue(object : Callback<AuthModel> {
+        RetrofitService.apiService().auth(map).enqueue(object : Callback<AuthModel> {
             override fun onResponse(call: Call<AuthModel>, response: Response<AuthModel>) {
                 if (response.code() == 200) {
                     AppPreferences.token = response.body()?.accessToken

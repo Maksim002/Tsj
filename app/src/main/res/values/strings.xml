@@ -47,5 +47,6 @@
     <string name="house">Дом</string>
     <string name="apartment">Квартира</string>
     <string name="title">Заголовок</string>
+    <string name="for_who_msg">Кому написать письмо?</string>
 
 </resources>

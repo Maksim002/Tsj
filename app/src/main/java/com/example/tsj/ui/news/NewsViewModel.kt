@@ -14,7 +14,7 @@ class NewsViewModel : ViewModel() {
     fun news(): LiveData<List<NewsModel>> {
         val data = MutableLiveData<List<NewsModel>>()
 
-        RetrofitService.apiServise().news().enqueue(object : Callback<List<NewsModel>> {
+        RetrofitService.apiService().news().enqueue(object : Callback<List<NewsModel>> {
             override fun onResponse(
                 call: Call<List<NewsModel>>,
                 response: Response<List<NewsModel>>

@@ -2,7 +2,7 @@ package com.example.tsj.adapters.message
 
 import com.example.tsj.model.MessageModel
 
-interface MessageCliclItemListener {
+interface MessageClicklItemListener {
     fun onClickMessage(item: MessageModel)
 
 }
