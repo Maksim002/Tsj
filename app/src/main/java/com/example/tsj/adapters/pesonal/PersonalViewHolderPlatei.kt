@@ -30,5 +30,4 @@ class PersonalViewHolderPlatei(itemView: View, listener: PersonalListener) :
             listener.onClickDownload(get.id)
         }
     }
-
 }

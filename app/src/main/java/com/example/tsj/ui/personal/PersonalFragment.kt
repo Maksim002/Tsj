@@ -1,13 +1,20 @@
 package com.example.tsj.ui.personal
 
-
+import android.Manifest
+import android.app.DownloadManager
+import android.content.Context
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -20,6 +27,7 @@ import kotlinx.android.synthetic.main.fragment_personal.*
 import java.lang.Exception
 
 class PersonalFragment : Fragment(), PersonalListener {
+    private val STORAGE_PERMISION_CODE: Int = 1000
     private lateinit var adapterPlatei: PersonalAdapterPlatei
     private lateinit var adapterAccount: PersonalAdapterAccounts
     private lateinit var recyclerViewPlatei: RecyclerView
@@ -63,7 +71,6 @@ class PersonalFragment : Fragment(), PersonalListener {
         initArguments()
         initRV()
     }
-
     private fun initArguments() {
 
         try {
@@ -171,7 +178,60 @@ class PersonalFragment : Fragment(), PersonalListener {
     }
 
     override fun onClickDownload(id: Int?) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (activity!!.checkSelfPermission(
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ) == PackageManager.PERMISSION_DENIED
+            ) {
+                activity!!.requestPermissions(
+                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                    STORAGE_PERMISION_CODE
+                )
+                println()
+            } else {
+                startDownloading()
+            }
+        } else {
+            startDownloading()
+        }
 
+
+    }
+
+    private fun startDownloading() {
+
+        val reguest =
+            DownloadManager.Request(Uri.parse("https://test.tsjdom.com:204/Images/TempForApi/ac231c3e-21aa-4131-848f-e51d92a1dad9/Invoices(09.03.20).xlsx"))
+        reguest.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
+        reguest.setTitle("DownLoad")
+        reguest.setDescription("The file is downloading ...")
+
+        reguest.allowScanningByMediaScanner()
+        reguest.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+        reguest.setDestinationInExternalPublicDir(
+            Environment.DIRECTORY_DOWNLOADS,
+            "${System.currentTimeMillis()}"
+        )
+
+        val manager = activity?.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+        manager.enqueue(reguest)
+    }
+
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when (requestCode) {
+            STORAGE_PERMISION_CODE -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    startDownloading()
+                } else {
+                    Toast.makeText(activity, "Permission denied", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
     }
 
 }

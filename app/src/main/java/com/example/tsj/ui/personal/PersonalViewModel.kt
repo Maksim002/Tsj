@@ -1,5 +1,8 @@
 package com.example.tsj.ui.personal
 
+import android.app.DownloadManager
+import android.net.Uri
+import android.os.Environment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,6 +13,7 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 class PersonalViewModel : ViewModel(){
 
@@ -37,4 +41,15 @@ class PersonalViewModel : ViewModel(){
             })
             return data
         }
+//    fun startDownloading(){
+//        val reguest = DownloadManager.Request(Uri.parse())
+//        reguest.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
+//        reguest.setTitle("DownLoad")
+//        reguest.setDescription("The file is downloading ...")
+//
+//        reguest.allowScanningByMediaScanner()
+//        reguest.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+//        reguest.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "${System.currentTimeMillis()}")
+//
+//    }
 }
