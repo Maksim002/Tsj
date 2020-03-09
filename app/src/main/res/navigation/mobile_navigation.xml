@@ -37,7 +37,7 @@
 
     <fragment
         android:id="@+id/navigation_bid"
-        android:name="com.example.tsj.ui.bid.BidFragment"
+        android:name="com.example.tsj.ui.requests.RequestFragment"
         android:label="@string/title_bid"
         tools:layout="@layout/fragment_bid" />
 
@@ -85,13 +85,13 @@
 
     <fragment
         android:id="@+id/navigation_bid_add"
-        android:name="com.example.tsj.ui.bid.fragments.BidAddFragment"
+        android:name="com.example.tsj.ui.requests.RequestAddFragment"
         android:label="@string/new_bid"
         tools:layout="@layout/fragment_bid_add" />
 
     <fragment
         android:id="@+id/navigation_bid_detail"
-        android:name="com.example.tsj.ui.bid.fragments.BidDetailFragment"
+        android:name="com.example.tsj.ui.requests.RequestDetailFragment"
         android:label="@string/bid"
         tools:layout="@layout/fragment_bid_detail" />
 

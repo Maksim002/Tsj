@@ -1,7 +1,7 @@
 package com.example.tsj.service
 
 import com.example.tsj.service.model.*
-import okhttp3.ResponseBody
+import com.example.tsj.service.request.AddRequest
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -38,4 +38,19 @@ interface ApiService {
         @Query("operationId") operationId: Int,
         @Query("dateTo") dateTo: String,
         @Query("dateFrom") dateFrom: String): Call<CurrentBalance>
+
+    @GET("Requests")
+    fun requests(): Call<List<RequestsModel>>
+
+    @GET("Requests/Types")
+    fun requestTypes(): Call<List<RequestTypeModel>>
+
+    @GET("Requests/Addresses")
+    fun requestAddresses(): Call<List<RequestAddressesModel>>
+
+    @POST("Requests")
+    fun requestAdd(@Body body:AddRequest):Call<String>
+
+    @DELETE("Requests/{id}")
+    fun requestDelete(@Path("id") id:Int):Call<String>
 }

@@ -3,7 +3,6 @@ package com.example.tsj.adapters.message
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tsj.R
-import com.example.tsj.adapters.bid.BidClickItemListener
 import com.example.tsj.common.GenericRecyclerAdapter
 import com.example.tsj.common.ViewHolder
 import com.example.tsj.model.MessageModel
