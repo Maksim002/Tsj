@@ -24,7 +24,7 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import kotlin.collections.ArrayList
 
-class SergeHistoryFragment : Fragment() {
+class SearchHistoryFragment : Fragment() {
     private lateinit var viewmodel: HistoryViewModel
 
     private var operationName: String? = null
