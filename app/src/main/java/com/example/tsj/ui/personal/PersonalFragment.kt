@@ -47,7 +47,7 @@ class PersonalFragment : Fragment(), PersonalListener {
     private var operationsId: Int = 0
     private var placementId: Int = 0
 
-    var bSave: Button? = null
+    var buttonSave: Button? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -140,7 +140,7 @@ class PersonalFragment : Fragment(), PersonalListener {
     }
 
     private fun initViews(root: View) {
-        bSave = root.findViewById(R.id.bottomSave)
+        buttonSave = root.findViewById(R.id.bottomSave)
         textCurrant = root.findViewById(R.id.list_currant)
         textAddress = root.findViewById(R.id.text_address)
         textOperation = root.findViewById(R.id.text_operation_name)

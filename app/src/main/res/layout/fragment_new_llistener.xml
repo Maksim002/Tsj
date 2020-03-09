@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.history.fragments.HistoryListFragment">
+    tools:context=".ui.history.fragments.SergeHistoryFragment">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/Address"

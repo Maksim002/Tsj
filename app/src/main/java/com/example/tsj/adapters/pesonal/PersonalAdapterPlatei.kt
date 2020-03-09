@@ -7,14 +7,14 @@ import com.example.tsj.R
 import com.example.tsj.service.model.InvoicesAccounts
 import com.example.tsj.ui.personal.PersonalListener
 
-class PersonalAdapterPlatei(listene: PersonalListener) :
-    RecyclerView.Adapter<PersonalViewHolderPlatei>() {
+class PersonalAdapterPlatei(listener: PersonalListener) :
+    RecyclerView.Adapter<ViewHolderPlatei>() {
 
     private var model: List<InvoicesAccounts> = ArrayList()
     private var listene: PersonalListener
 
     init {
-        this.listene = listene
+        this.listene = listener
     }
 
 
@@ -23,8 +23,8 @@ class PersonalAdapterPlatei(listene: PersonalListener) :
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonalViewHolderPlatei {
-        return PersonalViewHolderPlatei(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderPlatei {
+        return ViewHolderPlatei(
             LayoutInflater.from(parent.context).inflate(R.layout.item_personal, parent, false),
             listene
         )
@@ -34,7 +34,7 @@ class PersonalAdapterPlatei(listene: PersonalListener) :
         return model.size
     }
 
-    override fun onBindViewHolder(holderPlatei: PersonalViewHolderPlatei, position: Int) {
+    override fun onBindViewHolder(holderPlatei: ViewHolderPlatei, position: Int) {
         holderPlatei.bind(model.get(position));
     }
 }

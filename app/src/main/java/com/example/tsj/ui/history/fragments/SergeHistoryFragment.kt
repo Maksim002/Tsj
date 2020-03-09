@@ -24,7 +24,7 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import kotlin.collections.ArrayList
 
-class HistoryListFragment : Fragment() {
+class SergeHistoryFragment : Fragment() {
     private lateinit var viewmodel: HistoryViewModel
 
     private var operationName: String? = null
@@ -260,10 +260,10 @@ class HistoryListFragment : Fragment() {
                                 day
                             )
                         try {
-                            val timeS =
+                            val timeSimple =
                                 SimpleDateFormat("dd/MM/yyyy").parse(autoDatesS.text.toString())
                                     .getTime()
-                            picker.datePicker.minDate = timeS + 1000
+                            picker.datePicker.minDate = timeSimple + 1000
 
                         } catch (e: Exception) {
                             picker.datePicker.minDate = System.currentTimeMillis() - 1000
