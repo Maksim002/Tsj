@@ -15,6 +15,7 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -178,33 +179,40 @@ class PersonalFragment : Fragment(), PersonalListener {
     }
 
     override fun onClickDownload(id: Int?) {
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (activity!!.checkSelfPermission(
+            if (checkSelfPermission(
+                    context!!,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE
                 ) == PackageManager.PERMISSION_DENIED
             ) {
-                activity!!.requestPermissions(
-                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                    STORAGE_PERMISION_CODE
-                )
-                println()
+                //permission denied
+                val permissions = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                //show popup to request runtime permission
+                requestPermissions(permissions, STORAGE_PERMISION_CODE)
             } else {
+                //permission already granted
                 startDownloading()
+
             }
         } else {
+            //system OS is < Marshmallow
+            //pickImageFromGallery()
             startDownloading()
         }
 
 
     }
 
+
+
     private fun startDownloading() {
 
         val reguest =
             DownloadManager.Request(Uri.parse("https://test.tsjdom.com:204/Images/TempForApi/ac231c3e-21aa-4131-848f-e51d92a1dad9/Invoices(09.03.20).xlsx"))
         reguest.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
-        reguest.setTitle("DownLoad")
-        reguest.setDescription("The file is downloading ...")
+        reguest.setTitle("TSJ.DOM")
+        reguest.setDescription("Файл загружаеться.....")
 
         reguest.allowScanningByMediaScanner()
         reguest.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
@@ -225,10 +233,14 @@ class PersonalFragment : Fragment(), PersonalListener {
     ) {
         when (requestCode) {
             STORAGE_PERMISION_CODE -> {
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (grantResults.isNotEmpty() && grantResults[0] ==
+                    PackageManager.PERMISSION_GRANTED
+                ) {
+                    //permission from popup granted
                     startDownloading()
                 } else {
-                    Toast.makeText(activity, "Permission denied", Toast.LENGTH_LONG).show()
+                    //permission from popup denied
+                    Toast.makeText(context, "Нет разрешений", Toast.LENGTH_SHORT).show()
                 }
             }
         }
