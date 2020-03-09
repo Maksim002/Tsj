@@ -19,6 +19,7 @@
          android:padding="16dp">
 
          <TextView
+             android:id="@+id/list_currant"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:text="Лицевой счет № 2425"
@@ -27,6 +28,7 @@
              android:textStyle="bold"/>
 
          <TextView
+             android:id="@+id/text_balance"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:text="Текущий баланс -08.14c"
@@ -78,6 +80,7 @@
                      android:layout_marginTop="4dp">
 
                      <TextView
+                         android:id="@+id/text_service_name"
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
                          android:text="Техобслуживание"
@@ -86,6 +89,7 @@
                          android:layout_weight="1"/>
 
                      <TextView
+                         android:id="@+id/text_operation_name"
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
                          android:text="Платежи"
@@ -109,6 +113,7 @@
                          android:textSize="12sp"/>
 
                      <TextView
+                         android:id="@+id/text_address"
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
                          android:text="7 небо, Токомбаева, д.53/2 кв 11"
@@ -121,6 +126,7 @@
          </androidx.cardview.widget.CardView>
 
          <TextView
+             android:id="@+id/text_to_from"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:text="История оплат с 12/11/2019 - 12/02/2020"
@@ -141,6 +147,46 @@
                  android:orientation="vertical">
 
                  <LinearLayout
+                     android:visibility="gone"
+                     android:id="@+id/payments"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:orientation="horizontal"
+                     android:padding="16dp">
+
+                     <TextView
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:layout_weight="1"
+                         android:text="Оплату совершил"
+                         android:textSize="13sp"
+                         android:textStyle="bold"
+                         android:textColor="#3E3E3E"/>
+
+                     <TextView
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:layout_weight="1.5"
+                         android:text="Сумма"
+                         android:gravity="center"
+                         android:textSize="13sp"
+                         android:textStyle="bold"
+                         android:textColor="#3E3E3E"/>
+
+                     <TextView
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:layout_weight="1.3"
+                         android:text="Дата"
+                         android:gravity="center"
+                         android:textSize="13sp"
+                         android:textStyle="bold"
+                         android:textColor="#3E3E3E"/>
+                 </LinearLayout>
+
+                 <LinearLayout
+                     android:visibility="gone"
+                     android:id="@+id/accounts"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
                      android:orientation="horizontal"
@@ -159,7 +205,7 @@
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
                          android:layout_weight="1"
-                         android:text="Сумма"
+                         android:text="Дата"
                          android:textSize="13sp"
                          android:textStyle="bold"
                          android:textColor="#3E3E3E"/>
@@ -171,9 +217,18 @@
                      android:src="@drawable/ic_divider"/>
 
                  <androidx.recyclerview.widget.RecyclerView
+                     android:visibility="gone"
                      android:id="@+id/recyclerPersonal"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
+                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                     android:nestedScrollingEnabled="false"/>
+
+                 <androidx.recyclerview.widget.RecyclerView
+                     android:visibility="gone"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:id="@+id/recyclerViewAccount"
                      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                      android:nestedScrollingEnabled="false"/>
 

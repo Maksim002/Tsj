@@ -10,7 +10,7 @@ abstract class GenericRecyclerAdapter<T>(var items: List<T>) :
 
     abstract fun bind(item: T, holder: ViewHolder)
 
-    fun update(items: ArrayList<T>) {
+    fun update(items: List<T>) {
         this.items = items
         notifyDataSetChanged()
     }

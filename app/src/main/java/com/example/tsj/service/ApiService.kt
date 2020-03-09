@@ -31,6 +31,14 @@ interface ApiService {
     @GET("Balance/{id}/Services")
     fun services(@Path("id") id: Int): Call<List<ServicesModel>>
 
+    @GET("Balance/CurrentBalance")
+    fun invoices(
+        @Query("placementId") placementId: Int,
+        @Query("serviceId") serviceId: Int,
+        @Query("operationId") operationId: Int,
+        @Query("dateTo") dateTo: String,
+        @Query("dateFrom") dateFrom: String): Call<CurrentBalance>
+
     @GET("Requests")
     fun requests(): Call<List<RequestsModel>>
 
@@ -45,5 +53,4 @@ interface ApiService {
 
     @DELETE("Requests/{id}")
     fun requestDelete(@Path("id") id:Int):Call<String>
-
 }

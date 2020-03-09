@@ -81,8 +81,7 @@ class HistoryViewModel : ViewModel() {
             }
             override fun onResponse(
                 call: Call<List<ServicesModel>>,
-                response: Response<List<ServicesModel>>
-            ) {
+                response: Response<List<ServicesModel>>) {
                 if (response.isSuccessful) {
                     data.value = response.body()
                 }
