@@ -49,8 +49,6 @@ class PersonalFragment : Fragment(), PersonalListener {
     private var placementId: Int = 0
     private lateinit var downloadId: String
 
-    var buttonSave: Button? = null
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -74,13 +72,6 @@ class PersonalFragment : Fragment(), PersonalListener {
         initRV()
     }
     private fun initArguments() {
-
-        try {
-            if (arguments!!.getBoolean("btn")) {
-                bottomSave.visibility = View.GONE
-            }
-        } catch (e: Exception) {
-        }
 
         val id = try {
             arguments!!.getInt("res")
@@ -142,7 +133,6 @@ class PersonalFragment : Fragment(), PersonalListener {
     }
 
     private fun initViews(root: View) {
-        buttonSave = root.findViewById(R.id.bottomSave)
         textCurrant = root.findViewById(R.id.list_currant)
         textAddress = root.findViewById(R.id.text_address)
         textOperation = root.findViewById(R.id.text_operation_name)
@@ -223,18 +213,15 @@ class PersonalFragment : Fragment(), PersonalListener {
     }
 
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
+    override fun onRequestPermissionsResult(requestCode: Int,permissions: Array<out String>,grantResults: IntArray) {
         when (requestCode) {
             STORAGE_PERMISION_CODE -> {
-                if (grantResults.isNotEmpty() && grantResults[0] ==
-                    PackageManager.PERMISSION_GRANTED
-                ) {
-                    //permission from popup granted
-                    startDownloading(downloadId)
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    try {
+                        //permission from popup granted
+                        startDownloading(this.downloadId)
+                    }catch (e:Exception){}
+
                 } else {
                     //permission from popup denied
                     Toast.makeText(context, "Нет разрешений", Toast.LENGTH_SHORT).show()
