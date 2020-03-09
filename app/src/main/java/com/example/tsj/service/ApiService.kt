@@ -53,4 +53,7 @@ interface ApiService {
 
     @DELETE("Requests/{id}")
     fun requestDelete(@Path("id") id:Int):Call<String>
+
+    @GET("Balance/Invoices/{id}/Download")
+    fun downloadLink(@Path("id") id: Int): Call<String>
 }
