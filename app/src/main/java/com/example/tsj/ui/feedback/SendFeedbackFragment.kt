@@ -15,6 +15,7 @@ class SendFeedbackFragment : Fragment() {
     ): View? {
 
         (activity as AppCompatActivity).supportActionBar?.show()
+        setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_send_feedback, container, false)
     }
 

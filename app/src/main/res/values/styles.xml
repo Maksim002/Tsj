@@ -26,7 +26,6 @@
              <item name="actionMenuTextColor">@color/colorDrawer</item>
          </style>
 
-
     <style name="CustomToolBarStyle" parent="@style/Widget.AppCompat.Toolbar">
         <item name="titleTextColor">@color/orangeColor</item>
     </style>

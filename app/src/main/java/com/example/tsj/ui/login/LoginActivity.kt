@@ -13,6 +13,7 @@ import com.example.tsj.service.AppPreferences
 import com.example.tsj.ui.login.forgot.ForgotActivity
 import kotlinx.android.synthetic.main.activity_login.*
 import java.util.*
+import java.util.regex.Pattern
 
 
 class LoginActivity : AppCompatActivity() {
@@ -28,21 +29,19 @@ class LoginActivity : AppCompatActivity() {
         viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
 
         val transition = try {
-           intent.extras!!.getBoolean("transition")
+            intent.extras!!.getBoolean("transition")
         } catch (e: Exception) {
             false
         }
 
         if (AppPreferences.started && !transition) {
-            startActivity(Intent(this, MainActivity::class.java))
+            startMainActivity()
         }
-        AppPreferences.started = true
 
+        AppPreferences.started = true
         login_skip.setOnClickListener {
             AppPreferences.isLogined = false
-            startActivity(
-                Intent(this, MainActivity::class.java)
-            )
+            startMainActivity()
         }
 
         forgotPassword()
@@ -51,7 +50,7 @@ class LoginActivity : AppCompatActivity() {
     private fun forgotPassword() {
 
         main_forgot_textview.setOnClickListener {
-            val forgotPassword = Intent (this, ForgotActivity::class.java)
+            val forgotPassword = Intent(this, ForgotActivity::class.java)
             startActivity(forgotPassword)
         }
     }
@@ -82,12 +81,47 @@ class LoginActivity : AppCompatActivity() {
             viewModel.auth(map).observe(this, Observer { result ->
 
                 if (AppPreferences.isLogined) {
-                    startActivity(
-                        Intent(this, MainActivity::class.java)
-                    )
+                    startMainActivity()
                 }
                 Toast.makeText(application, result.toString(), Toast.LENGTH_LONG).show()
             })
+            validateEdittexts()
         }
     }
+
+    private fun validateEdittexts() {
+            if (validatePassword(text_password.text.toString())) {
+                main_container_password_input.error = null
+            } else {
+                main_container_password_input.error = "Пароль не может быть пустым"
+            }
+
+            if (validateEmail(text_email.text.toString())) {
+                main_container_email_input.error = null
+            } else {
+                main_container_email_input.error = "Пароль введен не правильно"
+            }
+    }
+
+    private fun startMainActivity() {
+        val loged = Intent(this, MainActivity::class.java)
+        loged.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(loged)
+    }
+
+
+    //проверка пароля
+    private fun validatePassword(password: String): Boolean {
+        return password.isNotEmpty()
+    }
+
+    //проверка email
+    private fun validateEmail(email: String): Boolean {
+        val regExpn =
+            ("""^(([\w-]+\.)+[\w-]+|([a-zA-Z]{1}|[\w-]{2,}))@((([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\.([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\.([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\.([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])){1}|([a-zA-Z]+[\w-]+\.)+[a-zA-Z]{2,4})$""")
+        val pattern = Pattern.compile(regExpn, Pattern.CASE_INSENSITIVE)
+        val matcher = pattern.matcher(email)
+        return matcher.matches()
+    }
 }
+

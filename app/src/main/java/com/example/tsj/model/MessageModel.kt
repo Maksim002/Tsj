@@ -1,3 +1,11 @@
 package com.example.tsj.model
 
-data class MessageModel (val sender : String, val title : String, val value : String, val date : String)
+import com.google.gson.annotations.SerializedName
+
+data class MessageModel(
+    @SerializedName("Id") val id: Int,
+    @SerializedName("IsRead") val isRead: Boolean,
+    @SerializedName("SendDate") val sendDate: String,
+    @SerializedName("PersonName") val personName: String,
+    @SerializedName("Title") val title: String
+)

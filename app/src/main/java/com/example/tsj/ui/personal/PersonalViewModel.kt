@@ -19,8 +19,9 @@ class PersonalViewModel : ViewModel() {
         froms: String?
     ): LiveData<CurrentBalance> {
         val data = MutableLiveData<CurrentBalance>()
-        RetrofitService.apiServise().invoices(placementId, servicesId, operationsId, tos!!, froms!!)
+        RetrofitService.apiService().invoices(placementId, servicesId, operationsId, tos!!, froms!!)
             .enqueue(object : Callback<CurrentBalance> {
+
                 override fun onFailure(call: Call<CurrentBalance>, t: Throwable) {
                     println()
                 }
@@ -42,7 +43,7 @@ class PersonalViewModel : ViewModel() {
 
         val data = MutableLiveData<String>()
 
-        RetrofitService.apiServise().downloadLink(id!!).enqueue(object : Callback<String>{
+        RetrofitService.apiService().downloadLink(id!!).enqueue(object : Callback<String>{
             override fun onFailure(call: Call<String>, t: Throwable) {
 
             }

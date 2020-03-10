@@ -1,5 +1,6 @@
 package com.example.tsj.service
 
+import com.example.tsj.model.MessageModel
 import com.example.tsj.service.model.*
 import com.example.tsj.service.request.AddRequest
 import retrofit2.Call
@@ -15,6 +16,9 @@ interface ApiService {
 
     @GET("News")
     fun news(): Call<List<NewsModel>>
+
+    @GET ("Messages")
+    fun messages (@Query("typeId") id : Int) : Call <List<MessageModel>>
 
     @GET("Balance/Addresses")
     fun addresses(): Call<List<AddressModel>>

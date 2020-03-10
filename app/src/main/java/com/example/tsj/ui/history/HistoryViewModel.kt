@@ -16,7 +16,7 @@ class HistoryViewModel : ViewModel() {
     fun addresses(): LiveData<List<AddressModel>> {
         val data = MutableLiveData<List<AddressModel>>()
 
-        RetrofitService.apiServise().addresses().enqueue(object : Callback<List<AddressModel>> {
+        RetrofitService.apiService().addresses().enqueue(object : Callback<List<AddressModel>> {
             override fun onResponse(call: Call<List<AddressModel>>, response: Response<List<AddressModel>>){
                 if (response.isSuccessful){
                     data.value = response.body()
@@ -32,7 +32,7 @@ class HistoryViewModel : ViewModel() {
     fun operations(): LiveData<List<OperationsModel>> {
         val data = MutableLiveData<List<OperationsModel>>()
 
-        RetrofitService.apiServise().operations().enqueue(object : Callback<List<OperationsModel>> {
+        RetrofitService.apiService().operations().enqueue(object : Callback<List<OperationsModel>> {
             override fun onFailure(call: Call<List<OperationsModel>>, t: Throwable) {
 
             }
@@ -54,7 +54,7 @@ class HistoryViewModel : ViewModel() {
     fun periods(): LiveData<PeriodsModel> {
         val data = MutableLiveData<PeriodsModel>()
 
-        RetrofitService.apiServise().periods().enqueue(object : Callback<PeriodsModel> {
+        RetrofitService.apiService().periods().enqueue(object : Callback<PeriodsModel> {
             override fun onFailure(call: Call<PeriodsModel>, t: Throwable) {
                 println()
             }
@@ -76,7 +76,7 @@ class HistoryViewModel : ViewModel() {
     fun  services(id: Int): LiveData<List<ServicesModel>> {
         val data = MutableLiveData<List<ServicesModel>>()
 
-        RetrofitService.apiServise().services(id).enqueue(object : Callback<List<ServicesModel>> {
+        RetrofitService.apiService().services(id).enqueue(object : Callback<List<ServicesModel>> {
             override fun onFailure(call: Call<List<ServicesModel>>, t: Throwable) {
             }
             override fun onResponse(

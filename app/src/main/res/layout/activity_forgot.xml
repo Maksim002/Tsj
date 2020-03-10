@@ -7,10 +7,22 @@
     tools:context=".ui.login.LoginActivity">
 
     <ImageView
+        android:layout_width="112dp"
+        android:layout_height="32dp"
+        android:layout_margin="16dp"
+        android:src="@drawable/tsj_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/back_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
         app:layout_constraintStart_toStartOf="parent"
+        android:padding="20dp"
+        android:paddingStart="@dimen/marginHorizontal"
+        android:src="@drawable/ic_arrow_back_orange"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
@@ -42,14 +54,14 @@
             android:textSize="16sp" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/main_container_email_input"
+            android:id="@+id/forgot_container_email_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/marginHorizontal"
             android:layout_marginTop="16dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/text_email"
+                android:id="@+id/text_email_forgot"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_mail_24dp"
@@ -59,7 +71,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/main_enter_button"
+            android:id="@+id/forgot_send_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/marginHorizontal"

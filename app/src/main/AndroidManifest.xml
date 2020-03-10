@@ -20,7 +20,6 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ui.login.LoginActivity"
-            android:noHistory="true"
             android:theme="@style/NoToolbar" />
         <activity
             android:name=".ui.splash.SplashActivity"
