@@ -16,7 +16,7 @@ class RequestViewModel : ViewModel() {
 
     fun requests(): LiveData<List<RequestsModel>> {
         val data = MutableLiveData<List<RequestsModel>>()
-        RetrofitService.apiServise().requests().enqueue(object : Callback<List<RequestsModel>> {
+        RetrofitService.apiService().requests().enqueue(object : Callback<List<RequestsModel>> {
 
             override fun onResponse(
                 call: Call<List<RequestsModel>>,
@@ -34,7 +34,7 @@ class RequestViewModel : ViewModel() {
 
     fun requestTypes(): LiveData<List<RequestTypeModel>> {
         val data = MutableLiveData<List<RequestTypeModel>>()
-        RetrofitService.apiServise().requestTypes()
+        RetrofitService.apiService().requestTypes()
             .enqueue(object : Callback<List<RequestTypeModel>> {
 
                 override fun onResponse(
@@ -58,7 +58,7 @@ class RequestViewModel : ViewModel() {
 
     fun requestAddresses(): LiveData<List<RequestAddressesModel>> {
         val data = MutableLiveData<List<RequestAddressesModel>>()
-        RetrofitService.apiServise().requestAddresses()
+        RetrofitService.apiService().requestAddresses()
             .enqueue(object : Callback<List<RequestAddressesModel>> {
 
                 override fun onResponse(
@@ -81,7 +81,7 @@ class RequestViewModel : ViewModel() {
 
     fun addRequest(body: AddRequest): LiveData<Boolean> {
         val data = MutableLiveData<Boolean>()
-        RetrofitService.apiServise().requestAdd(body).enqueue(object : Callback<String> {
+        RetrofitService.apiService().requestAdd(body).enqueue(object : Callback<String> {
             override fun onFailure(call: Call<String>, t: Throwable) {
 
             }
@@ -97,7 +97,7 @@ class RequestViewModel : ViewModel() {
 
     fun deleteRequest(id: Int): LiveData<Boolean> {
         val data = MutableLiveData<Boolean>()
-        RetrofitService.apiServise().requestDelete(id).enqueue(object : Callback<String> {
+        RetrofitService.apiService().requestDelete(id).enqueue(object : Callback<String> {
             override fun onFailure(call: Call<String>, t: Throwable) {
                 data.value = false
             }

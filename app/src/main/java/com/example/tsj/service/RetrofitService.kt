@@ -31,8 +31,7 @@ object RetrofitService {
             .writeTimeout(90, TimeUnit.SECONDS)
             .build()
 
-
-    private fun retrofit(baseUrl: String = "https://test.tsjdom.com:204/api/"): Retrofit =
+    private fun retrofit(baseUrl: String = "https://test.tsjdom.com/api/"): Retrofit =
         Retrofit.Builder()
             .client(client)
             .baseUrl(baseUrl)
@@ -40,8 +39,8 @@ object RetrofitService {
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .build()
 
-
-    fun apiServise(): ApiService {
+    fun apiService(): ApiService {
         return retrofit().create(ApiService::class.java)
     }
+
 }

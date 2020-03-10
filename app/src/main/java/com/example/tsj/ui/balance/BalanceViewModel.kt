@@ -14,7 +14,7 @@ class BalanceViewModel : ViewModel() {
     fun addresses(): LiveData<List<AddressModel>> {
         val data = MutableLiveData<List<AddressModel>>()
 
-        RetrofitService.apiServise().addresses().enqueue(object : Callback<List<AddressModel>> {
+        RetrofitService.apiService().addresses().enqueue(object : Callback<List<AddressModel>> {
             override fun onResponse(call: Call<List<AddressModel>>, response: Response<List<AddressModel>>){
                 if (response.isSuccessful){
                     data.value = response.body()

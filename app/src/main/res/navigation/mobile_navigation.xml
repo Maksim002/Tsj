@@ -114,12 +114,35 @@
         tools:layout="@layout/fragment_portal_tsj" />
     <fragment
         android:id="@+id/navigation_new_message"
-        android:name="com.example.tsj.ui.message.NewMessageFragment"
+        android:name="com.example.tsj.ui.message.fragments.NewMessageFragment"
         android:label="@string/new_msg"
         tools:layout="@layout/fragment_new_message" />
     <fragment
         android:id="@+id/navigation_message_detail"
-        android:name="com.example.tsj.ui.message.MessageDetailFragment"
+        android:name="com.example.tsj.ui.message.fragments.MessageDetailFragment"
         android:label="@string/detail_msg"
         tools:layout="@layout/fragment_message_detail" />
+    <fragment
+        android:id="@+id/messageBottomSheet"
+        android:name="com.example.tsj.ui.message.fragments.MessageBottomSheet"
+        android:label="fragment_message_bottom_sheet"
+        tools:layout="@layout/fragment_message_bottom_sheet" />
+    <fragment
+        android:id="@+id/inboxFragment"
+        android:name="com.example.tsj.ui.message.fragments.InboxFragment"
+        android:label="navigation_inbox"
+        tools:layout="@layout/navigation_inbox" />
+    <navigation
+        android:id="@+id/navigation"
+        app:startDestination="@id/inboxFragment" />
+    <fragment
+        android:id="@+id/outboxFragment"
+        android:name="com.example.tsj.ui.message.fragments.OutboxFragment"
+        android:label="navigation_outbox"
+        tools:layout="@layout/navigation_outbox" />
+    <fragment
+        android:id="@+id/navigation_for_who"
+        android:name="com.example.tsj.ui.message.fragments.ForWhoFragment"
+        android:label="navigation_for_who"
+        tools:layout="@layout/navigation_for_who" />
 </navigation>

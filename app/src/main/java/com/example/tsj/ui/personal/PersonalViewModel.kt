@@ -17,15 +17,9 @@ import java.util.*
 
 class PersonalViewModel : ViewModel(){
 
-        fun invoices(
-            servicesId: Int,
-            operationsId: Int,
-            placementId: Int,
-            tos: String?,
-            froms: String?
-        ): LiveData<CurrentBalance> {
+        fun invoices(servicesId: Int, operationsId: Int, placementId: Int, tos: String?, froms: String?): LiveData<CurrentBalance> {
             val data = MutableLiveData<CurrentBalance>()
-            RetrofitService.apiServise().invoices(placementId,servicesId,operationsId,tos!!,froms!!).enqueue(object : Callback<CurrentBalance> {
+            RetrofitService.apiService().invoices(placementId,servicesId,operationsId,tos!!,froms!!).enqueue(object : Callback<CurrentBalance> {
                 override fun onFailure(call: Call<CurrentBalance>, t: Throwable) {
                     println()
                 }
