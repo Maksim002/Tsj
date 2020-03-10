@@ -19,7 +19,6 @@ import com.example.tsj.R
 import com.example.tsj.service.model.AddressModel
 import com.example.tsj.service.model.OperationsModel
 import com.example.tsj.service.model.ServicesModel
-import com.example.tsj.ui.history.fragments.HistoryViewModel
 import com.example.tsj.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_history.*
 import java.text.SimpleDateFormat

@@ -11,7 +11,6 @@ import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -24,7 +23,6 @@ import com.example.tsj.R
 import com.example.tsj.adapters.pesonal.PersonalAdapterAccounts
 import com.example.tsj.adapters.pesonal.PersonalAdapterPayments
 import com.example.tsj.utils.MyUtils
-import kotlinx.android.synthetic.main.fragment_personal.*
 import java.lang.Exception
 
 class PersonalFragment : Fragment(), PersonalListener {
@@ -47,7 +45,7 @@ class PersonalFragment : Fragment(), PersonalListener {
     private var servicesId: Int = 0
     private var operationsId: Int = 0
     private var placementId: Int = 0
-    private lateinit var downloadId: String
+    private var downloadUrl: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -71,6 +69,7 @@ class PersonalFragment : Fragment(), PersonalListener {
         initArguments()
         initRV()
     }
+
     private fun initArguments() {
 
         val id = try {
@@ -171,7 +170,8 @@ class PersonalFragment : Fragment(), PersonalListener {
 
     override fun onClickDownload(id: Int?) {
 
-        viewModel.download(id).observe(this, Observer { downloadId ->
+        viewModel.download(id).observe(this, Observer { url ->
+            this.downloadUrl = url
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (checkSelfPermission(
                         context!!,
@@ -184,19 +184,19 @@ class PersonalFragment : Fragment(), PersonalListener {
                     requestPermissions(permissions, STORAGE_PERMISION_CODE)
                 } else {
                     //permission already granted
-                    startDownloading(downloadId)
+                    downloadFile(url)
 
                 }
             } else {
                 //system OS is < Marshmallow
                 //pickImageFromGallery()
-                startDownloading(downloadId)
+                downloadFile(url)
             }
         })
     }
 
-    private fun startDownloading(downloadId: String) {
-        val reguest = DownloadManager.Request(Uri.parse(downloadId))
+    private fun downloadFile(downloadUrl: String) {
+        val reguest = DownloadManager.Request(Uri.parse(downloadUrl))
         reguest.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
         reguest.setTitle("TSJ.DOM")
         reguest.setDescription("Файл загружаеться.....")
@@ -213,15 +213,15 @@ class PersonalFragment : Fragment(), PersonalListener {
     }
 
 
-    override fun onRequestPermissionsResult(requestCode: Int,permissions: Array<out String>,grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         when (requestCode) {
             STORAGE_PERMISION_CODE -> {
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                    try {
-                        //permission from popup granted
-                        startDownloading(this.downloadId)
-                    }catch (e:Exception){}
-
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    downloadFile(downloadUrl)
                 } else {
                     //permission from popup denied
                     Toast.makeText(context, "Нет разрешений", Toast.LENGTH_SHORT).show()
