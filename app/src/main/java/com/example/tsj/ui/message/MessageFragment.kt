@@ -6,14 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.viewpager.widget.ViewPager
 import com.example.tsj.R
-import com.example.tsj.adapters.message.FragmentAdapter
+import com.example.tsj.adapters.message.MessageViewPagerAdapter
 import com.example.tsj.ui.message.fragments.ForWhoFragment
 import com.example.tsj.ui.message.fragments.InboxFragment
 import com.example.tsj.ui.message.fragments.OutboxFragment
 import kotlinx.android.synthetic.main.fragment_message.*
-import kotlinx.android.synthetic.main.fragment_message.view.*
 
 class MessageFragment : Fragment() {
 
@@ -46,7 +44,7 @@ class MessageFragment : Fragment() {
     }
 
     private fun initTabLayout() {
-        val pagerAdapter = FragmentAdapter(activity!!.supportFragmentManager)
+        val pagerAdapter = MessageViewPagerAdapter(activity!!.supportFragmentManager)
         pagerAdapter.addFragment(InboxFragment(), "Входящие")
         pagerAdapter.addFragment(OutboxFragment(), "Исходящие")
         msg_viewpager.adapter = pagerAdapter
