@@ -16,6 +16,7 @@ import com.example.tsj.R
 import com.example.tsj.adapters.message.MessageAdapter
 import com.example.tsj.adapters.message.MessageClicklItemListener
 import com.example.tsj.model.MessageModel
+import com.example.tsj.service.AppPreferences
 import com.example.tsj.ui.message.MessagesViewModel
 import kotlinx.android.synthetic.main.navigation_outbox.*
 
@@ -44,19 +45,22 @@ class OutboxFragment : Fragment(), MessageClicklItemListener {
     }
 
     private fun initRec() {
-        viewModel.messages(0).observe(this, Observer { list ->
-            messageAdapter = MessageAdapter(this, list)
+        if(AppPreferences.isLogined){
+            viewModel.messages(0).observe(this, Observer { list ->
+                messageAdapter = MessageAdapter(this, list)
 
-            recyclerview.apply { adapter = messageAdapter }
+                recyclerview.apply { adapter = messageAdapter }
 
-            if (messageAdapter.itemCount == 0) {
-                msg_empty_textview_out.visibility = View.VISIBLE
-                recyclerview.visibility = View.GONE
-            } else {
-                msg_empty_textview_out.visibility = View.GONE
-                recyclerview.visibility = View.VISIBLE
-            }
-        })
+                if (messageAdapter.itemCount == 0) {
+                    msg_empty_textview_out.visibility = View.VISIBLE
+                    recyclerview.visibility = View.GONE
+                } else {
+                    msg_empty_textview_out.visibility = View.GONE
+                    recyclerview.visibility = View.VISIBLE
+                }
+            })
+        }
+
 
 
     }
