@@ -11,7 +11,6 @@ import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -24,7 +23,6 @@ import com.example.tsj.R
 import com.example.tsj.adapters.pesonal.PersonalAdapterAccounts
 import com.example.tsj.adapters.pesonal.PersonalAdapterPayments
 import com.example.tsj.utils.MyUtils
-import kotlinx.android.synthetic.main.fragment_personal.*
 import java.lang.Exception
 
 class PersonalFragment : Fragment(), PersonalListener {
@@ -47,8 +45,7 @@ class PersonalFragment : Fragment(), PersonalListener {
     private var servicesId: Int = 0
     private var operationsId: Int = 0
     private var placementId: Int = 0
-
-    var buttonSave: Button? = null
+    private var downloadUrl: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -72,14 +69,8 @@ class PersonalFragment : Fragment(), PersonalListener {
         initArguments()
         initRV()
     }
-    private fun initArguments() {
 
-        try {
-            if (arguments!!.getBoolean("btn")) {
-                bottomSave.visibility = View.GONE
-            }
-        } catch (e: Exception) {
-        }
+    private fun initArguments() {
 
         val id = try {
             arguments!!.getInt("res")
@@ -141,7 +132,6 @@ class PersonalFragment : Fragment(), PersonalListener {
     }
 
     private fun initViews(root: View) {
-        buttonSave = root.findViewById(R.id.bottomSave)
         textCurrant = root.findViewById(R.id.list_currant)
         textAddress = root.findViewById(R.id.text_address)
         textOperation = root.findViewById(R.id.text_operation_name)
@@ -180,36 +170,33 @@ class PersonalFragment : Fragment(), PersonalListener {
 
     override fun onClickDownload(id: Int?) {
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(
-                    context!!,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-                ) == PackageManager.PERMISSION_DENIED
-            ) {
-                //permission denied
-                val permissions = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                //show popup to request runtime permission
-                requestPermissions(permissions, STORAGE_PERMISION_CODE)
+        viewModel.download(id).observe(this, Observer { url ->
+            this.downloadUrl = url
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (checkSelfPermission(
+                        context!!,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    ) == PackageManager.PERMISSION_DENIED
+                ) {
+                    //permission denied
+                    val permissions = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    //show popup to request runtime permission
+                    requestPermissions(permissions, STORAGE_PERMISION_CODE)
+                } else {
+                    //permission already granted
+                    downloadFile(url)
+
+                }
             } else {
-                //permission already granted
-                startDownloading()
-
+                //system OS is < Marshmallow
+                //pickImageFromGallery()
+                downloadFile(url)
             }
-        } else {
-            //system OS is < Marshmallow
-            //pickImageFromGallery()
-            startDownloading()
-        }
-
-
+        })
     }
 
-
-
-    private fun startDownloading() {
-
-        val reguest =
-            DownloadManager.Request(Uri.parse("https://test.tsjdom.com:204/Images/TempForApi/ac231c3e-21aa-4131-848f-e51d92a1dad9/Invoices(09.03.20).xlsx"))
+    private fun downloadFile(downloadUrl: String) {
+        val reguest = DownloadManager.Request(Uri.parse(downloadUrl))
         reguest.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
         reguest.setTitle("TSJ.DOM")
         reguest.setDescription("Файл загружаеться.....")
@@ -233,11 +220,8 @@ class PersonalFragment : Fragment(), PersonalListener {
     ) {
         when (requestCode) {
             STORAGE_PERMISION_CODE -> {
-                if (grantResults.isNotEmpty() && grantResults[0] ==
-                    PackageManager.PERMISSION_GRANTED
-                ) {
-                    //permission from popup granted
-                    startDownloading()
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    downloadFile(downloadUrl)
                 } else {
                     //permission from popup denied
                     Toast.makeText(context, "Нет разрешений", Toast.LENGTH_SHORT).show()

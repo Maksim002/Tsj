@@ -18,8 +18,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.tsj.R
 import kotlinx.android.synthetic.main.fragment_families.*
 import kotlinx.android.synthetic.main.fragment_families.goneL
-import kotlinx.android.synthetic.main.fragment_new_llistener.*
-import kotlinx.android.synthetic.main.item_references.*
 import java.util.*
 
 class FamiliesFragment : Fragment() {

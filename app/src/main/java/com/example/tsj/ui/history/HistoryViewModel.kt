@@ -1,4 +1,4 @@
-package com.example.tsj.ui.history.fragments
+package com.example.tsj.ui.history
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

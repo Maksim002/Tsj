@@ -22,12 +22,12 @@ class PersonalViewHolderPayments(itemView: View, listener: PersonalListener) :
     }
 
 
-    fun bind(get: InvoicesAccounts) {
-        title.setText(get.amount.toString())
-        adres.setText(MyUtils.toMyDate(get.date.toString()))
+    fun bind(item: InvoicesAccounts) {
+        title.setText(item.amount.toString())
+        adres.setText(MyUtils.toMyDate(item.date.toString()))
 
         imageIcon.setOnClickListener {
-            listener.onClickDownload(get.id)
+            listener.onClickDownload(item.id)
         }
     }
 }
