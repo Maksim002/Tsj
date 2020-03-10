@@ -2,10 +2,10 @@ package com.example.tsj.adapters.message
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
+import androidx.fragment.app.FragmentStatePagerAdapter
 import java.util.ArrayList
 
-class MessageViewPagerAdapter(manager: FragmentManager) : FragmentPagerAdapter(manager) {
+class MessageViewPagerAdapter(manager: FragmentManager) : FragmentStatePagerAdapter(manager) {
     private val mFragmentList = ArrayList<Fragment>()
     private val mFragmentTitleList = ArrayList<String>()
 
