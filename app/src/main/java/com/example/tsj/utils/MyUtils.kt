@@ -40,7 +40,7 @@ object MyUtils {
         return date
     }
 
-    fun dateConversion(text: String): Triple<Int, Int, Int> {
+    fun dateConverting(text: String): Triple<Int, Int, Int> {
         var day = text.substring(8,10)
         var month = text.substring(5,7)
         var year = text.substring(0,4)

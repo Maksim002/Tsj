@@ -86,8 +86,8 @@ class HistoryFragment : Fragment() {
                 bundle.putString("address", address)
                 bundle.putInt("placementId", placementId)
 
-                bundle.putString("to", autoDatesFrom.text.toString())
-                bundle.putString("from", autoDatesTo.text.toString())
+                bundle.putString("to", autoDateFrom.text.toString())
+                bundle.putString("from", autoDateTo.text.toString())
                 Navigation.findNavController(it).navigate(R.id.navigation_personal, bundle)
             }
         }
@@ -95,15 +95,15 @@ class HistoryFragment : Fragment() {
 
     private fun getDate() {
         viewmodel.periods().observe(this, Observer { periods ->
-            autoDatesFrom.setText(MyUtils.toMyDate(periods.from!!))
-            autoDatesTo.setText(MyUtils.toMyDate(periods.to!!))
+            autoDateFrom.setText(MyUtils.toMyDate(periods.from!!))
+            autoDateTo.setText(MyUtils.toMyDate(periods.to!!))
             // Ковертация и присваевание
-            val (dayFrom, monthFrom, yearFrom) = MyUtils.dateConversion(periods.from.toString())
+            val (dayFrom, monthFrom, yearFrom) = MyUtils.dateConverting(periods.from.toString())
             dayStart = dayFrom
             monthStart = monthFrom - 1
             yearStart = yearFrom
 
-            val (dayTo, monthTo, yearTo) = MyUtils.dateConversion(periods.to.toString())
+            val (dayTo, monthTo, yearTo) = MyUtils.dateConverting(periods.to.toString())
             dayEnd = dayTo
             monthEnd = monthTo - 1
             yearEnd = yearTo
@@ -226,15 +226,19 @@ class HistoryFragment : Fragment() {
     }
 
     private fun getAutoDatesFrom() {
-        autoDatesFrom.setKeyListener(null);
-        autoDatesFrom.setOnFocusChangeListener { view, b ->
+        autoDateFrom.setKeyListener(null);
+        autoDateFrom.setOnFocusChangeListener { view, b ->
             if (b) {
-
-                val col = ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
-                DatesS.defaultHintTextColor = col
+                DatesS.defaultHintTextColor = ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
                 val picker =
                     DatePickerDialog(activity!!, { datePicker, year1, monthOfYear, dayOfMonth ->
-                        autoDatesFrom.setText(MyUtils.convertDate(dayOfMonth, monthOfYear+1, year1))
+                        autoDateFrom.setText(
+                            MyUtils.convertDate(
+                                dayOfMonth,
+                                monthOfYear + 1,
+                                year1
+                            )
+                        )
                         dayStart = dayOfMonth
                         monthStart = monthOfYear
                         yearStart = year1
@@ -247,28 +251,32 @@ class HistoryFragment : Fragment() {
     }
 
     private fun getAutoDatesTo() {
-        autoDatesTo.setKeyListener(null);
-        autoDatesTo.setOnFocusChangeListener { view, b ->
+        autoDateTo.setKeyListener(null);
+        autoDateTo.setOnFocusChangeListener { view, b ->
             if (b) {
-                    if (b) {
-                        val col =
-                            ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
-                        DatesDo.defaultHintTextColor = col
+                val col =
+                    ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
+                DatesDo.defaultHintTextColor = col
 
-                        val picker =
-                            DatePickerDialog(
-                                activity!!,
-                                { datePicker, year1, monthOfYear, dayOfMonth ->
-                                    autoDatesTo.setText(MyUtils.convertDate(dayOfMonth, monthOfYear+1, year1))
-                                    dayEnd = dayOfMonth
-                                    monthEnd = monthOfYear
-                                    yearEnd = year1
-
-                                }, yearEnd, monthEnd, dayEnd
+                val picker =
+                    DatePickerDialog(
+                        activity!!,
+                        { datePicker, year1, monthOfYear, dayOfMonth ->
+                            autoDateTo.setText(
+                                MyUtils.convertDate(
+                                    dayOfMonth,
+                                    monthOfYear + 1,
+                                    year1
+                                )
                             )
-                        picker.show()
-                        goneL.requestFocus()
-                }
+                            dayEnd = dayOfMonth
+                            monthEnd = monthOfYear
+                            yearEnd = year1
+
+                        }, yearEnd, monthEnd, dayEnd
+                    )
+                picker.show()
+                goneL.requestFocus()
             }
         }
     }

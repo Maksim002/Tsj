@@ -101,7 +101,7 @@
             android:layout_weight="1">
 
             <EditText
-                android:id="@+id/autoDatesFrom"
+                android:id="@+id/autoDateFrom"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:drawableEnd="@drawable/ic_date_range_black_24dp"
@@ -121,7 +121,7 @@
             android:layout_weight="1">
 
             <EditText
-                android:id="@+id/autoDatesTo"
+                android:id="@+id/autoDateTo"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:drawableEnd="@drawable/ic_date_range_black_24dp"
