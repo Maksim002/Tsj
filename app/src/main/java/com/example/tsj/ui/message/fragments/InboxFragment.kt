@@ -8,19 +8,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tsj.R
 import com.example.tsj.adapters.message.MessageAdapter
 import com.example.tsj.adapters.message.MessageClicklItemListener
-import com.example.tsj.model.MessageModel
+import com.example.tsj.model.MessageItemModel
 import com.example.tsj.service.AppPreferences
 import com.example.tsj.ui.message.MessagesViewModel
-import kotlinx.android.synthetic.main.fragment_message.*
 import kotlinx.android.synthetic.main.navigation_inbox.*
-import kotlinx.android.synthetic.main.navigation_outbox.*
 
 class InboxFragment : Fragment(), MessageClicklItemListener {
 
@@ -65,7 +62,9 @@ class InboxFragment : Fragment(), MessageClicklItemListener {
 
     }
 
-    override fun onClickMessage(item: MessageModel) {
-        findNavController().navigate(R.id.navigation_message_detail)
+    override fun onClickMessage(item: MessageItemModel) {
+        val bundle = Bundle()
+        bundle.putInt("id",item.id)
+        findNavController().navigate(R.id.navigation_message_detail,bundle)
     }
 }

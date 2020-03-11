@@ -1,7 +1,6 @@
 package com.example.tsj.ui.message.fragments
 
 
-import android.opengl.Visibility
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tsj.R
 import com.example.tsj.adapters.message.MessageAdapter
 import com.example.tsj.adapters.message.MessageClicklItemListener
-import com.example.tsj.model.MessageModel
+import com.example.tsj.model.MessageItemModel
 import com.example.tsj.service.AppPreferences
 import com.example.tsj.ui.message.MessagesViewModel
 import kotlinx.android.synthetic.main.navigation_outbox.*
@@ -65,8 +64,10 @@ class OutboxFragment : Fragment(), MessageClicklItemListener {
 
     }
 
-    override fun onClickMessage(item: MessageModel) {
-        findNavController().navigate(R.id.navigation_message_detail)
+    override fun onClickMessage(item: MessageItemModel) {
+        val bundle = Bundle()
+        bundle.putInt("id",item.id)
+        findNavController().navigate(R.id.navigation_message_detail,bundle)
     }
 
 }

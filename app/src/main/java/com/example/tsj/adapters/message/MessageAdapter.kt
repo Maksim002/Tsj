@@ -5,15 +5,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tsj.R
 import com.example.tsj.common.GenericRecyclerAdapter
 import com.example.tsj.common.ViewHolder
-import com.example.tsj.model.MessageModel
+import com.example.tsj.model.MessageItemModel
 import kotlinx.android.synthetic.main.item_message.view.*
 
 
-class MessageAdapter(listener: MessageClicklItemListener, items: List<MessageModel>) :
-    GenericRecyclerAdapter<MessageModel>(items) {
+class MessageAdapter(listener: MessageClicklItemListener, items: List<MessageItemModel>) :
+    GenericRecyclerAdapter<MessageItemModel>(items) {
     private var listener: MessageClicklItemListener = listener
 
-    override fun bind(item: MessageModel, holder: ViewHolder) {
+    override fun bind(item: MessageItemModel, holder: ViewHolder) {
         holder.itemView.setOnClickListener { listener.onClickMessage(item) }
 
         holder.itemView.msg_sender.text = item.personName
