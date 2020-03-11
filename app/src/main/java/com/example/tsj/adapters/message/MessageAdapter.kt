@@ -6,6 +6,7 @@ import com.example.tsj.R
 import com.example.tsj.common.GenericRecyclerAdapter
 import com.example.tsj.common.ViewHolder
 import com.example.tsj.model.MessageItemModel
+import com.example.tsj.utils.MyUtils
 import kotlinx.android.synthetic.main.item_message.view.*
 
 
@@ -15,10 +16,10 @@ class MessageAdapter(listener: MessageClicklItemListener, items: List<MessageIte
 
     override fun bind(item: MessageItemModel, holder: ViewHolder) {
         holder.itemView.setOnClickListener { listener.onClickMessage(item) }
-
         holder.itemView.msg_sender.text = item.personName
         holder.itemView.msg_title.text = item.title
-        holder.itemView.msg_date.text = item.sendDate
+        val date = MyUtils.toMyDate(item.sendDate)
+        holder.itemView.msg_date.text = date
     }
 
 

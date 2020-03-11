@@ -1,4 +1,4 @@
-package com.example.tsj.ui.message.fragments
+package com.example.tsj.ui.message.box
 
 
 import android.os.Bundle
@@ -62,9 +62,11 @@ class InboxFragment : Fragment(), MessageClicklItemListener {
 
     }
 
+
     override fun onClickMessage(item: MessageItemModel) {
         val bundle = Bundle()
         bundle.putInt("id",item.id)
         findNavController().navigate(R.id.navigation_message_detail,bundle)
+
     }
 }

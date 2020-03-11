@@ -1,4 +1,4 @@
-package com.example.tsj.ui.message.fragments
+package com.example.tsj.ui.message.send
 
 
 import android.os.Bundle
@@ -9,25 +9,27 @@ import com.example.tsj.R
 
 
 @Suppress("UNREACHABLE_CODE")
-class NewMessageFragment : Fragment() {
-
+class NewMessageOwner : Fragment() {
+// Новое сообщение собственнику
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
         (activity as AppCompatActivity).supportActionBar?.show()
-        setHasOptionsMenu(true)
-        return inflater.inflate(R.layout.fragment_new_message, container, false)
+       // setHasOptionsMenu(true)
+      return inflater.inflate(R.layout.new_message_owner, container, false)
     }
 
 
+/*
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.new_message_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
+*/
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+  /*  override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return super.onOptionsItemSelected(item)
         when (item.itemId) {
             R.id.send_message -> {
@@ -40,7 +42,7 @@ class NewMessageFragment : Fragment() {
         }
         return super.onOptionsItemSelected(item)
 
-    }
+    }*/
 
     private fun fastenFile() {
 

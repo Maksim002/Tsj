@@ -1,4 +1,4 @@
-package com.example.tsj.ui.message.fragments
+package com.example.tsj.ui.message.box
 
 
 import android.os.Bundle

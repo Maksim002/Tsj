@@ -48,5 +48,9 @@
     <string name="apartment">Квартира</string>
     <string name="title">Заголовок</string>
     <string name="for_who_msg">Кому написать письмо?</string>
+    <string name="user">Пользователь</string>
+    <string name="writeMsg">Написать письмо</string>
+    <string name="msgForChairman">Сообщение председателю</string>
+    <string name="msgForOwner">Сообщение собственнику</string>
 
 </resources>
