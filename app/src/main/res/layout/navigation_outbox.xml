@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.message.fragments.OutboxFragment">
+    tools:context=".ui.message.box.OutboxFragment">
 
     <TextView
         android:id="@+id/msg_empty_textview_out"

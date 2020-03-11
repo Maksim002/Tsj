@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.tsj.R
 import com.example.tsj.ui.message.fragments.MessageBottomSheet
 import kotlinx.android.synthetic.main.fragment_message_detail.*
+import java.lang.Exception
 
 @Suppress("UNREACHABLE_CODE")
 class MessageDetailFragment : Fragment() {
@@ -26,6 +27,15 @@ class MessageDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
+        initArguments()
+    }
+
+    private fun initArguments() {
+        val id = try {
+            arguments!!.getInt("id")
+        } catch (e: Exception) {
+            0
+        }
     }
 
     private fun initViews() {

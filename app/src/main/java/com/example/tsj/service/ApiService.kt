@@ -3,6 +3,7 @@ package com.example.tsj.service
 import com.example.tsj.model.MessageModel
 import com.example.tsj.service.model.*
 import com.example.tsj.service.request.AddRequest
+import com.example.tsj.service.request.ToManager
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -11,14 +12,15 @@ interface ApiService {
 
     @Headers("Content-Type: application/x-www-form-urlencoded")
     @FormUrlEncoded
+
     @POST("Token")
     fun auth(@FieldMap params: Map<String, String>): Call<AuthModel>
 
     @GET("News")
     fun news(): Call<List<NewsModel>>
 
-    @GET ("Messages")
-    fun messages (@Query("typeId") id : Int) : Call <List<MessageModel>>
+    @GET("Messages")
+    fun messages(@Query("typeId") id: Int): Call<List<MessageModel>>
 
     @GET("Balance/Addresses")
     fun addresses(): Call<List<AddressModel>>
@@ -41,7 +43,8 @@ interface ApiService {
         @Query("serviceId") serviceId: Int,
         @Query("operationId") operationId: Int,
         @Query("dateTo") dateTo: String,
-        @Query("dateFrom") dateFrom: String): Call<CurrentBalance>
+        @Query("dateFrom") dateFrom: String
+    ): Call<CurrentBalance>
 
     @GET("Requests")
     fun requests(): Call<List<RequestsModel>>
@@ -53,10 +56,13 @@ interface ApiService {
     fun requestAddresses(): Call<List<RequestAddressesModel>>
 
     @POST("Requests")
-    fun requestAdd(@Body body:AddRequest):Call<String>
+    fun requestAdd(@Body body: AddRequest): Call<String>
+
+    @POST("Messages/ToManager?model.body=sdasdsa&model.title=geggfdfgdgdfg")
+    fun toManager() : Call <Unit>
 
     @DELETE("Requests/{id}")
-    fun requestDelete(@Path("id") id:Int):Call<String>
+    fun requestDelete(@Path("id") id: Int): Call<String>
 
     @GET("Balance/Invoices/{id}/Download")
     fun downloadLink(@Path("id") id: Int): Call<String>

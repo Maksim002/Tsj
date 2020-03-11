@@ -113,10 +113,17 @@
         android:label="@string/about_portal"
         tools:layout="@layout/fragment_portal_tsj" />
     <fragment
-        android:id="@+id/navigation_new_message"
-        android:name="com.example.tsj.ui.message.fragments.NewMessageFragment"
-        android:label="@string/new_msg"
-        tools:layout="@layout/fragment_new_message" />
+        android:id="@+id/navigation_new_message_owner"
+        android:name="com.example.tsj.ui.message.send.NewMessageOwner"
+        android:label="@string/msgForOwner"
+        tools:layout="@layout/new_message_owner" />
+
+    <fragment
+        android:id="@+id/navigation_new_message_chairman"
+        android:name="com.example.tsj.ui.message.send.NewMessageManager"
+        android:label="@string/msgForChairman"
+        tools:layout="@layout/new_message_chairman" />
+
     <fragment
         android:id="@+id/navigation_message_detail"
         android:name="com.example.tsj.ui.message.fragments.MessageDetailFragment"
@@ -129,7 +136,7 @@
         tools:layout="@layout/fragment_message_bottom_sheet" />
     <fragment
         android:id="@+id/inboxFragment"
-        android:name="com.example.tsj.ui.message.fragments.InboxFragment"
+        android:name="com.example.tsj.ui.message.box.InboxFragment"
         android:label="navigation_inbox"
         tools:layout="@layout/navigation_inbox" />
     <navigation
@@ -137,7 +144,7 @@
         app:startDestination="@id/inboxFragment" />
     <fragment
         android:id="@+id/outboxFragment"
-        android:name="com.example.tsj.ui.message.fragments.OutboxFragment"
+        android:name="com.example.tsj.ui.message.box.OutboxFragment"
         android:label="navigation_outbox"
         tools:layout="@layout/navigation_outbox" />
     <fragment
