@@ -21,8 +21,6 @@ import com.example.tsj.service.model.OperationsModel
 import com.example.tsj.service.model.ServicesModel
 import com.example.tsj.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_history.*
-import java.text.SimpleDateFormat
-import java.util.*
 import kotlin.collections.ArrayList
 
 class HistoryFragment : Fragment() {
@@ -39,6 +37,14 @@ class HistoryFragment : Fragment() {
 
     private var licNumber: Int = 0
 
+    private var dayStart: Int = 0
+    private var monthStart: Int = 0
+    private var yearStart: Int = 0
+
+    private var dayEnd: Int = 0
+    private var monthEnd: Int = 0
+    private var yearEnd: Int = 0
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -53,39 +59,54 @@ class HistoryFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         autoService.setKeyListener(null)
-        getAutoAddress()
         getAutoOperation()
-        getAutoDatesS()
-        getAutoDatesDo()
+        getAutoAddress()
+        getAutoDatesFrom()
+        getAutoDatesTo()
         getDate()
 
-        if (autoAddress != null){
+        if (autoAddress != null) {
             getAutoService()
-        }else{
+        } else {
             getAutoAddress()
         }
 
         show.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putInt("res", licNumber)
-            bundle.putString("serviceName", serviceName)
-            bundle.putInt("servicesId", servicesId)
+            if (autoAddress.text.length == 0 || autoService.text.length == 0 || autoOperation.text.length == 0) {
+                Toast.makeText(context, "Error", Toast.LENGTH_LONG).show()
+            } else {
+                val bundle = Bundle()
+                bundle.putInt("res", licNumber)
+                bundle.putString("serviceName", serviceName)
+                bundle.putInt("servicesId", servicesId)
 
-            bundle.putString("operationName", operationName)
-            bundle.putInt("operationsId", operationsId)
+                bundle.putString("operationName", operationName)
+                bundle.putInt("operationsId", operationsId)
 
-            bundle.putString("address", address)
-            bundle.putInt("placementId",placementId)
+                bundle.putString("address", address)
+                bundle.putInt("placementId", placementId)
 
-            bundle.putString("to", autoDatesS.text.toString())
-            bundle.putString("from", autoDatesDo.text.toString())
-            Navigation.findNavController(it).navigate(R.id.navigation_personal, bundle)
+                bundle.putString("to", autoDatesFrom.text.toString())
+                bundle.putString("from", autoDatesTo.text.toString())
+                Navigation.findNavController(it).navigate(R.id.navigation_personal, bundle)
+            }
         }
     }
+
     private fun getDate() {
         viewmodel.periods().observe(this, Observer { periods ->
-            autoDatesS.setText(MyUtils.toMyDate(periods.from!!))
-            autoDatesDo.setText(MyUtils.toMyDate(periods.to!!))
+            autoDatesFrom.setText(MyUtils.toMyDate(periods.from!!))
+            autoDatesTo.setText(MyUtils.toMyDate(periods.to!!))
+            // Ковертация и присваевание
+            val (dayFrom, monthFrom, yearFrom) = MyUtils.dateConversion(periods.from.toString())
+            dayStart = dayFrom
+            monthStart = monthFrom - 1
+            yearStart = yearFrom
+
+            val (dayTo, monthTo, yearTo) = MyUtils.dateConversion(periods.to.toString())
+            dayEnd = dayTo
+            monthEnd = monthTo - 1
+            yearEnd = yearTo
         })
     }
 
@@ -204,75 +225,49 @@ class HistoryFragment : Fragment() {
         }
     }
 
-    private fun getAutoDatesS() {
-        autoDatesS.setKeyListener(null);
-        autoDatesS.setOnFocusChangeListener { view, b ->
+    private fun getAutoDatesFrom() {
+        autoDatesFrom.setKeyListener(null);
+        autoDatesFrom.setOnFocusChangeListener { view, b ->
             if (b) {
-                val cldr = Calendar.getInstance()
-                val day = cldr.get(Calendar.DAY_OF_MONTH)
-                val month = cldr.get(Calendar.MONTH)
-                val year = cldr.get(Calendar.YEAR)
-                val picker: DatePickerDialog
+
                 val col = ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
                 DatesS.defaultHintTextColor = col
-                picker =
+                val picker =
                     DatePickerDialog(activity!!, { datePicker, year1, monthOfYear, dayOfMonth ->
-                        if (monthOfYear + 1 < 10) {
-                            autoDatesS.setText(dayOfMonth.toString() + "." + "0" + (monthOfYear + 1) + "." + year1)
-                        } else {
-                            autoDatesS.setText(dayOfMonth.toString() + "." + "0" + (monthOfYear + 1) + "." + year1)
-                        }
-                    }, year, month, day)
+                        autoDatesFrom.setText(MyUtils.convertDate(dayOfMonth, monthOfYear+1, year1))
+                        dayStart = dayOfMonth
+                        monthStart = monthOfYear
+                        yearStart = year1
+
+                    }, yearStart, monthStart, dayStart)
                 picker.show()
                 goneL.requestFocus()
             }
         }
     }
 
-    private fun getAutoDatesDo() {
-        autoDatesDo.setKeyListener(null);
-        autoDatesDo.setOnFocusChangeListener { view, b ->
+    private fun getAutoDatesTo() {
+        autoDatesTo.setKeyListener(null);
+        autoDatesTo.setOnFocusChangeListener { view, b ->
             if (b) {
-                if (autoDatesS.text.length == 0) {
-                    Toast.makeText(context, "Error", Toast.LENGTH_LONG).show()
-                } else {
                     if (b) {
-                        val cldr = Calendar.getInstance()
-                        val day = cldr.get(Calendar.DAY_OF_MONTH)
-                        val month = cldr.get(Calendar.MONTH)
-                        val year = cldr.get(Calendar.YEAR)
                         val col =
                             ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
                         DatesDo.defaultHintTextColor = col
-                        val picker: DatePickerDialog
-                        picker =
+
+                        val picker =
                             DatePickerDialog(
                                 activity!!,
                                 { datePicker, year1, monthOfYear, dayOfMonth ->
-                                    if (monthOfYear + 1 < 10) {
-                                        autoDatesDo.setText(dayOfMonth.toString() + "." + "0" + (monthOfYear + 1) + "." + year1)
-                                    } else {
-                                        autoDatesDo.setText(dayOfMonth.toString() + "." + "0" + (monthOfYear + 1) + "." + year1)
-                                    }
+                                    autoDatesTo.setText(MyUtils.convertDate(dayOfMonth, monthOfYear+1, year1))
+                                    dayEnd = dayOfMonth
+                                    monthEnd = monthOfYear
+                                    yearEnd = year1
 
-                                },
-                                year,
-                                month,
-                                day
+                                }, yearEnd, monthEnd, dayEnd
                             )
-                        try {
-                            val timeSimple =
-                                SimpleDateFormat("dd/MM/yyyy").parse(autoDatesS.text.toString())
-                                    .getTime()
-                            picker.datePicker.minDate = timeSimple + 1000
-
-                        } catch (e: Exception) {
-                            picker.datePicker.minDate = System.currentTimeMillis() - 1000
-                        }
-
                         picker.show()
                         goneL.requestFocus()
-                    }
                 }
             }
         }

@@ -122,13 +122,11 @@ class PersonalFragment : Fragment(), PersonalListener {
             ""
         }
 
-
         textCurrant.setText("Лицевой счет №" + id)
         textAddress.setText(address.toString())
         textOperation.setText(operationName.toString())
         textService.setText(serviceName.toString())
         textToFrom.setText("История оплат с " + to + " - " + from)
-
     }
 
     private fun initViews(root: View) {
