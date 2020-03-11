@@ -16,6 +16,7 @@ import com.example.tsj.R
 import com.example.tsj.adapters.message.MessageAdapter
 import com.example.tsj.adapters.message.MessageClicklItemListener
 import com.example.tsj.model.MessageModel
+import com.example.tsj.service.AppPreferences
 import com.example.tsj.ui.message.MessagesViewModel
 import kotlinx.android.synthetic.main.fragment_message.*
 import kotlinx.android.synthetic.main.navigation_inbox.*
@@ -47,18 +48,21 @@ class InboxFragment : Fragment(), MessageClicklItemListener {
     }
 
     private fun initRec() {
-        viewModel.messages(1).observe(this, Observer { list ->
-            messageAdapter = MessageAdapter(this, list)
-            recyclerview.apply { adapter = messageAdapter }
+        if(AppPreferences.isLogined){
+            viewModel.messages(1).observe(this, Observer { list ->
+                messageAdapter = MessageAdapter(this, list)
+                recyclerview.apply { adapter = messageAdapter }
 
-            if (messageAdapter.itemCount == 0) {
-                msg_empty_textview.visibility = View.VISIBLE
-                recyclerview.visibility = View.GONE
-            } else {
-                msg_empty_textview.visibility = View.GONE
-                recyclerview.visibility = View.VISIBLE
-            }
-        })
+                if (messageAdapter.itemCount == 0) {
+                    msg_empty_textview.visibility = View.VISIBLE
+                    recyclerview.visibility = View.GONE
+                } else {
+                    msg_empty_textview.visibility = View.GONE
+                    recyclerview.visibility = View.VISIBLE
+                }
+            })
+        }
+
     }
 
     override fun onClickMessage(item: MessageModel) {
