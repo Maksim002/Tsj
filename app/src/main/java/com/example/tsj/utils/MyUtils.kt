@@ -1,5 +1,4 @@
 package com.example.tsj.utils
-
 import java.lang.Exception
 
 object MyUtils {
@@ -9,13 +8,42 @@ object MyUtils {
         } catch (e: Exception) {
             ""
         }
-
-
     }
 
     fun toServerDate(date: String): String {
-        return date.substring(6)+"-"+date.substring(3,5)+"-"+date.substring(0,2)+"T00:00:00+06:00"
+        return date.substring(6) + "-" + date.substring(3, 5) + "-" + date.substring(
+            0,
+            2
+        ) + "T00:00:00+06:00"
 
     }
 
+
+    fun convertDate(day: Int, month: Int, year: Int): String {
+        var date = ""
+
+        date += if (day < 10) {
+            "0" + day
+        } else {
+            day.toString()
+        }
+        date += "."
+
+
+        date += if (month< 10) {
+            "0" + month
+
+        } else {
+            month.toString()
+        }
+        date += "." + year
+        return date
+    }
+
+    fun dateConverting(text: String): Triple<Int, Int, Int> {
+        var day = text.substring(8,10)
+        var month = text.substring(5,7)
+        var year = text.substring(0,4)
+        return Triple(day.toInt(), month.toInt(), year.toInt())
+    }
 }
