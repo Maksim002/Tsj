@@ -1,8 +1,8 @@
 package com.example.tsj.adapters.message
 
-import com.example.tsj.model.MessageModel
+import com.example.tsj.model.MessageItemModel
 
 interface MessageClicklItemListener {
-    fun onClickMessage(item: MessageModel)
+    fun onClickMessage(item: MessageItemModel)
 
 }

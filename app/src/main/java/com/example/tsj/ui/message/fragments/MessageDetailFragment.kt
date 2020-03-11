@@ -5,20 +5,28 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.example.tsj.R
+import com.example.tsj.ui.message.MessagesViewModel
 import com.example.tsj.ui.message.fragments.MessageBottomSheet
 import kotlinx.android.synthetic.main.fragment_message_detail.*
+import java.lang.Exception
 
-@Suppress("UNREACHABLE_CODE")
 class MessageDetailFragment : Fragment() {
+
+    private var idMessage = 0
+    private lateinit var viewModel: MessagesViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        (activity as AppCompatActivity).supportActionBar!!.show()
 
+        (activity as AppCompatActivity).supportActionBar!!.show()
+        viewModel = ViewModelProviders.of(this).get(MessagesViewModel::class.java)
+        initArguments()
         setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_message_detail, container, false)
     }
@@ -26,6 +34,24 @@ class MessageDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
+        initData()
+    }
+
+    private fun initData() {
+        viewModel.message(idMessage).observe(this, Observer {
+            msg_detail_date.text = it.sendDate
+            msg_detail_sender.text = "от: " + it.personName
+            msg_detail_title.text = it.title
+            msg_detail_content.text = it.body
+        })
+    }
+
+    private fun initArguments() {
+        idMessage = try {
+            arguments!!.getInt("id")
+        } catch (e: Exception) {
+            0
+        }
     }
 
     private fun initViews() {
@@ -41,7 +67,6 @@ class MessageDetailFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return super.onOptionsItemSelected(item)
         when (item.itemId) {
             R.id.delete_message -> {
                 deleteMessage()
@@ -52,7 +77,10 @@ class MessageDetailFragment : Fragment() {
     }
 
     private fun deleteMessage() {
-
-
+        viewModel.deleteMessage(idMessage).observe(this, Observer {
+            if (it){
+                findNavController().popBackStack()
+            }
+        })
     }
 }

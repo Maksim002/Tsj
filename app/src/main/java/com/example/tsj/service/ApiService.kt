@@ -1,6 +1,6 @@
 package com.example.tsj.service
 
-import com.example.tsj.model.MessageModel
+import com.example.tsj.model.MessageItemModel
 import com.example.tsj.service.model.*
 import com.example.tsj.service.request.AddRequest
 import retrofit2.Call
@@ -17,8 +17,14 @@ interface ApiService {
     @GET("News")
     fun news(): Call<List<NewsModel>>
 
-    @GET ("Messages")
-    fun messages (@Query("typeId") id : Int) : Call <List<MessageModel>>
+    @GET("Messages")
+    fun messages(@Query("typeId") id: Int): Call<List<MessageItemModel>>
+
+    @GET("Messages/{id}")
+    fun message(@Path("id") id: Int): Call<MessageModel>
+
+    @DELETE("Messages/{id}")
+    fun deleteMessage(@Path("id") id: Int): Call<Unit>
 
     @GET("Balance/Addresses")
     fun addresses(): Call<List<AddressModel>>
@@ -41,7 +47,8 @@ interface ApiService {
         @Query("serviceId") serviceId: Int,
         @Query("operationId") operationId: Int,
         @Query("dateTo") dateTo: String,
-        @Query("dateFrom") dateFrom: String): Call<CurrentBalance>
+        @Query("dateFrom") dateFrom: String
+    ): Call<CurrentBalance>
 
     @GET("Requests")
     fun requests(): Call<List<RequestsModel>>
@@ -53,10 +60,10 @@ interface ApiService {
     fun requestAddresses(): Call<List<RequestAddressesModel>>
 
     @POST("Requests")
-    fun requestAdd(@Body body:AddRequest):Call<String>
+    fun requestAdd(@Body body: AddRequest): Call<String>
 
     @DELETE("Requests/{id}")
-    fun requestDelete(@Path("id") id:Int):Call<String>
+    fun requestDelete(@Path("id") id: Int): Call<String>
 
     @GET("Balance/Invoices/{id}/Download")
     fun downloadLink(@Path("id") id: Int): Call<String>
