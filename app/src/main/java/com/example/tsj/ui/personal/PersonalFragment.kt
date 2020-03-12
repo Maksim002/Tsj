@@ -177,9 +177,11 @@ class PersonalFragment : Fragment(), PersonalListener {
                     ) == PackageManager.PERMISSION_DENIED
                 ) {
                     //permission denied
-                    val permissions = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    val permissions = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE)
                     //show popup to request runtime permission
                     requestPermissions(permissions, STORAGE_PERMISION_CODE)
+
+
                 } else {
                     //permission already granted
                     downloadFile(url)

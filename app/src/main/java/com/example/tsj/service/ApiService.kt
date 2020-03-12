@@ -3,6 +3,7 @@ package com.example.tsj.service
 import com.example.tsj.model.MessageItemModel
 import com.example.tsj.service.model.*
 import com.example.tsj.service.request.AddRequest
+import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -67,4 +68,30 @@ interface ApiService {
 
     @GET("Balance/Invoices/{id}/Download")
     fun downloadLink(@Path("id") id: Int): Call<String>
+
+    @Multipart
+    @POST("Messages/ToManager")
+    fun sendMessageToManager(
+        @Query("model.body") body: String,
+        @Query("model.title") title: String,
+        @Part file: List<MultipartBody.Part>
+    ): Call<Unit>
+
+    @GET("Messages/Houses")
+    fun houses(): Call<List<MessagesHousesModel>>
+
+    @GET("Messages/Houses/{id}/Placements")
+    fun placements(@Path("id") id: Int): Call<List<MessagesPlacementsModel>>
+
+    @GET("Messages/Houses/Placements/{id}/Persons")
+    fun persons(@Path("id") id: Int): Call<List<MessagesPersonsModel>>
+
+    @Multipart
+    @POST("Messages")
+    fun messageToPerson(
+        @Query("model.personId") personId: Int,
+        @Query("model.body") body: String,
+        @Query("model.title") title: String,
+        @Part file: List<MultipartBody.Part>
+    ): Call<Unit>
 }

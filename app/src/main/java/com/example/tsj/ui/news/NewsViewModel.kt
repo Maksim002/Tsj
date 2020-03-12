@@ -19,7 +19,8 @@ class NewsViewModel : ViewModel() {
                 call: Call<List<NewsModel>>,
                 response: Response<List<NewsModel>>
             ) {
-                data.value = response.body()
+                if (response.isSuccessful)
+                    data.value = response.body()
             }
 
             override fun onFailure(call: Call<List<NewsModel>>, t: Throwable) {
