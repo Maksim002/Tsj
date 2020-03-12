@@ -27,7 +27,7 @@
         android:id="@+id/navigation_history"
         android:name="com.example.tsj.ui.history.HistoryFragment"
         android:label="@string/history"
-        tools:layout="@layout/fragment_history"/>
+        tools:layout="@layout/fragment_history" />
 
     <fragment
         android:id="@+id/navigation_balance"
@@ -148,8 +148,19 @@
         android:label="navigation_outbox"
         tools:layout="@layout/navigation_outbox" />
     <fragment
-        android:id="@+id/navigation_for_who"
-        android:name="com.example.tsj.ui.message.fragments.ForWhoFragment"
-        android:label="navigation_for_who"
-        tools:layout="@layout/navigation_for_who" />
+        android:id="@+id/navigation_profile"
+        android:name="com.example.tsj.ui.profile.ProfileFragment"
+        android:label="@string/profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/navigation_change_password"
+        android:name="com.example.tsj.ui.profile.ChangePassword"
+        android:label="@string/changePassword"
+        tools:layout="@layout/fragment_change_password"/>
+    <fragment
+        android:id="@+id/profileBottomSheet"
+        android:name="com.example.tsj.ui.contact.fragments.AccountsBottomSheet"
+        android:label="fragment_profile_bottom_sheet"
+        tools:layout="@layout/fragment_profile_bottom_sheet" />
+
 </navigation>
