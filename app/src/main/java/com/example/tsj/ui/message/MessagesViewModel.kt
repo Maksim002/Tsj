@@ -19,7 +19,7 @@ class MessagesViewModel : ViewModel() {
 
 
         RetrofitService.apiService().messages(id)
-            .enqueue(object : retrofit2.Callback<List<MessageItemModel>> {
+            .enqueue(object :   Callback<List<MessageItemModel>> {
                 override fun onFailure(call: Call<List<MessageItemModel>>, t: Throwable) {
                     println("failure")
                 }
@@ -28,7 +28,9 @@ class MessagesViewModel : ViewModel() {
                     call: Call<List<MessageItemModel>>,
                     response: Response<List<MessageItemModel>>
                 ) {
-                    data.value = response.body()
+                    if (response.isSuccessful) {
+                        data.value = response.body()
+                    }
                 }
             })
         return data
