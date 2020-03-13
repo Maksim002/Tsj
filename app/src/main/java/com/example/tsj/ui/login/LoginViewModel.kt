@@ -1,5 +1,6 @@
 package com.example.tsj.ui.login
 
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -33,5 +34,20 @@ class LoginViewModel : ViewModel() {
         return result
     }
 
+    fun forgotPassword(email : String) : LiveData <Boolean> {
+        val data = MutableLiveData <Boolean>()
+
+        RetrofitService.apiService().forgotPassword(email).enqueue(object : Callback< String>{
+            override fun onFailure(call: Call<String>, t: Throwable) {
+                data.value = false
+            }
+
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+                data.value = response.isSuccessful
+            }
+
+        })
+        return data
+    }
 
 }

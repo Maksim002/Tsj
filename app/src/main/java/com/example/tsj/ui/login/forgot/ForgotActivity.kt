@@ -3,31 +3,44 @@ package com.example.tsj.ui.login.forgot
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.example.tsj.R
+import com.example.tsj.ui.login.LoginViewModel
+import com.example.tsj.ui.message.MessagesViewModel
 import kotlinx.android.synthetic.main.activity_forgot.*
 import kotlinx.android.synthetic.main.activity_login.*
 import java.util.regex.Pattern
 
 class ForgotActivity : AppCompatActivity() {
 
+    private lateinit var viewModel: LoginViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_forgot)
+        viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
+
         initViews()
-        validateEdittexts()
     }
 
-    private fun validateEdittexts() {
-        if (validateEmailForgot(text_email_forgot.text.toString())) {
-            forgot_container_email_input.error = null
-        } else {
-            forgot_container_email_input.error = "Пароль введен не правильно"
-        }
-    }
+
+
 
     private fun initViews() {
         back_button.setOnClickListener {
             onBackPressed()
+        }
+
+        forgot_send_button.setOnClickListener {
+            if (validateEmailForgot(text_email_forgot.text.toString())) {
+                forgot_container_email_input.error = null
+                sendEmail()
+            } else {
+                forgot_container_email_input.error = "Логин введен не правильно"
+            }
         }
     }
 
@@ -38,5 +51,18 @@ class ForgotActivity : AppCompatActivity() {
         val pattern = Pattern.compile(regExpn, Pattern.CASE_INSENSITIVE)
         val matcher = pattern.matcher(email)
         return matcher.matches()
+    }
+
+    private fun sendEmail() {
+
+        val email = text_email_forgot.text.toString()
+        viewModel.forgotPassword(email).observe(this, Observer {
+            if (it){
+                Toast.makeText(applicationContext, "На ваш email отправлено пиьсмо!", Toast.LENGTH_SHORT).show()
+            }else{
+                Toast.makeText(applicationContext, "Такого email не существует", Toast.LENGTH_SHORT).show()
+            }
+        })
+
     }
 }

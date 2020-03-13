@@ -33,4 +33,5 @@ class ContactViewModel : ViewModel() {
 
         return data
     }
+
 }
