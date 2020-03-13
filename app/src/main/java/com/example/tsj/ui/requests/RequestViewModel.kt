@@ -87,7 +87,7 @@ class RequestViewModel : ViewModel() {
             }
 
             override fun onResponse(call: Call<String>, response: Response<String>) {
-                data.value = response.code() == 204
+                data.value = response.isSuccessful
             }
 
         })

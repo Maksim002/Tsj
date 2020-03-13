@@ -96,5 +96,10 @@ interface ApiService {
     ): Call<Unit>
 
     @GET("Certificates")
-    fun references( @Query("id") id: Int):Call<List<ReferenceModel>>
+    fun references(@Query("id") id: Int): Call<List<ReferenceModel>>
+
+    @POST("ForgotPassword")
+    fun forgotPassword(@Query("email") email: String): Call<String>
+
+
 }

@@ -157,10 +157,5 @@
         android:name="com.example.tsj.ui.profile.ChangePassword"
         android:label="@string/changePassword"
         tools:layout="@layout/fragment_change_password"/>
-    <fragment
-        android:id="@+id/profileBottomSheet"
-        android:name="com.example.tsj.ui.contact.fragments.AccountsBottomSheet"
-        android:label="fragment_profile_bottom_sheet"
-        tools:layout="@layout/fragment_profile_bottom_sheet" />
 
 </navigation>
