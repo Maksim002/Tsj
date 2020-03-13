@@ -114,13 +114,13 @@
         tools:layout="@layout/fragment_portal_tsj" />
     <fragment
         android:id="@+id/navigation_new_message_owner"
-        android:name="com.example.tsj.ui.message.send.NewMessageOwner"
+        android:name="com.example.tsj.ui.message.send.NewMessageOwnerFragment"
         android:label="@string/msgForOwner"
         tools:layout="@layout/new_message_owner" />
 
     <fragment
         android:id="@+id/navigation_new_message_chairman"
-        android:name="com.example.tsj.ui.message.send.NewMessageManadger"
+        android:name="com.example.tsj.ui.message.send.NewMessageManadgerFragment"
         android:label="@string/msgForChairman"
         tools:layout="@layout/new_message_chairman" />
 

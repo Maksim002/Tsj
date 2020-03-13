@@ -4,5 +4,5 @@ import com.example.tsj.model.ManagerModel
 
 interface GeneralClickListener {
 
-    fun clickManager(position: Int)
+    fun onClickManager(position: Int)
 }

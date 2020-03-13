@@ -26,7 +26,7 @@ import java.io.File
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 
-class NewMessageManadger : Fragment(), GeneralClickListener {
+class NewMessageManadgerFragment : Fragment(), GeneralClickListener {
 
     private lateinit var viewModel: MessagesViewModel
     private lateinit var editBody: TextInputEditText
@@ -55,7 +55,7 @@ class NewMessageManadger : Fragment(), GeneralClickListener {
         return root
     }
 
-    override fun clickManager(position: Int) {
+    override fun onClickManager(position: Int) {
         names.removeAt(position)
         files.removeAt(position)
         managerAdapter.update(names)

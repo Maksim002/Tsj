@@ -3,7 +3,6 @@ package com.example.tsj.ui.message.send
 import android.app.Activity
 import android.content.Intent
 import android.content.res.ColorStateList
-import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -20,7 +19,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tsj.R
 import com.example.tsj.adapters.message.GeneralClickListener
-import com.example.tsj.adapters.message.ManagerAdapter
 import com.example.tsj.adapters.message.OwnerAdapter
 import com.example.tsj.service.model.MessagesHousesModel
 import com.example.tsj.service.model.MessagesPersonsModel
@@ -33,14 +31,14 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 
-class NewMessageOwner : Fragment(), GeneralClickListener {
+class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
 
     private lateinit var viewModel: MessagesViewModel
     private lateinit var adapterOwner: OwnerAdapter
     private lateinit var recyclerOwner: RecyclerView
-    private var housesId: Int = 0
-    private var placementsId: Int = 0
-    private var personsId: Int = 0
+    private var houseId: Int = 0
+    private var placementId: Int = 0
+    private var personId: Int = 0
     private var files = ArrayList<MultipartBody.Part>()
     private var name = ArrayList<String>()
     private val IMAGE_PICK_CODE = 11
@@ -61,7 +59,7 @@ class NewMessageOwner : Fragment(), GeneralClickListener {
         return root
     }
 
-    override fun clickManager(position: Int) {
+    override fun onClickManager(position: Int) {
         name.removeAt(position)
         files.removeAt(position)
         adapterOwner.update(name)
@@ -127,7 +125,7 @@ class NewMessageOwner : Fragment(), GeneralClickListener {
             new_msg_referenc.error = null
             new_msg_content.error = null
             //Метод для post сообщания
-            viewModel.messageToPerson(placementsId, body, title, files).observe(this, Observer {
+            viewModel.messageToPerson(placementId, body, title, files).observe(this, Observer {
                 if (it) {
                     findNavController().popBackStack()
                 } else {
@@ -179,7 +177,7 @@ class NewMessageOwner : Fragment(), GeneralClickListener {
                 new_house.defaultHintTextColor =
                     ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
                 parent.getItemAtPosition(position).toString()
-                housesId = listHouses.get(position).id
+                houseId = listHouses.get(position).id
                 getMessagesPlacements()
 
                 new_msg_appartment.setAdapter(null)
@@ -203,7 +201,7 @@ class NewMessageOwner : Fragment(), GeneralClickListener {
 
     private fun getMessagesPlacements() {
         var listPlacements = ArrayList<MessagesPlacementsModel>()
-        viewModel.placements(housesId).observe(this, Observer { services ->
+        viewModel.placements(houseId).observe(this, Observer { services ->
             val list = services.map {
                 it.number
             }
@@ -221,7 +219,7 @@ class NewMessageOwner : Fragment(), GeneralClickListener {
                 new_appartment.defaultHintTextColor =
                     ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
                 parent.getItemAtPosition(position).toString()
-                placementsId = listPlacements.get(position).id
+                placementId = listPlacements.get(position).id
                 getMessagesPersons()
                 new_msg_who.setAdapter(null)
                 new_msg_who.setText("")
@@ -242,7 +240,7 @@ class NewMessageOwner : Fragment(), GeneralClickListener {
 
     private fun getMessagesPersons() {
         var listPersons = ArrayList<MessagesPersonsModel>()
-        viewModel.persons(placementsId).observe(this, Observer { services ->
+        viewModel.persons(placementId).observe(this, Observer { services ->
             val list = services.map {
                 it.name
             }
@@ -260,7 +258,7 @@ class NewMessageOwner : Fragment(), GeneralClickListener {
                 new_who.defaultHintTextColor =
                     ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
                 parent.getItemAtPosition(position).toString()
-                personsId = listPersons.get(position).id
+                personId = listPersons.get(position).id
             }
         new_msg_who.setOnClickListener {
             new_msg_who.showDropDown()

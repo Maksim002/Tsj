@@ -12,10 +12,10 @@ class OwnerAdapter (private val listener: GeneralClickListener, items: ArrayList
         return super.onCreateViewHolder(parent, R.layout.item_owner)
     }
     override fun bind(item: String, holder: ViewHolder) {
-        holder.itemView.textUrl.text = item
+        holder.itemView.textName.text = item
 
         holder.itemView.imageId.setOnClickListener {
-            listener.clickManager(holder.adapterPosition)
+            listener.onClickManager(holder.adapterPosition)
         }
     }
 
