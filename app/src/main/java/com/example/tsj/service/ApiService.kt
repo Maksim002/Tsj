@@ -67,4 +67,8 @@ interface ApiService {
 
     @GET("Balance/Invoices/{id}/Download")
     fun downloadLink(@Path("id") id: Int): Call<String>
+
+
+    @GET("Certificates")
+    fun references( @Query("id") id: Int):Call<List<ReferenceModel>>
 }

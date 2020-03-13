@@ -10,22 +10,28 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.tsj.R
 import com.example.tsj.service.AppPreferences
+import com.example.tsj.service.model.AddressModel
 import com.example.tsj.ui.contact.fragments.AccountsBottomSheet
+import com.example.tsj.ui.contact.fragments.AccountsListener
 import com.example.tsj.ui.login.LoginActivity
 import kotlinx.android.synthetic.main.fragment_contacts.*
 import kotlinx.android.synthetic.main.fragment_contacts.view.*
 
-class ContactFragment : Fragment() {
-
+class ContactFragment : Fragment(), AccountsListener {
+    private lateinit var viewModel: ContactViewModel
+    private lateinit var bottomSheet: AccountsBottomSheet
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_contacts, container, false)
+        viewModel = ViewModelProviders.of(this).get(ContactViewModel::class.java)
 
         val imageHistory: ImageView = root.findViewById(R.id.imageHistory)
         val imageBalance: ImageView = root.findViewById(R.id.imageBalance)
@@ -33,8 +39,7 @@ class ContactFragment : Fragment() {
         val buttonC: Button = root.findViewById(R.id.button_contacts)
         val ref: LinearLayout = root.findViewById(R.id.reference)
         val layoutC: LinearLayout = root.findViewById(R.id.linearLayout)
-        val voting : LinearLayout = root.findViewById(R.id.voting)
-        val bottomSheet = AccountsBottomSheet()
+
         buttonC.setOnClickListener {
             val intent = Intent(context, LoginActivity::class.java).putExtra("transition", true)
             startActivity(intent)
@@ -77,15 +82,29 @@ class ContactFragment : Fragment() {
         root.btn_profile.setOnClickListener {
             findNavController().navigate(R.id.navigation_profile)
         }
-
+        viewModel.addresses().observe(this, Observer {
+            bottomSheet = AccountsBottomSheet(this, it)
+            try {
+                contacts_adres.text = it[0].address
+                contacts_test.text = it[0].licNumber.toString()
+            } catch (e: Exception) {
+            }
+        })
 
         root.profile.setOnClickListener {
             bottomSheet.show(fragmentManager!!, "AccountsBottomSheet")
         }
 
         (activity as AppCompatActivity).supportActionBar?.hide()
+
+
+
         return root
     }
 
-
+    override fun getLicNumber(addressModel: AddressModel) {
+        contacts_adres.text = addressModel.address
+        contacts_test.text =addressModel.licNumber.toString()
+        bottomSheet.dismiss()
+    }
 }

@@ -8,6 +8,25 @@
     android:background="#E5E5E5"
     tools:context=".ui.reference.ReferenceFragment">
 
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/reference_address_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:hint="Выберите адрес">
+
+        <AutoCompleteTextView
+            android:id="@+id/reference_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_expend"
+            android:paddingEnd="8dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewReferences"
         android:layout_width="match_parent"
