@@ -10,10 +10,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tsj.R
 import com.example.tsj.adapters.families.AdapterFamilies
-import com.example.tsj.adapters.references.AdapterReferences
 import com.example.tsj.model.FamiliesModel
-import com.example.tsj.model.ReferencesModel
-import kotlinx.android.synthetic.main.fragment_families.*
 import kotlinx.android.synthetic.main.fragment_final_references.*
 
 class FinalReferencesFragment : Fragment() {

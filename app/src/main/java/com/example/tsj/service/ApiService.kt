@@ -94,4 +94,7 @@ interface ApiService {
         @Query("model.title") title: String,
         @Part file: List<MultipartBody.Part>
     ): Call<Unit>
+
+    @GET("Certificates")
+    fun references( @Query("id") id: Int):Call<List<ReferenceModel>>
 }

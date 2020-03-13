@@ -9,10 +9,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <Button
+            android:id="@+id/btn_profile"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_margin="@dimen/marginHorizontal"
+            android:background="@drawable/ic_profile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <ImageView
             android:id="@+id/imageC"
             android:layout_width="match_parent"
-            android:layout_height="241dp"
+            android:layout_height="wrap_content"
             android:scaleType="fitXY"
             android:src="@drawable/image_f"
             app:layout_constraintEnd_toEndOf="parent"
@@ -20,7 +29,41 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
-            android:visibility="gone"
+            android:id="@+id/profile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24sp"
+            android:layout_marginEnd="24sp"
+            android:background="@drawable/ic_menu_white"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@+id/imageC"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/contacts_adres"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/whiteColor"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/contacts_test"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="@dimen/marginHorizontal"
+                android:drawableEnd="@drawable/ic_expend"
+                android:drawablePadding="8dp"
+                android:textColor="@color/whiteColor"
+                android:textSize="24sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/linearLayout"
             style="@style/AppTheme.RoundedCornerMaterialButton"
             android:layout_width="match_parent"
@@ -31,6 +74,7 @@
             android:gravity="center"
             android:orientation="horizontal"
             android:padding="8dp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/imageC"
             app:layout_constraintTop_toBottomOf="@+id/imageC">
 
@@ -58,24 +102,24 @@
 
         <Button
             android:id="@+id/button_contacts"
-            android:visibility="gone"
+            style="@style/RoundedOrangeBackground"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            style="@style/RoundedOrangeBackground"
             android:layout_marginLeft="24dp"
             android:layout_marginRight="24dp"
             android:text="Подключить"
             android:textColor="#FFFFFF"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/imageC"
-            app:layout_constraintTop_toBottomOf="@+id/imageC"/>
+            app:layout_constraintTop_toBottomOf="@+id/imageC" />
 
         <LinearLayout
             android:id="@+id/lT"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
             android:layout_marginTop="40dp"
+            android:layout_marginRight="16dp"
             android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@+id/imageC">
 
@@ -106,12 +150,37 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Справка с места жительства"
                 android:layout_gravity="center"
-                android:textColor="#3E3E3E"
                 android:layout_marginLeft="16dp"
-                android:textSize="16sp"/>
+                android:text="Справка с места жительства"
+                android:textColor="#3E3E3E"
+                android:textSize="16sp" />
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/voting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/reference">
+
+            <ImageView
+                android:id="@+id/img_voting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:src="@drawable/ic_voting" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="16dp"
+                android:text="@string/vote"
+                android:textColor="#3E3E3E"
+                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -120,7 +189,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/reference">
+            app:layout_constraintTop_toBottomOf="@+id/voting">
 
             <ImageView
                 android:id="@+id/contactstt"
@@ -132,11 +201,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Контакты"
                 android:layout_gravity="center"
-                android:textColor="#3E3E3E"
                 android:layout_marginLeft="16dp"
-                android:textSize="16sp"/>
+                android:text="Контакты"
+                android:textColor="#3E3E3E"
+                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -156,11 +225,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="О портале ТСЖ"
                 android:layout_gravity="center"
-                android:textColor="#3E3E3E"
                 android:layout_marginLeft="16dp"
-                android:textSize="16sp"/>
+                android:text="О портале ТСЖ"
+                android:textColor="#3E3E3E"
+                android:textSize="16sp" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

@@ -52,5 +52,13 @@
     <string name="writeMsg">Написать письмо</string>
     <string name="msgForChairman">Сообщение председателю</string>
     <string name="msgForOwner">Сообщение собственнику</string>
+    <string name="profile">Профиль</string>
+    <string name="email">Email</string>
+    <string name="changePassword">изменить пароль</string>
+    <string name="exit">Выход</string>
+    <string name="againPassword">Повторите новый пароль</string>
+    <string name="save">Сохранить</string>
+    <string name="vote">Голосование</string>
+    <string name="listofbalance">Список лицевых счетов</string>
 
 </resources>
