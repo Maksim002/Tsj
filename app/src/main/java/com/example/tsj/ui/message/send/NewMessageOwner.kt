@@ -1,9 +1,9 @@
 package com.example.tsj.ui.message.send
 
-
 import android.app.Activity
 import android.content.Intent
 import android.content.res.ColorStateList
+import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -29,7 +29,6 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 
-
 class NewMessageOwner : Fragment() {
 
     private lateinit var viewModel: MessagesViewModel
@@ -45,11 +44,11 @@ class NewMessageOwner : Fragment() {
     ): View? {
 
         (activity as AppCompatActivity).supportActionBar?.show()
-         setHasOptionsMenu(true)
-      val root = inflater.inflate(R.layout.new_message_owner, container, false)
-      viewModel = ViewModelProviders.of(this).get(MessagesViewModel::class.java)
+        setHasOptionsMenu(true)
+        val root = inflater.inflate(R.layout.new_message_owner, container, false)
+        viewModel = ViewModelProviders.of(this).get(MessagesViewModel::class.java)
 
-    return root
+        return root
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -69,11 +68,11 @@ class NewMessageOwner : Fragment() {
         return super.onOptionsItemSelected(item)
 
     }
+
     private fun fastenFile() {
         val myFile = Intent(Intent.ACTION_PICK)
-        myFile.setType("*/*")
-        startActivityForResult(myFile, IMAGE_PICK_CODE)
-
+        myFile.setType("*/*");
+        startActivityForResult(Intent.createChooser(myFile,"Select Picture") , IMAGE_PICK_CODE)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -81,7 +80,7 @@ class NewMessageOwner : Fragment() {
             if (data != null) {
                 val uri = data.data!!
                 val file = File(getPath(uri))
-                val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
+                val requestFile = file.asRequestBody("*/*".toMediaTypeOrNull())
                 val photo = MultipartBody.Part.createFormData("File", file.name, requestFile)
                 files.add(photo)
             }
@@ -97,7 +96,6 @@ class NewMessageOwner : Fragment() {
         val res = cursor.getString(columnIndex)
         cursor.close()
         return res
-
     }
 
     private fun validateEditText(title: String, content: String): Boolean {
@@ -112,10 +110,10 @@ class NewMessageOwner : Fragment() {
             new_msg_referenc.error = null
             new_msg_content.error = null
             //Метод для post сообщания
-            viewModel.messageToPerson(placementsId ,body, title, files).observe(this, Observer {
-                if (it){
+            viewModel.messageToPerson(placementsId, body, title, files).observe(this, Observer {
+                if (it) {
                     findNavController().popBackStack()
-                }else{
+                } else {
                     Toast.makeText(context, "Неудочно", Toast.LENGTH_LONG).show()
                 }
             })
@@ -129,11 +127,26 @@ class NewMessageOwner : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        initViews()
+        initData()
+
+
         getNewMsgHouse()
+
 
     }
 
-    private fun getNewMsgHouse(){
+    private fun initData() {
+
+    }
+
+    private fun initViews() {
+        new_msg_house.setKeyListener(null)
+        new_msg_appartment.setKeyListener(null)
+        new_msg_who.setKeyListener(null)
+    }
+
+    private fun getNewMsgHouse() {
         var listHouses = ArrayList<MessagesHousesModel>()
         viewModel.houses().observe(this, Observer { services ->
             val list = services.map {
@@ -144,16 +157,23 @@ class NewMessageOwner : Fragment() {
                 ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
             adapterServices.notifyDataSetChanged()
             new_msg_house.setAdapter(adapterServices)
+
         })
+
 
         new_msg_house.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
                 new_msg_house.showDropDown()
-                new_house.defaultHintTextColor = ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
+                new_house.defaultHintTextColor =
+                    ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
                 parent.getItemAtPosition(position).toString()
                 housesId = listHouses.get(position).id
                 getMessagesPlacements()
 
+                new_msg_appartment.setAdapter(null)
+                new_msg_appartment.setText("")
+                new_msg_who.setAdapter(null)
+                new_msg_who.setText("")
             }
         new_msg_house.setOnClickListener {
             new_msg_house.showDropDown()
@@ -168,7 +188,8 @@ class NewMessageOwner : Fragment() {
             }
         }
     }
-    private fun getMessagesPlacements(){
+
+    private fun getMessagesPlacements() {
         var listPlacements = ArrayList<MessagesPlacementsModel>()
         viewModel.placements(housesId).observe(this, Observer { services ->
             val list = services.map {
@@ -181,13 +202,17 @@ class NewMessageOwner : Fragment() {
             new_msg_appartment.setAdapter(adapterServices)
         })
 
+
         new_msg_appartment.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
                 new_msg_appartment.showDropDown()
-                new_appartment.defaultHintTextColor = ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
+                new_appartment.defaultHintTextColor =
+                    ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
                 parent.getItemAtPosition(position).toString()
                 placementsId = listPlacements.get(position).id
                 getMessagesPersons()
+                new_msg_who.setAdapter(null)
+                new_msg_who.setText("")
             }
         new_msg_appartment.setOnClickListener {
             new_msg_appartment.showDropDown()
@@ -202,9 +227,10 @@ class NewMessageOwner : Fragment() {
             }
         }
     }
-    private fun getMessagesPersons(){
+
+    private fun getMessagesPersons() {
         var listPersons = ArrayList<MessagesPersonsModel>()
-        viewModel.persons (personsId).observe(this, Observer { services ->
+        viewModel.persons(placementsId).observe(this, Observer { services ->
             val list = services.map {
                 it.name
             }
@@ -215,10 +241,12 @@ class NewMessageOwner : Fragment() {
             new_msg_who.setAdapter(adapterServices)
         })
 
+
         new_msg_who.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
                 new_msg_who.showDropDown()
-                new_who.defaultHintTextColor = ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
+                new_who.defaultHintTextColor =
+                    ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
                 parent.getItemAtPosition(position).toString()
                 personsId = listPersons.get(position).id
             }
