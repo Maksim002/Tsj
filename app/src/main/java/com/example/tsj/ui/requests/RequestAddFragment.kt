@@ -49,8 +49,8 @@ class RequestAddFragment : Fragment() {
                 bid_add_flat.text.toString().toInt(),
                 request_description.text.toString()
             )
-            viewModel.addRequest(body).observe(this, Observer {dastan->
-                if (dastan) {
+            viewModel.addRequest(body).observe(this, Observer {
+                if (it) {
                     Toast.makeText(context, "ok", Toast.LENGTH_LONG).show()
                     findNavController().popBackStack()
                 } else {

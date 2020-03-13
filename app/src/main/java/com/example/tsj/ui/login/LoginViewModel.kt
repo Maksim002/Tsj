@@ -39,7 +39,7 @@ class LoginViewModel : ViewModel() {
 
         RetrofitService.apiService().forgotPassword(email).enqueue(object : Callback< String>{
             override fun onFailure(call: Call<String>, t: Throwable) {
-                println()
+                data.value = false
             }
 
             override fun onResponse(call: Call<String>, response: Response<String>) {

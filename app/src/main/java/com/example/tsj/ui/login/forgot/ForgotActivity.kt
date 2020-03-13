@@ -24,12 +24,16 @@ class ForgotActivity : AppCompatActivity() {
         viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
 
         initViews()
-        validateEdittexts()
-
     }
 
 
-    private fun validateEdittexts() {
+
+
+    private fun initViews() {
+        back_button.setOnClickListener {
+            onBackPressed()
+        }
+
         forgot_send_button.setOnClickListener {
             if (validateEmailForgot(text_email_forgot.text.toString())) {
                 forgot_container_email_input.error = null
@@ -37,12 +41,6 @@ class ForgotActivity : AppCompatActivity() {
             } else {
                 forgot_container_email_input.error = "Логин введен не правильно"
             }
-        }
-    }
-
-    private fun initViews() {
-        back_button.setOnClickListener {
-            onBackPressed()
         }
     }
 
