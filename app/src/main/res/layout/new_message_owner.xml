@@ -14,11 +14,12 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/new_house"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.3">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <AutoCompleteTextView
                 android:id="@+id/new_msg_house"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -32,11 +33,12 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/new_appartment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.7">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <AutoCompleteTextView
                 android:id="@+id/new_msg_appartment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -51,10 +53,11 @@
     </LinearLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/new_who"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <AutoCompleteTextView
             android:id="@+id/new_msg_who"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -17,7 +17,7 @@ class LoginViewModel : ViewModel() {
         val result = MutableLiveData<Boolean>()
         RetrofitService.apiService().auth(map).enqueue(object : Callback<AuthModel> {
             override fun onResponse(call: Call<AuthModel>, response: Response<AuthModel>) {
-                if (response.code() == 200) {
+                if (response.isSuccessful) {
                     AppPreferences.token = response.body()?.accessToken
                     AppPreferences.isLogined = true
                     result.value = true
