@@ -47,16 +47,16 @@ class ContactFragment : Fragment(), AccountsListener {
 
         if (AppPreferences.isLogined) {
             layoutC.visibility = View.VISIBLE
+            ref.visibility = View.VISIBLE
+            root.profile.visibility = View.VISIBLE
+            root.voting.visibility = View.VISIBLE
         } else {
             buttonC.visibility = View.VISIBLE
-        }
-
-
-        if (AppPreferences.isLogined) {
-            ref.visibility = View.VISIBLE
-        } else {
             ref.visibility = View.GONE
+            root.profile.visibility = View.GONE
+            root.voting.visibility = View.GONE
         }
+
         ref.setOnClickListener {
             findNavController().navigate(R.id.navigation_reference)
         }
@@ -80,7 +80,12 @@ class ContactFragment : Fragment(), AccountsListener {
         }
 
         root.btn_profile.setOnClickListener {
-            findNavController().navigate(R.id.navigation_profile)
+            if(AppPreferences.isLogined){
+                findNavController().navigate(R.id.navigation_profile)
+            }else{
+                val intent = Intent(context, LoginActivity::class.java).putExtra("transition", true)
+                startActivity(intent)
+            }
         }
         viewModel.addresses().observe(this, Observer {
             bottomSheet = AccountsBottomSheet(this, it)

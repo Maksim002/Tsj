@@ -24,7 +24,6 @@ abstract class GenericRecyclerAdapter<T>(var items: List<T>) :
         return ViewHolder(view)
     }
 
-
     fun getListPosition(position: Int): T {
         return items[position]
     }
