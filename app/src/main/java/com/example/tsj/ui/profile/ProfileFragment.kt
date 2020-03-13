@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.tsj.R
+import com.example.tsj.service.AppPreferences
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 class ProfileFragment : Fragment() {
@@ -28,7 +29,12 @@ class ProfileFragment : Fragment() {
         change_password.setOnClickListener {
             findNavController().navigate(R.id.navigation_change_password)
         }
+        initView()
+    }
 
+    private fun initView() {
+        profile_text_email.setText(AppPreferences.email.toString())
+        profile_text_password.setText("password")
     }
 
 }
