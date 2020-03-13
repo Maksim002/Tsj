@@ -95,15 +95,11 @@ class ContactFragment : Fragment(), AccountsListener {
             } catch (e: Exception) {
             }
         })
-
         root.profile.setOnClickListener {
             bottomSheet.show(fragmentManager!!, "AccountsBottomSheet")
         }
 
         (activity as AppCompatActivity).supportActionBar?.hide()
-
-
-
         return root
     }
 
