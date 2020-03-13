@@ -38,4 +38,11 @@ object AppPreferences {
             set(value) = preferences.edit(){
                 it.putBoolean("started", value)
             }
+
+    var email : String?
+        get() = preferences.getString("email", "")
+        set(value) = preferences.edit{
+            it.putString("email", value)
+        }
+
 }

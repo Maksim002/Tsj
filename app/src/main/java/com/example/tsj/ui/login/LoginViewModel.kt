@@ -1,6 +1,5 @@
 package com.example.tsj.ui.login
 
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,7 +9,6 @@ import com.example.tsj.service.model.AuthModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import kotlin.collections.HashMap
 
 class LoginViewModel : ViewModel() {
 
