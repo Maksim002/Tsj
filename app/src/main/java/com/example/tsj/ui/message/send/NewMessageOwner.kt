@@ -122,20 +122,15 @@ class NewMessageOwner : Fragment() {
             title_container.error = "Загаловка не может быть пустым"
             content_container.error = "Письмо не может быть пустым"
         }
-
     }
 
     override fun onStart() {
         super.onStart()
         initViews()
         initData()
-
-
         getNewMsgHouse()
 
-
     }
-
     private fun initData() {
 
     }
