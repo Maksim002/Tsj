@@ -17,7 +17,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.loader.content.CursorLoader
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.example.tsj.R
+import com.example.tsj.adapters.message.GeneralClickListener
+import com.example.tsj.adapters.message.ManagerAdapter
+import com.example.tsj.adapters.message.OwnerAdapter
 import com.example.tsj.service.model.MessagesHousesModel
 import com.example.tsj.service.model.MessagesPersonsModel
 import com.example.tsj.service.model.MessagesPlacementsModel
@@ -29,13 +33,16 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 
-class NewMessageOwner : Fragment() {
+class NewMessageOwner : Fragment(), GeneralClickListener {
 
     private lateinit var viewModel: MessagesViewModel
+    private lateinit var adapterOwner: OwnerAdapter
+    private lateinit var recyclerOwner: RecyclerView
     private var housesId: Int = 0
     private var placementsId: Int = 0
     private var personsId: Int = 0
     private var files = ArrayList<MultipartBody.Part>()
+    private var name = ArrayList<String>()
     private val IMAGE_PICK_CODE = 11
 
     override fun onCreateView(
@@ -48,9 +55,17 @@ class NewMessageOwner : Fragment() {
         val root = inflater.inflate(R.layout.new_message_owner, container, false)
         viewModel = ViewModelProviders.of(this).get(MessagesViewModel::class.java)
 
+        recyclerOwner = root.findViewById(R.id.recyclerOwner)
+        getRecyclerView()
+
         return root
     }
 
+    override fun clickManager(position: Int) {
+        name.removeAt(position)
+        files.removeAt(position)
+        adapterOwner.update(name)
+    }
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.new_message_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
@@ -83,6 +98,8 @@ class NewMessageOwner : Fragment() {
                 val requestFile = file.asRequestBody("*/*".toMediaTypeOrNull())
                 val photo = MultipartBody.Part.createFormData("File", file.name, requestFile)
                 files.add(photo)
+                name.add(photo.toString().substring(0, 15))
+                adapterOwner.update(name)
             }
         }
     }
@@ -129,8 +146,8 @@ class NewMessageOwner : Fragment() {
         initViews()
         initData()
         getNewMsgHouse()
-
     }
+
     private fun initData() {
 
     }
@@ -256,6 +273,13 @@ class NewMessageOwner : Fragment() {
                     println()
                 }
             }
+        }
+    }
+    private fun getRecyclerView() {
+        adapterOwner = OwnerAdapter(this)
+        recyclerOwner.apply {
+            adapter = adapterOwner
+
         }
     }
 }
