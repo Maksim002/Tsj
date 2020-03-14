@@ -10,7 +10,7 @@ import com.example.tsj.utils.MyUtils
 import kotlinx.android.synthetic.main.item_personal.view.number
 import kotlinx.android.synthetic.main.item_references.view.*
 
-class AdapterReferences(items: ArrayList<ReferenceModel>) :
+class ReferencesAdapter(items: ArrayList<ReferenceModel>) :
     GenericRecyclerAdapter<ReferenceModel>(items) {
     override fun bind(item: ReferenceModel, holder: ViewHolder) {
         holder.itemView.number.text = item.certificateNumber.toString()

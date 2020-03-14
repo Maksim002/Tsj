@@ -3,6 +3,7 @@ package com.example.tsj.service
 import com.example.tsj.model.MessageItemModel
 import com.example.tsj.service.model.*
 import com.example.tsj.service.request.AddRequest
+import com.example.tsj.service.request.CertificateRequest
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -96,5 +97,13 @@ interface ApiService {
     ): Call<Unit>
 
     @GET("Certificates")
-    fun references( @Query("id") id: Int):Call<List<ReferenceModel>>
+    fun references(@Query("id") id: Int): Call<List<ReferenceModel>>
+
+    @POST("Certificates")
+    fun addReferences(@Body certificateRequest: CertificateRequest): Call<Unit>
+
+    @GET("Certificates/Relatives")
+    fun relatives(): Call<List<MessagesPersonsModel>>
+
+
 }
