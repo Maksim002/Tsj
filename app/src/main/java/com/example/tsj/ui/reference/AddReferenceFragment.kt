@@ -47,18 +47,12 @@ class AddReferenceFragment : Fragment(), FamilyListener {
         initArguments()
         initViews(root)
         initData(root)
-        col = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+
         (activity as AppCompatActivity).supportActionBar!!.show()
         viewModel = ViewModelProviders.of(this).get(ReferenceViewModel::class.java)
-        val layout_new = root.findViewById<TextView>(R.id.layout_new_Ref)
-        layout_new.setOnClickListener {
-            findNavController().navigate(R.id.navigation_families)
-        }
 
-        recyclerViewR = root.findViewById(R.id.familiesRecyclerView)
-        refAdapter = FamilyAdapter(this)
-        recyclerViewR.adapter = refAdapter
-        refAdapter.update(list)
+
+
 
         return root
     }
@@ -68,14 +62,20 @@ class AddReferenceFragment : Fragment(), FamilyListener {
     }
 
     private fun initViews(root: View) {
+        col = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+        val layout_new = root.findViewById<TextView>(R.id.layout_new_Ref)
+        layout_new.setOnClickListener {
+            findNavController().navigate(R.id.navigation_families)
+        }
+        recyclerViewR = root.findViewById(R.id.familiesRecyclerView)
+        refAdapter = FamilyAdapter(this)
+        recyclerViewR.adapter = refAdapter
+        refAdapter.update(list)
 
-    }
+        edit_ref.setOnFocusChangeListener { _, _ ->
+            lRef.defaultHintTextColor = col
+        }
 
-    override fun onStart() {
-        super.onStart()
-
-        getEditRef()
-        getEditReferenceS()
         reference_save.setOnClickListener {
             //
             val data = CertificateRequest()
@@ -99,6 +99,13 @@ class AddReferenceFragment : Fragment(), FamilyListener {
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+
+        getEditReferenceS()
+
+    }
+
     private fun initArguments() {
         placementId = try {
             arguments!!.getInt("id")
@@ -107,11 +114,6 @@ class AddReferenceFragment : Fragment(), FamilyListener {
         }
     }
 
-    private fun getEditRef() {
-        edit_ref.setOnFocusChangeListener { _, _ ->
-            lRef.defaultHintTextColor = col
-        }
-    }
 
     private fun getEditReferenceS() {
         editReferenceS.keyListener = null
