@@ -1,6 +1,7 @@
 package com.example.tsj.ui.profile
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.tsj.R
 import com.example.tsj.service.AppPreferences
+import com.example.tsj.ui.login.LoginActivity
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 class ProfileFragment : Fragment() {
@@ -25,16 +27,24 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        change_password.setOnClickListener {
-            findNavController().navigate(R.id.navigation_change_password)
-        }
         initView()
+
     }
 
     private fun initView() {
         profile_text_email.setText(AppPreferences.email.toString())
         profile_text_password.setText("password")
+
+        change_password.setOnClickListener {
+            findNavController().navigate(R.id.navigation_change_password)
+        }
+
+        profile_exit_btn.setOnClickListener {
+            AppPreferences.email = " "
+            AppPreferences.token = " "
+            AppPreferences.isLogined = false
+            startActivity(Intent(context, LoginActivity::class.java))
+        }
     }
 
 }
