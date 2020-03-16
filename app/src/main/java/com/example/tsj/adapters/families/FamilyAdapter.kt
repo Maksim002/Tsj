@@ -5,16 +5,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tsj.R
 import com.example.tsj.common.GenericRecyclerAdapter
 import com.example.tsj.common.ViewHolder
-import com.example.tsj.service.request.RelativeRequest
+import com.example.tsj.service.model.RelativeModel
 import kotlinx.android.synthetic.main.item_families.view.*
 
 class FamilyAdapter(
     private val listener: FamilyListener,
-    item: ArrayList<RelativeRequest> = ArrayList()
+    item: ArrayList<RelativeModel> = ArrayList()
 ) :
-    GenericRecyclerAdapter<RelativeRequest>(item) {
+    GenericRecyclerAdapter<RelativeModel>(item) {
 
-    override fun bind(item: RelativeRequest, holder: ViewHolder) {
+    override fun bind(item: RelativeModel, holder: ViewHolder) {
         holder.itemView.text_relative.text = item.relative
         holder.itemView.text_name.text = item.fullName
         holder.itemView.text_date.text = item.date

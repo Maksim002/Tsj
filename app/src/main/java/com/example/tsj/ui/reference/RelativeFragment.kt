@@ -19,7 +19,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.tsj.R
 import com.example.tsj.service.model.MessagesPersonsModel
-import com.example.tsj.service.request.RelativeRequest
+import com.example.tsj.service.model.RelativeModel
 import com.example.tsj.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_families.*
 import kotlinx.android.synthetic.main.fragment_families.goneL
@@ -46,7 +46,7 @@ class RelativeFragment : Fragment() {
         buttonF.setOnClickListener {
 
             AddReferenceFragment.list.add(
-                RelativeRequest(
+                RelativeModel(
                     relativeId,
                     root.text_families_date.text.toString(),
                     root.edit_families.text.toString(),

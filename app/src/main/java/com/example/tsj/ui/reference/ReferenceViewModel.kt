@@ -6,7 +6,8 @@ import androidx.lifecycle.ViewModel
 import com.example.tsj.service.RetrofitService
 import com.example.tsj.service.model.AddressModel
 import com.example.tsj.service.model.MessagesPersonsModel
-import com.example.tsj.service.model.ReferenceModel
+import com.example.tsj.service.model.ReferenceLiteModel
+import com.example.tsj.service.model.ReferencesFullModel
 import com.example.tsj.service.request.CertificateRequest
 import retrofit2.Call
 import retrofit2.Callback
@@ -14,17 +15,17 @@ import retrofit2.Response
 
 
 class ReferenceViewModel : ViewModel() {
-    fun references(id: Int): LiveData<List<ReferenceModel>> {
-        val data = MutableLiveData<List<ReferenceModel>>()
+    fun references(id: Int): LiveData<List<ReferenceLiteModel>> {
+        val data = MutableLiveData<List<ReferenceLiteModel>>()
         RetrofitService.apiService().references(id)
-            .enqueue(object : Callback<List<ReferenceModel>> {
-                override fun onFailure(call: Call<List<ReferenceModel>>, t: Throwable) {
+            .enqueue(object : Callback<List<ReferenceLiteModel>> {
+                override fun onFailure(call: Call<List<ReferenceLiteModel>>, t: Throwable) {
                     println()
                 }
 
                 override fun onResponse(
-                    call: Call<List<ReferenceModel>>,
-                    response: Response<List<ReferenceModel>>
+                    call: Call<List<ReferenceLiteModel>>,
+                    response: Response<List<ReferenceLiteModel>>
                 ) {
                     if (response.isSuccessful) {
                         data.value = response.body()
@@ -33,6 +34,25 @@ class ReferenceViewModel : ViewModel() {
 
             })
 
+
+        return data
+    }
+
+    fun reference(id: Int): LiveData<ReferencesFullModel> {
+        val data = MutableLiveData<ReferencesFullModel>()
+        RetrofitService.apiService().reference(id).enqueue(object :Callback<ReferencesFullModel>{
+            override fun onFailure(call: Call<ReferencesFullModel>, t: Throwable) {
+                println()
+            }
+
+            override fun onResponse(
+                call: Call<ReferencesFullModel>,
+                response: Response<ReferencesFullModel>
+            ) {
+                data.value = response.body()
+            }
+
+        })
 
         return data
     }
