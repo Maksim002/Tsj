@@ -1,112 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#E5E5E5"
-    tools:context=".ui.reference.NewReferenceFragment"
-    android:orientation="vertical">
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/lRef"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="13dp"
-        android:hint="Кому"
-        android:focusableInTouchMode="true">
-
-        <EditText
-            android:id="@+id/edit_ref"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:padding="16dp"
-            android:background="@null"
-            android:textColor="#001"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_divider"/>
+    android:layout_height="wrap_content"
+    android:background="#E5E5E5">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:background="#E5E5E5"
+        android:orientation="vertical"
+        tools:context=".ui.reference.AddReferenceFragment">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/lRef"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="13dp"
+            android:focusableInTouchMode="true"
+            android:hint="Кому">
+
+            <EditText
+                android:id="@+id/edit_ref"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:padding="16dp"
+                android:textColor="#001"
+                android:textSize="16sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_divider" />
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/referenceS"
-            android:layout_marginTop="15dp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Даты с"
-            android:layout_weight="1">
+            android:layout_marginTop="15dp"
+            android:hint="Выберите дату">
 
             <EditText
                 android:id="@+id/editReferenceS"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:drawableEnd="@drawable/ic_date_range_black_24dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="23dp"
-                android:paddingEnd="8dp"
-                android:background="@null"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/referenceDo"
-            android:layout_marginTop="15dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Дата по"
-            android:layout_weight="1">
-
-            <EditText
-                android:id="@+id/editReferenceDo"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:background="@null"
                 android:drawableEnd="@drawable/ic_date_range_black_24dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="23dp"
-                android:paddingEnd="8dp"
-                android:background="@null"/>
+                android:paddingEnd="8dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_divider"/>
-
-    <LinearLayout
-        android:id="@+id/layout_new_Ref"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="25dp">
+        <include
+            android:id="@+id/goneL"
+            layout="@layout/item_focus" />
 
         <ImageView
-            android:layout_width="14dp"
-            android:layout_height="14dp"
-            android:src="@drawable/ic_plus"
-            android:layout_gravity="center"/>
-
-        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Добавить члена семьи"
-            android:textColor="#FFAC4F"
-            android:textSize="16sp"
-            android:layout_marginLeft="13dp"
-           android:layout_gravity="center"/>
+            android:src="@drawable/ic_divider" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/familiesRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:nestedScrollingEnabled="true"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        <TextView
+            android:id="@+id/layout_new_Ref"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textSize="18dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:drawableStart="@drawable/ic_plus"
+            android:orientation="horizontal"
+            android:text="   Добавить члена семьи"
+            android:textColor="#FFAC4F"/>
+
+
+        <Button
+            android:id="@+id/reference_save"
+            style="@style/RoundedOrangeBackground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="Сохранить "
+            android:textColor="#FFFFFF"/>
+
     </LinearLayout>
-
-    <include layout="@layout/item_focus"
-        android:id="@+id/goneL"/>
-
-</LinearLayout>
+</androidx.core.widget.NestedScrollView>

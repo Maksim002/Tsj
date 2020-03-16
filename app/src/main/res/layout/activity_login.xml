@@ -78,7 +78,7 @@
             android:layout_marginTop="13dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/text_password"
+                android:id="@+id/text_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_key_24dp"

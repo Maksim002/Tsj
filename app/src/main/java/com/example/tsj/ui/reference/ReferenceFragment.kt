@@ -12,15 +12,15 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.tsj.R
-import com.example.tsj.adapters.references.AdapterReferences
+import com.example.tsj.adapters.references.ReferencesAdapter
 import com.example.tsj.service.model.AddressModel
 import kotlinx.android.synthetic.main.fragment_reference.view.*
 
 class ReferenceFragment : Fragment() {
 
     private lateinit var viewModel: ReferenceViewModel
-    private lateinit var adapter: AdapterReferences
-
+    private lateinit var adapter: ReferencesAdapter
+    private var placementId = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,17 +45,19 @@ class ReferenceFragment : Fragment() {
         })
 
 
-
-
     }
 
     private fun initViews(root: View) {
 
-        adapter = AdapterReferences(ArrayList())
-        root.recyclerViewReferences.adapter = adapter
-        root.setOnClickListener {
-            findNavController().navigate(R.id.navigation_new_reference)
+        root.new_references.setOnClickListener {
+            AddReferenceFragment.list.clear()
+            val bundle = Bundle()
+            bundle.putInt("id", placementId)
+            findNavController().navigate(R.id.navigation_new_reference, bundle)
         }
+        adapter = ReferencesAdapter(ArrayList())
+        root.recyclerViewReferences.adapter = adapter
+
 
         root.reference_address.keyListener = null
         root.reference_address.setOnClickListener {
@@ -66,12 +68,22 @@ class ReferenceFragment : Fragment() {
                 root.reference_address.showDropDown()
             }
         }
-        root.reference_address.setOnItemClickListener { parent, view, position, id ->
-            val placementId = (parent.getItemAtPosition(position) as AddressModel).placementId!!
-            viewModel.getReferences(placementId).observe(this, Observer {
-                    adapter.update(it)
+        root.reference_address.setOnItemClickListener { parent, _, position, _ ->
+            placementId = (parent.getItemAtPosition(position) as AddressModel).placementId!!
+            viewModel.references(placementId).observe(this, Observer {
+                adapter.update(it)
             })
+            root.new_references.visibility = View.VISIBLE
         }
+
+        if (placementId != 0) {
+            viewModel.references(placementId).observe(this, Observer {
+                adapter.update(it)
+            })
+            root.new_references.visibility = View.VISIBLE
+        }
+
+
     }
 
 }

@@ -76,7 +76,7 @@ class LoginActivity : AppCompatActivity() {
             var map = HashMap<String, String>()
             map.put("grant_type", "password")
             map.put("username", text_email.text.toString())
-            map.put("password", text_password.text.toString())
+            map.put("password", text_date.text.toString())
 
             viewModel.auth(map).observe(this, Observer { result ->
                 if (AppPreferences.isLogined) {
@@ -90,7 +90,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun validateEdittexts() {
-            if (validatePassword(text_password.text.toString())) {
+            if (validatePassword(text_date.text.toString())) {
                 main_container_password_input.error = null
             } else {
                 main_container_password_input.error = "Пароль не может быть пустым"

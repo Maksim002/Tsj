@@ -12,4 +12,9 @@ class MessagesPersonsModel {
     @Expose
     lateinit var name: String
 
+    override fun toString(): String {
+        return name
+    }
+
+
 }
