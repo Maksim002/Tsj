@@ -27,8 +27,7 @@ object AppPreferences {
             it.putString("token", value)
         }
 
-    var isLogined: Boolean
-        get() = preferences.getBoolean("isLogined", false)
+    var isLogined: Boolean get() = preferences.getBoolean("isLogined", false)
         set(value) = preferences.edit {
             it.putBoolean("isLogined", value)
         }
@@ -45,4 +44,10 @@ object AppPreferences {
             it.putString("email", value)
         }
 
+    var clear : String?
+        get() = preferences.getString("clear", "")
+        set(value) = preferences.edit{
+            it.putString("clear", value)
+            it.clear()
+        }
 }

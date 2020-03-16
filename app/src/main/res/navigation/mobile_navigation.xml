@@ -54,12 +54,6 @@
         tools:layout="@layout/fragment_balance_detail" />
 
     <fragment
-        android:id="@+id/navigation_account"
-        android:name="com.example.tsj.ui.history.fragments.AccountFragment"
-        android:label="@string/history"
-        tools:layout="@layout/fragment_account" />
-
-    <fragment
         android:id="@+id/navigation_new_reference"
         android:name="com.example.tsj.ui.reference.NewReferenceFragment"
         android:label="@string/new_reference"

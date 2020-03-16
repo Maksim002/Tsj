@@ -4,9 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.tsj.service.RetrofitService
-import com.example.tsj.service.model.RequestAddressesModel
-import com.example.tsj.service.model.RequestTypeModel
-import com.example.tsj.service.model.RequestsModel
+import com.example.tsj.service.model.*
 import com.example.tsj.service.request.AddRequest
 import retrofit2.Call
 import retrofit2.Callback
@@ -22,7 +20,8 @@ class RequestViewModel : ViewModel() {
                 call: Call<List<RequestsModel>>,
                 response: Response<List<RequestsModel>>
             ) {
-                data.value = response.body()
+                if (response.isSuccessful)
+                    data.value = response.body()
             }
 
             override fun onFailure(call: Call<List<RequestsModel>>, t: Throwable) {
@@ -107,6 +106,27 @@ class RequestViewModel : ViewModel() {
             }
 
         })
+        return data
+    }
+
+    fun detailsModel(requestId: Int): LiveData<DetailsModel> {
+        val data = MutableLiveData<DetailsModel>()
+
+        RetrofitService.apiService().detailsModel(requestId).enqueue(object : Callback<DetailsModel> {
+            override fun onFailure(call: Call<DetailsModel>, t: Throwable) {
+                println()
+            }
+
+            override fun onResponse(
+                call: Call<DetailsModel>,
+                response: Response<DetailsModel>) {
+                if (response.isSuccessful) {
+                    data.value = response.body()
+                }
+            }
+
+        })
+
         return data
     }
 }

@@ -21,7 +21,6 @@ import kotlinx.android.synthetic.main.fragment_bid_add.view.*
 
 class RequestAddFragment : Fragment() {
 
-
     private lateinit var viewModel: RequestViewModel
     private var requestTypeId = 0
     private var placementId = 0

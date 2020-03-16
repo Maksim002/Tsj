@@ -1,5 +1,6 @@
 package com.example.tsj.service
 
+import androidx.lifecycle.LiveData
 import com.example.tsj.model.MessageItemModel
 import com.example.tsj.service.model.*
 import com.example.tsj.service.request.AddRequest
@@ -101,5 +102,6 @@ interface ApiService {
     @POST("ForgotPassword")
     fun forgotPassword(@Query("email") email: String): Call<String>
 
-
+    @GET("Requests/{id}")
+    fun detailsModel(@Path("id") id: Int): Call<DetailsModel>
 }
