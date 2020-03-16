@@ -34,7 +34,7 @@ class ReferenceViewModel : ViewModel() {
             })
 
 
-        return data;
+        return data
     }
 
 

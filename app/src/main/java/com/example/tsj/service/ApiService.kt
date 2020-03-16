@@ -104,6 +104,9 @@ interface ApiService {
 
     @GET("Certificates/Relatives")
     fun relatives(): Call<List<MessagesPersonsModel>>
+    @POST("ForgotPassword")
+    fun forgotPassword(@Query("email") email: String): Call<String>
+
 
 
 }

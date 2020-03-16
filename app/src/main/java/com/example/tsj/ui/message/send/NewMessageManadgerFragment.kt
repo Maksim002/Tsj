@@ -15,23 +15,27 @@ import okhttp3.MultipartBody
 import android.content.Intent
 import android.net.Uri
 import android.provider.MediaStore
-import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.loader.content.CursorLoader
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
+import com.example.tsj.adapters.message.ManagerAdapter
+import com.example.tsj.adapters.message.GeneralClickListener
 import java.io.File
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 
-class NewMessageManager : Fragment() {
+class NewMessageManadgerFragment : Fragment(), GeneralClickListener {
+
     private lateinit var viewModel: MessagesViewModel
     private lateinit var editBody: TextInputEditText
     private lateinit var editTitle: TextInputEditText
+    private lateinit var managerAdapter: ManagerAdapter
+    private lateinit var recyclerManager: RecyclerView
     private val IMAGE_PICK_CODE = 10
     private var files = ArrayList<MultipartBody.Part>()
-
-    private lateinit var textGone: TextView
+    private var names = ArrayList<String>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,9 +49,18 @@ class NewMessageManager : Fragment() {
         editBody = root.findViewById(R.id.manager_msg_referenc)
         editTitle = root.findViewById(R.id.manager_msg_content)
 
-        textGone = root.findViewById(R.id.textGone)
+        recyclerManager = root.findViewById(R.id.recycler_view_manager)
+        getRecyclerView()
+
         return root
     }
+
+    override fun onClickManager(position: Int) {
+        names.removeAt(position)
+        files.removeAt(position)
+        managerAdapter.update(names)
+    }
+
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.new_message_menu, menu)
@@ -62,7 +75,6 @@ class NewMessageManager : Fragment() {
             R.id.fasten_file -> {
                 loadFiles()
             }
-
         }
         return super.onOptionsItemSelected(item)
     }
@@ -81,10 +93,10 @@ class NewMessageManager : Fragment() {
                 val file = File(getPath(uri))
                 val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
                 val photo = MultipartBody.Part.createFormData("File", file.name, requestFile)
-//                photos[position] = photo
+
                 files.add(photo)
-//                photoList[position] = getPath(data.data!!)
-//                photosAdapter.setData(photoList)
+                names.add(photo.toString().substring(0, 15))
+                managerAdapter.update(names)
             }
         }
     }
@@ -115,10 +127,10 @@ class NewMessageManager : Fragment() {
             title_container.error = null
             content_container.error = null
             //Метод для post сообщания
-            viewModel.sendMessageToManager(body,title, files).observe(this, Observer {
-                if (it){
+            viewModel.sendMessageToManager(body, title, files).observe(this, Observer {
+                if (it) {
                     findNavController().popBackStack()
-                }else{
+                } else {
                     Toast.makeText(context, "Неудочно", Toast.LENGTH_LONG).show()
                 }
             })
@@ -127,11 +139,13 @@ class NewMessageManager : Fragment() {
             title_container.error = "Загаловка не может быть пустым"
             content_container.error = "Письмо не может быть пустым"
         }
-
     }
 
-    override fun onStart() {
-        super.onStart()
+    private fun getRecyclerView() {
+        managerAdapter = ManagerAdapter(this)
+        recyclerManager.apply {
+            adapter = managerAdapter
 
+        }
     }
 }

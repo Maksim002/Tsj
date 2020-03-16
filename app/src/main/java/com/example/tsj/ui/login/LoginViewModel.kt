@@ -9,7 +9,6 @@ import com.example.tsj.service.model.AuthModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import kotlin.collections.HashMap
 
 class LoginViewModel : ViewModel() {
 
@@ -33,5 +32,20 @@ class LoginViewModel : ViewModel() {
         return result
     }
 
+    fun forgotPassword(email : String) : LiveData <Boolean> {
+        val data = MutableLiveData <Boolean>()
+
+        RetrofitService.apiService().forgotPassword(email).enqueue(object : Callback< String>{
+            override fun onFailure(call: Call<String>, t: Throwable) {
+                data.value = false
+            }
+
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+                data.value = response.isSuccessful
+            }
+
+        })
+        return data
+    }
 
 }

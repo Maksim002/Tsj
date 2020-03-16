@@ -20,8 +20,6 @@ class MessagesViewModel : ViewModel() {
         id: Int
     ): LiveData<List<MessageItemModel>> {
         val data = MutableLiveData<List<MessageItemModel>>()
-
-
         RetrofitService.apiService().messages(id)
             .enqueue(object :   Callback<List<MessageItemModel>> {
                 override fun onFailure(call: Call<List<MessageItemModel>>, t: Throwable) {

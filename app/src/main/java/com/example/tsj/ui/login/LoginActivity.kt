@@ -79,9 +79,9 @@ class LoginActivity : AppCompatActivity() {
             map.put("password", text_date.text.toString())
 
             viewModel.auth(map).observe(this, Observer { result ->
-
                 if (AppPreferences.isLogined) {
                     startMainActivity()
+                    AppPreferences.email = text_email.text.toString()
                 }
                 Toast.makeText(application, result.toString(), Toast.LENGTH_LONG).show()
             })

@@ -114,13 +114,13 @@
         tools:layout="@layout/fragment_portal_tsj" />
     <fragment
         android:id="@+id/navigation_new_message_owner"
-        android:name="com.example.tsj.ui.message.send.NewMessageOwner"
+        android:name="com.example.tsj.ui.message.send.NewMessageOwnerFragment"
         android:label="@string/msgForOwner"
         tools:layout="@layout/new_message_owner" />
 
     <fragment
         android:id="@+id/navigation_new_message_chairman"
-        android:name="com.example.tsj.ui.message.send.NewMessageManager"
+        android:name="com.example.tsj.ui.message.send.NewMessageManadgerFragment"
         android:label="@string/msgForChairman"
         tools:layout="@layout/new_message_chairman" />
 
@@ -157,10 +157,5 @@
         android:name="com.example.tsj.ui.profile.ChangePassword"
         android:label="@string/changePassword"
         tools:layout="@layout/fragment_change_password"/>
-    <fragment
-        android:id="@+id/profileBottomSheet"
-        android:name="com.example.tsj.ui.contact.fragments.AccountsBottomSheet"
-        android:label="fragment_profile_bottom_sheet"
-        tools:layout="@layout/fragment_profile_bottom_sheet" />
 
 </navigation>

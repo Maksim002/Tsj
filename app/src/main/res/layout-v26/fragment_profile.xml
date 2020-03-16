@@ -37,8 +37,7 @@
             android:layout_marginHorizontal="@dimen/marginHorizontal"
             android:layout_marginTop="13dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:passwordToggleEnabled="true">
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/profile_text_password"
