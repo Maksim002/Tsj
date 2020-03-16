@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.tsj.R
-import com.example.tsj.adapters.message.MessageViewPagerAdapter
+import com.example.tsj.adapters.message.ViewPagerAdapter
 import com.example.tsj.service.AppPreferences
 import com.example.tsj.ui.login.LoginActivity
 import com.example.tsj.ui.message.box.InboxFragment
@@ -66,7 +66,7 @@ class MessageFragment : Fragment() {
     }
 
     private fun initTabLayout() {
-        val pagerAdapter = MessageViewPagerAdapter(activity!!.supportFragmentManager)
+        val pagerAdapter = ViewPagerAdapter(activity!!.supportFragmentManager)
         pagerAdapter.addFragment(InboxFragment(), "Входящие")
         pagerAdapter.addFragment(OutboxFragment(), "Исходящие")
         msg_viewpager.adapter = pagerAdapter

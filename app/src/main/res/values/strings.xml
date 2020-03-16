@@ -60,5 +60,9 @@
     <string name="save">Сохранить</string>
     <string name="vote">Голосование</string>
     <string name="listofbalance">Список лицевых счетов</string>
+    <string name="inProcess">В ПРОЦЕССЕ</string>
+    <string name="VoteEnd">ЗАВЕРШЕННЫЕ</string>
+    <string name="urMean">Поделитесь своим мнением</string>
+    <string name="voting">Голосование</string>
 
 </resources>

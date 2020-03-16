@@ -78,6 +78,9 @@ class ContactFragment : Fragment(), AccountsListener {
         root.linearPortalTSJ.setOnClickListener {
             findNavController().navigate(R.id.navigation_portalTSJ)
         }
+        root.voting.setOnClickListener {
+            findNavController().navigate(R.id.navigation_vote)
+        }
 
         root.btn_profile.setOnClickListener {
             if(AppPreferences.isLogined){

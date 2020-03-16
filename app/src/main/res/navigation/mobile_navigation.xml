@@ -54,12 +54,6 @@
         tools:layout="@layout/fragment_balance_detail" />
 
     <fragment
-        android:id="@+id/navigation_account"
-        android:name="com.example.tsj.ui.history.fragments.AccountFragment"
-        android:label="@string/history"
-        tools:layout="@layout/fragment_account" />
-
-    <fragment
         android:id="@+id/navigation_new_reference"
         android:name="com.example.tsj.ui.reference.AddReferenceFragment"
         android:label="@string/new_reference"
@@ -76,12 +70,6 @@
         android:name="com.example.tsj.ui.reference.RelativeFragment"
         android:label="@string/families"
         tools:layout="@layout/fragment_families" />
-
-    <fragment
-        android:id="@+id/navigation_final_references"
-        android:name="com.example.tsj.ui.reference.FinalReferencesFragment"
-        android:label="@string/references"
-        tools:layout="@layout/fragment_final_references" />
 
     <fragment
         android:id="@+id/navigation_bid_add"
@@ -157,5 +145,27 @@
         android:name="com.example.tsj.ui.profile.ChangePassword"
         android:label="@string/changePassword"
         tools:layout="@layout/fragment_change_password"/>
+
+    <fragment
+        android:id="@+id/navigation_vote"
+        android:name="com.example.tsj.ui.voting.VoteFragment"
+        android:label="@string/voting"
+        tools:layout="@layout/fragment_vote" />
+    <fragment
+        android:id="@+id/voteInProcess"
+        android:name="com.example.tsj.ui.voting.tab.VoteInProcess"
+        android:label="fragment_vote_in_process"
+        tools:layout="@layout/fragment_vote_in_process" />
+
+    <fragment
+        android:id="@+id/voteEnd"
+        android:name="com.example.tsj.ui.voting.tab.VoteEnd"
+        android:label="voting"
+        tools:layout="@layout/fragment_vote_end" />
+    <fragment
+        android:id="@+id/navigation_vote_detail"
+        android:name="com.example.tsj.ui.voting.detail.VoteDetail"
+        android:label="@string/voting"
+        tools:layout="@layout/fragment_vote_detail" />
 
 </navigation>
