@@ -5,9 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.tsj.service.RetrofitService
 import com.example.tsj.service.model.RequestAddressesModel
+import com.example.tsj.service.model.RequestModel
 import com.example.tsj.service.model.RequestTypeModel
 import com.example.tsj.service.model.RequestsModel
 import com.example.tsj.service.request.AddRequest
+import com.example.tsj.service.request.UpdateRequest
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -96,6 +98,21 @@ class RequestViewModel : ViewModel() {
         return data
     }
 
+    fun updateRequest(body: UpdateRequest):LiveData<Boolean>{
+        val data = MutableLiveData<Boolean>()
+        RetrofitService.apiService().requestUpdate(body).enqueue(object :Callback<Unit>{
+            override fun onFailure(call: Call<Unit>, t: Throwable) {
+                data.value = false
+            }
+
+            override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+                data.value = response.isSuccessful
+            }
+        })
+
+        return data
+    }
+
     fun deleteRequest(id: Int): LiveData<Boolean> {
         val data = MutableLiveData<Boolean>()
         RetrofitService.apiService().requestDelete(id).enqueue(object : Callback<String> {
@@ -108,6 +125,25 @@ class RequestViewModel : ViewModel() {
             }
 
         })
+        return data
+    }
+
+    fun getRequest(id: Int): LiveData<RequestModel> {
+        val data = MutableLiveData<RequestModel>()
+        RetrofitService.apiService().requestGet(id).enqueue(object : Callback<RequestModel> {
+            override fun onFailure(call: Call<RequestModel>, t: Throwable) {
+                println()
+            }
+
+            override fun onResponse(call: Call<RequestModel>, response: Response<RequestModel>) {
+                if (response.isSuccessful){
+                    data.value = response.body()
+                }
+            }
+
+        })
+
+
         return data
     }
 }
