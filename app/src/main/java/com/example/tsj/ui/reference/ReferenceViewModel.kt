@@ -40,7 +40,7 @@ class ReferenceViewModel : ViewModel() {
 
     fun reference(id: Int): LiveData<ReferencesFullModel> {
         val data = MutableLiveData<ReferencesFullModel>()
-        RetrofitService.apiService().reference(id).enqueue(object :Callback<ReferencesFullModel>{
+        RetrofitService.apiService().reference(id).enqueue(object : Callback<ReferencesFullModel> {
             override fun onFailure(call: Call<ReferencesFullModel>, t: Throwable) {
                 println()
             }
@@ -121,6 +121,21 @@ class ReferenceViewModel : ViewModel() {
 
 
 
+        return data
+    }
+
+    fun updateReference(item: CertificateRequest): LiveData<Boolean> {
+        val data = MutableLiveData<Boolean>()
+        RetrofitService.apiService().updateReferences(item).enqueue(object : Callback<Unit> {
+            override fun onFailure(call: Call<Unit>, t: Throwable) {
+                data.value = false
+            }
+
+            override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+                data.value = response.isSuccessful
+            }
+
+        })
         return data
     }
 }

@@ -19,7 +19,6 @@ public class RelativeModel {
     private String fullName;
 
     private String relative;
-    private String date;
 
     public Integer getId() {
         return id;
@@ -33,9 +32,6 @@ public class RelativeModel {
         return MyUtils.INSTANCE.toMyDate(dateOfBirth);
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
 
     public String getRelative() {
         return relative;
@@ -44,12 +40,12 @@ public class RelativeModel {
     public RelativeModel() {
     }
 
+
     public RelativeModel(Integer relativeId, String dateOfBirth, String fullName, String relative) {
         this.relativeId = relativeId;
-        this.date = dateOfBirth;
         this.fullName = fullName;
         this.relative = relative;
-        this.dateOfBirth = MyUtils.INSTANCE.toServerDate(dateOfBirth);
+        this.dateOfBirth = dateOfBirth;
     }
 
     public void setRelative(String relative) {

@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:background="#E5E5E5"
         android:orientation="vertical"
-        tools:context=".ui.reference.AddReferenceFragment">
+        tools:context=".ui.reference.AddUpdateReferenceFragment">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/lRef"
@@ -75,7 +75,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         <TextView
-            android:id="@+id/layout_new_Ref"
+            android:id="@+id/reference_add_relative"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"

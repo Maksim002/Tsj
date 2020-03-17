@@ -102,6 +102,9 @@ interface ApiService {
     @POST("Certificates")
     fun addReferences(@Body certificateRequest: CertificateRequest): Call<Unit>
 
+    @PUT("Certificates")
+    fun updateReferences(@Body certificateRequest: CertificateRequest): Call<Unit>
+
     @GET("Certificates/{id}")
     fun reference(@Path("id") id: Int): Call<ReferencesFullModel>
 

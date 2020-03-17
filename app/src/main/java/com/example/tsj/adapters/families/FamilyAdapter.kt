@@ -21,6 +21,9 @@ class FamilyAdapter(
         holder.itemView.image_delete.setOnClickListener {
             listener.onClickDelete(holder.adapterPosition)
         }
+        holder.itemView.setOnClickListener {
+            listener.onClickItem(holder.adapterPosition)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
