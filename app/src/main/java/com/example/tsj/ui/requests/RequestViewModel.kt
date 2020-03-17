@@ -9,6 +9,7 @@ import com.example.tsj.service.model.RequestModel
 import com.example.tsj.service.model.RequestTypeModel
 import com.example.tsj.service.model.RequestsModel
 import com.example.tsj.service.request.AddRequest
+import com.example.tsj.service.request.UpdateRequest
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -92,6 +93,21 @@ class RequestViewModel : ViewModel() {
                 data.value = response.isSuccessful
             }
 
+        })
+
+        return data
+    }
+
+    fun updateRequest(body: UpdateRequest):LiveData<Boolean>{
+        val data = MutableLiveData<Boolean>()
+        RetrofitService.apiService().requestUpdate(body).enqueue(object :Callback<Unit>{
+            override fun onFailure(call: Call<Unit>, t: Throwable) {
+                data.value = false
+            }
+
+            override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+                data.value = response.isSuccessful
+            }
         })
 
         return data
