@@ -16,24 +16,16 @@ import retrofit2.Response
 
 class MessagesViewModel : ViewModel() {
 
-    fun messages(
-        id: Int
-    ): LiveData<List<MessageItemModel>> {
+    fun messages(id: Int): LiveData<List<MessageItemModel>> {
         val data = MutableLiveData<List<MessageItemModel>>()
-        RetrofitService.apiService().messages(id)
-            .enqueue(object :   Callback<List<MessageItemModel>> {
+        RetrofitService.apiService().messages(id).enqueue(object :  Callback<List<MessageItemModel>> {
                 override fun onFailure(call: Call<List<MessageItemModel>>, t: Throwable) {
                     println("failure")
                 }
 
-                override fun onResponse(
-                    call: Call<List<MessageItemModel>>,
-                    response: Response<List<MessageItemModel>>
-                ) {
+                override fun onResponse(call: Call<List<MessageItemModel>>, response: Response<List<MessageItemModel>>) {
                     if (response.isSuccessful) {
-                        data.value = response.body()
-                    }
-                }
+                        data.value = response.body() } }
             })
         return data
     }

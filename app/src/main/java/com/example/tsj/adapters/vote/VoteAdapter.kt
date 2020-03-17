@@ -7,7 +7,6 @@ import com.example.tsj.common.GenericRecyclerAdapter
 import com.example.tsj.common.ViewHolder
 import com.example.tsj.model.VoteModel
 import kotlinx.android.synthetic.main.item_vote.view.*
-import java.text.FieldPosition
 
 class VoteAdapter(listener : VoteItemClickListener, item: List<VoteModel>) : GenericRecyclerAdapter<VoteModel>(item) {
     private val listener : VoteItemClickListener = listener

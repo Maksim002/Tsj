@@ -11,7 +11,7 @@ import com.example.tsj.R
 /**
  * A simple [Fragment] subclass.
  */
-class VoteDetail : Fragment() {
+class VoteDetailFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,6 +21,5 @@ class VoteDetail : Fragment() {
 
         return inflater.inflate(R.layout.fragment_vote_detail, container, false)
     }
-
 
 }

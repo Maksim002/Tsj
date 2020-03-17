@@ -1,6 +1,7 @@
 package com.example.tsj.service
 
 import com.example.tsj.model.MessageItemModel
+import com.example.tsj.model.VoteModel
 import com.example.tsj.service.model.*
 import com.example.tsj.service.request.AddRequest
 import com.example.tsj.service.request.CertificateRequest
@@ -72,7 +73,6 @@ interface ApiService {
     fun requestGet(@Path("id") id: Int): Call<RequestModel>
 
 
-
     @DELETE("Requests/{id}")
     fun requestDelete(@Path("id") id: Int): Call<String>
 
@@ -120,10 +120,15 @@ interface ApiService {
     @GET("Certificates/Relatives")
     fun relatives(): Call<List<MessagesPersonsModel>>
 
-
     @POST("ForgotPassword")
     fun forgotPassword(@Query("email") email: String): Call<String>
 
+    @GET("Voting")
+    fun votingList(
+        @Query("typeId") typeId: Int,
+        @Query("id") id: Int
+    ): Call<List<VoteModel>>
 
-
+    @GET("Voting/Addresses")
+    fun votingAddress(): Call<List<AddressModel>>
 }
