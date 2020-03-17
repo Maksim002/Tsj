@@ -64,6 +64,10 @@ interface ApiService {
     @POST("Requests")
     fun requestAdd(@Body body: AddRequest): Call<String>
 
+    @GET("Requests/{id}")
+    fun requestGet(@Path("id") id: Int): Call<RequestModel>
+
+
     @DELETE("Requests/{id}")
     fun requestDelete(@Path("id") id: Int): Call<String>
 
