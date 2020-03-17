@@ -55,7 +55,7 @@
 
     <fragment
         android:id="@+id/navigation_new_reference"
-        android:name="com.example.tsj.ui.reference.AddReferenceFragment"
+        android:name="com.example.tsj.ui.reference.AddUpdateReferenceFragment"
         android:label="@string/new_reference"
         tools:layout="@layout/fragment_new_reference" />
 

@@ -19,23 +19,31 @@ import com.example.tsj.R
 import com.example.tsj.adapters.families.FamilyAdapter
 import com.example.tsj.adapters.families.FamilyListener
 import com.example.tsj.service.request.CertificateRequest
-import com.example.tsj.service.request.PersonRequest
-import com.example.tsj.service.request.RelativeRequest
+import com.example.tsj.service.model.PersonModel
+import com.example.tsj.service.model.RelativeModel
 import com.example.tsj.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_new_reference.*
+import kotlinx.android.synthetic.main.fragment_new_reference.view.*
 import java.lang.Exception
 import java.util.*
 import kotlin.collections.ArrayList
 
-class AddReferenceFragment : Fragment(), FamilyListener {
-    private lateinit var col: ColorStateList
+class AddUpdateReferenceFragment : Fragment(), FamilyListener {
+
     private lateinit var refAdapter: FamilyAdapter
-    private lateinit var recyclerViewR: RecyclerView
     private lateinit var viewModel: ReferenceViewModel
-    private var placementId = 0
+    private var update = false
+    val data = CertificateRequest()
+
+    init {
+        if (data.person == null)
+            data.person = PersonModel()
+        if (data.relatives == null)
+            data.relatives = listOf()
+    }
 
     companion object {
-        val list = ArrayList<RelativeRequest>()
+        val list = ArrayList<RelativeModel>()
     }
 
 
@@ -51,9 +59,6 @@ class AddReferenceFragment : Fragment(), FamilyListener {
         (activity as AppCompatActivity).supportActionBar!!.show()
         viewModel = ViewModelProviders.of(this).get(ReferenceViewModel::class.java)
 
-
-
-
         return root
     }
 
@@ -62,56 +67,86 @@ class AddReferenceFragment : Fragment(), FamilyListener {
     }
 
     private fun initViews(root: View) {
-        col = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-        val layout_new = root.findViewById<TextView>(R.id.layout_new_Ref)
-        layout_new.setOnClickListener {
+        root.reference_add_relative.setOnClickListener {
             findNavController().navigate(R.id.navigation_families)
         }
-        recyclerViewR = root.findViewById(R.id.familiesRecyclerView)
         refAdapter = FamilyAdapter(this)
-        recyclerViewR.adapter = refAdapter
+        root.familiesRecyclerView.adapter = refAdapter
         refAdapter.update(list)
 
-        edit_ref.setOnFocusChangeListener { _, _ ->
-            lRef.defaultHintTextColor = col
+        root.edit_ref.setOnFocusChangeListener { _, _ ->
+            val col = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            root.lRef.defaultHintTextColor = col
         }
 
-        reference_save.setOnClickListener {
+        root.reference_save.setOnClickListener {
             //
-            val data = CertificateRequest()
             data.relatives = list
-            val person = PersonRequest()
-            person.fullName = edit_ref.text.toString()
-            person.dateOfBirth = MyUtils.toServerDate(editReferenceS.text.toString())
-            data.person = person
-            data.placementId = placementId
-            viewModel.addReferences(data).observe(this, Observer {
-                if (it) {
-                    findNavController().popBackStack()
-                } else {
-                    Toast.makeText(
-                        context,
-                        "Произошла ошибка при отправке данных",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-            })
+            data.person.fullName = edit_ref.text.toString()
+            data.person.dateOfBirth = MyUtils.toServerDate(editReferenceS.text.toString())
+            if (!update) {
+                viewModel.addReferences(data).observe(this, Observer {
+                    if (it) {
+                        findNavController().popBackStack()
+                    } else {
+                        Toast.makeText(
+                            context,
+                            "Произошла ошибка при отправке данных",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                })
+            } else {
+                viewModel.updateReference(data).observe(this, Observer {
+                    if (it) {
+                        findNavController().popBackStack()
+                    } else {
+                        Toast.makeText(
+                            context,
+                            "Произошла ошибка при отправке данных",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                })
+            }
+
         }
     }
 
     override fun onStart() {
         super.onStart()
-
         getEditReferenceS()
-
+        if (update) {
+            reference_save.text = "Обновить"
+        }
+        if (data.id != null && data.id != 0 && !update) {
+            update = true
+            reference_save.text = "Обновить"
+            viewModel.reference(data.id).observe(this, Observer {
+                data.person.id = it.person.id
+                edit_ref.setText(it.person.fullName)
+                editReferenceS.setText(MyUtils.toMyDate(it.forDate))
+                it.relatives.forEach { item ->
+                    list.add(item)
+                }
+                refAdapter.update(list)
+            })
+        }
     }
 
     private fun initArguments() {
-        placementId = try {
-            arguments!!.getInt("id")
+        data.placementId = try {
+            arguments!!.getInt("placementId")
         } catch (e: Exception) {
             0
         }
+
+        data.id = try {
+            arguments!!.getInt("referenceId")
+        } catch (e: Exception) {
+            0
+        }
+
     }
 
 
@@ -143,13 +178,17 @@ class AddReferenceFragment : Fragment(), FamilyListener {
                 goneL.requestFocus()
             }
         }
-
-
     }
 
     override fun onClickDelete(id: Int) {
         list.removeAt(id)
         refAdapter.update(list)
+    }
+
+    override fun onClickItem(id: Int) {
+        val bundle = Bundle()
+        bundle.putInt("position", id)
+        findNavController().navigate(R.id.navigation_families, bundle)
     }
 
 

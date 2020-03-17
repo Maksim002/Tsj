@@ -13,10 +13,12 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.tsj.R
 import com.example.tsj.adapters.references.ReferencesAdapter
+import com.example.tsj.adapters.references.ReferencesListener
 import com.example.tsj.service.model.AddressModel
+import com.example.tsj.service.model.ReferenceLiteModel
 import kotlinx.android.synthetic.main.fragment_reference.view.*
 
-class ReferenceFragment : Fragment() {
+class ReferenceFragment : Fragment(),ReferencesListener {
 
     private lateinit var viewModel: ReferenceViewModel
     private lateinit var adapter: ReferencesAdapter
@@ -50,12 +52,12 @@ class ReferenceFragment : Fragment() {
     private fun initViews(root: View) {
 
         root.new_references.setOnClickListener {
-            AddReferenceFragment.list.clear()
+            AddUpdateReferenceFragment.list.clear()
             val bundle = Bundle()
             bundle.putInt("id", placementId)
             findNavController().navigate(R.id.navigation_new_reference, bundle)
         }
-        adapter = ReferencesAdapter(ArrayList())
+        adapter = ReferencesAdapter(ArrayList(),this)
         root.recyclerViewReferences.adapter = adapter
 
 
@@ -84,6 +86,14 @@ class ReferenceFragment : Fragment() {
         }
 
 
+    }
+
+    override fun onClickItem(item: ReferenceLiteModel) {
+        AddUpdateReferenceFragment.list.clear()
+        val bundle = Bundle()
+        bundle.putInt("referenceId", item.id)
+        bundle.putInt("placementId", placementId)
+        findNavController().navigate(R.id.navigation_new_reference, bundle)
     }
 
 }

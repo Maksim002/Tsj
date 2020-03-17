@@ -1,10 +1,13 @@
-package com.example.tsj.service.request;
+package com.example.tsj.service.model;
 
 import com.example.tsj.utils.MyUtils;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class RelativeRequest {
+public class RelativeModel {
+    @SerializedName("Id")
+    @Expose
+    private Integer id;
     @SerializedName("RelativeId")
     @Expose
     private Integer relativeId;
@@ -16,29 +19,33 @@ public class RelativeRequest {
     private String fullName;
 
     private String relative;
-    private String date;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getDate() {
-        return date;
+        return MyUtils.INSTANCE.toMyDate(dateOfBirth);
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
 
     public String getRelative() {
         return relative;
     }
 
-    public RelativeRequest() {
+    public RelativeModel() {
     }
 
-    public RelativeRequest(Integer relativeId, String dateOfBirth, String fullName, String relative) {
+
+    public RelativeModel(Integer relativeId, String dateOfBirth, String fullName, String relative) {
         this.relativeId = relativeId;
-        this.date = dateOfBirth;
         this.fullName = fullName;
         this.relative = relative;
-        this.dateOfBirth = MyUtils.INSTANCE.toServerDate(dateOfBirth);
+        this.dateOfBirth = dateOfBirth;
     }
 
     public void setRelative(String relative) {

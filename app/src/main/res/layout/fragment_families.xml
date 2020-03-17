@@ -70,15 +70,16 @@
         android:hint="Кем приходится"
         app:layout_constraintTop_toBottomOf="@+id/lin_v">
 
-        <AutoCompleteTextView
+        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
             android:id="@+id/text_families_who"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:drawableEnd="@drawable/ic_expend"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="23dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="23dp"
             android:paddingEnd="8dp"
-            android:background="@null"/>
+            android:background="@null"
+            tools:ignore="RtlSymmetry" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <ImageView

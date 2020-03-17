@@ -22,7 +22,8 @@ class RequestViewModel : ViewModel() {
                 call: Call<List<RequestsModel>>,
                 response: Response<List<RequestsModel>>
             ) {
-                data.value = response.body()
+                if (response.isSuccessful)
+                    data.value = response.body()
             }
 
             override fun onFailure(call: Call<List<RequestsModel>>, t: Throwable) {

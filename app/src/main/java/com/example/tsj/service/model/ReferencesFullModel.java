@@ -1,20 +1,21 @@
-package com.example.tsj.service.request;
+package com.example.tsj.service.model;
 
-import com.example.tsj.service.model.RelativeModel;
-import com.example.tsj.service.model.PersonModel;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class CertificateRequest {
-
-    @SerializedName("id")
+public class ReferencesFullModel {
+    @SerializedName("NumberFull")
+    @Expose
+    private String numberFull;
+    @SerializedName("ForDate")
+    @Expose
+    private String forDate;
+    @SerializedName("Id")
     @Expose
     private Integer id;
-    @SerializedName("PlacementId")
-    @Expose
-    private Integer placementId;
     @SerializedName("Person")
     @Expose
     private PersonModel person;
@@ -22,6 +23,21 @@ public class CertificateRequest {
     @Expose
     private List<RelativeModel> relatives = null;
 
+    public String getNumberFull() {
+        return numberFull;
+    }
+
+    public void setNumberFull(String numberFull) {
+        this.numberFull = numberFull;
+    }
+
+    public String getForDate() {
+        return forDate;
+    }
+
+    public void setForDate(String forDate) {
+        this.forDate = forDate;
+    }
 
     public Integer getId() {
         return id;
@@ -29,14 +45,6 @@ public class CertificateRequest {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getPlacementId() {
-        return placementId;
-    }
-
-    public void setPlacementId(Integer placementId) {
-        this.placementId = placementId;
     }
 
     public PersonModel getPerson() {
