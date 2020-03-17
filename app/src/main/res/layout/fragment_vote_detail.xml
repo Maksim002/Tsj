@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginStart="@dimen/marginHorizontal"
+    android:layout_marginEnd="@dimen/marginHorizontal"
+    android:orientation="vertical"
+    tools:context=".ui.voting.detail.VoteDetail">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginHorizontal"
+            android:text="Где хранить информацию о наличии либо отсутствии ТСЖ в нашем доме?"
+            android:textColor="@color/blackTextColor"
+            android:textSize="22sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginHorizontal"
+            android:text=" Дата окончания: 31 марта 2020" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/vote_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/orangeColor"
+                android:text="В выписке из ЕГРЮЛ" />
+
+            <View
+                android:id="@+id/divider1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/marginHorizontal"
+                android:background="@color/dividerColor" />
+
+            <RadioButton
+                android:id="@+id/vote_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/marginHorizontal"
+                android:buttonTint="@color/orangeColor"
+                android:text="У председателя" />
+
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/marginHorizontal"
+                android:background="@color/dividerColor" />
+
+            <RadioButton
+                android:id="@+id/vote_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/marginHorizontal"
+                android:buttonTint="@color/orangeColor"
+                android:text="У директорка" />
+
+            <View
+                android:id="@+id/divider3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/marginHorizontal"
+                android:background="@color/dividerColor" />
+
+
+            <RadioButton
+                android:id="@+id/vote_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/marginHorizontal"
+                android:buttonTint="@color/orangeColor"
+                android:text="У жителей" />
+
+            <View
+                android:id="@+id/divider4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/marginHorizontal"
+                android:background="@color/dividerColor" />
+
+        </RadioGroup>
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/profile_accept_bt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/marginHorizontal"
+        android:backgroundTint="#FFF"
+        android:src="@drawable/ic_check"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
