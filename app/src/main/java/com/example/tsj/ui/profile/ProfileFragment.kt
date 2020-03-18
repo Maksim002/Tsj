@@ -47,7 +47,6 @@ class ProfileFragment : Fragment() {
             builder.show ()
         }
         return root
-        //
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
