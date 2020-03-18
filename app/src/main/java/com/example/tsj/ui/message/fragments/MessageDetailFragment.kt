@@ -57,7 +57,7 @@ class MessageDetailFragment : Fragment() {
 
     private fun initViews() {
         msg_answer_button.setOnClickListener {
-            val messageBottomSheet = MessageBottomSheet()
+            val messageBottomSheet = MessageBottomSheet(idMessage)
             messageBottomSheet.show(fragmentManager!!, "MessageBottomSheet")
         }
     }

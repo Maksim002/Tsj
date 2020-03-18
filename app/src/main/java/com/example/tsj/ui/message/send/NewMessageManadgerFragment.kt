@@ -34,11 +34,12 @@ class NewMessageManadgerFragment : Fragment(), GeneralClickListener {
 
     private lateinit var viewModel: MessagesViewModel
     private val STORAGE_PERMISION_CODE: Int = 1
+    private val IMAGE_PICK_CODE = 10
     private lateinit var editBody: TextInputEditText
     private lateinit var editTitle: TextInputEditText
     private lateinit var managerAdapter: ManagerAdapter
     private lateinit var recyclerManager: RecyclerView
-    private val IMAGE_PICK_CODE = 10
+
     private var files = ArrayList<MultipartBody.Part>()
     private var names = ArrayList<String>()
 
