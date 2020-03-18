@@ -179,6 +179,26 @@ class   MessagesViewModel : ViewModel() {
         return data
     }
 
+    fun messageTypes(): LiveData<List<MessagesPersonsModel>> {
+        val data = MutableLiveData<List<MessagesPersonsModel>>()
+        RetrofitService.apiService().messageTypes()
+            .enqueue(object : Callback<List<MessagesPersonsModel>> {
+                override fun onFailure(call: Call<List<MessagesPersonsModel>>, t: Throwable) {
+
+                }
+
+                override fun onResponse(
+                    call: Call<List<MessagesPersonsModel>>,
+                    response: Response<List<MessagesPersonsModel>>
+                ) {
+                    if (response.isSuccessful) data.value = response.body()
+
+                }
+
+            })
+        return data
+    }
+
     private fun addEmptyFile(): MultipartBody.Part {
         val empty: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), "")
         return MultipartBody.Part.createFormData("empty", "", empty)

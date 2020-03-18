@@ -73,7 +73,6 @@ interface ApiService {
     fun requestGet(@Path("id") id: Int): Call<RequestModel>
 
 
-
     @DELETE("Requests/{id}")
     fun requestDelete(@Path("id") id: Int): Call<String>
 
@@ -96,6 +95,9 @@ interface ApiService {
 
     @GET("Messages/Houses/Placements/{id}/Persons")
     fun persons(@Path("id") id: Int): Call<List<MessagesPersonsModel>>
+
+    @GET("Messages/Types")
+    fun messageTypes():Call<List<MessagesPersonsModel>>
 
     @Multipart
     @POST("Messages")
