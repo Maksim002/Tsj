@@ -41,7 +41,6 @@ class NewMessageManadgerFragment : Fragment(), GeneralClickListener {
     private val IMAGE_PICK_CODE = 10
     private var files = ArrayList<MultipartBody.Part>()
     private var names = ArrayList<String>()
-    private var downloadUrl: Boolean = true
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -79,38 +78,47 @@ class NewMessageManadgerFragment : Fragment(), GeneralClickListener {
                 sendMessage()
             }
             R.id.fasten_file -> {
-                loadFiles(downloadUrl)
+                loadFiles()
             }
         }
         return super.onOptionsItemSelected(item)
     }
 
-    private fun loadFiles(downloadUrl: Boolean) {
+    private fun loadFiles() {
 
-        if (downloadUrl){
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-               if (ContextCompat.checkSelfPermission(context!!, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
-                   val permissions = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE)
-                   requestPermissions(permissions, STORAGE_PERMISION_CODE)
 
-                }else{
-                   getMyFile(downloadUrl)
-                }
-            }else {
-                getMyFile(downloadUrl)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(
+                    context!!,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ) == PackageManager.PERMISSION_DENIED
+            ) {
+                val permissions = arrayOf(
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                )
+                requestPermissions(permissions, STORAGE_PERMISION_CODE)
+
+            } else {
+                getMyFile()
             }
+        } else {
+            getMyFile()
+
         }
     }
-    private fun getMyFile(downloadUrl: Boolean){
+
+    private fun getMyFile() {
         val myFile = Intent(Intent.ACTION_PICK)
         myFile.setType("*/*")
         startActivityForResult(myFile, IMAGE_PICK_CODE)
     }
 
     override fun onRequestPermissionsResult(
-        requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        requestCode: Int, permissions: Array<out String>, grantResults: IntArray
+    ) {
         if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            getMyFile(downloadUrl)
+            getMyFile()
         } else {
             //permission from popup denied
             Toast.makeText(context, "Нет разрешений", Toast.LENGTH_SHORT).show()
@@ -159,7 +167,6 @@ class NewMessageManadgerFragment : Fragment(), GeneralClickListener {
             content_container.error = null
             //Метод для post сообщания
             viewModel.sendMessageToManager(body, title, files).observe(this, Observer {
-                this.downloadUrl = it
                 if (it) {
                     findNavController().popBackStack()
                 } else {
