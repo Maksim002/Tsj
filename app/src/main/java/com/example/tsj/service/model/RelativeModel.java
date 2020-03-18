@@ -17,7 +17,8 @@ public class RelativeModel {
     @SerializedName("FullName")
     @Expose
     private String fullName;
-
+    @SerializedName("RelativeName")
+    @Expose
     private String relative;
 
     public Integer getId() {
