@@ -22,7 +22,7 @@
              android:id="@+id/list_currant"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
-             android:text="Лицевой счет № 2425"
+             tools:text="Лицевой счет № 2425"
              android:textColor="#3E3E3E"
              android:textSize="20sp"
              android:textStyle="bold"/>
@@ -31,7 +31,7 @@
              android:id="@+id/text_balance"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
-             android:text="Текущий баланс -08.14c"
+             tools:text="Текущий баланс -08.14c"
              android:textColor="#3E3E3E"
              android:textSize="16dp"
              android:layout_marginTop="8dp"/>
@@ -83,7 +83,7 @@
                          android:id="@+id/text_service_name"
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
-                         android:text="Техобслуживание"
+                         tools:text="Техобслуживание"
                          android:textSize="15sp"
                          android:textColor="#3E3E3E"
                          android:layout_weight="1"/>
@@ -92,7 +92,7 @@
                          android:id="@+id/text_operation_name"
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
-                         android:text="Платежи"
+                         tools:text="Платежи"
                          android:textSize="15sp"
                          android:textColor="#3E3E3E"
                          android:layout_weight="1"/>
@@ -116,7 +116,7 @@
                          android:id="@+id/text_address"
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
-                         android:text="7 небо, Токомбаева, д.53/2 кв 11"
+                         tools:text="7 небо, Токомбаева, д.53/2 кв 11"
                          android:textColor="#3E3E3E"
                          android:textSize="15sp"
                          android:layout_marginTop="4dp"
@@ -129,7 +129,7 @@
              android:id="@+id/text_to_from"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
-             android:text="История оплат с 12/11/2019 - 12/02/2020"
+             tools:text="История оплат с 12/11/2019 - 12/02/2020"
              android:layout_marginTop="24dp"
              android:layout_marginBottom="8dp"
              android:textSize="16sp"
