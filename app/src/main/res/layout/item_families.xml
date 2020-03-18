@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -25,14 +26,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#929292"
-                android:text="Сын"
+                tools:text="Сын"
                 android:textSize="12sp"/>
 
             <TextView
                 android:id="@+id/text_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Степанов Владимир Алексеевич"
+                tools:text="Степанов Владимир Алексеевич"
                 android:textColor="#3E3E3E"
                 android:textSize="15dp"/>
 
@@ -41,7 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="14dp"
-                android:text="12.05.2001 года рождения"
+                tools:text="12.05.2001 года рождения"
                 android:layout_marginTop="12dp"
                 android:textColor="#929292"/>
         </LinearLayout>

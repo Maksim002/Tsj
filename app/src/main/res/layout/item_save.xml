@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -36,7 +37,7 @@
                 android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/save_7_53_2_11"
+                tools:text="@string/save_7_53_2_11"
                 android:textColor="#3E3E3E"
                 android:textSize="15sp"
                 android:layout_marginLeft="16dp"
@@ -46,7 +47,7 @@
                 android:id="@+id/count"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/save_2425"
+                tools:text="@string/save_2425"
                 android:textColor="#929292"
                 android:layout_marginLeft="16dp"/>
         </LinearLayout>

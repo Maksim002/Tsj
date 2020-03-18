@@ -20,7 +20,8 @@
             android:layout_marginHorizontal="@dimen/marginHorizontal"
             android:layout_marginTop="16dp">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <EditText
+                android:editable="false"
                 android:id="@+id/profile_text_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -39,7 +40,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <EditText
+                android:editable="false"
                 android:id="@+id/profile_text_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -57,6 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/marginHorizontal"
             android:paddingEnd="@dimen/marginHorizontal"
+            android:padding="12dp"
             android:paddingBottom="@dimen/marginHorizontal"
             android:text="@string/changePassword"
             android:textColor="@color/orangeColor" />
