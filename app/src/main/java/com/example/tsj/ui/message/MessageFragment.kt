@@ -34,6 +34,7 @@ class MessageFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        initViews()
         if(AppPreferences.isLogined){
             msg_auth_view.visibility = View.VISIBLE
             msg_auth_image.visibility = View.GONE
@@ -42,14 +43,6 @@ class MessageFragment : Fragment() {
             msg_auth_view.visibility = View.GONE
             msg_auth_image.visibility = View.VISIBLE
         }
-
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        initViews()
-
 
     }
 
@@ -66,9 +59,10 @@ class MessageFragment : Fragment() {
     }
 
     private fun initTabLayout() {
-        val pagerAdapter = ViewPagerAdapter(activity!!.supportFragmentManager)
-        pagerAdapter.addFragment(InboxFragment(), "Входящие")
-        pagerAdapter.addFragment(OutboxFragment(), "Исходящие")
+        val pagerAdapter = ViewPagerAdapter(childFragmentManager)
+        pagerAdapter.addFragment(InboxFragment(1), "Входящие")
+        pagerAdapter.addFragment(InboxFragment(0), "Исходящие")
+//        pagerAdapter.addFragment(OutboxFragment(), "Исходящие")
         msg_viewpager.adapter = pagerAdapter
         msg_tablayout.setupWithViewPager(msg_viewpager)
     }

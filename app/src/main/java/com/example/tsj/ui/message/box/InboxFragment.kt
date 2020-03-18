@@ -19,7 +19,7 @@ import com.example.tsj.service.AppPreferences
 import com.example.tsj.ui.message.MessagesViewModel
 import kotlinx.android.synthetic.main.navigation_inbox.*
 
-class InboxFragment : Fragment(), MessageClicklItemListener {
+class InboxFragment(private val idMessage: Int) : Fragment(), MessageClicklItemListener {
 
     private lateinit var messageAdapter: MessageAdapter
     private lateinit var viewModel: MessagesViewModel
@@ -30,6 +30,7 @@ class InboxFragment : Fragment(), MessageClicklItemListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val root = inflater.inflate(R.layout.navigation_inbox, container, false)
         viewModel = ViewModelProviders.of(this).get(MessagesViewModel::class.java)
         recyclerview = root.findViewById(R.id.msg_recyclerview)
@@ -45,8 +46,8 @@ class InboxFragment : Fragment(), MessageClicklItemListener {
     }
 
     private fun initRec() {
-        if(AppPreferences.isLogined){
-            viewModel.messages(1).observe(this, Observer { list ->
+        if (AppPreferences.isLogined) {
+            viewModel.messages(idMessage).observe(this, Observer { list ->
                 messageAdapter = MessageAdapter(this, list)
                 recyclerview.apply { adapter = messageAdapter }
 
@@ -65,8 +66,8 @@ class InboxFragment : Fragment(), MessageClicklItemListener {
 
     override fun onClickMessage(item: MessageItemModel) {
         val bundle = Bundle()
-        bundle.putInt("id",item.id)
-        findNavController().navigate(R.id.navigation_message_detail,bundle)
+        bundle.putInt("id", item.id)
+        findNavController().navigate(R.id.navigation_message_detail, bundle)
 
     }
 }
