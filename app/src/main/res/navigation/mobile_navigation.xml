@@ -124,9 +124,9 @@
         tools:layout="@layout/fragment_message_bottom_sheet" />
     <fragment
         android:id="@+id/inboxFragment"
-        android:name="com.example.tsj.ui.message.box.InboxFragment"
+        android:name="com.example.tsj.ui.message.MessagesFragment"
         android:label="navigation_inbox"
-        tools:layout="@layout/navigation_inbox" />
+        tools:layout="@layout/fraagment_messages" />
     <navigation
         android:id="@+id/navigation"
         app:startDestination="@id/inboxFragment" />

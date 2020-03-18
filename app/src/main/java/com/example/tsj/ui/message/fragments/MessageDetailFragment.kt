@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.tsj.R
 import com.example.tsj.ui.message.MessagesViewModel
 import com.example.tsj.ui.message.fragments.MessageBottomSheet
+import com.example.tsj.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_message_detail.*
 import java.lang.Exception
 
@@ -39,7 +40,7 @@ class MessageDetailFragment : Fragment() {
 
     private fun initData() {
         viewModel.message(idMessage).observe(this, Observer {
-            msg_detail_date.text = it.sendDate
+            msg_detail_date.text = MyUtils.toMyDate(it.sendDate)
             msg_detail_sender.text = "от: " + it.personName
             msg_detail_title.text = it.title
             msg_detail_content.text = it.body
@@ -56,7 +57,7 @@ class MessageDetailFragment : Fragment() {
 
     private fun initViews() {
         msg_answer_button.setOnClickListener {
-            val messageBottomSheet = MessageBottomSheet()
+            val messageBottomSheet = MessageBottomSheet(idMessage)
             messageBottomSheet.show(fragmentManager!!, "MessageBottomSheet")
         }
     }

@@ -31,6 +31,9 @@ class ReferenceFragment : Fragment(),ReferencesListener {
         viewModel = ViewModelProviders.of(this).get(ReferenceViewModel::class.java)
         initViews(root)
         initData(root)
+
+
+
         (activity as AppCompatActivity).supportActionBar?.show()
         return root
     }

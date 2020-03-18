@@ -4,10 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.tsj.service.RetrofitService
-import com.example.tsj.service.model.RequestAddressesModel
-import com.example.tsj.service.model.RequestModel
-import com.example.tsj.service.model.RequestTypeModel
-import com.example.tsj.service.model.RequestsModel
+import com.example.tsj.service.model.*
+
+
 import com.example.tsj.service.request.AddRequest
 import com.example.tsj.service.request.UpdateRequest
 import retrofit2.Call
@@ -98,9 +97,9 @@ class RequestViewModel : ViewModel() {
         return data
     }
 
-    fun updateRequest(body: UpdateRequest):LiveData<Boolean>{
+    fun updateRequest(body: UpdateRequest): LiveData<Boolean> {
         val data = MutableLiveData<Boolean>()
-        RetrofitService.apiService().requestUpdate(body).enqueue(object :Callback<Unit>{
+        RetrofitService.apiService().requestUpdate(body).enqueue(object : Callback<Unit> {
             override fun onFailure(call: Call<Unit>, t: Throwable) {
                 data.value = false
             }
@@ -128,6 +127,28 @@ class RequestViewModel : ViewModel() {
         return data
     }
 
+
+    fun detailsModel(requestId: Int): LiveData<DetailsModel> {
+        val data = MutableLiveData<DetailsModel>()
+        RetrofitService.apiService().detailsModel(requestId)
+            .enqueue(object : Callback<DetailsModel> {
+                override fun onFailure(call: Call<DetailsModel>, t: Throwable) {
+                    println()
+                }
+
+                override fun onResponse(
+                    call: Call<DetailsModel>,
+                    response: Response<DetailsModel>
+                ) {
+                    if (response.isSuccessful) {
+                        data.value = response.body()
+                    }
+                }
+            })
+
+        return data
+    }
+
     fun getRequest(id: Int): LiveData<RequestModel> {
         val data = MutableLiveData<RequestModel>()
         RetrofitService.apiService().requestGet(id).enqueue(object : Callback<RequestModel> {
@@ -136,13 +157,12 @@ class RequestViewModel : ViewModel() {
             }
 
             override fun onResponse(call: Call<RequestModel>, response: Response<RequestModel>) {
-                if (response.isSuccessful){
+                if (response.isSuccessful) {
                     data.value = response.body()
                 }
             }
 
         })
-
 
         return data
     }

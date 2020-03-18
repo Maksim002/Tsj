@@ -10,17 +10,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.tsj.R
+import kotlinx.android.synthetic.main.fragment_bid_detail.*
 import com.example.tsj.service.model.RequestModel
 import kotlinx.android.synthetic.main.fragment_bid_detail.view.*
 
 class RequestDetailFragment : Fragment() {
 
     private lateinit var viewModel: RequestViewModel
-    private var requestId = 0
+    private var requestId = 0;
+    private var detailsId = 0;
 
     companion object {
         var requestModel = RequestModel()
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,16 +32,12 @@ class RequestDetailFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_bid_detail, container, false)
         viewModel = ViewModelProviders.of(this).get(RequestViewModel::class.java)
         (activity as AppCompatActivity).supportActionBar?.show()
-
         initArguments()
         initViews(root)
         initData(root)
-
-
-
-
         return root
     }
+
 
     private fun initData(root: View) {
         viewModel.getRequest(requestId).observe(this, Observer {
@@ -48,18 +47,21 @@ class RequestDetailFragment : Fragment() {
             root.bid_porch_content.text = it.entrance.toString()
             root.bid_description_content.text = it.description
             root.bid_title.text = it.requestTypeName
-
-
         })
     }
 
     private fun initViews(root: View) {
-
     }
 
     private fun initArguments() {
         requestId = try {
             arguments!!.getInt("id")
+        } catch (e: Exception) {
+            0
+        }
+
+        detailsId = try {
+            arguments!!.getInt("detailsId")
         } catch (e: Exception) {
             0
         }
@@ -109,5 +111,14 @@ class RequestDetailFragment : Fragment() {
         })
     }
 
+    override fun onStart() {
+        super.onStart()
 
+        viewModel.detailsModel(requestId).observe(this, Observer { list ->
+            bid_adres_content.setText(list.address)
+            bid_flat_content.setText(list.entrance.toString())
+            bid_description_content.setText(list.description)
+            bid_porch_content.setText(list.floor.toString())
+        })
+    }
 }

@@ -73,7 +73,7 @@ class LoginActivity : AppCompatActivity() {
 
         main_enter_button.setOnClickListener {
 
-            var map = HashMap<String, String>()
+            val map = HashMap<String, String>()
             map.put("grant_type", "password")
             map.put("username", text_email.text.toString())
             map.put("password", text_date.text.toString())
@@ -83,7 +83,6 @@ class LoginActivity : AppCompatActivity() {
                     startMainActivity()
                     AppPreferences.email = text_email.text.toString()
                 }
-                Toast.makeText(application, result.toString(), Toast.LENGTH_LONG).show()
             })
             validateEdittexts()
         }

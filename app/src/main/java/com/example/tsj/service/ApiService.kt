@@ -1,5 +1,6 @@
 package com.example.tsj.service
 
+import androidx.lifecycle.LiveData
 import com.example.tsj.model.MessageItemModel
 import com.example.tsj.model.VoteModel
 import com.example.tsj.service.model.*
@@ -73,6 +74,7 @@ interface ApiService {
     fun requestGet(@Path("id") id: Int): Call<RequestModel>
 
 
+
     @DELETE("Requests/{id}")
     fun requestDelete(@Path("id") id: Int): Call<String>
 
@@ -95,6 +97,9 @@ interface ApiService {
 
     @GET("Messages/Houses/Placements/{id}/Persons")
     fun persons(@Path("id") id: Int): Call<List<MessagesPersonsModel>>
+
+    @GET("Messages/Types")
+    fun messageTypes():Call<List<MessagesPersonsModel>>
 
     @Multipart
     @POST("Messages")
@@ -120,6 +125,7 @@ interface ApiService {
     @GET("Certificates/Relatives")
     fun relatives(): Call<List<MessagesPersonsModel>>
 
+
     @POST("ForgotPassword")
     fun forgotPassword(@Query("email") email: String): Call<String>
 
@@ -128,7 +134,11 @@ interface ApiService {
         @Query("typeId") typeId: Int,
         @Query("id") id: Int
     ): Call<List<VoteModel>>
+    @GET("Requests/{id}")
+    fun detailsModel(@Path("id") id: Int): Call<DetailsModel>
 
     @GET("Voting/Addresses")
     fun votingAddress(): Call<List<AddressModel>>
+    @GET("Messages/{id}/Reply")
+    fun reply(@Path("id") id: Int): Call<ReplyModel>
 }

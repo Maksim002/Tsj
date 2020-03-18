@@ -1,6 +1,7 @@
 package com.example.tsj.ui.message.send
 
 
+import android.Manifest
 import android.app.Activity
 import android.os.Bundle
 import android.view.*
@@ -13,9 +14,12 @@ import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.new_message_chairman.*
 import okhttp3.MultipartBody
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.provider.MediaStore
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.loader.content.CursorLoader
 import androidx.navigation.fragment.findNavController
@@ -29,11 +33,13 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 class NewMessageManadgerFragment : Fragment(), GeneralClickListener {
 
     private lateinit var viewModel: MessagesViewModel
+    private val STORAGE_PERMISION_CODE: Int = 1
+    private val IMAGE_PICK_CODE = 10
     private lateinit var editBody: TextInputEditText
     private lateinit var editTitle: TextInputEditText
     private lateinit var managerAdapter: ManagerAdapter
     private lateinit var recyclerManager: RecyclerView
-    private val IMAGE_PICK_CODE = 10
+
     private var files = ArrayList<MultipartBody.Part>()
     private var names = ArrayList<String>()
 
@@ -80,10 +86,44 @@ class NewMessageManadgerFragment : Fragment(), GeneralClickListener {
     }
 
     private fun loadFiles() {
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(
+                    context!!,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ) == PackageManager.PERMISSION_DENIED
+            ) {
+                val permissions = arrayOf(
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                )
+                requestPermissions(permissions, STORAGE_PERMISION_CODE)
+
+            } else {
+                getMyFile()
+            }
+        } else {
+            getMyFile()
+
+        }
+    }
+
+    private fun getMyFile() {
         val myFile = Intent(Intent.ACTION_PICK)
         myFile.setType("*/*")
         startActivityForResult(myFile, IMAGE_PICK_CODE)
+    }
 
+    override fun onRequestPermissionsResult(
+        requestCode: Int, permissions: Array<out String>, grantResults: IntArray
+    ) {
+        if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            getMyFile()
+        } else {
+            //permission from popup denied
+            Toast.makeText(context, "Нет разрешений", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
