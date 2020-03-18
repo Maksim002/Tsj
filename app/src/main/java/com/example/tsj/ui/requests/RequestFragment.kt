@@ -69,6 +69,7 @@ class RequestFragment : Fragment(), RequestClickItemListener {
 
     private fun initViews(root: View) {
         root.bid_create.setOnClickListener {
+            RequestDetailFragment.requestModel.id = null
             findNavController().navigate(R.id.navigation_bid_add)
         }
 

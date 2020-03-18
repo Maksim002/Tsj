@@ -1,6 +1,5 @@
 package com.example.tsj.ui.profile
 
-
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
@@ -26,20 +25,17 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         (activity as AppCompatActivity).supportActionBar!!.show()
         val root = inflater.inflate(R.layout.fragment_profile, container, false)
 
-        root.bottom_exit.setOnClickListener {
+        root.profile_exit_btn.setOnClickListener {
             val builder = AlertDialog.Builder(activity!!)
             builder.setTitle ("Вы уверены что хотите вытти?")
 
             builder.setPositiveButton (android.R.string.yes){ d: DialogInterface, i: Int ->
-                AppPreferences.clear = profile_text_email.text.toString()
-                AppPreferences.clear = profile_text_password.text.toString()
+                AppPreferences.clear()
                 val intent = Intent(context, LoginActivity::class.java)
                 startActivity(intent)
-
                 Toast.makeText (context, android.R.string.yes, Toast.LENGTH_SHORT) .show ()
             }
 
@@ -55,15 +51,17 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initView()
+
+    }
+
+    private fun initView() {
+
+        profile_text_email.setText(AppPreferences.email.toString())
+        profile_text_password.setText("password")
 
         change_password.setOnClickListener {
             findNavController().navigate(R.id.navigation_change_password)
         }
-        initView()
-    }
-
-    private fun initView() {
-            profile_text_email.setText(AppPreferences.email.toString())
-            profile_text_password.setText("password")
     }
 }

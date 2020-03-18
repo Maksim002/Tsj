@@ -39,7 +39,7 @@ class ContactFragment : Fragment(), AccountsListener {
         val buttonC: Button = root.findViewById(R.id.button_contacts)
         val ref: LinearLayout = root.findViewById(R.id.reference)
         val layoutC: LinearLayout = root.findViewById(R.id.linearLayout)
-
+        bottomSheet = AccountsBottomSheet(this)
         buttonC.setOnClickListener {
             val intent = Intent(context, LoginActivity::class.java).putExtra("transition", true)
             startActivity(intent)
@@ -78,11 +78,14 @@ class ContactFragment : Fragment(), AccountsListener {
         root.linearPortalTSJ.setOnClickListener {
             findNavController().navigate(R.id.navigation_portalTSJ)
         }
+        root.voting.setOnClickListener {
+            findNavController().navigate(R.id.navigation_vote)
+        }
 
         root.btn_profile.setOnClickListener {
-            if(AppPreferences.isLogined){
+            if (AppPreferences.isLogined) {
                 findNavController().navigate(R.id.navigation_profile)
-            }else{
+            } else {
                 val intent = Intent(context, LoginActivity::class.java).putExtra("transition", true)
                 startActivity(intent)
             }
@@ -105,7 +108,7 @@ class ContactFragment : Fragment(), AccountsListener {
 
     override fun getLicNumber(addressModel: AddressModel) {
         contacts_adres.text = addressModel.address
-        contacts_test.text =addressModel.licNumber.toString()
+        contacts_test.text = addressModel.licNumber.toString()
         bottomSheet.dismiss()
     }
 }

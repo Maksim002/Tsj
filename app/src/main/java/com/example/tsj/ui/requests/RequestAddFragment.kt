@@ -16,6 +16,7 @@ import com.example.tsj.R
 import com.example.tsj.service.model.RequestAddressesModel
 import com.example.tsj.service.model.RequestTypeModel
 import com.example.tsj.service.request.AddRequest
+import com.example.tsj.service.request.UpdateRequest
 import kotlinx.android.synthetic.main.fragment_bid_add.*
 import kotlinx.android.synthetic.main.fragment_bid_add.view.*
 
@@ -41,21 +42,42 @@ class RequestAddFragment : Fragment() {
     private fun initViews(root: View) {
 
         root.request_add.setOnClickListener {
-            val body = AddRequest(
-                placementId,
-                requestTypeId,
-                bid_add_porch.text.toString().toInt(),
-                bid_add_flat.text.toString().toInt(),
-                request_description.text.toString()
-            )
-            viewModel.addRequest(body).observe(this, Observer {
-                if (it) {
-                    Toast.makeText(context, "ok", Toast.LENGTH_LONG).show()
-                    findNavController().popBackStack()
-                } else {
-                    Toast.makeText(context, "ошибка", Toast.LENGTH_LONG).show()
-                }
-            })
+
+            if (RequestDetailFragment.requestModel.id != null) {
+                val body = UpdateRequest()
+                body.id = RequestDetailFragment.requestModel.id
+                body.description = root.request_description.text.toString()
+                body.floor = root.bid_add_flat.text.toString().toInt()
+                body.entrance =  root.bid_add_porch.text.toString().toInt()
+                body.requestTypeId = requestTypeId
+
+                viewModel.updateRequest(body).observe(this, Observer {
+                    if (it) {
+                        Toast.makeText(context, "ok", Toast.LENGTH_LONG).show()
+                        findNavController().popBackStack()
+                    } else {
+                        Toast.makeText(context, "ошибка", Toast.LENGTH_LONG).show()
+                    }
+                })
+            } else {
+                val body = AddRequest(
+                    placementId,
+                    requestTypeId,
+                    root.bid_add_porch.text.toString().toInt(),
+                    root.bid_add_flat.text.toString().toInt(),
+                    root.request_description.text.toString()
+                )
+
+                viewModel.addRequest(body).observe(this, Observer {
+                    if (it) {
+                        Toast.makeText(context, "ok", Toast.LENGTH_LONG).show()
+                        findNavController().popBackStack()
+                    } else {
+                        Toast.makeText(context, "ошибка", Toast.LENGTH_LONG).show()
+                    }
+                })
+            }
+
         }
 
         //types
@@ -91,6 +113,16 @@ class RequestAddFragment : Fragment() {
         root.bid_add_adres.setOnItemClickListener { parent, view, position, id ->
             placementId =
                 (parent.getItemAtPosition(position) as RequestAddressesModel).placementId
+        }
+
+        if (RequestDetailFragment.requestModel.id != null) {
+            root.bid_add_porch.setText(RequestDetailFragment.requestModel.entrance.toString())
+            root.bid_add_flat.setText(RequestDetailFragment.requestModel.floor.toString())
+            root.request_description.setText(RequestDetailFragment.requestModel.description.toString())
+            root.bid_add_adres.setText(RequestDetailFragment.requestModel.address.toString())
+            root.bid_add_adres.isClickable = false
+            root.bid_add_adres.isEnabled = false
+
         }
     }
 

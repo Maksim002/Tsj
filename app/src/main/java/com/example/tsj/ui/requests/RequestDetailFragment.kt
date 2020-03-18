@@ -11,12 +11,19 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.tsj.R
 import kotlinx.android.synthetic.main.fragment_bid_detail.*
+import com.example.tsj.service.model.RequestModel
+import kotlinx.android.synthetic.main.fragment_bid_detail.view.*
 
 class RequestDetailFragment : Fragment() {
 
     private lateinit var viewModel: RequestViewModel
     private var requestId = 0;
     private var detailsId = 0;
+
+    companion object {
+        var requestModel = RequestModel()
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,15 +32,24 @@ class RequestDetailFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_bid_detail, container, false)
         viewModel = ViewModelProviders.of(this).get(RequestViewModel::class.java)
         (activity as AppCompatActivity).supportActionBar?.show()
-
         initArguments()
         initViews(root)
-        initData()
+        initData(root)
         return root
     }
-    private fun initData() {
 
+
+    private fun initData(root: View) {
+        viewModel.getRequest(requestId).observe(this, Observer {
+            requestModel = it
+            root.bid_adres_content.text = it.address
+            root.bid_flat_content.text = it.floor.toString()
+            root.bid_porch_content.text = it.entrance.toString()
+            root.bid_description_content.text = it.description
+            root.bid_title.text = it.requestTypeName
+        })
     }
+
     private fun initViews(root: View) {
     }
 
@@ -80,6 +96,7 @@ class RequestDetailFragment : Fragment() {
 
     private fun editRequest() {
 
+        findNavController().navigate(R.id.navigation_bid_add)
     }
 
     private fun deleteRequest() {

@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import com.example.tsj.model.MessageItemModel
 import com.example.tsj.service.model.*
 import com.example.tsj.service.request.AddRequest
+import com.example.tsj.service.request.CertificateRequest
+import com.example.tsj.service.request.UpdateRequest
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -61,8 +63,16 @@ interface ApiService {
     @GET("Requests/Addresses")
     fun requestAddresses(): Call<List<RequestAddressesModel>>
 
+    @PUT("Requests")
+    fun requestUpdate(@Body body: UpdateRequest): Call<Unit>
+
     @POST("Requests")
     fun requestAdd(@Body body: AddRequest): Call<String>
+
+    @GET("Requests/{id}")
+    fun requestGet(@Path("id") id: Int): Call<RequestModel>
+
+
 
     @DELETE("Requests/{id}")
     fun requestDelete(@Path("id") id: Int): Call<String>
@@ -97,7 +107,20 @@ interface ApiService {
     ): Call<Unit>
 
     @GET("Certificates")
-    fun references(@Query("id") id: Int): Call<List<ReferenceModel>>
+    fun references(@Query("id") id: Int): Call<List<ReferenceLiteModel>>
+
+    @POST("Certificates")
+    fun addReferences(@Body certificateRequest: CertificateRequest): Call<Unit>
+
+    @PUT("Certificates")
+    fun updateReferences(@Body certificateRequest: CertificateRequest): Call<Unit>
+
+    @GET("Certificates/{id}")
+    fun reference(@Path("id") id: Int): Call<ReferencesFullModel>
+
+    @GET("Certificates/Relatives")
+    fun relatives(): Call<List<MessagesPersonsModel>>
+
 
     @POST("ForgotPassword")
     fun forgotPassword(@Query("email") email: String): Call<String>

@@ -3,7 +3,7 @@ package com.example.tsj.service.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ReferenceModel {
+public class ReferenceLiteModel {
     @SerializedName("Id")
     @Expose
     private Integer id;
