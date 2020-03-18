@@ -1,4 +1,4 @@
-package com.example.tsj.ui.message.box
+package com.example.tsj.ui.message
 
 
 import android.os.Bundle
@@ -16,10 +16,9 @@ import com.example.tsj.adapters.message.MessageAdapter
 import com.example.tsj.adapters.message.MessageClicklItemListener
 import com.example.tsj.model.MessageItemModel
 import com.example.tsj.service.AppPreferences
-import com.example.tsj.ui.message.MessagesViewModel
-import kotlinx.android.synthetic.main.navigation_inbox.*
+import kotlinx.android.synthetic.main.fraagment_messages.*
 
-class InboxFragment : Fragment(), MessageClicklItemListener {
+class MessagesFragment(private val idMessage: Int) : Fragment(), MessageClicklItemListener {
 
     private lateinit var messageAdapter: MessageAdapter
     private lateinit var viewModel: MessagesViewModel
@@ -30,7 +29,8 @@ class InboxFragment : Fragment(), MessageClicklItemListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.navigation_inbox, container, false)
+
+        val root = inflater.inflate(R.layout.fraagment_messages, container, false)
         viewModel = ViewModelProviders.of(this).get(MessagesViewModel::class.java)
         recyclerview = root.findViewById(R.id.msg_recyclerview)
 
@@ -45,8 +45,8 @@ class InboxFragment : Fragment(), MessageClicklItemListener {
     }
 
     private fun initRec() {
-        if(AppPreferences.isLogined){
-            viewModel.messages(1).observe(this, Observer { list ->
+        if (AppPreferences.isLogined) {
+            viewModel.messages(idMessage).observe(this, Observer { list ->
                 messageAdapter = MessageAdapter(this, list)
                 recyclerview.apply { adapter = messageAdapter }
 
@@ -65,8 +65,8 @@ class InboxFragment : Fragment(), MessageClicklItemListener {
 
     override fun onClickMessage(item: MessageItemModel) {
         val bundle = Bundle()
-        bundle.putInt("id",item.id)
-        findNavController().navigate(R.id.navigation_message_detail,bundle)
+        bundle.putInt("id", item.id)
+        findNavController().navigate(R.id.navigation_message_detail, bundle)
 
     }
 }
