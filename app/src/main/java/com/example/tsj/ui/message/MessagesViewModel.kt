@@ -5,10 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.tsj.model.MessageItemModel
 import com.example.tsj.service.RetrofitService
-import com.example.tsj.service.model.MessageModel
-import com.example.tsj.service.model.MessagesHousesModel
-import com.example.tsj.service.model.MessagesPersonsModel
-import com.example.tsj.service.model.MessagesPlacementsModel
+import com.example.tsj.service.model.*
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -182,8 +179,30 @@ class MessagesViewModel : ViewModel() {
         return data
     }
 
+    fun messageTypes(): LiveData<List<MessagesPersonsModel>> {
+        val data = MutableLiveData<List<MessagesPersonsModel>>()
+        RetrofitService.apiService().messageTypes()
+            .enqueue(object : Callback<List<MessagesPersonsModel>> {
+                override fun onFailure(call: Call<List<MessagesPersonsModel>>, t: Throwable) {
+
+                }
+
+                override fun onResponse(
+                    call: Call<List<MessagesPersonsModel>>,
+                    response: Response<List<MessagesPersonsModel>>
+                ) {
+                    if (response.isSuccessful) data.value = response.body()
+
+                }
+
+            })
+        return data
+    }
+
     private fun addEmptyFile(): MultipartBody.Part {
         val empty: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), "")
         return MultipartBody.Part.createFormData("empty", "", empty)
     }
+
+
 }

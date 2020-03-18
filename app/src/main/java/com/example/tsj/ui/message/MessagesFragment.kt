@@ -1,4 +1,4 @@
-package com.example.tsj.ui.message.box
+package com.example.tsj.ui.message
 
 
 import android.os.Bundle
@@ -16,10 +16,9 @@ import com.example.tsj.adapters.message.MessageAdapter
 import com.example.tsj.adapters.message.MessageClicklItemListener
 import com.example.tsj.model.MessageItemModel
 import com.example.tsj.service.AppPreferences
-import com.example.tsj.ui.message.MessagesViewModel
-import kotlinx.android.synthetic.main.navigation_inbox.*
+import kotlinx.android.synthetic.main.fraagment_messages.*
 
-class InboxFragment(private val idMessage: Int) : Fragment(), MessageClicklItemListener {
+class MessagesFragment(private val idMessage: Int) : Fragment(), MessageClicklItemListener {
 
     private lateinit var messageAdapter: MessageAdapter
     private lateinit var viewModel: MessagesViewModel
@@ -31,7 +30,7 @@ class InboxFragment(private val idMessage: Int) : Fragment(), MessageClicklItemL
         savedInstanceState: Bundle?
     ): View? {
 
-        val root = inflater.inflate(R.layout.navigation_inbox, container, false)
+        val root = inflater.inflate(R.layout.fraagment_messages, container, false)
         viewModel = ViewModelProviders.of(this).get(MessagesViewModel::class.java)
         recyclerview = root.findViewById(R.id.msg_recyclerview)
 
