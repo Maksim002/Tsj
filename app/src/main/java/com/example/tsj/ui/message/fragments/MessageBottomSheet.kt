@@ -35,7 +35,6 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
 
     private var files = ArrayList<MultipartBody.Part>()
     private var names = ArrayList<String>()
-    //
 
     override fun onCreateView(
         inflater: LayoutInflater,
