@@ -13,12 +13,13 @@ import com.example.tsj.R
 import com.example.tsj.adapters.vote.VoteAdapter
 import com.example.tsj.adapters.vote.VoteItemClickListener
 import com.example.tsj.model.VoteModel
+import com.example.tsj.service.model.MessagesPersonsModel
 import com.example.tsj.ui.voting.VoteViewModel
+import com.example.tsj.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_vote_in_process.*
 
-class VoteInProcessFragment(private val placementId : Int) : Fragment(), VoteItemClickListener {
+class VoteInProcessFragment(private val placementId : Int, private val typeId : Int) : Fragment(), VoteItemClickListener {
     private lateinit var viewModel: VoteViewModel
-    private val typeId = 2
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,6 +50,15 @@ class VoteInProcessFragment(private val placementId : Int) : Fragment(), VoteIte
     }
 
     override fun onVoteItemClicked(model: VoteModel) {
-        findNavController().navigate(R.id.navigation_vote_detail)
+        val bundle = Bundle()
+        val endDate = MyUtils.toMyDate(model.endDate)
+        bundle.putString("date", endDate)
+        bundle.putInt("id", model.id)
+        bundle.putInt("placementId" , placementId)
+        bundle.putString("question", model.question)
+        findNavController().navigate(R.id.navigation_vote_detail, bundle)
     }
+
+
+
 }

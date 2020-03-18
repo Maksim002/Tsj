@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -17,18 +16,19 @@ import androidx.navigation.fragment.findNavController
 import com.example.tsj.R
 import com.example.tsj.adapters.message.ViewPagerAdapter
 import com.example.tsj.service.model.AddressModel
+import com.example.tsj.service.model.MessagesPersonsModel
 import com.example.tsj.ui.voting.tab.VoteEndFragment
 import com.example.tsj.ui.voting.tab.VoteInProcessFragment
 import kotlinx.android.synthetic.main.fragment_vote.*
 
-
+//dastan
 class VoteFragment : Fragment() {
 
     private lateinit var viewModel: VoteViewModel
+    private var placementId: Int = 0
+    private lateinit var votingTypes: List<MessagesPersonsModel>
 
-    var placementId: Int = 0
 
-    //dastan
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,12 +44,15 @@ class VoteFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews()
         getVoteAddress()
-        vote_search_img.setOnClickListener {
-            Toast.makeText(context, "id $placementId", Toast.LENGTH_SHORT).show()
-        }
     }
 
     private fun getVoteAddress() {
+        //запрос на typeId для tabLayout
+        viewModel.voteTypes().observe(this, Observer {
+            votingTypes = it
+        })
+
+        //запрос на список адреса для autoComplate
         viewModel.voteAddress().observe(this, Observer {
 
             val addressAdapter = ArrayAdapter<AddressModel>(
@@ -66,7 +69,8 @@ class VoteFragment : Fragment() {
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
                 parent.getItemAtPosition(position).toString()
                 placementId = (parent.getItemAtPosition(position) as AddressModel).placementId
-                initTabLayout(placementId)
+
+                initTabLayout(placementId, votingTypes)
             }
 
         vote_address_auto.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
@@ -86,10 +90,10 @@ class VoteFragment : Fragment() {
 
     }
 
-    private fun initTabLayout(placementId : Int) {
+    private fun initTabLayout(placementId: Int, votingTypes : List <MessagesPersonsModel> ) {
         val voteVpAdapter = ViewPagerAdapter(activity!!.supportFragmentManager)
-        voteVpAdapter.addFragment(VoteInProcessFragment(placementId), getString(R.string.inProcess))
-        voteVpAdapter.addFragment(VoteEndFragment(placementId), getString(R.string.VoteEnd))
+        voteVpAdapter.addFragment(VoteInProcessFragment(placementId, votingTypes[0].id), votingTypes[0].name)
+        voteVpAdapter.addFragment(VoteEndFragment(placementId, votingTypes[1].id), votingTypes[1].name)
         vote_vp.adapter = voteVpAdapter
         vote_tablayout.setupWithViewPager(vote_vp)
         vote_not_selected.visibility = View.GONE

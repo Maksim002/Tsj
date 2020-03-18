@@ -51,6 +51,8 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="23dp"
                 android:background="@null"
+                android:editable="false"
+                android:inputType="none"
                 android:paddingEnd="8dp"
                 app:layout_constraintTop_toTopOf="parent" />
 

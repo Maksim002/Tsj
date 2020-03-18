@@ -15,90 +15,31 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/vote_detail_question"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/marginHorizontal"
-            android:text="Где хранить информацию о наличии либо отсутствии ТСЖ в нашем доме?"
+            tools:text="Где хранить информацию о наличии либо отсутствии ТСЖ в нашем доме?"
             android:textColor="@color/blackTextColor"
             android:textSize="22sp" />
 
         <TextView
+            android:id="@+id/vote_detail_enddate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/marginHorizontal"
-            android:text=" Дата окончания: 31 марта 2020" />
+            tools:text=" Дата окончания: 31 марта 2020" />
 
         <RadioGroup
+            android:id="@+id/vote_detail_radiogroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:orientation="vertical">
-
-            <RadioButton
-                android:id="@+id/vote_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:buttonTint="@color/orangeColor"
-                android:text="В выписке из ЕГРЮЛ" />
-
-            <View
-                android:id="@+id/divider1"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="@dimen/marginHorizontal"
-                android:background="@color/dividerColor" />
-
-            <RadioButton
-                android:id="@+id/vote_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/marginHorizontal"
-                android:buttonTint="@color/orangeColor"
-                android:text="У председателя" />
-
-            <View
-                android:id="@+id/divider2"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="@dimen/marginHorizontal"
-                android:background="@color/dividerColor" />
-
-            <RadioButton
-                android:id="@+id/vote_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/marginHorizontal"
-                android:buttonTint="@color/orangeColor"
-                android:text="У директорка" />
-
-            <View
-                android:id="@+id/divider3"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="@dimen/marginHorizontal"
-                android:background="@color/dividerColor" />
-
-
-            <RadioButton
-                android:id="@+id/vote_4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/marginHorizontal"
-                android:buttonTint="@color/orangeColor"
-                android:text="У жителей" />
-
-            <View
-                android:id="@+id/divider4"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="@dimen/marginHorizontal"
-                android:background="@color/dividerColor" />
-
-        </RadioGroup>
+            android:orientation="vertical" />
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/profile_accept_bt"
+        android:id="@+id/profile_accept_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/marginHorizontal"
