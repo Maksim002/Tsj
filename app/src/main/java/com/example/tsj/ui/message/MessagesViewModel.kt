@@ -5,10 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.tsj.model.MessageItemModel
 import com.example.tsj.service.RetrofitService
-import com.example.tsj.service.model.MessageModel
-import com.example.tsj.service.model.MessagesHousesModel
-import com.example.tsj.service.model.MessagesPersonsModel
-import com.example.tsj.service.model.MessagesPlacementsModel
+import com.example.tsj.service.model.*
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -18,7 +15,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class MessagesViewModel : ViewModel() {
+class   MessagesViewModel : ViewModel() {
 
     fun messages(
         id: Int
@@ -185,5 +182,22 @@ class MessagesViewModel : ViewModel() {
     private fun addEmptyFile(): MultipartBody.Part {
         val empty: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), "")
         return MultipartBody.Part.createFormData("empty", "", empty)
+    }
+
+    fun reply(idMessage: Int): LiveData<ReplyModel> {
+        val data = MutableLiveData<ReplyModel>()
+
+        RetrofitService.apiService().reply(idMessage).enqueue(object : Callback<ReplyModel> {
+                override fun onFailure(call: Call<ReplyModel>, t: Throwable) {
+                    println("failure")
+                }
+
+                override fun onResponse(call: Call<ReplyModel>, response: Response<ReplyModel>) {
+                    if (response.isSuccessful) {
+                        data.value = response.body()
+                    }
+                }
+            })
+        return data
     }
 }
