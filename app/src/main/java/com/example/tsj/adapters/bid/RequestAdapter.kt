@@ -17,13 +17,6 @@ class RequestAdapter(private var listener: RequestClickItemListener, items: Arra
         holder.itemView.bid_type.text = item.description
         holder.itemView.bid_title.text = item.requestTypeName
         holder.itemView.bid_status.text = item.statusName
-//        if (item.status) {
-//            holder.itemView.bid_status.text = "Создана"
-//            holder.itemView.bid_status.setTextColor(Color.parseColor("#056525"))
-//        } else {
-//            holder.itemView.bid_status.text = "Отменен"
-//            holder.itemView.bid_status.setTextColor(Color.parseColor("#FF4C13"))
-//        }
 
         holder.itemView.setOnClickListener { listener.onClickRequest(item) }
 

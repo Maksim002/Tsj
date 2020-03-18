@@ -34,15 +34,27 @@ object AppPreferences {
         }
 
     var started: Boolean
-            get() = preferences.getBoolean("started", false)
-            set(value) = preferences.edit(){
-                it.putBoolean("started", value)
-            }
+        get() = preferences.getBoolean("started", false)
+        set(value) = preferences.edit() {
+            it.putBoolean("started", value)
+        }
 
-    var email : String?
+    var email: String?
         get() = preferences.getString("email", "")
-        set(value) = preferences.edit{
+        set(value) = preferences.edit {
             it.putString("email", value)
         }
+
+
+    fun clear() {
+        preferences.edit {
+            it.putString("token", "")
+            it.putBoolean("isLogined", false)
+            it.putString("email", "")
+            it.apply()
+        }
+
+    }
+
 
 }
