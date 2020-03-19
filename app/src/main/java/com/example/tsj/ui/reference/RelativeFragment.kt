@@ -44,6 +44,21 @@ class RelativeFragment : Fragment() {
         return root
     }
 
+    override fun onStart() {
+        super.onStart()
+        initHint()
+    }
+
+
+    private fun initHint(){
+        if(edit_families.text.isNotEmpty()){
+            text_date.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            text_families_name.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            text_families.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+        }
+    }
+
+
     private fun initArguments() {
         position = try {
             arguments!!.getInt("position")
@@ -99,9 +114,7 @@ class RelativeFragment : Fragment() {
         }
 
         root.edit_families.setOnFocusChangeListener { _, _ ->
-            var col: ColorStateList =
-                ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-            root.text_families_name.defaultHintTextColor = col
+            root.text_families_name.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
 
         }
 
@@ -158,9 +171,7 @@ class RelativeFragment : Fragment() {
     fun clickListener(root: View): AdapterView.OnItemClickListener {
         return AdapterView.OnItemClickListener { parent, _, position, _ ->
             root.text_families_who.showDropDown()
-            val col: ColorStateList =
-                ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-            root.text_families.defaultHintTextColor = col
+            root.text_families.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
             relativeId = (parent.getItemAtPosition(position) as MessagesPersonsModel).id
             relative = (parent.getItemAtPosition(position) as MessagesPersonsModel).name
         }

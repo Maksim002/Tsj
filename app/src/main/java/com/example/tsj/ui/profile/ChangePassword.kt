@@ -8,12 +8,9 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.tsj.R
-import com.example.tsj.service.AppPreferences
-import kotlinx.android.synthetic.main.fragment_profile.*
+
 
 class ChangePassword : Fragment() {
-
-    private lateinit var mail: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,12 +20,5 @@ class ChangePassword : Fragment() {
         return inflater.inflate(R.layout.fragment_change_password, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        profile_text_email.setText(AppPreferences.email)
-        profile_text_email.setTag(profile_text_email.getKeyListener())
-        profile_text_email.setKeyListener(null)
-    }
 
 }

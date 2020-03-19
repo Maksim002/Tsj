@@ -1,6 +1,7 @@
 package com.example.tsj.ui.requests
 
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -17,7 +18,6 @@ import com.example.tsj.service.model.RequestAddressesModel
 import com.example.tsj.service.model.RequestTypeModel
 import com.example.tsj.service.request.AddRequest
 import com.example.tsj.service.request.UpdateRequest
-import com.example.tsj.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_bid_add.*
 import kotlinx.android.synthetic.main.fragment_bid_add.view.*
 
@@ -39,11 +39,26 @@ class RequestAddFragment : Fragment() {
         return root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initHint()
+    }
+
+    private fun initHint() {
+        if (bid_add_flat.text!!.isNotEmpty()){
+            request_type_out.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            text_bid_add_porch.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            text_bid_add_flat.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            text_bid_add_adres.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            text_request_description.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+        }
+
+    }
+
 
     private fun initViews(root: View) {
 
         root.request_add.setOnClickListener {
-
             if (bid_add_type.text.length == 0 || bid_add_porch.text?.length == 0 || bid_add_flat.text?.length == 0 || bid_add_adres.text.length == 0 || request_description.text?.length == 0){
                 Toast.makeText(context, "Заполните все поля", Toast.LENGTH_LONG).show()
             }else{
@@ -81,6 +96,40 @@ class RequestAddFragment : Fragment() {
                         }
                     })
                 }
+
+            if (RequestDetailFragment.requestModel.id != null) {
+                val body = UpdateRequest()
+                body.id = RequestDetailFragment.requestModel.id
+                body.description = root.request_description.text.toString()
+                body.floor = root.bid_add_flat.text.toString().toInt()
+                body.entrance = root.bid_add_porch.text.toString().toInt()
+                body.requestTypeId = requestTypeId
+
+                viewModel.updateRequest(body).observe(this, Observer {
+                    if (it) {
+                        Toast.makeText(context, "ok", Toast.LENGTH_LONG).show()
+                        findNavController().popBackStack()
+                    } else {
+                        Toast.makeText(context, "ошибка", Toast.LENGTH_LONG).show()
+                    }
+                })
+            } else {
+                val body = AddRequest(
+                    placementId,
+                    requestTypeId,
+                    root.bid_add_porch.text.toString().toInt(),
+                    root.bid_add_flat.text.toString().toInt(),
+                    root.request_description.text.toString()
+                )
+
+                viewModel.addRequest(body).observe(this, Observer {
+                    if (it) {
+                        Toast.makeText(context, "ok", Toast.LENGTH_LONG).show()
+                        findNavController().popBackStack()
+                    } else {
+                        Toast.makeText(context, "ошибка", Toast.LENGTH_LONG).show()
+                    }
+                })
             }
         }
 
@@ -97,6 +146,8 @@ class RequestAddFragment : Fragment() {
         root.bid_add_type.setOnItemClickListener { parent, _, position, _ ->
             requestTypeId =
                 (parent.getItemAtPosition(position) as RequestTypeModel).requestTypeId
+            request_type_out.defaultHintTextColor =
+                ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
         }
 
         //addresses
@@ -107,6 +158,27 @@ class RequestAddFragment : Fragment() {
         }
 
 
+        root.bid_add_flat.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus && root.bid_add_flat.text!!.isNotEmpty()) {
+                text_bid_add_flat.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+
+            }
+        }
+        root.bid_add_porch.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus && root.bid_add_porch.text!!.isNotEmpty()) {
+                text_bid_add_porch.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+
+            }
+        }
+        root.request_description.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus && root.request_description.text!!.isNotEmpty()) {
+                text_request_description.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+
+            }
+        }
 
         root.bid_add_adres.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
@@ -116,6 +188,8 @@ class RequestAddFragment : Fragment() {
 
         root.bid_add_adres.setOnItemClickListener { parent, view, position, id ->
             placementId = (parent.getItemAtPosition(position) as RequestAddressesModel).placementId
+            text_bid_add_adres.defaultHintTextColor =
+                ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
         }
 
         if (RequestDetailFragment.requestModel.id != null) {
@@ -126,6 +200,17 @@ class RequestAddFragment : Fragment() {
             root.bid_add_adres.isClickable = false
             root.bid_add_adres.isEnabled = false
         }
+    }
+
+        viewModel.requestAddresses().observe(this, Observer {
+            //адреса
+            val typeAdapter = ArrayAdapter<RequestAddressesModel>(
+                context!!,
+                R.layout.support_simple_spinner_dropdown_item,
+                it
+            )
+            bid_add_adres.setAdapter(typeAdapter)
+        })
     }
 
     private fun initData() {
@@ -140,17 +225,5 @@ class RequestAddFragment : Fragment() {
 
 
         })
-
-        viewModel.requestAddresses().observe(this, Observer {
-            //адреса
-            val typeAdapter = ArrayAdapter<RequestAddressesModel>(
-                context!!,
-                R.layout.support_simple_spinner_dropdown_item,
-                it
-            )
-            bid_add_adres.setAdapter(typeAdapter)
-        })
     }
-
-
 }

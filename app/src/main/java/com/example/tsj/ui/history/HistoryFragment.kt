@@ -68,7 +68,7 @@ class HistoryFragment : Fragment() {
         getAutoDatesFrom()
         getAutoDatesTo()
         getDate()
-
+        hintText()
         if (autoAddress != null) {
             getAutoService()
         } else {
@@ -76,6 +76,9 @@ class HistoryFragment : Fragment() {
         }
 
         show.setOnClickListener {
+            if (autoAddress.text.length == 0 || autoService.text.length == 0 || autoOperation.text.length == 0){
+                Toast.makeText(context, "Заполните все поля", Toast.LENGTH_LONG).show()
+            }else{
                 val bundle = Bundle()
                 bundle.putInt("res", licNumber)
                 bundle.putString("serviceName", serviceName)
@@ -90,7 +93,18 @@ class HistoryFragment : Fragment() {
                 bundle.putString("to", autoDateFrom.text.toString())
                 bundle.putString("from", autoDateTo.text.toString())
                 Navigation.findNavController(it).navigate(R.id.navigation_personal, bundle)
+            }
         }
+    }
+
+    private fun hintText() {
+        if (autoAddress.text.isNotEmpty()){
+            Address.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            Service.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            Operation.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+
+        }
+
     }
 
     private fun getDate() {
@@ -123,7 +137,8 @@ class HistoryFragment : Fragment() {
             autoAddress.setAdapter(adapterAddress)
         })
         autoAddress.setKeyListener(null)
-
+        DatesS.defaultHintTextColor = ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
+        DatesDo.defaultHintTextColor = ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
         autoAddress.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
                 autoAddress.showDropDown()

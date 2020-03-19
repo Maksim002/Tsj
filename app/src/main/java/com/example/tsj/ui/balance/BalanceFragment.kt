@@ -47,10 +47,21 @@ class BalanceFragment : Fragment() {
         (activity as AppCompatActivity).supportActionBar?.show()
         return root
     }
+
     override fun onStart() {
         super.onStart()
         getAutoOperation()
+        initHint()
     }
+
+    private fun initHint() {
+        if (autoCompleteTextView.text.isNotEmpty())
+            name_text_input.defaultHintTextColor =
+                ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+
+
+    }
+
     fun getAutoOperation() {
         var listAddress = ArrayList<AddressModel>()
         viewModel.addresses().observe(this, Observer { addres ->
@@ -60,12 +71,14 @@ class BalanceFragment : Fragment() {
             listAddress = addres as ArrayList<AddressModel>
             val adapterO =
                 ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
-            textComplete.setAdapter(adapterO)})
+            textComplete.setAdapter(adapterO)
+        })
         textComplete.setKeyListener(null)
         textComplete.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
                 textComplete.showDropDown()
-                name_text_input.defaultHintTextColor = ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
+                name_text_input.defaultHintTextColor =
+                    ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
                 placementId = listAddress.get(position).placementId!!
                 address = listAddress.get(position).address!!
 
