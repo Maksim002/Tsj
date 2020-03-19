@@ -65,6 +65,14 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
     private fun initData(root: View) {
 
     }
+    private fun initHint(){
+        if (edit_ref.text.isNotEmpty()){
+            lRef.defaultHintTextColor =  ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            referenceS.defaultHintTextColor =  ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+        }
+
+
+    }
 
     private fun initViews(root: View) {
         root.reference_add_relative.setOnClickListener {
@@ -75,8 +83,7 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
         refAdapter.update(list)
 
         root.edit_ref.setOnFocusChangeListener { _, _ ->
-            val col = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-            root.lRef.defaultHintTextColor = col
+            root.lRef.defaultHintTextColor =  ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
         }
 
         root.reference_save.setOnClickListener {
@@ -130,6 +137,7 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
                     list.add(item)
                 }
                 refAdapter.update(list)
+                initHint()
             })
         }
     }
