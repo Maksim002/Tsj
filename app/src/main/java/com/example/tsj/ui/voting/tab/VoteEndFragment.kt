@@ -62,6 +62,8 @@ class VoteEndFragment(private val placementId : Int, private val typeId : Int) :
         bundle.putInt("id", model.id)
         bundle.putInt("placementId" , placementId)
         bundle.putString("question", model.question)
+        bundle.putBoolean("isCanVote", model.isCanVote)
+
         findNavController().navigate(R.id.navigation_vote_detail, bundle)
     }
 

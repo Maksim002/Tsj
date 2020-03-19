@@ -10,18 +10,20 @@
     tools:context=".ui.voting.detail.VoteDetailFragment">
 
     <LinearLayout
+        android:id="@+id/vote_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/vote_detail_question"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/marginHorizontal"
-            tools:text="Где хранить информацию о наличии либо отсутствии ТСЖ в нашем доме?"
             android:textColor="@color/blackTextColor"
-            android:textSize="22sp" />
+            android:textSize="22sp"
+            tools:text="Где хранить информацию о наличии либо отсутствии ТСЖ в нашем доме?" />
 
         <TextView
             android:id="@+id/vote_detail_enddate"
@@ -30,16 +32,28 @@
             android:layout_marginTop="@dimen/marginHorizontal"
             tools:text=" Дата окончания: 31 марта 2020" />
 
-        <RadioGroup
-            android:id="@+id/vote_detail_radiogroup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:orientation="vertical" />
     </LinearLayout>
 
+    <RadioGroup
+        android:id="@+id/vote_detail_radiogroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/vote_container" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/vote_detail_rv"
+        android:layout_width="match_parent"
+        tools:itemCount="2"
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/item_vote_detail"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/vote_container"/>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/profile_accept_btn"
+        android:id="@+id/vote_detail_accept_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/marginHorizontal"

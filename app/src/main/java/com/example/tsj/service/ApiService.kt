@@ -3,6 +3,7 @@ package com.example.tsj.service
 import com.example.tsj.model.MessageItemModel
 import com.example.tsj.model.VoteModel
 import com.example.tsj.service.model.*
+import com.example.tsj.service.model.vote.VotingDetailModel
 import com.example.tsj.service.request.AddRequest
 import com.example.tsj.service.request.CertificateRequest
 import com.example.tsj.service.request.UpdateRequest
@@ -148,4 +149,7 @@ interface ApiService {
 
     @POST("Voting")
     fun votingPost(@Body body: VotingRequest): Call<String>
+
+    @GET ("Voting/{id}")
+    fun votingDetail (@Path("id") id : Int) : Call <VotingDetailModel>
 }

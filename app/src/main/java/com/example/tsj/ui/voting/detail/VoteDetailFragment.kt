@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.tsj.R
+import com.example.tsj.adapters.vote.VoteDetailAdapter
+import com.example.tsj.service.model.vote.VotingVariantsModel
 import com.example.tsj.service.request.VotingRequest
 import com.example.tsj.ui.voting.VoteViewModel
 import kotlinx.android.synthetic.main.fragment_vote_detail.*
@@ -22,6 +24,7 @@ class VoteDetailFragment : Fragment() {
     private var questionId: Int = 0
     private var question: String = " "
     private var endDate: String = " "
+    private var isCanVote = false
     private var placementId = 0
 
     override fun onCreateView(
@@ -39,36 +42,61 @@ class VoteDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initArguments()
         initVariants()
-        initPost()
+        initPostVariants()
     }
 
     private fun initVariants() {
-        viewModel.voteVariants(questionId).observe(this, Observer {
-            for (element in it) {
-                val radioButton = RadioButton(context)
-                radioButton.id = element.id
-                radioButton.text = element.name
-                vote_detail_radiogroup.addView(radioButton)
-            }
-        })
+        if (isCanVote) {
+            viewModel.voteVariants(questionId).observe(this, Observer {
+                for (element in it) {
+                    val radioButton = RadioButton(context)
+                    radioButton.id = element.id
+                    radioButton.text = element.name
+                    vote_detail_radiogroup.addView(radioButton)
+                }
+            })
+        } else{
+            vote_detail_radiogroup.visibility = View.GONE
+            vote_detail_rv.visibility = View.VISIBLE
+            vote_detail_accept_btn.visibility = View.GONE
+            getVotedVariants()
+        }
 
         vote_detail_enddate.text = "Дата окончания: $endDate"
         vote_detail_question.text = question
     }
 
-    private fun initPost() {
-        profile_accept_btn.setOnClickListener {
+    private fun initPostVariants() {
+        vote_detail_accept_btn.setOnClickListener {
             val variantId = vote_detail_radiogroup.checkedRadioButtonId
-            val body = VotingRequest (questionId, variantId, placementId)
-            viewModel.votingPost(body).observe(this, Observer {
-                if (it){
-                    Toast.makeText(context, "ОК", Toast.LENGTH_LONG).show()
-                }else{
-                    Toast.makeText(context, "Error", Toast.LENGTH_LONG).show()
-                }
-            })
+
+            if (variantId != -1) {
+                val body = VotingRequest(questionId, variantId, placementId)
+                viewModel.votingPost(body).observe(this, Observer {
+                    if (it) {
+                        vote_detail_radiogroup.visibility = View.GONE
+                        vote_detail_rv.visibility = View.VISIBLE
+                        getVotedVariants()
+                        Toast.makeText(context, "ОК", Toast.LENGTH_LONG).show()
+                    } else {
+                        Toast.makeText(context, "Error", Toast.LENGTH_LONG).show()
+                    }
+                })
+            } else {
+                Toast.makeText(context, "Вы не выбрали вариант", Toast.LENGTH_LONG).show()
+
+            }
+
         }
     }
+
+    private fun getVotedVariants() {
+        viewModel.voteDetail(questionId).observe(this, Observer {
+            val adapter = VoteDetailAdapter(it.variants)
+            vote_detail_rv.adapter = adapter
+        })
+    }
+
     private fun initArguments() {
         questionId = try {
             arguments!!.getInt("id")
@@ -92,6 +120,12 @@ class VoteDetailFragment : Fragment() {
             arguments!!.getInt("placementId")
         } catch (e: Exception) {
             0
+        }
+
+        isCanVote = try {
+            arguments!!.getBoolean("isCanVote")
+        } catch (e: Exception) {
+            false
         }
     }
 

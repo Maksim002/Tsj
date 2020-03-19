@@ -7,6 +7,7 @@ import com.example.tsj.model.VoteModel
 import com.example.tsj.service.RetrofitService
 import com.example.tsj.service.model.AddressModel
 import com.example.tsj.service.model.MessagesPersonsModel
+import com.example.tsj.service.model.vote.VotingDetailModel
 import com.example.tsj.service.request.AddRequest
 import com.example.tsj.service.request.VotingRequest
 import retrofit2.Call
@@ -97,6 +98,24 @@ class VoteViewModel : ViewModel() {
 
             override fun onResponse(call: Call<String>, response: Response<String>) {
                 data.value = response.isSuccessful
+            }
+
+        })
+        return data
+    }
+
+    fun voteDetail(id : Int): LiveData<VotingDetailModel> {
+        val data = MutableLiveData<VotingDetailModel>()
+        RetrofitService.apiService().votingDetail(id).enqueue(object : Callback<VotingDetailModel> {
+            override fun onFailure(call: Call<VotingDetailModel>, t: Throwable) {
+                println()
+            }
+
+            override fun onResponse(
+                call: Call<VotingDetailModel>,
+                response: Response<VotingDetailModel>
+            ) {
+                data.value = response.body()
             }
 
         })

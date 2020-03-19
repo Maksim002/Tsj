@@ -18,6 +18,7 @@ class VoteAdapter(listener: VoteItemClickListener, item: List<VoteModel>) :
 
         if (!item.isCanVote) {
             holder.itemView.vote_btn.visibility = View.GONE
+            holder.itemView.vote_title.text = "Вы уже проголосовали"
         }
     }
 
