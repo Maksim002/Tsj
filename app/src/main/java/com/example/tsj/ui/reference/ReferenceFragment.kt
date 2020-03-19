@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.example.tsj.MainActivity
 import com.example.tsj.R
 import com.example.tsj.adapters.references.ReferencesAdapter
 import com.example.tsj.adapters.references.ReferencesListener
@@ -52,6 +53,7 @@ class ReferenceFragment : Fragment(),ReferencesListener {
     }
 
     private fun initData(root: View) {
+        MainActivity.alert.show()
         viewModel.addresses().observe(this, Observer {
             val addressAdapter = ArrayAdapter<AddressModel>(
                 context!!,
@@ -59,7 +61,7 @@ class ReferenceFragment : Fragment(),ReferencesListener {
                 it
             )
             root.reference_address.setAdapter(addressAdapter)
-
+            MainActivity.alert.hide()
         })
 
 
@@ -70,7 +72,7 @@ class ReferenceFragment : Fragment(),ReferencesListener {
         root.new_references.setOnClickListener {
             AddUpdateReferenceFragment.list.clear()
             val bundle = Bundle()
-            bundle.putInt("id", placementId)
+            bundle.putInt("placementId", placementId)
             findNavController().navigate(R.id.navigation_new_reference, bundle)
         }
         adapter = ReferencesAdapter(ArrayList(),this)
@@ -88,15 +90,19 @@ class ReferenceFragment : Fragment(),ReferencesListener {
         }
         root.reference_address.setOnItemClickListener { parent, _, position, _ ->
             placementId = (parent.getItemAtPosition(position) as AddressModel).placementId!!
+            MainActivity.alert.show()
             viewModel.references(placementId).observe(this, Observer {
                 adapter.update(it)
+                MainActivity.alert.hide()
             })
             root.new_references.visibility = View.VISIBLE
         }
 
         if (placementId != 0) {
+            MainActivity.alert.show()
             viewModel.references(placementId).observe(this, Observer {
                 adapter.update(it)
+                MainActivity.alert.hide()
             })
             root.new_references.visibility = View.VISIBLE
         }

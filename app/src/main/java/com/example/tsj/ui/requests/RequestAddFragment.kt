@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.example.tsj.MainActivity
 import com.example.tsj.R
 import com.example.tsj.service.model.RequestAddressesModel
 import com.example.tsj.service.model.RequestTypeModel
@@ -60,7 +61,7 @@ class RequestAddFragment : Fragment() {
     private fun initViews(root: View) {
 
         root.request_add.setOnClickListener {
-
+            MainActivity.alert.show()
             if (RequestDetailFragment.requestModel.id != null) {
                 val body = UpdateRequest()
                 body.id = RequestDetailFragment.requestModel.id
@@ -76,6 +77,7 @@ class RequestAddFragment : Fragment() {
                     } else {
                         Toast.makeText(context, "ошибка", Toast.LENGTH_LONG).show()
                     }
+                    MainActivity.alert.hide()
                 })
             } else {
                 val body = AddRequest(
@@ -93,6 +95,7 @@ class RequestAddFragment : Fragment() {
                     } else {
                         Toast.makeText(context, "ошибка", Toast.LENGTH_LONG).show()
                     }
+                    MainActivity.alert.hide()
                 })
             }
 
@@ -168,6 +171,7 @@ class RequestAddFragment : Fragment() {
     }
 
     private fun initData() {
+        MainActivity.alert.show()
         viewModel.requestTypes().observe(this, Observer {
             //types
             val typeAdapter = ArrayAdapter<RequestTypeModel>(
@@ -176,7 +180,7 @@ class RequestAddFragment : Fragment() {
                 it
             )
             bid_add_type.setAdapter(typeAdapter)
-
+            MainActivity.alert.hide()
 
         })
 
@@ -188,6 +192,7 @@ class RequestAddFragment : Fragment() {
                 it
             )
             bid_add_adres.setAdapter(typeAdapter)
+            MainActivity.alert.hide()
         })
     }
 

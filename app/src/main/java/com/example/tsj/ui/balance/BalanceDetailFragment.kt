@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tsj.MainActivity
 import com.example.tsj.R
 import com.example.tsj.adapters.balance.BalanceAdapter
 import kotlinx.android.synthetic.main.fragment_balance_detail.*
@@ -29,7 +30,7 @@ class BalanceDetailFragment : Fragment() {
 
 
         viewModel = ViewModelProviders.of(this).get(BalanceDetailViewModel::class.java)
-
+        MainActivity.alert.show()
         balance_rv = root.findViewById(R.id.balance_summ_recyclerview)
         getRecyclerView()
 
@@ -60,6 +61,7 @@ class BalanceDetailFragment : Fragment() {
 
         viewModel.services(id).observe(this, Observer { list ->
             balanceAdapter.setList(list)
+            MainActivity.alert.hide()
         })
     }
 }
