@@ -80,7 +80,7 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
         }
 
         root.reference_save.setOnClickListener {
-            //
+            MyUtils.hideKeyboard(activity!!,view!!)
             data.relatives = list
             data.person.fullName = edit_ref.text.toString()
             data.person.dateOfBirth = MyUtils.toServerDate(editReferenceS.text.toString())
@@ -146,38 +146,30 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
         } catch (e: Exception) {
             0
         }
-
     }
-
 
     private fun getEditReferenceS() {
         editReferenceS.keyListener = null
-        editReferenceS.setOnFocusChangeListener { _, b ->
-            if (b) {
-                val cldr = Calendar.getInstance()
-                val col = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                referenceS.defaultHintTextColor = col
-                val picker =
-                    DatePickerDialog(
-                        activity!!,
-                        { _, year1, monthOfYear, dayOfMonth ->
-                            editReferenceS.setText(
-                                MyUtils.convertDate(
-                                    dayOfMonth,
-                                    monthOfYear,
-                                    year1
-                                )
-                            )
+    // Временный тракеч. Приложение падает.
 
-                        },
-                        cldr.get(Calendar.YEAR),
-                        cldr.get(Calendar.MONTH),
-                        cldr.get(Calendar.DAY_OF_MONTH)
-                    )
-                picker.show()
-                goneL.requestFocus()
+            editReferenceS.setOnFocusChangeListener { _, b ->
+                if (b) {
+                    val cldr = Calendar.getInstance()
+                    val col = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+                    referenceS.defaultHintTextColor = col
+                    val picker =
+                        DatePickerDialog(
+                            activity!!,
+                            { _, year1, monthOfYear, dayOfMonth ->
+                                editReferenceS.setText(MyUtils.convertDate(dayOfMonth, monthOfYear, year1)) },
+                            cldr.get(Calendar.YEAR),
+                            cldr.get(Calendar.MONTH),
+                            cldr.get(Calendar.DAY_OF_MONTH)
+                        )
+                    picker.show()
+                    goneL.requestFocus()
+                }
             }
-        }
     }
 
     override fun onClickDelete(id: Int) {

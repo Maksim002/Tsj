@@ -17,6 +17,7 @@ import com.example.tsj.service.model.RequestAddressesModel
 import com.example.tsj.service.model.RequestTypeModel
 import com.example.tsj.service.request.AddRequest
 import com.example.tsj.service.request.UpdateRequest
+import com.example.tsj.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_bid_add.*
 import kotlinx.android.synthetic.main.fragment_bid_add.view.*
 
@@ -111,8 +112,7 @@ class RequestAddFragment : Fragment() {
         }
 
         root.bid_add_adres.setOnItemClickListener { parent, view, position, id ->
-            placementId =
-                (parent.getItemAtPosition(position) as RequestAddressesModel).placementId
+            placementId = (parent.getItemAtPosition(position) as RequestAddressesModel).placementId
         }
 
         if (RequestDetailFragment.requestModel.id != null) {
@@ -122,7 +122,6 @@ class RequestAddFragment : Fragment() {
             root.bid_add_adres.setText(RequestDetailFragment.requestModel.address.toString())
             root.bid_add_adres.isClickable = false
             root.bid_add_adres.isEnabled = false
-
         }
     }
 

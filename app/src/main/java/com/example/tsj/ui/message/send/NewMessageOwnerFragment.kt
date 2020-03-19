@@ -28,6 +28,7 @@ import com.example.tsj.service.model.MessagesHousesModel
 import com.example.tsj.service.model.MessagesPersonsModel
 import com.example.tsj.service.model.MessagesPlacementsModel
 import com.example.tsj.ui.message.MessagesViewModel
+import com.example.tsj.utils.MyUtils
 import kotlinx.android.synthetic.main.new_message_chairman.*
 import kotlinx.android.synthetic.main.new_message_owner.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -89,6 +90,8 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
     }
 
     private fun fastenFile() {
+
+        MyUtils.hideKeyboard(activity!!, view!!)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(context!!, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
                 val permissions = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -147,6 +150,8 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
     }
 
     private fun sendMessage() {
+        MyUtils.hideKeyboard(activity!!, view!!)
+
         val title = new_msg_referenc.text.toString()
         val body = new_msg_content.text.toString()
         //проверка на пустоту edit text

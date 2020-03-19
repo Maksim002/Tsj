@@ -6,6 +6,7 @@ import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.tsj.R
+import com.example.tsj.utils.MyUtils
 
 class SendFeedbackFragment : Fragment() {
 
@@ -35,6 +36,6 @@ class SendFeedbackFragment : Fragment() {
     }   
 
     private fun senFeedBack() {
-
+        MyUtils.hideKeyboard(activity!!, view!!)
     }
 }

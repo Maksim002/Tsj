@@ -3,6 +3,7 @@ package com.example.tsj.ui.message.fragments
 
 import android.Manifest
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -10,6 +11,7 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.*
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
@@ -19,6 +21,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.tsj.R
 import com.example.tsj.service.model.ReplyModel
 import com.example.tsj.ui.message.MessagesViewModel
+import com.example.tsj.utils.MyUtils
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.fragment_message_bottom_sheet.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -26,12 +29,13 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 
-
 class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment() {
     private val STORAGE_PERMISION_CODE: Int = 1
     private val IMAGE_PICK_CODE = 10
     private lateinit var viewModel: MessagesViewModel
     private lateinit var reply: ReplyModel
+
+    private var keyboard: Boolean = false
 
     private var files = ArrayList<MultipartBody.Part>()
     private var names = ArrayList<String>()
@@ -50,12 +54,11 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
         viewModel = ViewModelProviders.of(this).get(MessagesViewModel::class.java)
 
         send_msg_imageiew.setOnClickListener {
+
+            MyUtils.hideKeyboard(activity!!,view)
+
             if (reply.isToManager) {
-                viewModel.sendMessageToManager(
-                    edit_title.text.toString(),
-                    edit_sms.text.toString(),
-                    files
-                ).observe(this, Observer {
+                viewModel.sendMessageToManager(edit_title.text.toString(), edit_sms.text.toString(), files).observe(this, Observer {
                     if (it) {
                         dismiss()
                         findNavController().popBackStack()
@@ -79,6 +82,8 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
         }
 
         fasten_file_imageview.setOnClickListener {
+            MyUtils.hideKeyboard(activity!!, view)
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (ContextCompat.checkSelfPermission(
                         context!!,
