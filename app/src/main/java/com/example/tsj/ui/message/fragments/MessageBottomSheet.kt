@@ -24,6 +24,7 @@ import com.example.tsj.ui.message.MessagesViewModel
 import com.example.tsj.utils.MyUtils
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.fragment_message_bottom_sheet.*
+import kotlinx.android.synthetic.main.new_message_chairman.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -34,8 +35,6 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
     private val IMAGE_PICK_CODE = 10
     private lateinit var viewModel: MessagesViewModel
     private lateinit var reply: ReplyModel
-
-    private var keyboard: Boolean = false
 
     private var files = ArrayList<MultipartBody.Part>()
     private var names = ArrayList<String>()
@@ -56,6 +55,18 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
         send_msg_imageiew.setOnClickListener {
 
             MyUtils.hideKeyboard(activity!!,view)
+
+            val title = edit_title.text.toString()
+            val body = edit_sms.text.toString()
+            //проверка на пустоту edit text
+            if (validateEditText(title, body)) {
+                edit_title_text.error = null
+                edit_sms_text.error = null
+
+            }else{
+                edit_title_text.error = "Загаловка не может быть пустым"
+                edit_sms_text.error = "Письмо не может быть пустым"
+            }
 
             if (reply.isToManager) {
                 viewModel.sendMessageToManager(edit_title.text.toString(), edit_sms.text.toString(), files).observe(this, Observer {
@@ -81,6 +92,7 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
             }
         }
 
+
         fasten_file_imageview.setOnClickListener {
             MyUtils.hideKeyboard(activity!!, view)
 
@@ -103,6 +115,10 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
                 getMyFile()
             }
         }
+    }
+
+    private fun validateEditText(title: String, content: String): Boolean {
+        return title.isNotEmpty() || content.isNotEmpty()
     }
 
     private fun getMyFile() {

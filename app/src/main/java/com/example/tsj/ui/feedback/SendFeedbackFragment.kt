@@ -3,10 +3,12 @@ package com.example.tsj.ui.feedback
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.tsj.R
 import com.example.tsj.utils.MyUtils
+import kotlinx.android.synthetic.main.fragment_send_feedback.*
 
 class SendFeedbackFragment : Fragment() {
 
@@ -37,5 +39,10 @@ class SendFeedbackFragment : Fragment() {
 
     private fun senFeedBack() {
         MyUtils.hideKeyboard(activity!!, view!!)
+        if (edit_to_whom.text.length == 0 || edit_your_mail.text.length == 0 || edit_write_a_letter.text.length == 0){
+            Toast.makeText(context, "Заполните все поля", Toast.LENGTH_LONG).show()
+        }else{
+
+        }
     }
 }

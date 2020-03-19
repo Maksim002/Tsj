@@ -63,11 +63,6 @@ class RelativeFragment : Fragment() {
             root.text_families_who.setAdapter(adapter)
             if (position != -1) {
 
-//                it.forEach { relative ->
-//                    if (relative.id == AddUpdateReferenceFragment.list[position].relativeId) {
-//                        root.text_families_who.setText(relative.name)
-//                    }
-//                }
             }
 
         })

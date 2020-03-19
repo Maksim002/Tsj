@@ -145,32 +145,41 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
         return res
     }
 
-    private fun validateEditText(title: String, content: String): Boolean {
+    private fun validateEditText(title: String, content: String, house: String, flat: String, user: String): Boolean {
         return title.isNotEmpty() || content.isNotEmpty()
     }
 
     private fun sendMessage() {
         MyUtils.hideKeyboard(activity!!, view!!)
 
-        val title = new_msg_referenc.text.toString()
-        val body = new_msg_content.text.toString()
-        //проверка на пустоту edit text
-        if (validateEditText(title, body)) {
-            new_msg_referenc.error = null
-            new_msg_content.error = null
-            //Метод для post сообщания
-            viewModel.messageToPerson(placementId, body, title, files).observe(this, Observer {
-                if (it) {
-                    findNavController().popBackStack()
-                } else {
-                    Toast.makeText(context, "Неудочно", Toast.LENGTH_LONG).show()
-                }
-            })
+            val title = new_msg_referenc.text.toString()
+            val body = new_msg_content.text.toString()
+            val house = new_msg_house.text.toString()
+            val flat = new_msg_appartment.text.toString()
+            val user = new_msg_who.text.toString()
+            //проверка на пустоту edit text
+            if (validateEditText(title, body, house, flat, user)) {
+                new_msg_referenc_error.error = null
+                new_msg_content_error.error = null
+                new_house.error = null
+                new_appartment.error = null
+                new_who.error = null
+                //Метод для post сообщания
+                viewModel.messageToPerson(placementId, body, title, files).observe(this, Observer {
+                    if (it) {
+                        findNavController().popBackStack()
+                    } else {
+                        Toast.makeText(context, "Неудочно", Toast.LENGTH_LONG).show()
+                    }
+                })
 
-        } else {
-            title_container.error = "Загаловка не может быть пустым"
-            content_container.error = "Письмо не может быть пустым"
-        }
+            } else {
+                new_msg_referenc_error.error = "Загаловка не может быть пустым"
+                new_msg_content_error.error = "Письмо не может быть пустым"
+                new_house.error = "Поле не может быть пустым"
+                new_appartment.error = "Поле не может быть пустым"
+                new_who.error = "Поле не может быть пустым"
+            }
     }
 
     override fun onStart() {

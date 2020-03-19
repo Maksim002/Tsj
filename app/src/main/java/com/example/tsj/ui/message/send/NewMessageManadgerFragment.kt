@@ -31,6 +31,8 @@ import java.io.File
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 
+
+
 class NewMessageManadgerFragment : Fragment(), GeneralClickListener {
 
     private lateinit var viewModel: MessagesViewModel
@@ -85,6 +87,8 @@ class NewMessageManadgerFragment : Fragment(), GeneralClickListener {
         }
         return super.onOptionsItemSelected(item)
     }
+
+
 
     private fun loadFiles() {
         MyUtils.hideKeyboard(activity!!, view!!)

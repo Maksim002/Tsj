@@ -12,6 +12,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
@@ -20,7 +21,10 @@ import com.example.tsj.service.model.AddressModel
 import com.example.tsj.service.model.OperationsModel
 import com.example.tsj.service.model.ServicesModel
 import com.example.tsj.utils.MyUtils
+import io.reactivex.internal.disposables.DisposableHelper.validate
 import kotlinx.android.synthetic.main.fragment_history.*
+import kotlinx.android.synthetic.main.fragment_message_bottom_sheet.*
+import kotlinx.android.synthetic.main.new_message_owner.*
 import kotlin.collections.ArrayList
 
 class HistoryFragment : Fragment() {
@@ -72,9 +76,6 @@ class HistoryFragment : Fragment() {
         }
 
         show.setOnClickListener {
-            if (autoAddress.text.length == 0 || autoService.text.length == 0 || autoOperation.text.length == 0) {
-                Toast.makeText(context, "Error", Toast.LENGTH_LONG).show()
-            } else {
                 val bundle = Bundle()
                 bundle.putInt("res", licNumber)
                 bundle.putString("serviceName", serviceName)
@@ -89,7 +90,6 @@ class HistoryFragment : Fragment() {
                 bundle.putString("to", autoDateFrom.text.toString())
                 bundle.putString("from", autoDateTo.text.toString())
                 Navigation.findNavController(it).navigate(R.id.navigation_personal, bundle)
-            }
         }
     }
 
