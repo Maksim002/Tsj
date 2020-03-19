@@ -15,7 +15,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class MessagesViewModel : ViewModel() {
+class   MessagesViewModel : ViewModel() {
 
     fun messages(
         id: Int
@@ -204,5 +204,20 @@ class MessagesViewModel : ViewModel() {
         return MultipartBody.Part.createFormData("empty", "", empty)
     }
 
+    fun reply(idMessage: Int): LiveData<ReplyModel> {
+        val data = MutableLiveData<ReplyModel>()
 
+        RetrofitService.apiService().reply(idMessage).enqueue(object : Callback<ReplyModel> {
+                override fun onFailure(call: Call<ReplyModel>, t: Throwable) {
+                    println("failure")
+                }
+
+                override fun onResponse(call: Call<ReplyModel>, response: Response<ReplyModel>) {
+                    if (response.isSuccessful) {
+                        data.value = response.body()
+                    }
+                }
+            })
+        return data
+    }
 }

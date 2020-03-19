@@ -123,10 +123,12 @@ interface ApiService {
     @GET("Certificates/Relatives")
     fun relatives(): Call<List<MessagesPersonsModel>>
 
-
     @POST("ForgotPassword")
     fun forgotPassword(@Query("email") email: String): Call<String>
 
     @GET("Requests/{id}")
     fun detailsModel(@Path("id") id: Int): Call<DetailsModel>
+
+    @GET("Messages/{id}/Reply")
+    fun reply(@Path("id") id: Int): Call<ReplyModel>
 }
