@@ -64,7 +64,6 @@ class ProfileFragment : Fragment() {
         profile_text_email.setKeyListener(null)
 
         profile_text_password.setText("password")
-
         profile_text_password.setTag(profile_text_password.getKeyListener())
         profile_text_password.setKeyListener(null)
 

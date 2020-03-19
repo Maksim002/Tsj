@@ -18,7 +18,6 @@ import java.lang.Exception
 
 class ChangePassword : Fragment() {
 
-    private lateinit var mail: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
