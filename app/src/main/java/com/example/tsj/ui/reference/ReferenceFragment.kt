@@ -1,6 +1,7 @@
 package com.example.tsj.ui.reference
 
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -16,6 +17,7 @@ import com.example.tsj.adapters.references.ReferencesAdapter
 import com.example.tsj.adapters.references.ReferencesListener
 import com.example.tsj.service.model.AddressModel
 import com.example.tsj.service.model.ReferenceLiteModel
+import kotlinx.android.synthetic.main.fragment_reference.*
 import kotlinx.android.synthetic.main.fragment_reference.view.*
 
 class ReferenceFragment : Fragment(),ReferencesListener {
@@ -36,6 +38,17 @@ class ReferenceFragment : Fragment(),ReferencesListener {
 
         (activity as AppCompatActivity).supportActionBar?.show()
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initHint()
+    }
+
+    private fun initHint() {
+        if (reference_address.text.isNotEmpty()){
+            reference_address_text.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+        }
     }
 
     private fun initData(root: View) {

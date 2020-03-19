@@ -70,7 +70,6 @@ class MessageFragment : Fragment() {
             msg_viewpager.adapter = pagerAdapter
             msg_tablayout.setupWithViewPager(msg_viewpager)
         })
-
     }
 
     private fun choose() {
