@@ -9,12 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.tsj.R
 import com.example.tsj.service.AppPreferences
-import kotlinx.android.synthetic.main.fragment_change_password.*
-import kotlinx.android.synthetic.main.fragment_change_password.profile_text_email
-import kotlinx.android.synthetic.main.fragment_change_password.profile_text_password
 import kotlinx.android.synthetic.main.fragment_profile.*
-import java.lang.Exception
-
 
 class ChangePassword : Fragment() {
 

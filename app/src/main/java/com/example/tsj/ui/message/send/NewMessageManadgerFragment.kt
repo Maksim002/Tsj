@@ -26,6 +26,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tsj.adapters.message.ManagerAdapter
 import com.example.tsj.adapters.message.GeneralClickListener
+import com.example.tsj.utils.MyUtils
 import java.io.File
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -86,7 +87,7 @@ class NewMessageManadgerFragment : Fragment(), GeneralClickListener {
     }
 
     private fun loadFiles() {
-
+        MyUtils.hideKeyboard(activity!!, view!!)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(
@@ -159,6 +160,8 @@ class NewMessageManadgerFragment : Fragment(), GeneralClickListener {
     }
 
     private fun sendMessage() {
+
+        MyUtils.hideKeyboard(activity!!, view!!)
 
         val title = manager_msg_referenc.text.toString()
         val body = manager_msg_content.text.toString()
