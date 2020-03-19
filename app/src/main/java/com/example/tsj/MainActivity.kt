@@ -9,14 +9,19 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.tsj.service.AppPreferences
+import com.example.tsj.utils.LoadingAlert
 
 class MainActivity : AppCompatActivity() {
+
+    companion object {
+        lateinit var alert: LoadingAlert
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
-
+        alert = LoadingAlert(this)
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         AppPreferences.init(this)
@@ -31,6 +36,7 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
+
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true

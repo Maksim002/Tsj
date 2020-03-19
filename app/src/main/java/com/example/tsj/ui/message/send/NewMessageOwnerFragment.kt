@@ -21,6 +21,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.loader.content.CursorLoader
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tsj.MainActivity
 import com.example.tsj.R
 import com.example.tsj.adapters.message.GeneralClickListener
 import com.example.tsj.adapters.message.OwnerAdapter
@@ -28,6 +29,7 @@ import com.example.tsj.service.model.MessagesHousesModel
 import com.example.tsj.service.model.MessagesPersonsModel
 import com.example.tsj.service.model.MessagesPlacementsModel
 import com.example.tsj.ui.message.MessagesViewModel
+import com.example.tsj.utils.MyUtils
 import kotlinx.android.synthetic.main.new_message_chairman.*
 import kotlinx.android.synthetic.main.new_message_owner.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -53,7 +55,7 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        MainActivity.alert.show()
         (activity as AppCompatActivity).supportActionBar?.show()
         setHasOptionsMenu(true)
         val root = inflater.inflate(R.layout.new_message_owner, container, false)
@@ -81,14 +83,16 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
                 sendMessage()
             }
             R.id.fasten_file -> {
-                fastenFile()
+                loadFiles()
             }
         }
         return super.onOptionsItemSelected(item)
 
     }
 
-    private fun fastenFile() {
+    private fun loadFiles() {
+
+        MyUtils.hideKeyboard(activity!!, view!!)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(context!!, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
                 val permissions = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -147,6 +151,8 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
     }
 
     private fun sendMessage() {
+        MyUtils.hideKeyboard(activity!!, view!!)
+
         val title = new_msg_referenc.text.toString()
         val body = new_msg_content.text.toString()
         //проверка на пустоту edit text
@@ -154,12 +160,14 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
             new_msg_referenc.error = null
             new_msg_content.error = null
             //Метод для post сообщания
+            MainActivity.alert.show()
             viewModel.messageToPerson(placementId, body, title, files).observe(this, Observer {
                 if (it) {
                     findNavController().popBackStack()
                 } else {
                     Toast.makeText(context, "Неудочно", Toast.LENGTH_LONG).show()
                 }
+                MainActivity.alert.hide()
             })
 
         } else {
@@ -196,6 +204,7 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
                 ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
             adapterServices.notifyDataSetChanged()
             new_msg_house.setAdapter(adapterServices)
+            MainActivity.alert.hide()
 
         })
 
@@ -208,11 +217,11 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
                 parent.getItemAtPosition(position).toString()
                 houseId = listHouses.get(position).id
                 getMessagesPlacements()
-
                 new_msg_appartment.setAdapter(null)
                 new_msg_appartment.setText("")
                 new_msg_who.setAdapter(null)
                 new_msg_who.setText("")
+                MainActivity.alert.show()
             }
         new_msg_house.setOnClickListener {
             new_msg_house.showDropDown()
@@ -239,6 +248,7 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
                 ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
             adapterServices.notifyDataSetChanged()
             new_msg_appartment.setAdapter(adapterServices)
+            MainActivity.alert.hide()
         })
 
 
@@ -249,6 +259,7 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
                     ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
                 parent.getItemAtPosition(position).toString()
                 placementId = listPlacements.get(position).id
+                MainActivity.alert.show()
                 getMessagesPersons()
                 new_msg_who.setAdapter(null)
                 new_msg_who.setText("")
@@ -278,6 +289,7 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
                 ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
             adapterServices.notifyDataSetChanged()
             new_msg_who.setAdapter(adapterServices)
+            MainActivity.alert.hide()
         })
 
 

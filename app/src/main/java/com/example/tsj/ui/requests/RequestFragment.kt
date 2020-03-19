@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import com.example.tsj.MainActivity
 import com.example.tsj.R
 import com.example.tsj.adapters.bid.RequestAdapter
 import com.example.tsj.model.BidModel
@@ -36,7 +37,7 @@ class RequestFragment : Fragment(), RequestClickItemListener {
         viewModel = ViewModelProviders.of(this).get(RequestViewModel::class.java)
         (activity as AppCompatActivity).supportActionBar?.show()
         val root = inflater.inflate(R.layout.fragment_bid, container, false)
-
+        MainActivity.alert.show()
         initViews(root)
         initData()
         return root
@@ -63,7 +64,7 @@ class RequestFragment : Fragment(), RequestClickItemListener {
                 bid_recyclerview.visibility = View.GONE
             }
 
-
+            MainActivity.alert.hide()
         })
     }
 

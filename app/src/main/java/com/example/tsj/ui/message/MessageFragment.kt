@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.example.tsj.MainActivity
 import com.example.tsj.R
 import com.example.tsj.adapters.message.ViewPagerAdapter
 import com.example.tsj.service.AppPreferences
@@ -29,6 +30,7 @@ class MessageFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(MessagesViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_message, container, false)
         (activity as AppCompatActivity).supportActionBar!!.show()
+        MainActivity.alert.show()
         return root
     }
 
@@ -60,6 +62,7 @@ class MessageFragment : Fragment() {
 
     private fun initTabLayout() {
         viewModel.messageTypes().observe(this, Observer {
+            MainActivity.alert.hide()
             val pagerAdapter = ViewPagerAdapter(childFragmentManager)
             it.forEach { item ->
                 pagerAdapter.addFragment(
@@ -70,7 +73,6 @@ class MessageFragment : Fragment() {
             msg_viewpager.adapter = pagerAdapter
             msg_tablayout.setupWithViewPager(msg_viewpager)
         })
-
     }
 
     private fun choose() {

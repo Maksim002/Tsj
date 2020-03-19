@@ -1,6 +1,5 @@
 package com.example.tsj.ui.profile
 
-import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
@@ -19,8 +18,6 @@ import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.fragment_profile.view.*
 
 class ProfileFragment : Fragment() {
-    private lateinit var context1: Context
-    private lateinit var df: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

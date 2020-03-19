@@ -1,6 +1,7 @@
 package com.example.tsj.ui.reference
 
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,11 +12,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.example.tsj.MainActivity
 import com.example.tsj.R
 import com.example.tsj.adapters.references.ReferencesAdapter
 import com.example.tsj.adapters.references.ReferencesListener
 import com.example.tsj.service.model.AddressModel
 import com.example.tsj.service.model.ReferenceLiteModel
+import kotlinx.android.synthetic.main.fragment_reference.*
 import kotlinx.android.synthetic.main.fragment_reference.view.*
 
 class ReferenceFragment : Fragment(),ReferencesListener {
@@ -38,7 +41,19 @@ class ReferenceFragment : Fragment(),ReferencesListener {
         return root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initHint()
+    }
+
+    private fun initHint() {
+        if (reference_address.text.isNotEmpty()){
+            reference_address_text.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+        }
+    }
+
     private fun initData(root: View) {
+        MainActivity.alert.show()
         viewModel.addresses().observe(this, Observer {
             val addressAdapter = ArrayAdapter<AddressModel>(
                 context!!,
@@ -46,7 +61,7 @@ class ReferenceFragment : Fragment(),ReferencesListener {
                 it
             )
             root.reference_address.setAdapter(addressAdapter)
-
+            MainActivity.alert.hide()
         })
 
 
@@ -57,7 +72,7 @@ class ReferenceFragment : Fragment(),ReferencesListener {
         root.new_references.setOnClickListener {
             AddUpdateReferenceFragment.list.clear()
             val bundle = Bundle()
-            bundle.putInt("id", placementId)
+            bundle.putInt("placementId", placementId)
             findNavController().navigate(R.id.navigation_new_reference, bundle)
         }
         adapter = ReferencesAdapter(ArrayList(),this)
@@ -75,15 +90,19 @@ class ReferenceFragment : Fragment(),ReferencesListener {
         }
         root.reference_address.setOnItemClickListener { parent, _, position, _ ->
             placementId = (parent.getItemAtPosition(position) as AddressModel).placementId!!
+            MainActivity.alert.show()
             viewModel.references(placementId).observe(this, Observer {
                 adapter.update(it)
+                MainActivity.alert.hide()
             })
             root.new_references.visibility = View.VISIBLE
         }
 
         if (placementId != 0) {
+            MainActivity.alert.show()
             viewModel.references(placementId).observe(this, Observer {
                 adapter.update(it)
+                MainActivity.alert.hide()
             })
             root.new_references.visibility = View.VISIBLE
         }

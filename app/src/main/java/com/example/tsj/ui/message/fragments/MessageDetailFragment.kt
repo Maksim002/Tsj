@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.example.tsj.MainActivity
 import com.example.tsj.R
 import com.example.tsj.ui.message.MessagesViewModel
 import com.example.tsj.ui.message.fragments.MessageBottomSheet
@@ -29,6 +30,7 @@ class MessageDetailFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(MessagesViewModel::class.java)
         initArguments()
         setHasOptionsMenu(true)
+        MainActivity.alert.show()
         return inflater.inflate(R.layout.fragment_message_detail, container, false)
     }
 
@@ -40,6 +42,7 @@ class MessageDetailFragment : Fragment() {
 
     private fun initData() {
         viewModel.message(idMessage).observe(this, Observer {
+            MainActivity.alert.hide()
             msg_detail_date.text = MyUtils.toMyDate(it.sendDate)
             msg_detail_sender.text = "от: " + it.personName
             msg_detail_title.text = it.title
@@ -78,10 +81,12 @@ class MessageDetailFragment : Fragment() {
     }
 
     private fun deleteMessage() {
+        MainActivity.alert.show()
         viewModel.deleteMessage(idMessage).observe(this, Observer {
             if (it){
                 findNavController().popBackStack()
             }
+            MainActivity.alert.hide()
         })
     }
 }

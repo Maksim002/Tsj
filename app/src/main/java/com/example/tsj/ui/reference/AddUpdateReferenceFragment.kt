@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tsj.MainActivity
 import com.example.tsj.R
 import com.example.tsj.adapters.families.FamilyAdapter
 import com.example.tsj.adapters.families.FamilyListener
@@ -65,6 +66,14 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
     private fun initData(root: View) {
 
     }
+    private fun initHint(){
+        if (edit_ref.text.isNotEmpty()){
+            lRef.defaultHintTextColor =  ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            referenceS.defaultHintTextColor =  ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+        }
+
+
+    }
 
     private fun initViews(root: View) {
         root.reference_add_relative.setOnClickListener {
@@ -75,15 +84,15 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
         refAdapter.update(list)
 
         root.edit_ref.setOnFocusChangeListener { _, _ ->
-            val col = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-            root.lRef.defaultHintTextColor = col
+            root.lRef.defaultHintTextColor =  ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
         }
 
         root.reference_save.setOnClickListener {
-            //
+            MyUtils.hideKeyboard(activity!!,view!!)
             data.relatives = list
             data.person.fullName = edit_ref.text.toString()
             data.person.dateOfBirth = MyUtils.toServerDate(editReferenceS.text.toString())
+            MainActivity.alert.show()
             if (!update) {
                 viewModel.addReferences(data).observe(this, Observer {
                     if (it) {
@@ -95,6 +104,7 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
                             Toast.LENGTH_LONG
                         ).show()
                     }
+                    MainActivity.alert.hide()
                 })
             } else {
                 viewModel.updateReference(data).observe(this, Observer {
@@ -107,6 +117,7 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
                             Toast.LENGTH_LONG
                         ).show()
                     }
+                    MainActivity.alert.hide()
                 })
             }
 
@@ -122,6 +133,7 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
         if (data.id != null && data.id != 0 && !update) {
             update = true
             reference_save.text = "Обновить"
+            MainActivity.alert.show()
             viewModel.reference(data.id).observe(this, Observer {
                 data.person.id = it.person.id
                 edit_ref.setText(it.person.fullName)
@@ -130,6 +142,8 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
                     list.add(item)
                 }
                 refAdapter.update(list)
+                initHint()
+                MainActivity.alert.hide()
             })
         }
     }
@@ -146,38 +160,30 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
         } catch (e: Exception) {
             0
         }
-
     }
-
 
     private fun getEditReferenceS() {
         editReferenceS.keyListener = null
-        editReferenceS.setOnFocusChangeListener { _, b ->
-            if (b) {
-                val cldr = Calendar.getInstance()
-                val col = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                referenceS.defaultHintTextColor = col
-                val picker =
-                    DatePickerDialog(
-                        activity!!,
-                        { _, year1, monthOfYear, dayOfMonth ->
-                            editReferenceS.setText(
-                                MyUtils.convertDate(
-                                    dayOfMonth,
-                                    monthOfYear,
-                                    year1
-                                )
-                            )
+    // Временный тракеч. Приложение падает.
 
-                        },
-                        cldr.get(Calendar.YEAR),
-                        cldr.get(Calendar.MONTH),
-                        cldr.get(Calendar.DAY_OF_MONTH)
-                    )
-                picker.show()
-                goneL.requestFocus()
+            editReferenceS.setOnFocusChangeListener { _, b ->
+                if (b) {
+                    val cldr = Calendar.getInstance()
+                    val col = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+                    referenceS.defaultHintTextColor = col
+                    val picker =
+                        DatePickerDialog(
+                            activity!!,
+                            { _, year1, monthOfYear, dayOfMonth ->
+                                editReferenceS.setText(MyUtils.convertDate(dayOfMonth, monthOfYear, year1)) },
+                            cldr.get(Calendar.YEAR),
+                            cldr.get(Calendar.MONTH),
+                            cldr.get(Calendar.DAY_OF_MONTH)
+                        )
+                    picker.show()
+                    goneL.requestFocus()
+                }
             }
-        }
     }
 
     override fun onClickDelete(id: Int) {
