@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tsj.MainActivity
 import com.example.tsj.R
 import com.example.tsj.adapters.families.FamilyAdapter
 import com.example.tsj.adapters.families.FamilyListener
@@ -91,6 +92,7 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
             data.relatives = list
             data.person.fullName = edit_ref.text.toString()
             data.person.dateOfBirth = MyUtils.toServerDate(editReferenceS.text.toString())
+            MainActivity.alert.show()
             if (!update) {
                 viewModel.addReferences(data).observe(this, Observer {
                     if (it) {
@@ -102,6 +104,7 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
                             Toast.LENGTH_LONG
                         ).show()
                     }
+                    MainActivity.alert.hide()
                 })
             } else {
                 viewModel.updateReference(data).observe(this, Observer {
@@ -114,6 +117,7 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
                             Toast.LENGTH_LONG
                         ).show()
                     }
+                    MainActivity.alert.hide()
                 })
             }
 
@@ -129,6 +133,7 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
         if (data.id != null && data.id != 0 && !update) {
             update = true
             reference_save.text = "Обновить"
+            MainActivity.alert.show()
             viewModel.reference(data.id).observe(this, Observer {
                 data.person.id = it.person.id
                 edit_ref.setText(it.person.fullName)
@@ -138,6 +143,7 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
                 }
                 refAdapter.update(list)
                 initHint()
+                MainActivity.alert.hide()
             })
         }
     }

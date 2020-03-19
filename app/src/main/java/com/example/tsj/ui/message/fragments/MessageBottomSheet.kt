@@ -18,6 +18,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.loader.content.CursorLoader
 import androidx.navigation.fragment.findNavController
+import com.example.tsj.MainActivity
 import com.example.tsj.R
 import com.example.tsj.service.model.ReplyModel
 import com.example.tsj.ui.message.MessagesViewModel
@@ -55,10 +56,14 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
 
         send_msg_imageiew.setOnClickListener {
 
-            MyUtils.hideKeyboard(activity!!,view)
+            MyUtils.hideKeyboard(activity!!, view)
 
             if (reply.isToManager) {
-                viewModel.sendMessageToManager(edit_title.text.toString(), edit_sms.text.toString(), files).observe(this, Observer {
+                viewModel.sendMessageToManager(
+                    edit_title.text.toString(),
+                    edit_sms.text.toString(),
+                    files
+                ).observe(this, Observer {
                     if (it) {
                         dismiss()
                         findNavController().popBackStack()
@@ -75,9 +80,12 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
                         if (it) {
                             dismiss()
                             findNavController().popBackStack()
+                        } else {
+                            Toast.makeText(context, "Неудочно", Toast.LENGTH_LONG).show()
                         }
+                        MainActivity.alert.hide()
                     })
-                Toast.makeText(context, "Неудочно", Toast.LENGTH_LONG).show()
+
             }
         }
 

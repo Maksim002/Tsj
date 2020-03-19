@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.example.tsj.MainActivity
 import com.example.tsj.R
 import kotlinx.android.synthetic.main.fragment_bid_detail.*
 import com.example.tsj.service.model.RequestModel
@@ -41,6 +42,7 @@ class RequestDetailFragment : Fragment() {
 
 
     private fun initData(root: View) {
+        MainActivity.alert.show()
         viewModel.getRequest(requestId).observe(this, Observer {
             requestModel = it
             root.bid_adres_content.text = it.address
@@ -48,6 +50,7 @@ class RequestDetailFragment : Fragment() {
             root.bid_porch_content.text = it.entrance.toString()
             root.bid_description_content.text = it.description
             root.bid_title.text = it.requestTypeName
+            MainActivity.alert.hide()
         })
     }
 
@@ -101,6 +104,7 @@ class RequestDetailFragment : Fragment() {
     }
 
     private fun deleteRequest() {
+        MainActivity.alert.show()
         viewModel.deleteRequest(requestId).observe(this, Observer {
             setHasOptionsMenu(false)
             if (it) {
@@ -109,17 +113,19 @@ class RequestDetailFragment : Fragment() {
             } else {
                 Toast.makeText(context, "ошибка", Toast.LENGTH_LONG).show()
             }
+            MainActivity.alert.hide()
         })
     }
 
     override fun onStart() {
         super.onStart()
-
+        MainActivity.alert.show()
         viewModel.detailsModel(requestId).observe(this, Observer { list ->
             bid_adres_content.setText(list.address)
             bid_flat_content.setText(list.entrance.toString())
             bid_description_content.setText(list.description)
             bid_porch_content.setText(list.floor.toString())
+            MainActivity.alert.hide()
         })
     }
 }

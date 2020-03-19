@@ -24,6 +24,7 @@ import androidx.lifecycle.Observer
 import androidx.loader.content.CursorLoader
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tsj.MainActivity
 import com.example.tsj.adapters.message.ManagerAdapter
 import com.example.tsj.adapters.message.GeneralClickListener
 import com.example.tsj.utils.MyUtils
@@ -112,7 +113,7 @@ class NewMessageManadgerFragment : Fragment(), GeneralClickListener {
 
     private fun getMyFile() {
         val myFile = Intent(Intent.ACTION_PICK)
-        myFile.setType("*/*")
+        myFile.type = "*/*"
         startActivityForResult(myFile, IMAGE_PICK_CODE)
     }
 
@@ -170,12 +171,14 @@ class NewMessageManadgerFragment : Fragment(), GeneralClickListener {
             title_container.error = null
             content_container.error = null
             //Метод для post сообщания
+            MainActivity.alert.show()
             viewModel.sendMessageToManager(body, title, files).observe(this, Observer {
                 if (it) {
                     findNavController().popBackStack()
                 } else {
                     Toast.makeText(context, "Неудочно", Toast.LENGTH_LONG).show()
                 }
+                MainActivity.alert.hide()
             })
 
         } else {
