@@ -64,5 +64,15 @@
     <string name="urMean">Поделитесь своим мнением</string>
     <string name="voting">Голосование</string>
     <string name="vote_empty">Нету голосований</string>
+    <string name="requestForConn">Заяка на подключение ТСЖ</string>
+    <string name="urname">Ваше имя</string>
+    <string name="tsjName">Наименования ТСЖ</string>
+    <string name="address">Адрес</string>
+    <string name="phone">Телефон</string>
+    <string name="addressEmail">Адрес эл. почты</string>
+    <string name="countApp">Количество квартир (лицевых счетов)</string>
+    <string name="urFeedback">Ваше пожелания</string>
+    <string name="send">ОТПРАВИТЬ</string>
+    <string name="connect">Подключить</string>
 
 </resources>

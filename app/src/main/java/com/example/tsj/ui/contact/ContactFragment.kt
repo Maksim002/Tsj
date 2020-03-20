@@ -42,8 +42,7 @@ class ContactFragment : Fragment(), AccountsListener {
         val layoutC: LinearLayout = root.findViewById(R.id.linearLayout)
         bottomSheet = AccountsBottomSheet(this)
         buttonC.setOnClickListener {
-            val intent = Intent(context, LoginActivity::class.java).putExtra("transition", true)
-            startActivity(intent)
+            findNavController().navigate(R.id.navigation_request_for_connect)
         }
 
         if (AppPreferences.isLogined) {
@@ -91,7 +90,7 @@ class ContactFragment : Fragment(), AccountsListener {
                 startActivity(intent)
             }
         }
-        if (AppPreferences.isLogined){
+        if (AppPreferences.isLogined) {
             MainActivity.alert.show()
             viewModel.addresses().observe(this, Observer {
                 bottomSheet = AccountsBottomSheet(this, it)

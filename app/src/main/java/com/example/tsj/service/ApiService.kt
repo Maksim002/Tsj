@@ -99,7 +99,7 @@ interface ApiService {
     fun persons(@Path("id") id: Int): Call<List<MessagesPersonsModel>>
 
     @GET("Messages/Types")
-    fun messageTypes():Call<List<MessagesPersonsModel>>
+    fun messageTypes(): Call<List<MessagesPersonsModel>>
 
     @Multipart
     @POST("Messages")
@@ -133,11 +133,13 @@ interface ApiService {
         @Query("typeId") typeId: Int,
         @Query("id") id: Int
     ): Call<List<VoteModel>>
+
     @GET("Requests/{id}")
     fun detailsModel(@Path("id") id: Int): Call<DetailsModel>
 
     @GET("Voting/Addresses")
     fun votingAddress(): Call<List<AddressModel>>
+
     @GET("Messages/{id}/Reply")
     fun reply(@Path("id") id: Int): Call<ReplyModel>
 
@@ -150,6 +152,10 @@ interface ApiService {
     @POST("Voting")
     fun votingPost(@Body body: VotingRequest): Call<String>
 
-    @GET ("Voting/{id}")
-    fun votingDetail (@Path("id") id : Int) : Call <VotingDetailModel>
+    @GET("Voting/{id}")
+    fun votingDetail(@Path("id") id: Int): Call<VotingDetailModel>
+
+    @POST("RequestForConnection")
+    fun requestForConnect(@Body body: RequestForConnectModel): Call<String>
+
 }
