@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tsj.MainActivity
 import com.example.tsj.R
 import com.example.tsj.adapters.pesonal.PersonalAdapterAccounts
 import com.example.tsj.adapters.pesonal.PersonalAdapterPayments
@@ -54,6 +55,7 @@ class PersonalFragment : Fragment(), PersonalListener {
         val root = inflater.inflate(R.layout.fragment_personal, container, false)
         viewModel = ViewModelProviders.of(this).get(PersonalViewModel::class.java)
         initViews(root)
+        MainActivity.alert.show()
         return root
     }
 
@@ -122,11 +124,11 @@ class PersonalFragment : Fragment(), PersonalListener {
             ""
         }
 
-        textCurrant.setText("Лицевой счет №" + id)
-        textAddress.setText(address.toString())
-        textOperation.setText(operationName.toString())
-        textService.setText(serviceName.toString())
-        textToFrom.setText("История оплат с " + to + " - " + from)
+        textCurrant.text = "Лицевой счет №$id"
+        textAddress.text = address.toString()
+        textOperation.text = operationName.toString()
+        textService.text = serviceName.toString()
+        textToFrom.text = "История оплат с $to - $from"
     }
 
     private fun initViews(root: View) {
@@ -162,6 +164,7 @@ class PersonalFragment : Fragment(), PersonalListener {
                     recyclerViewPlatei.visibility = View.VISIBLE
                     layoutAccounts.visibility = View.VISIBLE
                 }
+                MainActivity.alert.hide()
 
             })
     }

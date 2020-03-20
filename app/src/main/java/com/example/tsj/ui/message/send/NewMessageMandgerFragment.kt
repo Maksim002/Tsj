@@ -15,9 +15,11 @@ import kotlinx.android.synthetic.main.new_message_chairman.*
 import okhttp3.MultipartBody
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.ColorStateList
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
+import android.widget.AdapterView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
@@ -27,7 +29,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tsj.adapters.message.ManagerAdapter
 import com.example.tsj.adapters.message.GeneralClickListener
 import com.example.tsj.utils.MyUtils
+import kotlinx.android.synthetic.main.fragment_history.*
 import kotlinx.android.synthetic.main.fragment_message_bottom_sheet.*
+import kotlinx.android.synthetic.main.new_message_chairman.view.*
 import java.io.File
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -62,8 +66,22 @@ class NewMessageMandgerFragment : Fragment(), GeneralClickListener {
         recyclerManager = root.findViewById(R.id.recycler_view_manager)
         getRecyclerView()
 
+        root.manager_msg_referenc.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus && root.manager_msg_referenc.text!!.isNotEmpty()) {
+                title_container.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            }
+        }
+
+        root.manager_msg_content.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus && root.manager_msg_content.text!!.isNotEmpty()) {
+                content_container.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            }
+        }
         return root
     }
+
 
     override fun onClickManager(position: Int) {
         names.removeAt(position)
@@ -184,17 +202,17 @@ class NewMessageMandgerFragment : Fragment(), GeneralClickListener {
     private fun validate(): Boolean{
         var valid = true
         if (manager_msg_referenc.getText().toString().length == 0) {
-            title_container.setError("Выберите дату")
+            title_container.setError("Заголовок не должен быть пустым")
             valid = false
         }else{
-            title_container.error = null
+            title_container.setErrorEnabled(false)
         }
 
         if (manager_msg_content.getText().toString().length == 0) {
-            content_container.setError("Выберите дату")
+            content_container.setError("Письмо не должно быть пустым")
             valid = false
         }else{
-            content_container.error = null
+            content_container.setErrorEnabled(false)
         }
 
         return valid

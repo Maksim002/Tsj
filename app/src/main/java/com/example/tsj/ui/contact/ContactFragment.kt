@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.example.tsj.MainActivity
 import com.example.tsj.R
 import com.example.tsj.service.AppPreferences
 import com.example.tsj.service.model.AddressModel
@@ -90,6 +91,7 @@ class ContactFragment : Fragment(), AccountsListener {
                 startActivity(intent)
             }
         }
+        MainActivity.alert.show()
         viewModel.addresses().observe(this, Observer {
             bottomSheet = AccountsBottomSheet(this, it)
             try {
@@ -97,6 +99,7 @@ class ContactFragment : Fragment(), AccountsListener {
                 contacts_test.text = it[0].licNumber.toString()
             } catch (e: Exception) {
             }
+            MainActivity.alert.hide()
         })
         root.profile.setOnClickListener {
             bottomSheet.show(fragmentManager!!, "AccountsBottomSheet")

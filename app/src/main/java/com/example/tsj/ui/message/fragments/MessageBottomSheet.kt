@@ -6,6 +6,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.ColorStateList
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -24,8 +25,6 @@ import com.example.tsj.ui.message.MessagesViewModel
 import com.example.tsj.utils.MyUtils
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.fragment_message_bottom_sheet.*
-import kotlinx.android.synthetic.main.fragment_send_feedback.*
-import kotlinx.android.synthetic.main.new_message_chairman.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -45,13 +44,27 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        viewModel = ViewModelProviders.of(this).get(MessagesViewModel::class.java)
         return inflater.inflate(R.layout.fragment_message_bottom_sheet, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProviders.of(this).get(MessagesViewModel::class.java)
+
+        edit_title.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus && edit_title.text!!.isNotEmpty()) {
+                edit_title_text.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            }
+        }
+
+        edit_sms.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus && edit_sms.text!!.isNotEmpty()) {
+                edit_sms_text.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            }
+        }
 
         send_msg_imageiew.setOnClickListener {
 
@@ -109,17 +122,17 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
     private fun validate(): Boolean{
         var valid = true
         if (edit_title.getText().toString().length == 0) {
-            edit_title_text.setError("Выберите дату")
+            edit_title_text.setError("Заголовок не дожн быть пустым")
             valid = false
         }else{
-            edit_title_text.error = null
+            edit_title_text.setErrorEnabled(false)
         }
 
         if (edit_sms.getText().toString().length == 0) {
-            edit_sms_text.setError("Выберите дату")
+            edit_sms_text.setError("Письмо не дожно быть пустым")
             valid = false
         }else{
-            edit_sms_text.error = null
+            edit_sms_text.setErrorEnabled(false)
         }
 
         return valid

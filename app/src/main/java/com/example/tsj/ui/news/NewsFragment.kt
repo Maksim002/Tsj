@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.tsj.MainActivity
 import com.example.tsj.service.AppPreferences
 
 class NewsFragment : Fragment() {
@@ -29,7 +30,7 @@ class NewsFragment : Fragment() {
 
         recyclerViewF = root.findViewById(R.id.recyclerViewFile)
         getRecyclerView()
-
+        MainActivity.alert.show()
         viewModel = ViewModelProviders.of(this).get(NewsViewModel::class.java)
 
         (activity as AppCompatActivity).supportActionBar?.show()
@@ -49,6 +50,7 @@ class NewsFragment : Fragment() {
 
         viewModel.news().observe(this, Observer { list->
             fAdapter.setList(list)
+            MainActivity.alert.hide()
         })
     }
 }

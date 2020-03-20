@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.example.tsj.MainActivity
 import com.example.tsj.R
 import com.example.tsj.service.model.RequestAddressesModel
 import com.example.tsj.service.model.RequestTypeModel
@@ -21,6 +22,7 @@ import com.example.tsj.service.request.UpdateRequest
 import kotlinx.android.synthetic.main.fragment_balance.*
 import kotlinx.android.synthetic.main.fragment_bid_add.*
 import kotlinx.android.synthetic.main.fragment_bid_add.view.*
+import kotlinx.android.synthetic.main.new_message_chairman.*
 
 class RequestAddFragment : Fragment() {
 
@@ -53,61 +55,60 @@ class RequestAddFragment : Fragment() {
             text_bid_add_adres.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
             text_request_description.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
         }
-    }
 
-//    private fun validate(): Boolean{
-//        var valid = true
-//        if (bid_add_type.getText().toString().length == 0) {
-//            request_type_out.setError("Выберите Дом")
-//            valid = false
-//        }else{
-//            request_type_out.error = null
-//        }
-//
-//        if (bid_add_porch.getText().toString().length == 0) {
-//            text_bid_add_porch.setError("Выберите Дом")
-//            valid = false
-//        }else{
-//            text_bid_add_porch.error = null
-//        }
-//
-//        if (bid_add_flat.getText().toString().length == 0) {
-//            text_bid_add_flat.setError("Выберите Дом")
-//            valid = false
-//        }else{
-//            text_bid_add_flat.error = null
-//        }
-//
-//        if (bid_add_adres.getText().toString().length == 0) {
-//            text_bid_add_adres.setError("Выберите Дом")
-//            valid = false
-//        }else{
-//            text_bid_add_adres.error = null
-//        }
-//
-//        if (request_description.getText().toString().length == 0) {
-//            text_request_description.setError("Выберите Дом")
-//            valid = false
-//        }else{
-//            text_request_description.error = null
-//        }
-//
-//        return valid
-//    }
+    }
+    private fun validate(): Boolean{
+        var valid = true
+        if (bid_add_type.getText().toString().length == 0) {
+            request_type_out.setError("Выберите тип заявки")
+            valid = false
+        }else{
+            request_type_out.setErrorEnabled(false)
+        }
+
+        if (bid_add_porch.getText().toString().length == 0) {
+            text_bid_add_porch.setError("Поле не должно быть пустым")
+            valid = false
+        }else{
+            text_bid_add_porch.setErrorEnabled(false)
+        }
+
+        if (bid_add_flat.getText().toString().length == 0) {
+            text_bid_add_flat.setError("Поле не должно быть пустым")
+            valid = false
+        }else{
+            text_bid_add_flat.setErrorEnabled(false)
+        }
+
+        if (bid_add_adres.getText().toString().length == 0) {
+            text_bid_add_adres.setError("Выберите адрес")
+            valid = false
+        }else{
+            text_bid_add_adres.setErrorEnabled(false)
+        }
+
+        if (request_description.getText().toString().length == 0) {
+            text_request_description.setError("Поле не должно быть пустым")
+            valid = false
+        }else{
+            text_request_description.setErrorEnabled(false)
+        }
+
+        return valid
+    }
 
 
     private fun initViews(root: View) {
 
         root.request_add.setOnClickListener {
-            if (bid_add_type.text.length == 0 || bid_add_porch.text?.length == 0 || bid_add_flat.text?.length == 0 || bid_add_adres.text.length == 0 || request_description.text?.length == 0){
-                Toast.makeText(context, "Заполните все поля", Toast.LENGTH_LONG).show()
-            }else{
+            if (validate()){
+                MainActivity.alert.show()
                 if (RequestDetailFragment.requestModel.id != null) {
                     val body = UpdateRequest()
                     body.id = RequestDetailFragment.requestModel.id
                     body.description = root.request_description.text.toString()
                     body.floor = root.bid_add_flat.text.toString().toInt()
-                    body.entrance =  root.bid_add_porch.text.toString().toInt()
+                    body.entrance = root.bid_add_porch.text.toString().toInt()
                     body.requestTypeId = requestTypeId
 
                     viewModel.updateRequest(body).observe(this, Observer {
@@ -117,6 +118,7 @@ class RequestAddFragment : Fragment() {
                         } else {
                             Toast.makeText(context, "ошибка", Toast.LENGTH_LONG).show()
                         }
+                        MainActivity.alert.hide()
                     })
                 } else {
                     val body = AddRequest(
@@ -134,42 +136,9 @@ class RequestAddFragment : Fragment() {
                         } else {
                             Toast.makeText(context, "ошибка", Toast.LENGTH_LONG).show()
                         }
+                        MainActivity.alert.hide()
                     })
                 }
-
-            if (RequestDetailFragment.requestModel.id != null) {
-                val body = UpdateRequest()
-                body.id = RequestDetailFragment.requestModel.id
-                body.description = root.request_description.text.toString()
-                body.floor = root.bid_add_flat.text.toString().toInt()
-                body.entrance = root.bid_add_porch.text.toString().toInt()
-                body.requestTypeId = requestTypeId
-
-                viewModel.updateRequest(body).observe(this, Observer {
-                    if (it) {
-                        Toast.makeText(context, "ok", Toast.LENGTH_LONG).show()
-                        findNavController().popBackStack()
-                    } else {
-                        Toast.makeText(context, "ошибка", Toast.LENGTH_LONG).show()
-                    }
-                })
-            } else {
-                val body = AddRequest(
-                    placementId,
-                    requestTypeId,
-                    root.bid_add_porch.text.toString().toInt(),
-                    root.bid_add_flat.text.toString().toInt(),
-                    root.request_description.text.toString()
-                )
-
-                viewModel.addRequest(body).observe(this, Observer {
-                    if (it) {
-                        Toast.makeText(context, "ok", Toast.LENGTH_LONG).show()
-                        findNavController().popBackStack()
-                    } else {
-                        Toast.makeText(context, "ошибка", Toast.LENGTH_LONG).show()
-                    }
-                })
             }
         }
 
@@ -242,18 +211,8 @@ class RequestAddFragment : Fragment() {
         }
     }
 
-        viewModel.requestAddresses().observe(this, Observer {
-            //адреса
-            val typeAdapter = ArrayAdapter<RequestAddressesModel>(
-                context!!,
-                R.layout.support_simple_spinner_dropdown_item,
-                it
-            )
-            bid_add_adres.setAdapter(typeAdapter)
-        })
-    }
-
     private fun initData() {
+        MainActivity.alert.show()
         viewModel.requestTypes().observe(this, Observer {
             //types
             val typeAdapter = ArrayAdapter<RequestTypeModel>(
@@ -262,8 +221,21 @@ class RequestAddFragment : Fragment() {
                 it
             )
             bid_add_type.setAdapter(typeAdapter)
-
+            MainActivity.alert.hide()
 
         })
+
+        viewModel.requestAddresses().observe(this, Observer {
+            //адреса
+            val typeAdapter = ArrayAdapter<RequestAddressesModel>(
+                context!!,
+                R.layout.support_simple_spinner_dropdown_item,
+                it
+            )
+            bid_add_adres.setAdapter(typeAdapter)
+            MainActivity.alert.hide()
+        })
     }
+
+
 }

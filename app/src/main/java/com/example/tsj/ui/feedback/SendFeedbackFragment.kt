@@ -49,21 +49,21 @@ class SendFeedbackFragment : Fragment() {
             edit_to_whom_edit.setError("Поле не должно быть пустым")
             valid = false
         }else{
-            edit_to_whom_edit.error = null
+            edit_to_whom_edit.setErrorEnabled(false)
         }
 
         if (edit_your_mail.getText().toString().length == 0) {
             edit_your_mail_edit.setError("Поле не должно быть пустым")
             valid = false
         }else{
-            edit_your_mail_edit.error = null
+            edit_your_mail_edit.setErrorEnabled(false)
         }
 
         if (edit_write_a_letter.getText().toString().length == 0) {
             edit_write_a_letter_edit.setError("Поле не должно быть пустым")
             valid = false
         }else{
-            edit_write_a_letter_edit.error = null
+            edit_write_a_letter_edit.setErrorEnabled(false)
         }
 
         return valid

@@ -63,14 +63,14 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
             referenceS.error = "Вы не выбрили дату"
             valid = false
         }else{
-            referenceS.error = null
+            referenceS.setErrorEnabled(false)
         }
 
         if (edit_ref.getText().toString().length == 0) {
-            lRef.setError("Заполните поле")
+            lRef.setError("Поле не должно быть пустым")
             valid = false
         }else{
-            lRef.error = null
+            lRef.setErrorEnabled(false)
         }
 
         return valid

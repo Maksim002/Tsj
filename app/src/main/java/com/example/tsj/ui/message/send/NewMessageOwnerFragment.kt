@@ -31,7 +31,9 @@ import com.example.tsj.ui.message.MessagesViewModel
 import com.example.tsj.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_message_bottom_sheet.*
 import kotlinx.android.synthetic.main.new_message_chairman.*
+import kotlinx.android.synthetic.main.new_message_chairman.view.*
 import kotlinx.android.synthetic.main.new_message_owner.*
+import kotlinx.android.synthetic.main.new_message_owner.view.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -63,6 +65,20 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
 
         recyclerOwner = root.findViewById(R.id.recyclerOwner)
         getRecyclerView()
+
+        root.new_msg_referenc.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus && root.new_msg_referenc.text!!.isNotEmpty()) {
+                new_msg_referenc_error.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            }
+        }
+
+        root.new_msg_content.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus && root.new_msg_content.text!!.isNotEmpty()) {
+                new_msg_content_error.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            }
+        }
 
         return root
     }
@@ -172,35 +188,35 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
             new_house.setError("Выберите Дом")
             valid = false
         }else{
-            new_house.error = null
+            new_house.setErrorEnabled(false)
         }
 
         if (new_msg_appartment.getText().toString().length == 0) {
             new_appartment.setError("Выберите квартиру")
             valid = false
         }else{
-            new_appartment.error = null
+            new_appartment.setErrorEnabled(false)
         }
 
         if (new_msg_who.getText().toString().length == 0) {
             new_who.setError("Выберите пользователя")
             valid = false
         }else{
-            new_who.error = null
+            new_who.setErrorEnabled(false)
         }
 
         if (new_msg_referenc.getText().toString().length == 0) {
             new_msg_referenc_error.setError("Заголовок не должен быть пустым")
             valid = false
         }else{
-            new_msg_referenc_error.error = null
+            new_msg_referenc_error.setErrorEnabled(false)
         }
 
         if (new_msg_content.getText().toString().length == 0) {
-            new_msg_content_error.setError("Письмо не должен быть пустым")
+            new_msg_content_error.setError("Письмо не должно быть пустым")
             valid = false
         }else{
-            new_msg_content_error.error = null
+            new_msg_content_error.setErrorEnabled(false)
         }
 
         return valid

@@ -63,38 +63,24 @@ class HistoryFragment : Fragment() {
     private fun validate(): Boolean{
         var valid = true
         if (autoAddress.getText().toString().length == 0) {
-            Address.setError("Выберите Дом")
+            Address.setError("Выберите адрес")
             valid = false
         }else{
-            Address.error = null
+            Address.setErrorEnabled(false)
         }
 
         if (autoService.getText().toString().length == 0) {
-            Service.setError("Выберите квартиру")
+            Service.setError("Выберите услугу")
             valid = false
         }else{
-            Service.error = null
+            Service.setErrorEnabled(false)
         }
 
         if (autoOperation.getText().toString().length == 0) {
-            Operation.setError("Выберите квартиру")
+            Operation.setError("Выберите операцию")
             valid = false
         }else{
-            Operation.error = null
-        }
-
-        if (autoDateFrom.getText().toString().length == 0) {
-            DatesS.setError("Выберите квартиру")
-            valid = false
-        }else{
-            DatesS.error = null
-        }
-
-        if (autoDateTo.getText().toString().length == 0) {
-            DatesDo.setError("Выберите квартиру")
-            valid = false
-        }else{
-            DatesDo.error = null
+            Operation.setErrorEnabled(false)
         }
 
         return valid
