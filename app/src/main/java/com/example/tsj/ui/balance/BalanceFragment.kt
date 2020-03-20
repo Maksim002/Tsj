@@ -16,6 +16,7 @@ import com.example.tsj.R
 import com.example.tsj.service.model.AddressModel
 import kotlinx.android.synthetic.main.fragment_balance.*
 import kotlinx.android.synthetic.main.fragment_balance.view.*
+import kotlinx.android.synthetic.main.fragment_history.*
 
 class BalanceFragment : Fragment() {
     private lateinit var viewModel: BalanceViewModel
@@ -34,18 +35,32 @@ class BalanceFragment : Fragment() {
         model = AddressModel()
 
         root.balance_show_button.setOnClickListener {
-            if (placementId != 0) {
-                val bundle = Bundle()
-                bundle.putInt("placementId", placementId)
-                bundle.putString("address", address)
+            if (validate()){
+                if (placementId != 0) {
+                    val bundle = Bundle()
+                    bundle.putInt("placementId", placementId)
+                    bundle.putString("address", address)
 
-                findNavController().navigate(R.id.navigation_balance_detail, bundle)
-            } else {
-                Toast.makeText(context, "Не выбраны данные", Toast.LENGTH_LONG).show()
+                    findNavController().navigate(R.id.navigation_balance_detail, bundle)
+                } else {
+                    Toast.makeText(context, "Не выбраны данные", Toast.LENGTH_LONG).show()
+                }
             }
-        }
-        (activity as AppCompatActivity).supportActionBar?.show()
+            (activity as AppCompatActivity).supportActionBar?.show()
+
+            }
         return root
+    }
+
+    private fun validate(): Boolean{
+        var valid = true
+        if (autoCompleteTextView.getText().toString().length == 0) {
+            name_text_input.setError("Выберите Дом")
+            valid = false
+        }else{
+            name_text_input.error = null
+        }
+        return valid
     }
 
     override fun onStart() {

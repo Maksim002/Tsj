@@ -29,6 +29,7 @@ import com.example.tsj.service.model.MessagesPersonsModel
 import com.example.tsj.service.model.MessagesPlacementsModel
 import com.example.tsj.ui.message.MessagesViewModel
 import com.example.tsj.utils.MyUtils
+import kotlinx.android.synthetic.main.fragment_message_bottom_sheet.*
 import kotlinx.android.synthetic.main.new_message_chairman.*
 import kotlinx.android.synthetic.main.new_message_owner.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -145,26 +146,16 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
         return res
     }
 
-    private fun validateEditText(title: String, content: String, house: String, flat: String, user: String): Boolean {
-        return title.isNotEmpty() || content.isNotEmpty()
-    }
-
     private fun sendMessage() {
         MyUtils.hideKeyboard(activity!!, view!!)
+            if (validate()){
+                val title = new_msg_referenc.text.toString()
+                val body = new_msg_content.text.toString()
+                new_msg_house.text.toString()
+                new_msg_appartment.text.toString()
+                new_msg_who.text.toString()
+                //проверка на пустоту edit text
 
-            val title = new_msg_referenc.text.toString()
-            val body = new_msg_content.text.toString()
-            val house = new_msg_house.text.toString()
-            val flat = new_msg_appartment.text.toString()
-            val user = new_msg_who.text.toString()
-            //проверка на пустоту edit text
-            if (validateEditText(title, body, house, flat, user)) {
-                new_msg_referenc_error.error = null
-                new_msg_content_error.error = null
-                new_house.error = null
-                new_appartment.error = null
-                new_who.error = null
-                //Метод для post сообщания
                 viewModel.messageToPerson(placementId, body, title, files).observe(this, Observer {
                     if (it) {
                         findNavController().popBackStack()
@@ -172,25 +163,53 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
                         Toast.makeText(context, "Неудочно", Toast.LENGTH_LONG).show()
                     }
                 })
-
-            } else {
-                new_msg_referenc_error.error = "Загаловка не может быть пустым"
-                new_msg_content_error.error = "Письмо не может быть пустым"
-                new_house.error = "Поле не может быть пустым"
-                new_appartment.error = "Поле не может быть пустым"
-                new_who.error = "Поле не может быть пустым"
             }
+    }
+
+    private fun validate(): Boolean{
+        var valid = true
+        if (new_msg_house.getText().toString().length == 0) {
+            new_house.setError("Выберите Дом")
+            valid = false
+        }else{
+            new_house.error = null
+        }
+
+        if (new_msg_appartment.getText().toString().length == 0) {
+            new_appartment.setError("Выберите квартиру")
+            valid = false
+        }else{
+            new_appartment.error = null
+        }
+
+        if (new_msg_who.getText().toString().length == 0) {
+            new_who.setError("Выберите пользователя")
+            valid = false
+        }else{
+            new_who.error = null
+        }
+
+        if (new_msg_referenc.getText().toString().length == 0) {
+            new_msg_referenc_error.setError("Заголовок не должен быть пустым")
+            valid = false
+        }else{
+            new_msg_referenc_error.error = null
+        }
+
+        if (new_msg_content.getText().toString().length == 0) {
+            new_msg_content_error.setError("Письмо не должен быть пустым")
+            valid = false
+        }else{
+            new_msg_content_error.error = null
+        }
+
+        return valid
     }
 
     override fun onStart() {
         super.onStart()
         initViews()
-        initData()
         getNewMsgHouse()
-    }
-
-    private fun initData() {
-
     }
 
     private fun initViews() {

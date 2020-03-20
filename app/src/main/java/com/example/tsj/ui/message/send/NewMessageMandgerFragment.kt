@@ -27,13 +27,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tsj.adapters.message.ManagerAdapter
 import com.example.tsj.adapters.message.GeneralClickListener
 import com.example.tsj.utils.MyUtils
+import kotlinx.android.synthetic.main.fragment_message_bottom_sheet.*
 import java.io.File
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 
 
 
-class NewMessageManadgerFragment : Fragment(), GeneralClickListener {
+class NewMessageMandgerFragment : Fragment(), GeneralClickListener {
 
     private lateinit var viewModel: MessagesViewModel
     private val STORAGE_PERMISION_CODE: Int = 1
@@ -70,7 +71,6 @@ class NewMessageManadgerFragment : Fragment(), GeneralClickListener {
         managerAdapter.update(names)
     }
 
-
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.new_message_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
@@ -87,8 +87,6 @@ class NewMessageManadgerFragment : Fragment(), GeneralClickListener {
         }
         return super.onOptionsItemSelected(item)
     }
-
-
 
     private fun loadFiles() {
         MyUtils.hideKeyboard(activity!!, view!!)
@@ -110,7 +108,6 @@ class NewMessageManadgerFragment : Fragment(), GeneralClickListener {
             }
         } else {
             getMyFile()
-
         }
     }
 
@@ -164,28 +161,43 @@ class NewMessageManadgerFragment : Fragment(), GeneralClickListener {
     }
 
     private fun sendMessage() {
-
         MyUtils.hideKeyboard(activity!!, view!!)
-
-        val title = manager_msg_referenc.text.toString()
-        val body = manager_msg_content.text.toString()
-        //проверка на пустоту edit text
-        if (validateEditText(title, body)) {
-            title_container.error = null
-            content_container.error = null
-            //Метод для post сообщания
-            viewModel.sendMessageToManager(body, title, files).observe(this, Observer {
-                if (it) {
-                    findNavController().popBackStack()
-                } else {
-                    Toast.makeText(context, "Неудочно", Toast.LENGTH_LONG).show()
-                }
-            })
-
-        } else {
-            title_container.error = "Загаловка не может быть пустым"
-            content_container.error = "Письмо не может быть пустым"
+        if (validate()){
+            val title = manager_msg_referenc.text.toString()
+            val body = manager_msg_content.text.toString()
+            //проверка на пустоту edit text
+            if (validateEditText(title, body)) {
+                title_container.error = null
+                content_container.error = null
+                //Метод для post сообщания
+                viewModel.sendMessageToManager(body, title, files).observe(this, Observer {
+                    if (it) {
+                        findNavController().popBackStack()
+                    } else {
+                        Toast.makeText(context, "Неудочно", Toast.LENGTH_LONG).show()
+                    }
+                })
+            }
         }
+    }
+
+    private fun validate(): Boolean{
+        var valid = true
+        if (manager_msg_referenc.getText().toString().length == 0) {
+            title_container.setError("Выберите дату")
+            valid = false
+        }else{
+            title_container.error = null
+        }
+
+        if (manager_msg_content.getText().toString().length == 0) {
+            content_container.setError("Выберите дату")
+            valid = false
+        }else{
+            content_container.error = null
+        }
+
+        return valid
     }
 
     private fun getRecyclerView() {

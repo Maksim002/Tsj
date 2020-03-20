@@ -24,6 +24,7 @@ import com.example.tsj.ui.message.MessagesViewModel
 import com.example.tsj.utils.MyUtils
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.fragment_message_bottom_sheet.*
+import kotlinx.android.synthetic.main.fragment_send_feedback.*
 import kotlinx.android.synthetic.main.new_message_chairman.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -55,71 +56,75 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
         send_msg_imageiew.setOnClickListener {
 
             MyUtils.hideKeyboard(activity!!,view)
-
-            val title = edit_title.text.toString()
-            val body = edit_sms.text.toString()
-            //проверка на пустоту edit text
-            if (validateEditText(title, body)) {
-                edit_title_text.error = null
-                edit_sms_text.error = null
-
-            }else{
-                edit_title_text.error = "Загаловка не может быть пустым"
-                edit_sms_text.error = "Письмо не может быть пустым"
-            }
-
-            if (reply.isToManager) {
-                viewModel.sendMessageToManager(edit_title.text.toString(), edit_sms.text.toString(), files).observe(this, Observer {
-                    if (it) {
-                        dismiss()
-                        findNavController().popBackStack()
-                    }
-                })
-            } else {
-                viewModel.messageToPerson(
-                    reply.personId,
-                    edit_title.text.toString(),
-                    edit_sms.text.toString(),
-                    files
-                ).observe(this,
-                    Observer {
+            if (validate()){
+                if (reply.isToManager) {
+                    viewModel.sendMessageToManager(edit_title.text.toString(), edit_sms.text.toString(), files).observe(this, Observer {
                         if (it) {
                             dismiss()
                             findNavController().popBackStack()
                         }
                     })
-                Toast.makeText(context, "Неудочно", Toast.LENGTH_LONG).show()
+                } else {
+                    viewModel.messageToPerson(
+                        reply.personId,
+                        edit_title.text.toString(),
+                        edit_sms.text.toString(),
+                        files
+                    ).observe(this,
+                        Observer {
+                            if (it) {
+                                dismiss()
+                                findNavController().popBackStack()
+                            }
+                        })
+                    Toast.makeText(context, "Неудочно", Toast.LENGTH_LONG).show()
+                }
             }
-        }
 
+            fasten_file_imageview.setOnClickListener {
+                MyUtils.hideKeyboard(activity!!, view)
 
-        fasten_file_imageview.setOnClickListener {
-            MyUtils.hideKeyboard(activity!!, view)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (ContextCompat.checkSelfPermission(
+                            context!!,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE
+                        ) == PackageManager.PERMISSION_DENIED
+                    ) {
+                        val permissions = arrayOf(
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                            Manifest.permission.READ_EXTERNAL_STORAGE
+                        )
+                        requestPermissions(permissions, STORAGE_PERMISION_CODE)
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (ContextCompat.checkSelfPermission(
-                        context!!,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE
-                    ) == PackageManager.PERMISSION_DENIED
-                ) {
-                    val permissions = arrayOf(
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.READ_EXTERNAL_STORAGE
-                    )
-                    requestPermissions(permissions, STORAGE_PERMISION_CODE)
-
+                    } else {
+                        getMyFile()
+                    }
                 } else {
                     getMyFile()
                 }
-            } else {
-                getMyFile()
             }
         }
     }
 
-    private fun validateEditText(title: String, content: String): Boolean {
-        return title.isNotEmpty() || content.isNotEmpty()
+    private fun validate(): Boolean{
+        var valid = true
+        if (edit_title.getText().toString().length == 0) {
+            edit_title_text.setError("Выберите дату")
+            valid = false
+        }else{
+            edit_title_text.error = null
+        }
+
+        if (edit_sms.getText().toString().length == 0) {
+            edit_sms_text.setError("Выберите дату")
+            valid = false
+        }else{
+            edit_sms_text.error = null
+        }
+
+        return valid
     }
+
 
     private fun getMyFile() {
         val myFile = Intent(Intent.ACTION_PICK)

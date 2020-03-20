@@ -70,7 +70,7 @@ class ReferenceFragment : Fragment(),ReferencesListener {
         root.new_references.setOnClickListener {
             AddUpdateReferenceFragment.list.clear()
             val bundle = Bundle()
-            bundle.putInt("id", placementId)
+            bundle.putInt("placementId", placementId)
             findNavController().navigate(R.id.navigation_new_reference, bundle)
         }
         adapter = ReferencesAdapter(ArrayList(),this)

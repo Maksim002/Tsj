@@ -18,6 +18,7 @@ import com.example.tsj.service.model.RequestAddressesModel
 import com.example.tsj.service.model.RequestTypeModel
 import com.example.tsj.service.request.AddRequest
 import com.example.tsj.service.request.UpdateRequest
+import kotlinx.android.synthetic.main.fragment_balance.*
 import kotlinx.android.synthetic.main.fragment_bid_add.*
 import kotlinx.android.synthetic.main.fragment_bid_add.view.*
 
@@ -52,8 +53,47 @@ class RequestAddFragment : Fragment() {
             text_bid_add_adres.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
             text_request_description.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
         }
-
     }
+
+//    private fun validate(): Boolean{
+//        var valid = true
+//        if (bid_add_type.getText().toString().length == 0) {
+//            request_type_out.setError("Выберите Дом")
+//            valid = false
+//        }else{
+//            request_type_out.error = null
+//        }
+//
+//        if (bid_add_porch.getText().toString().length == 0) {
+//            text_bid_add_porch.setError("Выберите Дом")
+//            valid = false
+//        }else{
+//            text_bid_add_porch.error = null
+//        }
+//
+//        if (bid_add_flat.getText().toString().length == 0) {
+//            text_bid_add_flat.setError("Выберите Дом")
+//            valid = false
+//        }else{
+//            text_bid_add_flat.error = null
+//        }
+//
+//        if (bid_add_adres.getText().toString().length == 0) {
+//            text_bid_add_adres.setError("Выберите Дом")
+//            valid = false
+//        }else{
+//            text_bid_add_adres.error = null
+//        }
+//
+//        if (request_description.getText().toString().length == 0) {
+//            text_request_description.setError("Выберите Дом")
+//            valid = false
+//        }else{
+//            text_request_description.error = null
+//        }
+//
+//        return valid
+//    }
 
 
     private fun initViews(root: View) {
