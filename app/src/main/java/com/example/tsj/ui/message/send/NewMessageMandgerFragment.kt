@@ -175,45 +175,35 @@ class NewMessageMandgerFragment : Fragment(), GeneralClickListener {
 
     }
 
-
-    private fun validateEditText(title: String, content: String): Boolean {
-        return title.isNotEmpty() || content.isNotEmpty()
-    }
-
     private fun sendMessage() {
         MyUtils.hideKeyboard(activity!!, view!!)
-        if (validate()){
+        if (validate()) {
             val title = manager_msg_referenc.text.toString()
             val body = manager_msg_content.text.toString()
-            //проверка на пустоту edit text
-            if (validateEditText(title, body)) {
-                title_container.error = null
-                content_container.error = null
-                //Метод для post сообщания
-                viewModel.sendMessageToManager(body, title, files).observe(this, Observer {
-                    if (it) {
-                        findNavController().popBackStack()
-                    } else {
-                        Toast.makeText(context, "Неудочно", Toast.LENGTH_LONG).show()
-                    }
-                })
-            }
+
+            viewModel.sendMessageToManager(body, title, files).observe(this, Observer {
+                if (it) {
+                    findNavController().popBackStack()
+                } else {
+                    Toast.makeText(context, "Неудочно", Toast.LENGTH_LONG).show()
+                }
+            })
         }
     }
 
-    private fun validate(): Boolean{
+    private fun validate(): Boolean {
         var valid = true
         if (manager_msg_referenc.getText().toString().length == 0) {
             title_container.setError("Заголовок не должен быть пустым")
             valid = false
-        }else{
+        } else {
             title_container.setErrorEnabled(false)
         }
 
         if (manager_msg_content.getText().toString().length == 0) {
             content_container.setError("Письмо не должно быть пустым")
             valid = false
-        }else{
+        } else {
             content_container.setErrorEnabled(false)
         }
 

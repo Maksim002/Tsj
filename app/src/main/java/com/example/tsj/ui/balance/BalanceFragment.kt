@@ -36,7 +36,7 @@ class BalanceFragment : Fragment() {
         model = AddressModel()
         MainActivity.alert.show()
         root.balance_show_button.setOnClickListener {
-            if (validate()){
+            if (validate()) {
                 if (placementId != 0) {
                     val bundle = Bundle()
                     bundle.putInt("placementId", placementId)
@@ -47,18 +47,17 @@ class BalanceFragment : Fragment() {
                     Toast.makeText(context, "Не выбраны данные", Toast.LENGTH_LONG).show()
                 }
             }
-            (activity as AppCompatActivity).supportActionBar?.show()
-
-            }
+        }
+        (activity as AppCompatActivity).supportActionBar?.show()
         return root
     }
 
-    private fun validate(): Boolean{
+    private fun validate(): Boolean {
         var valid = true
         if (autoCompleteTextView.getText().toString().length == 0) {
             name_text_input.setError("Выберите адрес")
             valid = false
-        }else{
+        } else {
             name_text_input.error = null
         }
         return valid
