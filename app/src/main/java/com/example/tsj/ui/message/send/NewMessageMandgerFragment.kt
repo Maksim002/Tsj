@@ -180,7 +180,7 @@ class NewMessageMandgerFragment : Fragment(), GeneralClickListener {
         if (validate()) {
             val title = manager_msg_referenc.text.toString()
             val body = manager_msg_content.text.toString()
-
+            //
             viewModel.sendMessageToManager(body, title, files).observe(this, Observer {
                 if (it) {
                     findNavController().popBackStack()
