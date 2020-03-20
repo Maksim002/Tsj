@@ -25,7 +25,6 @@ class SendFeedbackFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return super.onOptionsItemSelected(item)
         when (item.itemId) {
             R.id.send_feedback -> {
                 senFeedBack()

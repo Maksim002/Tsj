@@ -25,21 +25,24 @@ import androidx.loader.content.CursorLoader
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tsj.MainActivity
-import com.example.tsj.adapters.message.ManagerAdapter
-import com.example.tsj.adapters.message.GeneralClickListener
+import com.example.tsj.adapters.files.FilesAdapter
+import com.example.tsj.adapters.files.FilesModel
+import com.example.tsj.adapters.files.GeneralClickListener
 import com.example.tsj.utils.MyUtils
+import kotlinx.android.synthetic.main.item_references.*
 import java.io.File
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 
-class NewMessageManadgerFragment : Fragment(), GeneralClickListener {
+class NewMessageManadgerFragment : Fragment(),
+    GeneralClickListener {
 
     private lateinit var viewModel: MessagesViewModel
     private val STORAGE_PERMISION_CODE: Int = 1
     private val IMAGE_PICK_CODE = 10
     private lateinit var editBody: TextInputEditText
     private lateinit var editTitle: TextInputEditText
-    private lateinit var managerAdapter: ManagerAdapter
+    private lateinit var filesAdapter: FilesAdapter
     private lateinit var recyclerManager: RecyclerView
 
     private var files = ArrayList<MultipartBody.Part>()
@@ -63,10 +66,13 @@ class NewMessageManadgerFragment : Fragment(), GeneralClickListener {
         return root
     }
 
-    override fun onClickManager(position: Int) {
+    override fun onClickItem(position: Int) {
         names.removeAt(position)
         files.removeAt(position)
-        managerAdapter.update(names)
+        val items = names.map {
+            FilesModel(it)
+        }
+        filesAdapter.update(items)
     }
 
 
@@ -138,7 +144,10 @@ class NewMessageManadgerFragment : Fragment(), GeneralClickListener {
 
                 files.add(photo)
                 names.add(photo.toString().substring(0, 15))
-                managerAdapter.update(names)
+                val items = names.map {
+                    FilesModel(it)
+                }
+                filesAdapter.update(items)
             }
         }
     }
@@ -188,9 +197,9 @@ class NewMessageManadgerFragment : Fragment(), GeneralClickListener {
     }
 
     private fun getRecyclerView() {
-        managerAdapter = ManagerAdapter(this)
+        filesAdapter = FilesAdapter(this)
         recyclerManager.apply {
-            adapter = managerAdapter
+            adapter = filesAdapter
 
         }
     }

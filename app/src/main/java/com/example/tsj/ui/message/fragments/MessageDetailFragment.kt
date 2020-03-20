@@ -10,8 +10,8 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.tsj.MainActivity
 import com.example.tsj.R
+import com.example.tsj.adapters.files.FilesAdapter
 import com.example.tsj.ui.message.MessagesViewModel
-import com.example.tsj.ui.message.fragments.MessageBottomSheet
 import com.example.tsj.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_message_detail.*
 import java.lang.Exception
@@ -20,7 +20,7 @@ class MessageDetailFragment : Fragment() {
 
     private var idMessage = 0
     private lateinit var viewModel: MessagesViewModel
-
+    private lateinit var filesAdapter: FilesAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,7 +30,6 @@ class MessageDetailFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(MessagesViewModel::class.java)
         initArguments()
         setHasOptionsMenu(true)
-        MainActivity.alert.show()
         return inflater.inflate(R.layout.fragment_message_detail, container, false)
     }
 
@@ -41,12 +40,15 @@ class MessageDetailFragment : Fragment() {
     }
 
     private fun initData() {
+        MainActivity.alert.show()
         viewModel.message(idMessage).observe(this, Observer {
             MainActivity.alert.hide()
             msg_detail_date.text = MyUtils.toMyDate(it.sendDate)
             msg_detail_sender.text = "от: " + it.personName
             msg_detail_title.text = it.title
             msg_detail_content.text = it.body
+
+
         })
     }
 
