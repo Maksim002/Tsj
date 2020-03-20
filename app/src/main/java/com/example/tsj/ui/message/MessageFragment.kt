@@ -30,7 +30,7 @@ class MessageFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(MessagesViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_message, container, false)
         (activity as AppCompatActivity).supportActionBar!!.show()
-        MainActivity.alert.show()
+
         return root
     }
 
@@ -40,6 +40,7 @@ class MessageFragment : Fragment() {
         if (AppPreferences.isLogined) {
             msg_auth_view.visibility = View.VISIBLE
             msg_auth_image.visibility = View.GONE
+            MainActivity.alert.show()
             initTabLayout()
         } else {
             msg_auth_view.visibility = View.GONE
@@ -68,7 +69,8 @@ class MessageFragment : Fragment() {
                 pagerAdapter.addFragment(
                     MessagesFragment(
                         item.id
-                    ), item.name)
+                    ), item.name
+                )
             }
             msg_viewpager.adapter = pagerAdapter
             msg_tablayout.setupWithViewPager(msg_viewpager)
