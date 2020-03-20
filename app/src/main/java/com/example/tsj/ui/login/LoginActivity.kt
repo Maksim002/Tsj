@@ -78,7 +78,7 @@ class LoginActivity : AppCompatActivity() {
             map.put("username", text_email.text.toString())
             map.put("password", text_date.text.toString())
 
-            viewModel.auth(map).observe(this, Observer { result ->
+            viewModel.auth(map).observe(this, Observer {
                 if (AppPreferences.isLogined) {
                     startMainActivity()
                     AppPreferences.email = text_email.text.toString()
