@@ -22,8 +22,9 @@ import androidx.loader.content.CursorLoader
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tsj.R
-import com.example.tsj.adapters.message.GeneralClickListener
-import com.example.tsj.adapters.message.OwnerAdapter
+import com.example.tsj.adapters.files.FilesAdapter
+import com.example.tsj.adapters.files.FilesModel
+import com.example.tsj.adapters.files.GeneralClickListener
 import com.example.tsj.service.model.MessagesHousesModel
 import com.example.tsj.service.model.MessagesPersonsModel
 import com.example.tsj.service.model.MessagesPlacementsModel
@@ -39,11 +40,12 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 
-class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
+class NewMessageOwnerFragment : Fragment(),
+    GeneralClickListener {
 
     private lateinit var viewModel: MessagesViewModel
     private val STORAGE_PERMISION_CODE: Int = 1000
-    private lateinit var adapterOwner: OwnerAdapter
+    private lateinit var adapterOwner: FilesAdapter
     private lateinit var recyclerOwner: RecyclerView
     private var houseId: Int = 0
     private var placementId: Int = 0
@@ -83,10 +85,13 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
         return root
     }
 
-    override fun onClickManager(position: Int) {
+    override fun onClickItem(position: Int) {
         name.removeAt(position)
         files.removeAt(position)
-        adapterOwner.update(name)
+        val items = name.map {
+            FilesModel(it)
+        }
+        adapterOwner.update(items)
     }
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.new_message_menu, menu)
@@ -146,7 +151,10 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
                 val photo = MultipartBody.Part.createFormData("File", file.name, requestFile)
                 files.add(photo)
                 name.add(photo.toString().substring(0, 15))
-                adapterOwner.update(name)
+                val items = name.map {
+                    FilesModel(it)
+                }
+                adapterOwner.update(items)
             }
         }
     }
@@ -352,10 +360,9 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
         }
     }
     private fun getRecyclerView() {
-        adapterOwner = OwnerAdapter(this)
+        adapterOwner = FilesAdapter(this)
         recyclerOwner.apply {
             adapter = adapterOwner
-
         }
     }
 }

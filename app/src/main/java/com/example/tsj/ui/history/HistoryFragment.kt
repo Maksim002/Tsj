@@ -16,6 +16,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import com.example.tsj.MainActivity
 import com.example.tsj.R
 import com.example.tsj.service.model.AddressModel
 import com.example.tsj.service.model.OperationsModel
@@ -60,26 +61,26 @@ class HistoryFragment : Fragment() {
         return root
     }
 
-    private fun validate(): Boolean{
+    private fun validate(): Boolean {
         var valid = true
         if (autoAddress.getText().toString().length == 0) {
             Address.setError("Выберите адрес")
             valid = false
-        }else{
+        } else {
             Address.setErrorEnabled(false)
         }
 
         if (autoService.getText().toString().length == 0) {
             Service.setError("Выберите услугу")
             valid = false
-        }else{
+        } else {
             Service.setErrorEnabled(false)
         }
 
         if (autoOperation.getText().toString().length == 0) {
             Operation.setError("Выберите операцию")
             valid = false
-        }else{
+        } else {
             Operation.setErrorEnabled(false)
         }
 
@@ -103,9 +104,9 @@ class HistoryFragment : Fragment() {
 
         show.setOnClickListener {
             if (validate()){
-                if (autoAddress.text.length == 0 || autoService.text.length == 0 || autoOperation.text.length == 0){
-                    Toast.makeText(context, "Заполните все поля", Toast.LENGTH_LONG).show()
-                }else{
+                if (autoAddress.text.length == 0 || autoService.text.length == 0 || autoOperation.text.length == 0) {
+                    Toast.makeText(context, "Error", Toast.LENGTH_LONG).show()
+                } else {
                     val bundle = Bundle()
                     bundle.putInt("res", licNumber)
                     bundle.putString("serviceName", serviceName)
@@ -120,17 +121,22 @@ class HistoryFragment : Fragment() {
                     bundle.putString("to", autoDateFrom.text.toString())
                     bundle.putString("from", autoDateTo.text.toString())
                     Navigation.findNavController(it).navigate(R.id.navigation_personal, bundle)
-               }
+                }
             }
         }
     }
 
     private fun hintText() {
-        if (autoAddress.text.isNotEmpty()){
-            Address.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-            Service.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-            Operation.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+        if (autoAddress.text.isNotEmpty()) {
+            Address.defaultHintTextColor =
+                ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            Service.defaultHintTextColor =
+                ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            Operation.defaultHintTextColor =
+                ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+
         }
+
     }
 
     private fun getDate() {
@@ -160,10 +166,13 @@ class HistoryFragment : Fragment() {
 
             val adapterAddress = ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
             autoAddress.setAdapter(adapterAddress)
+            MainActivity.alert.hide()
         })
         autoAddress.setKeyListener(null)
-        DatesS.defaultHintTextColor = ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
-        DatesDo.defaultHintTextColor = ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
+        DatesS.defaultHintTextColor =
+            ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
+        DatesDo.defaultHintTextColor =
+            ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
         autoAddress.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id -> autoAddress.showDropDown()
                 Address.defaultHintTextColor = ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
@@ -171,9 +180,9 @@ class HistoryFragment : Fragment() {
                 placementId = listAddress.get(position).placementId!!
                 licNumber = listAddress.get(position).licNumber!!
                 address = listAddress.get(position).address!!
-                viewmodel.services(placementId).observe(this, Observer {
-                    getAutoService()
-                })
+                MainActivity.alert.show()
+                getAutoService()
+
             }
         autoAddress.setOnClickListener {
             autoAddress.showDropDown()
@@ -192,6 +201,7 @@ class HistoryFragment : Fragment() {
     private fun getAutoService() {
         var listServices = ArrayList<ServicesModel>()
         viewmodel.services(placementId).observe(this, Observer { services ->
+
             val list = services.map {
                 it.serviceName
             }
@@ -200,6 +210,7 @@ class HistoryFragment : Fragment() {
                 ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
             adapterServices.notifyDataSetChanged()
             autoService.setAdapter(adapterServices)
+            MainActivity.alert.hide()
         })
 
 
@@ -267,10 +278,13 @@ class HistoryFragment : Fragment() {
         autoDateFrom.setKeyListener(null);
         autoDateFrom.setOnFocusChangeListener { view, b ->
             if (b) {
-                DatesS.defaultHintTextColor = ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
+                DatesS.defaultHintTextColor =
+                    ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
                 val picker =
                     DatePickerDialog(activity!!, { datePicker, year1, monthOfYear, dayOfMonth ->
-                        autoDateFrom.setText(MyUtils.convertDate(dayOfMonth,
+                        autoDateFrom.setText(
+                            MyUtils.convertDate(
+                                dayOfMonth,
                                 monthOfYear + 1,
                                 year1
                             )
@@ -290,7 +304,8 @@ class HistoryFragment : Fragment() {
         autoDateTo.setKeyListener(null);
         autoDateTo.setOnFocusChangeListener { view, b ->
             if (b) {
-                val col = ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
+                val col =
+                    ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
                 DatesDo.defaultHintTextColor = col
 
                 val picker =
@@ -298,7 +313,10 @@ class HistoryFragment : Fragment() {
                         activity!!,
                         { datePicker, year1, monthOfYear, dayOfMonth ->
                             autoDateTo.setText(
-                                MyUtils.convertDate(dayOfMonth, monthOfYear + 1, year1
+                                MyUtils.convertDate(
+                                    dayOfMonth,
+                                    monthOfYear + 1,
+                                    year1
                                 )
                             )
                             dayEnd = dayOfMonth

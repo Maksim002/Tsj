@@ -69,44 +69,43 @@ class LoginActivity : AppCompatActivity() {
         Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
     }
 
-    override fun onStart() {
-        super.onStart()
-
-        main_enter_button.setOnClickListener {
-
-            if (validate()){
-                val map = HashMap<String, String>()
-                map.put("grant_type", "password")
-                map.put("username", text_email.text.toString())
-                map.put("password", text_date.text.toString())
-
-                viewModel.auth(map).observe(this, Observer { result ->
-                    if (AppPreferences.isLogined) {
-                        startMainActivity()
-                        AppPreferences.email = text_email.text.toString()
-                    }
-                })
-            }
-         }
-    }
-
     private fun validate(): Boolean{
         var valid = true
         if (text_email.getText().toString().length == 0) {
             main_container_email_input.setError("Выберите адрес")
             valid = false
         }else{
-            Address.setErrorEnabled(false)
+            main_container_email_input.setErrorEnabled(false)
         }
 
         if (text_date.getText().toString().length == 0) {
             main_container_password_input.setError("Выберите услугу")
             valid = false
         }else{
-            Service.setErrorEnabled(false)
+            main_container_password_input.setErrorEnabled(false)
         }
 
         return valid
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        main_enter_button.setOnClickListener {
+                    if (validate()){
+                        val map = HashMap<String, String>()
+                        map.put("grant_type", "password")
+                        map.put("username", text_email.text.toString())
+                        map.put("password", text_date.text.toString())
+
+                        viewModel.auth(map).observe(this, Observer { result ->
+                            if (AppPreferences.isLogined) {
+                                startMainActivity()
+                                AppPreferences.email = text_email.text.toString()
+                            }
+                        })
+                    }
+            }
     }
 
     private fun startMainActivity() {
