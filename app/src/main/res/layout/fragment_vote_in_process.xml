@@ -1,16 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.voting.tab.VoteInProcess">
+    tools:context=".ui.voting.tab.VoteInProcessFragment">
+
+    <TextView
+        android:id="@+id/vote_inprocess_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/ic_choose_house"
+        android:drawablePadding="@dimen/marginHorizontal"
+        android:gravity="center"
+        android:textSize="18dp"
+        android:text="@string/vote_empty"
+        android:textColor="@color/blackTextColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/vote_inrocess_rv"
+        android:id="@+id/vote_inprocess_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

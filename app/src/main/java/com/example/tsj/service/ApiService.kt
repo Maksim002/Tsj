@@ -1,11 +1,13 @@
 package com.example.tsj.service
 
-import androidx.lifecycle.LiveData
 import com.example.tsj.model.MessageItemModel
+import com.example.tsj.model.VoteModel
 import com.example.tsj.service.model.*
+import com.example.tsj.service.model.vote.VotingDetailModel
 import com.example.tsj.service.request.AddRequest
 import com.example.tsj.service.request.CertificateRequest
 import com.example.tsj.service.request.UpdateRequest
+import com.example.tsj.service.request.VotingRequest
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -126,9 +128,28 @@ interface ApiService {
     @POST("ForgotPassword")
     fun forgotPassword(@Query("email") email: String): Call<String>
 
+    @GET("Voting")
+    fun votingList(
+        @Query("typeId") typeId: Int,
+        @Query("id") id: Int
+    ): Call<List<VoteModel>>
     @GET("Requests/{id}")
     fun detailsModel(@Path("id") id: Int): Call<DetailsModel>
 
+    @GET("Voting/Addresses")
+    fun votingAddress(): Call<List<AddressModel>>
     @GET("Messages/{id}/Reply")
     fun reply(@Path("id") id: Int): Call<ReplyModel>
+
+    @GET("Voting/Types")
+    fun votingType(): Call<List<MessagesPersonsModel>>
+
+    @GET("Voting/{id}/Variants")
+    fun votingVariants(@Path("id") id: Int): Call<List<MessagesPersonsModel>>
+
+    @POST("Voting")
+    fun votingPost(@Body body: VotingRequest): Call<String>
+
+    @GET ("Voting/{id}")
+    fun votingDetail (@Path("id") id : Int) : Call <VotingDetailModel>
 }

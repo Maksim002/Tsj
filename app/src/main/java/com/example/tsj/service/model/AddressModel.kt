@@ -10,7 +10,7 @@ class AddressModel {
     var licNumber: Int? = null
     @SerializedName("PlacementId")
     @Expose
-    var placementId: Int? = null
+    var placementId: Int=0
     @SerializedName("Address")
     @Expose
     var address: String? = null

@@ -9,8 +9,9 @@ import com.example.tsj.R
 
 class LoadingAlert(private val activity: Activity) {
     private lateinit var dialog: AlertDialog
+
     init {
-        try{
+        try {
             val builder = AlertDialog.Builder(activity)
             val inflater = activity.layoutInflater
             val view = inflater.inflate(R.layout.alert_loading, null)
@@ -18,10 +19,11 @@ class LoadingAlert(private val activity: Activity) {
             builder.setCancelable(false)
             dialog = builder.create()
             dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        }catch (e:Exception){}
-
+        } catch (e: Exception) {
+        }
 
     }
+
     fun show() {
         try {
             dialog.show()

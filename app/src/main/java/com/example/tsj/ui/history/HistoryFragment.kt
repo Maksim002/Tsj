@@ -132,8 +132,7 @@ class HistoryFragment : Fragment() {
             }
             listAddress = address as ArrayList<AddressModel>
 
-            val adapterAddress =
-                ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
+            val adapterAddress = ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
             autoAddress.setAdapter(adapterAddress)
             MainActivity.alert.hide()
         })
@@ -143,10 +142,8 @@ class HistoryFragment : Fragment() {
         DatesDo.defaultHintTextColor =
             ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
         autoAddress.onItemClickListener =
-            AdapterView.OnItemClickListener { parent, view, position, id ->
-                autoAddress.showDropDown()
-                Address.defaultHintTextColor =
-                    ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
+            AdapterView.OnItemClickListener { parent, view, position, id -> autoAddress.showDropDown()
+                Address.defaultHintTextColor = ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
                 parent.getItemAtPosition(position).toString()
                 placementId = listAddress.get(position).placementId!!
                 licNumber = listAddress.get(position).licNumber!!

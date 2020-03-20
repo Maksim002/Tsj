@@ -7,98 +7,53 @@
     android:layout_marginStart="@dimen/marginHorizontal"
     android:layout_marginEnd="@dimen/marginHorizontal"
     android:orientation="vertical"
-    tools:context=".ui.voting.detail.VoteDetail">
+    tools:context=".ui.voting.detail.VoteDetailFragment">
 
     <LinearLayout
+        android:id="@+id/vote_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/vote_detail_question"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/marginHorizontal"
-            android:text="Где хранить информацию о наличии либо отсутствии ТСЖ в нашем доме?"
             android:textColor="@color/blackTextColor"
-            android:textSize="22sp" />
+            android:textSize="22sp"
+            tools:text="Где хранить информацию о наличии либо отсутствии ТСЖ в нашем доме?" />
 
         <TextView
+            android:id="@+id/vote_detail_enddate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/marginHorizontal"
-            android:text=" Дата окончания: 31 марта 2020" />
+            tools:text=" Дата окончания: 31 марта 2020" />
 
-        <RadioGroup
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:orientation="vertical">
-
-            <RadioButton
-                android:id="@+id/vote_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:buttonTint="@color/orangeColor"
-                android:text="В выписке из ЕГРЮЛ" />
-
-            <View
-                android:id="@+id/divider1"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="@dimen/marginHorizontal"
-                android:background="@color/dividerColor" />
-
-            <RadioButton
-                android:id="@+id/vote_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/marginHorizontal"
-                android:buttonTint="@color/orangeColor"
-                android:text="У председателя" />
-
-            <View
-                android:id="@+id/divider2"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="@dimen/marginHorizontal"
-                android:background="@color/dividerColor" />
-
-            <RadioButton
-                android:id="@+id/vote_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/marginHorizontal"
-                android:buttonTint="@color/orangeColor"
-                android:text="У директорка" />
-
-            <View
-                android:id="@+id/divider3"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="@dimen/marginHorizontal"
-                android:background="@color/dividerColor" />
-
-
-            <RadioButton
-                android:id="@+id/vote_4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/marginHorizontal"
-                android:buttonTint="@color/orangeColor"
-                android:text="У жителей" />
-
-            <View
-                android:id="@+id/divider4"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="@dimen/marginHorizontal"
-                android:background="@color/dividerColor" />
-
-        </RadioGroup>
     </LinearLayout>
 
+    <RadioGroup
+        android:id="@+id/vote_detail_radiogroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/vote_container" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/vote_detail_rv"
+        android:layout_width="match_parent"
+        tools:itemCount="2"
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/item_vote_detail"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/vote_container"/>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/profile_accept_bt"
+        android:id="@+id/vote_detail_accept_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/marginHorizontal"
