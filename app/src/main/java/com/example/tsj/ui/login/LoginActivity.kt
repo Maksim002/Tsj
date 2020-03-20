@@ -12,6 +12,7 @@ import com.example.tsj.R
 import com.example.tsj.service.AppPreferences
 import com.example.tsj.ui.login.forgot.ForgotActivity
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.fragment_history.*
 import java.util.*
 import java.util.regex.Pattern
 
@@ -73,33 +74,39 @@ class LoginActivity : AppCompatActivity() {
 
         main_enter_button.setOnClickListener {
 
-            val map = HashMap<String, String>()
-            map.put("grant_type", "password")
-            map.put("username", text_email.text.toString())
-            map.put("password", text_date.text.toString())
+            if (validate()){
+                val map = HashMap<String, String>()
+                map.put("grant_type", "password")
+                map.put("username", text_email.text.toString())
+                map.put("password", text_date.text.toString())
 
-            viewModel.auth(map).observe(this, Observer { result ->
-                if (AppPreferences.isLogined) {
-                    startMainActivity()
-                    AppPreferences.email = text_email.text.toString()
-                }
-            })
-            validateEdittexts()
-        }
+                viewModel.auth(map).observe(this, Observer { result ->
+                    if (AppPreferences.isLogined) {
+                        startMainActivity()
+                        AppPreferences.email = text_email.text.toString()
+                    }
+                })
+            }
+         }
     }
 
-    private fun validateEdittexts() {
-            if (validatePassword(text_date.text.toString())) {
-                main_container_password_input.error = null
-            } else {
-                main_container_password_input.error = "Пароль не может быть пустым"
-            }
+    private fun validate(): Boolean{
+        var valid = true
+        if (text_email.getText().toString().length == 0) {
+            main_container_email_input.setError("Выберите адрес")
+            valid = false
+        }else{
+            Address.setErrorEnabled(false)
+        }
 
-            if (validateEmail(text_email.text.toString())) {
-                main_container_email_input.error = null
-            } else {
-                main_container_email_input.error = "Пароль введен не правильно"
-            }
+        if (text_date.getText().toString().length == 0) {
+            main_container_password_input.setError("Выберите услугу")
+            valid = false
+        }else{
+            Service.setErrorEnabled(false)
+        }
+
+        return valid
     }
 
     private fun startMainActivity() {
