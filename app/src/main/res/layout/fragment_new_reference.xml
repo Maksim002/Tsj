@@ -48,9 +48,8 @@
             <EditText
                 android:id="@+id/editReferenceS"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="23dp"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
                 android:background="@null"
                 android:drawableEnd="@drawable/ic_date_range_black_24dp"
                 android:paddingEnd="8dp" />

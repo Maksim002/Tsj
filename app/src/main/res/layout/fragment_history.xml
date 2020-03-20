@@ -11,17 +11,15 @@
         android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="16dp"
         android:hint="Адрес"
         android:focusableInTouchMode="true">
 
         <AutoCompleteTextView
             android:id="@+id/autoAddress"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:drawableEnd="@drawable/ic_expend"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="23dp"
-            android:paddingEnd="8dp"
             android:background="@null"/>
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -38,17 +36,15 @@
         android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="16dp"
         android:hint="Услуга"
         android:focusableInTouchMode="true">
 
         <AutoCompleteTextView
             android:id="@+id/autoService"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:drawableEnd="@drawable/ic_expend"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="23dp"
-            android:paddingEnd="8dp"
             android:background="@null"/>
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -65,17 +61,15 @@
         android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="16dp"
         android:hint="Операция"
         android:focusableInTouchMode="true">
 
         <AutoCompleteTextView
             android:id="@+id/autoOperation"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:drawableEnd="@drawable/ic_expend"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="23dp"
-            android:paddingEnd="8dp"
             android:background="@null"/>
 
     </com.google.android.material.textfield.TextInputLayout>

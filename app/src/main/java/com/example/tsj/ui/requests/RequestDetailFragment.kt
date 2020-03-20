@@ -13,7 +13,6 @@ import com.example.tsj.MainActivity
 import com.example.tsj.R
 import kotlinx.android.synthetic.main.fragment_bid_detail.*
 import com.example.tsj.service.model.RequestModel
-import com.example.tsj.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_bid_detail.view.*
 
 class RequestDetailFragment : Fragment() {

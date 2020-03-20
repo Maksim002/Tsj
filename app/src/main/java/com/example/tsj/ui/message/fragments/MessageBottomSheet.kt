@@ -3,22 +3,20 @@ package com.example.tsj.ui.message.fragments
 
 import android.Manifest
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.ColorStateList
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.*
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.loader.content.CursorLoader
 import androidx.navigation.fragment.findNavController
-import com.example.tsj.MainActivity
 import com.example.tsj.R
 import com.example.tsj.service.model.ReplyModel
 import com.example.tsj.ui.message.MessagesViewModel
@@ -36,8 +34,6 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
     private lateinit var viewModel: MessagesViewModel
     private lateinit var reply: ReplyModel
 
-    private var keyboard: Boolean = false
-
     private var files = ArrayList<MultipartBody.Part>()
     private var names = ArrayList<String>()
 
@@ -46,72 +42,100 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        viewModel = ViewModelProviders.of(this).get(MessagesViewModel::class.java)
         return inflater.inflate(R.layout.fragment_message_bottom_sheet, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProviders.of(this).get(MessagesViewModel::class.java)
+
+        edit_title.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus && edit_title.text!!.isNotEmpty()) {
+                edit_title_text.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            }
+        }
+
+        edit_sms.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus && edit_sms.text!!.isNotEmpty()) {
+                edit_sms_text.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            }
+        }
 
         send_msg_imageiew.setOnClickListener {
 
-            MyUtils.hideKeyboard(activity!!, view)
-
-            if (reply.isToManager) {
-                viewModel.sendMessageToManager(
-                    edit_title.text.toString(),
-                    edit_sms.text.toString(),
-                    files
-                ).observe(this, Observer {
-                    if (it) {
-                        dismiss()
-                        findNavController().popBackStack()
-                    }
-                })
-            } else {
-                viewModel.messageToPerson(
-                    reply.personId,
-                    edit_title.text.toString(),
-                    edit_sms.text.toString(),
-                    files
-                ).observe(this,
-                    Observer {
+            MyUtils.hideKeyboard(activity!!,view)
+            if (validate()){
+                if (reply.isToManager) {
+                    viewModel.sendMessageToManager(edit_title.text.toString(), edit_sms.text.toString(), files).observe(this, Observer {
                         if (it) {
                             dismiss()
                             findNavController().popBackStack()
-                        } else {
-                            Toast.makeText(context, "Неудочно", Toast.LENGTH_LONG).show()
                         }
-                        MainActivity.alert.hide()
                     })
-
+                } else {
+                    viewModel.messageToPerson(
+                        reply.personId,
+                        edit_title.text.toString(),
+                        edit_sms.text.toString(),
+                        files
+                    ).observe(this,
+                        Observer {
+                            if (it) {
+                                dismiss()
+                                findNavController().popBackStack()
+                            }
+                        })
+                    Toast.makeText(context, "Неудочно", Toast.LENGTH_LONG).show()
+                }
             }
-        }
 
-        fasten_file_imageview.setOnClickListener {
-            MyUtils.hideKeyboard(activity!!, view)
+            fasten_file_imageview.setOnClickListener {
+                MyUtils.hideKeyboard(activity!!, view)
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (ContextCompat.checkSelfPermission(
-                        context!!,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE
-                    ) == PackageManager.PERMISSION_DENIED
-                ) {
-                    val permissions = arrayOf(
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.READ_EXTERNAL_STORAGE
-                    )
-                    requestPermissions(permissions, STORAGE_PERMISION_CODE)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (ContextCompat.checkSelfPermission(
+                            context!!,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE
+                        ) == PackageManager.PERMISSION_DENIED
+                    ) {
+                        val permissions = arrayOf(
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                            Manifest.permission.READ_EXTERNAL_STORAGE
+                        )
+                        requestPermissions(permissions, STORAGE_PERMISION_CODE)
 
+                    } else {
+                        getMyFile()
+                    }
                 } else {
                     getMyFile()
                 }
-            } else {
-                getMyFile()
             }
         }
     }
+
+    private fun validate(): Boolean{
+        var valid = true
+        if (edit_title.getText().toString().length == 0) {
+            edit_title_text.setError("Заголовок не дожн быть пустым")
+            valid = false
+        }else{
+            edit_title_text.setErrorEnabled(false)
+        }
+
+        if (edit_sms.getText().toString().length == 0) {
+            edit_sms_text.setError("Письмо не дожно быть пустым")
+            valid = false
+        }else{
+            edit_sms_text.setErrorEnabled(false)
+        }
+
+        return valid
+    }
+
 
     private fun getMyFile() {
         val myFile = Intent(Intent.ACTION_PICK)

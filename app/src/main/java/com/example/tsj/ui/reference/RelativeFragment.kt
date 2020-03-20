@@ -18,9 +18,7 @@ import com.example.tsj.R
 import com.example.tsj.service.model.MessagesPersonsModel
 import com.example.tsj.service.model.RelativeModel
 import com.example.tsj.utils.MyUtils
-import kotlinx.android.synthetic.main.alert_for_who.*
 import kotlinx.android.synthetic.main.fragment_families.*
-import kotlinx.android.synthetic.main.fragment_families.goneL
 import kotlinx.android.synthetic.main.fragment_families.view.*
 import java.util.*
 
@@ -78,11 +76,6 @@ class RelativeFragment : Fragment() {
             root.text_families_who.setAdapter(adapter)
             if (position != -1) {
 
-//                it.forEach { relative ->
-//                    if (relative.id == AddUpdateReferenceFragment.list[position].relativeId) {
-//                        root.text_families_who.setText(relative.name)
-//                    }
-//                }
             }
 
         })

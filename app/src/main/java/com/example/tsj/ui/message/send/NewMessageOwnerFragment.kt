@@ -21,7 +21,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.loader.content.CursorLoader
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tsj.MainActivity
 import com.example.tsj.R
 import com.example.tsj.adapters.files.FilesAdapter
 import com.example.tsj.adapters.files.FilesModel
@@ -31,8 +30,8 @@ import com.example.tsj.service.model.MessagesPersonsModel
 import com.example.tsj.service.model.MessagesPlacementsModel
 import com.example.tsj.ui.message.MessagesViewModel
 import com.example.tsj.utils.MyUtils
-import kotlinx.android.synthetic.main.new_message_chairman.*
 import kotlinx.android.synthetic.main.new_message_owner.*
+import kotlinx.android.synthetic.main.new_message_owner.view.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -57,7 +56,7 @@ class NewMessageOwnerFragment : Fragment(),
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        MainActivity.alert.show()
+
         (activity as AppCompatActivity).supportActionBar?.show()
         setHasOptionsMenu(true)
         val root = inflater.inflate(R.layout.new_message_owner, container, false)
@@ -65,6 +64,20 @@ class NewMessageOwnerFragment : Fragment(),
 
         recyclerOwner = root.findViewById(R.id.recyclerOwner)
         getRecyclerView()
+
+        root.new_msg_referenc.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus && root.new_msg_referenc.text!!.isNotEmpty()) {
+                new_msg_referenc_error.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            }
+        }
+
+        root.new_msg_content.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus && root.new_msg_content.text!!.isNotEmpty()) {
+                new_msg_content_error.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            }
+        }
 
         return root
     }
@@ -88,14 +101,14 @@ class NewMessageOwnerFragment : Fragment(),
                 sendMessage()
             }
             R.id.fasten_file -> {
-                loadFiles()
+                fastenFile()
             }
         }
         return super.onOptionsItemSelected(item)
 
     }
 
-    private fun loadFiles() {
+    private fun fastenFile() {
 
         MyUtils.hideKeyboard(activity!!, view!!)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -154,45 +167,70 @@ class NewMessageOwnerFragment : Fragment(),
         return res
     }
 
-    private fun validateEditText(title: String, content: String): Boolean {
-        return title.isNotEmpty() || content.isNotEmpty()
-    }
-
     private fun sendMessage() {
         MyUtils.hideKeyboard(activity!!, view!!)
+            if (validate()){
+                val title = new_msg_referenc.text.toString()
+                val body = new_msg_content.text.toString()
+                new_msg_house.text.toString()
+                new_msg_appartment.text.toString()
+                new_msg_who.text.toString()
+                //проверка на пустоту edit text
 
-        val title = new_msg_referenc.text.toString()
-        val body = new_msg_content.text.toString()
-        //проверка на пустоту edit text
-        if (validateEditText(title, body)) {
-            new_msg_referenc.error = null
-            new_msg_content.error = null
-            //Метод для post сообщания
-            MainActivity.alert.show()
-            viewModel.messageToPerson(personId, body, title, files).observe(this, Observer {
-                if (it) {
-                    findNavController().popBackStack()
-                } else {
-                    Toast.makeText(context, "Неудочно", Toast.LENGTH_LONG).show()
-                }
-                MainActivity.alert.hide()
-            })
+                viewModel.messageToPerson(placementId, body, title, files).observe(this, Observer {
+                    if (it) {
+                        findNavController().popBackStack()
+                    } else {
+                        Toast.makeText(context, "Неудочно", Toast.LENGTH_LONG).show()
+                    }
+                })
+            }
+    }
 
-        } else {
-            title_container.error = "Загаловка не может быть пустым"
-            content_container.error = "Письмо не может быть пустым"
+    private fun validate(): Boolean{
+        var valid = true
+        if (new_msg_house.getText().toString().length == 0) {
+            new_house.setError("Выберите Дом")
+            valid = false
+        }else{
+            new_house.setErrorEnabled(false)
         }
+
+        if (new_msg_appartment.getText().toString().length == 0) {
+            new_appartment.setError("Выберите квартиру")
+            valid = false
+        }else{
+            new_appartment.setErrorEnabled(false)
+        }
+
+        if (new_msg_who.getText().toString().length == 0) {
+            new_who.setError("Выберите пользователя")
+            valid = false
+        }else{
+            new_who.setErrorEnabled(false)
+        }
+
+        if (new_msg_referenc.getText().toString().length == 0) {
+            new_msg_referenc_error.setError("Заголовок не должен быть пустым")
+            valid = false
+        }else{
+            new_msg_referenc_error.setErrorEnabled(false)
+        }
+
+        if (new_msg_content.getText().toString().length == 0) {
+            new_msg_content_error.setError("Письмо не должно быть пустым")
+            valid = false
+        }else{
+            new_msg_content_error.setErrorEnabled(false)
+        }
+
+        return valid
     }
 
     override fun onStart() {
         super.onStart()
         initViews()
-        initData()
         getNewMsgHouse()
-    }
-
-    private fun initData() {
-
     }
 
     private fun initViews() {
@@ -212,7 +250,6 @@ class NewMessageOwnerFragment : Fragment(),
                 ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
             adapterServices.notifyDataSetChanged()
             new_msg_house.setAdapter(adapterServices)
-            MainActivity.alert.hide()
 
         })
 
@@ -225,11 +262,11 @@ class NewMessageOwnerFragment : Fragment(),
                 parent.getItemAtPosition(position).toString()
                 houseId = listHouses.get(position).id
                 getMessagesPlacements()
+
                 new_msg_appartment.setAdapter(null)
                 new_msg_appartment.setText("")
                 new_msg_who.setAdapter(null)
                 new_msg_who.setText("")
-                MainActivity.alert.show()
             }
         new_msg_house.setOnClickListener {
             new_msg_house.showDropDown()
@@ -256,7 +293,6 @@ class NewMessageOwnerFragment : Fragment(),
                 ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
             adapterServices.notifyDataSetChanged()
             new_msg_appartment.setAdapter(adapterServices)
-            MainActivity.alert.hide()
         })
 
 
@@ -267,7 +303,6 @@ class NewMessageOwnerFragment : Fragment(),
                     ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
                 parent.getItemAtPosition(position).toString()
                 placementId = listPlacements.get(position).id
-                MainActivity.alert.show()
                 getMessagesPersons()
                 new_msg_who.setAdapter(null)
                 new_msg_who.setText("")
@@ -297,7 +332,6 @@ class NewMessageOwnerFragment : Fragment(),
                 ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
             adapterServices.notifyDataSetChanged()
             new_msg_who.setAdapter(adapterServices)
-            MainActivity.alert.hide()
         })
 
 

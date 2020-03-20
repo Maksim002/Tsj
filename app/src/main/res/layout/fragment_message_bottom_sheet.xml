@@ -49,25 +49,43 @@
         android:background="@color/dividerColor"
         app:layout_constraintTop_toBottomOf="@id/textview_new_msg" />
 
-    <EditText
-        android:id="@+id/edit_title"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edit_title_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@null"
-        android:gravity="top"
-        android:hint="Заголовок"
-        android:padding="16dp"
-        app:layout_constraintTop_toBottomOf="@id/divider" />
+        android:layout_marginTop="15dp"
+        android:focusableInTouchMode="true"
+        android:hint="Адрес"
+        app:layout_constraintTop_toBottomOf="@id/divider">
 
-    <EditText
-        android:id="@+id/edit_sms"
+        <EditText
+            android:id="@+id/edit_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edit_sms_text"
         android:layout_width="match_parent"
-        android:layout_height="280dp"
-        android:background="@null"
-        android:gravity="top"
-        android:hint="Написать письмо"
-        android:padding="16dp"
-        app:layout_constraintTop_toBottomOf="@id/edit_title" />
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/edit_title_text">
 
+        <EditText
+            android:id="@+id/edit_sms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:hint="Написать письмо"
+            android:padding="16dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="40dp"
+        app:layout_constraintTop_toBottomOf="@+id/edit_sms_text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
