@@ -8,13 +8,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import com.example.tsj.R
 import com.example.tsj.adapters.families.FamilyAdapter
 import com.example.tsj.adapters.families.FamilyListener
@@ -22,7 +20,6 @@ import com.example.tsj.service.request.CertificateRequest
 import com.example.tsj.service.model.PersonModel
 import com.example.tsj.service.model.RelativeModel
 import com.example.tsj.utils.MyUtils
-import kotlinx.android.synthetic.main.fragment_message_bottom_sheet.*
 import kotlinx.android.synthetic.main.fragment_new_reference.*
 import kotlinx.android.synthetic.main.fragment_new_reference.view.*
 import java.lang.Exception

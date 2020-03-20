@@ -30,9 +30,6 @@ import com.example.tsj.service.model.MessagesPersonsModel
 import com.example.tsj.service.model.MessagesPlacementsModel
 import com.example.tsj.ui.message.MessagesViewModel
 import com.example.tsj.utils.MyUtils
-import kotlinx.android.synthetic.main.fragment_message_bottom_sheet.*
-import kotlinx.android.synthetic.main.new_message_chairman.*
-import kotlinx.android.synthetic.main.new_message_chairman.view.*
 import kotlinx.android.synthetic.main.new_message_owner.*
 import kotlinx.android.synthetic.main.new_message_owner.view.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull

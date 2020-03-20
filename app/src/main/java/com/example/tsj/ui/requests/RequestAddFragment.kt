@@ -19,10 +19,8 @@ import com.example.tsj.service.model.RequestAddressesModel
 import com.example.tsj.service.model.RequestTypeModel
 import com.example.tsj.service.request.AddRequest
 import com.example.tsj.service.request.UpdateRequest
-import kotlinx.android.synthetic.main.fragment_balance.*
 import kotlinx.android.synthetic.main.fragment_bid_add.*
 import kotlinx.android.synthetic.main.fragment_bid_add.view.*
-import kotlinx.android.synthetic.main.new_message_chairman.*
 
 class RequestAddFragment : Fragment() {
 

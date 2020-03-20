@@ -12,7 +12,6 @@ import com.example.tsj.R
 import com.example.tsj.service.AppPreferences
 import com.example.tsj.ui.login.forgot.ForgotActivity
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.fragment_history.*
 import java.util.*
 import java.util.regex.Pattern
 

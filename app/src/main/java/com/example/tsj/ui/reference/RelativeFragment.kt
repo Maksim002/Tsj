@@ -18,9 +18,7 @@ import com.example.tsj.R
 import com.example.tsj.service.model.MessagesPersonsModel
 import com.example.tsj.service.model.RelativeModel
 import com.example.tsj.utils.MyUtils
-import kotlinx.android.synthetic.main.alert_for_who.*
 import kotlinx.android.synthetic.main.fragment_families.*
-import kotlinx.android.synthetic.main.fragment_families.goneL
 import kotlinx.android.synthetic.main.fragment_families.view.*
 import java.util.*
 
