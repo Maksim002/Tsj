@@ -107,7 +107,7 @@
             android:layout_height="48dp"
             android:layout_marginLeft="24dp"
             android:layout_marginRight="24dp"
-            android:text="Подключить"
+            android:text="Авторизоваться"
             android:textColor="#FFFFFF"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/imageC"
