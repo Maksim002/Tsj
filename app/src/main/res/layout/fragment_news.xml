@@ -9,6 +9,5 @@
         android:id="@+id/recyclerViewFile"
         android:layout_width="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:layout_height="match_parent"
-        android:background="#E5E5E5"/>
+        android:layout_height="match_parent"/>
 </LinearLayout>

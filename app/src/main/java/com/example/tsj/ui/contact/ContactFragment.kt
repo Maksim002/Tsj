@@ -91,16 +91,20 @@ class ContactFragment : Fragment(), AccountsListener {
                 startActivity(intent)
             }
         }
-        MainActivity.alert.show()
-        viewModel.addresses().observe(this, Observer {
-            bottomSheet = AccountsBottomSheet(this, it)
-            try {
-                contacts_adres.text = it[0].address
-                contacts_test.text = it[0].licNumber.toString()
-            } catch (e: Exception) {
-            }
-            MainActivity.alert.hide()
-        })
+        if (AppPreferences.isLogined){
+            MainActivity.alert.show()
+            viewModel.addresses().observe(this, Observer {
+                bottomSheet = AccountsBottomSheet(this, it)
+                try {
+                    contacts_adres.text = it[0].address
+                    contacts_test.text = it[0].licNumber.toString()
+                } catch (e: Exception) {
+                }
+                MainActivity.alert.hide()
+            })
+        }
+
+
         root.profile.setOnClickListener {
             bottomSheet.show(fragmentManager!!, "AccountsBottomSheet")
         }
