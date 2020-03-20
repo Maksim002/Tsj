@@ -63,5 +63,6 @@
     <string name="VoteEnd">ЗАВЕРШЕННЫЕ</string>
     <string name="urMean">Поделитесь своим мнением</string>
     <string name="voting">Голосование</string>
+    <string name="vote_empty">Нету голосований</string>
 
 </resources>

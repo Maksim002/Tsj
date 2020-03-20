@@ -19,8 +19,8 @@ import com.example.tsj.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_vote_end.*
 
 class VoteEndFragment(private val placementId : Int, private val typeId : Int) : Fragment(), VoteItemClickListener {
+
     private lateinit var viewModel: VoteViewModel
-    private val myUtils = MyUtils
 
 //dastan
 
@@ -58,13 +58,26 @@ class VoteEndFragment(private val placementId : Int, private val typeId : Int) :
     override fun onVoteItemClicked(model: VoteModel) {
         val bundle = Bundle()
         val endDate = MyUtils.toMyDate(model.endDate)
+        val isCanVote = false
         bundle.putString("date", endDate)
         bundle.putInt("id", model.id)
         bundle.putInt("placementId" , placementId)
         bundle.putString("question", model.question)
-        bundle.putBoolean("isCanVote", model.isCanVote)
+        bundle.putBoolean("isCanVote", isCanVote)
 
         findNavController().navigate(R.id.navigation_vote_detail, bundle)
     }
 
+    override fun onVoteButtonClicked(model: VoteModel, position: Int) {
+        val bundle = Bundle()
+        val endDate = MyUtils.toMyDate(model.endDate)
+        val isCanVote = true
+        bundle.putString("date", endDate)
+        bundle.putInt("id", model.id)
+        bundle.putInt("placementId" , placementId)
+        bundle.putString("question", model.question)
+        bundle.putBoolean("isCanVote", isCanVote)
+
+        findNavController().navigate(R.id.navigation_vote_detail, bundle)
+    }
 }

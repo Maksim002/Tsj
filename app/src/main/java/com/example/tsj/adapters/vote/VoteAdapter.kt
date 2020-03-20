@@ -15,6 +15,7 @@ class VoteAdapter(listener: VoteItemClickListener, item: List<VoteModel>) :
     override fun bind(item: VoteModel, holder: ViewHolder) {
         holder.itemView.vote_content.text = item.question
         holder.itemView.setOnClickListener { listener.onVoteItemClicked(item) }
+        holder.itemView.vote_btn.setOnClickListener { listener.onVoteButtonClicked(item, holder.adapterPosition) }
 
         if (!item.isCanVote) {
             holder.itemView.vote_btn.visibility = View.GONE

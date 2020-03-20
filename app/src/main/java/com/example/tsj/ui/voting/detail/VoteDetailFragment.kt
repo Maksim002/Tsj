@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.example.tsj.MainActivity
 import com.example.tsj.R
 import com.example.tsj.adapters.vote.VoteDetailAdapter
 import com.example.tsj.service.model.vote.VotingVariantsModel
@@ -47,6 +48,7 @@ class VoteDetailFragment : Fragment() {
 
     private fun initVariants() {
         if (isCanVote) {
+            MainActivity.alert.show()
             viewModel.voteVariants(questionId).observe(this, Observer {
                 for (element in it) {
                     val radioButton = RadioButton(context)
@@ -54,8 +56,9 @@ class VoteDetailFragment : Fragment() {
                     radioButton.text = element.name
                     vote_detail_radiogroup.addView(radioButton)
                 }
+                MainActivity.alert.hide()
             })
-        } else{
+        } else {
             vote_detail_radiogroup.visibility = View.GONE
             vote_detail_rv.visibility = View.VISIBLE
             vote_detail_accept_btn.visibility = View.GONE
@@ -69,10 +72,12 @@ class VoteDetailFragment : Fragment() {
     private fun initPostVariants() {
         vote_detail_accept_btn.setOnClickListener {
             val variantId = vote_detail_radiogroup.checkedRadioButtonId
-
             if (variantId != -1) {
                 val body = VotingRequest(questionId, variantId, placementId)
+                MainActivity.alert.show()
                 viewModel.votingPost(body).observe(this, Observer {
+                    MainActivity.alert.hide()
+
                     if (it) {
                         vote_detail_radiogroup.visibility = View.GONE
                         vote_detail_rv.visibility = View.VISIBLE
@@ -84,16 +89,16 @@ class VoteDetailFragment : Fragment() {
                 })
             } else {
                 Toast.makeText(context, "Вы не выбрали вариант", Toast.LENGTH_LONG).show()
-
             }
-
         }
     }
 
     private fun getVotedVariants() {
+        MainActivity.alert.show()
         viewModel.voteDetail(questionId).observe(this, Observer {
             val adapter = VoteDetailAdapter(it.variants)
             vote_detail_rv.adapter = adapter
+            MainActivity.alert.hide()
         })
     }
 

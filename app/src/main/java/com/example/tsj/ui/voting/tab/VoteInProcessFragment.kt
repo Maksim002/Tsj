@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -19,6 +20,7 @@ import com.example.tsj.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_vote_in_process.*
 
 class VoteInProcessFragment(private val placementId : Int, private val typeId : Int) : Fragment(), VoteItemClickListener {
+
     private lateinit var viewModel: VoteViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,13 +54,28 @@ class VoteInProcessFragment(private val placementId : Int, private val typeId : 
     override fun onVoteItemClicked(model: VoteModel) {
         val bundle = Bundle()
         val endDate = MyUtils.toMyDate(model.endDate)
+        val isCanVote = false
         bundle.putString("date", endDate)
         bundle.putInt("id", model.id)
         bundle.putInt("placementId" , placementId)
         bundle.putString("question", model.question)
+        bundle.putBoolean("isCanVote", isCanVote)
+
         findNavController().navigate(R.id.navigation_vote_detail, bundle)
     }
 
+    override fun onVoteButtonClicked(model: VoteModel, position: Int) {
+        val bundle = Bundle()
+        val endDate = MyUtils.toMyDate(model.endDate)
+        val isCanVote = true
+        bundle.putString("date", endDate)
+        bundle.putInt("id", model.id)
+        bundle.putInt("placementId" , placementId)
+        bundle.putString("question", model.question)
+        bundle.putBoolean("isCanVote", isCanVote)
+
+        findNavController().navigate(R.id.navigation_vote_detail, bundle)
+    }
 
 
 }

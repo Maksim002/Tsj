@@ -4,11 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-
     android:layout_marginStart="@dimen/marginHorizontal"
     android:layout_marginTop="8dp"
     android:layout_marginEnd="@dimen/marginHorizontal"
-    android:layout_marginBottom="16dp"
+    android:layout_marginBottom="8dp"
     android:elevation="4dp"
     app:cardCornerRadius="8dp">
 
@@ -17,6 +16,7 @@
         android:layout_height="match_parent">
 
         <ImageView
+            android:paddingBottom="@dimen/marginHorizontal"
             android:id="@+id/vote_imageview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -38,13 +38,16 @@
             app:layout_constraintTop_toTopOf="@id/vote_imageview" />
 
         <TextView
+            android:paddingBottom="@dimen/marginHorizontal"
             android:id="@+id/vote_content"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/marginHorizontal"
+            android:layout_marginTop="8dp"
+            android:maxLines="3"
+            android:ellipsize="end"
             android:layout_marginEnd="@dimen/marginHorizontal"
             android:textColor="@color/blackTextColor"
-            app:layout_constraintBottom_toBottomOf="@id/vote_imageview"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/vote_imageview"
             app:layout_constraintTop_toBottomOf="@id/vote_title"
@@ -53,8 +56,7 @@
         <Button
             android:id="@+id/vote_btn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/marginHorizontal"
+            android:layout_height="32dp"
             android:layout_marginEnd="@dimen/marginHorizontal"
             android:layout_marginBottom="@dimen/marginHorizontal"
             android:background="@drawable/ic_vote_background"

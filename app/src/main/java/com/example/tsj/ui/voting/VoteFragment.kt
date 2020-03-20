@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.example.tsj.MainActivity
 import com.example.tsj.R
 import com.example.tsj.adapters.message.ViewPagerAdapter
 import com.example.tsj.service.model.AddressModel
@@ -44,9 +45,14 @@ class VoteFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews()
         getVoteAddress()
+        if (placementId!=0 && votingTypes!=null){
+            initTabLayout(placementId,votingTypes)
+        }
+        vote_unfocus.requestFocus()
     }
 
     private fun getVoteAddress() {
+        MainActivity.alert.show()
         //запрос на typeId для tabLayout
         viewModel.voteTypes().observe(this, Observer {
             votingTypes = it
@@ -54,7 +60,7 @@ class VoteFragment : Fragment() {
 
         //запрос на список адреса для autoComplate
         viewModel.voteAddress().observe(this, Observer {
-
+            MainActivity.alert.hide()
             val addressAdapter = ArrayAdapter<AddressModel>(
                 context!!,
                 android.R.layout.simple_dropdown_item_1line,
@@ -71,10 +77,16 @@ class VoteFragment : Fragment() {
                 placementId = (parent.getItemAtPosition(position) as AddressModel).placementId
 
                 initTabLayout(placementId, votingTypes)
+                vote_unfocus.requestFocus()
             }
 
         vote_address_auto.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
-            vote_address_auto.showDropDown()
+            if (hasFocus){
+                vote_address_auto.showDropDown()
+            }else{
+                vote_unfocus.requestFocus()
+            }
+
         }
 
         vote_address_auto.setOnClickListener {
@@ -91,9 +103,11 @@ class VoteFragment : Fragment() {
     }
 
     private fun initTabLayout(placementId: Int, votingTypes : List <MessagesPersonsModel> ) {
-        val voteVpAdapter = ViewPagerAdapter(activity!!.supportFragmentManager)
-        voteVpAdapter.addFragment(VoteInProcessFragment(placementId, votingTypes[0].id), votingTypes[0].name)
-        voteVpAdapter.addFragment(VoteEndFragment(placementId, votingTypes[1].id), votingTypes[1].name)
+        vote_unfocus.requestFocus()
+        val voteVpAdapter = ViewPagerAdapter(childFragmentManager)
+        votingTypes.forEach {
+            voteVpAdapter.addFragment(VoteInProcessFragment(placementId, it.id), it.name)
+        }
         vote_vp.adapter = voteVpAdapter
         vote_tablayout.setupWithViewPager(vote_vp)
         vote_not_selected.visibility = View.GONE

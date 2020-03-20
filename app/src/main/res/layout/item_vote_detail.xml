@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginTop="8dp"
     android:layout_marginBottom="8dp">
 
@@ -11,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxLines="1"
-        android:text="50%"
+        tools:text="50%"
         android:textColor="@color/blackTextColor"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -24,14 +25,16 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:maxLines="1"
-        android:text="В выписке из ЕГРЮЛ"
+        tools:text="В выписке из ЕГРЮЛ"
         android:textColor="@color/blackTextColor"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@id/vote_detail_precent"
         app:layout_constraintStart_toEndOf="@id/vote_detail_precent" />
 
     <ProgressBar
+        app:layout_constraintStart_toStartOf="parent"
         android:id="@+id/vote_detail_progress"
+        android:progressBackgroundTint="@color/whiteColor"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="4dp"
