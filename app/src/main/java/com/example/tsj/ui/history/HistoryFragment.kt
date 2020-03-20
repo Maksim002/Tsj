@@ -50,11 +50,37 @@ class HistoryFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_history, container, false)
+        var root = inflater.inflate(R.layout.fragment_history, container, false)
         viewmodel = ViewModelProviders.of(this).get(HistoryViewModel::class.java)
-        MainActivity.alert.show()
+
         (activity as AppCompatActivity).supportActionBar?.show()
         return root
+    }
+
+    private fun validate(): Boolean {
+        var valid = true
+        if (autoAddress.getText().toString().length == 0) {
+            Address.setError("Выберите адрес")
+            valid = false
+        } else {
+            Address.setErrorEnabled(false)
+        }
+
+        if (autoService.getText().toString().length == 0) {
+            Service.setError("Выберите услугу")
+            valid = false
+        } else {
+            Service.setErrorEnabled(false)
+        }
+
+        if (autoOperation.getText().toString().length == 0) {
+            Operation.setError("Выберите операцию")
+            valid = false
+        } else {
+            Operation.setErrorEnabled(false)
+        }
+
+        return valid
     }
 
     override fun onStart() {
@@ -73,23 +99,21 @@ class HistoryFragment : Fragment() {
         }
 
         show.setOnClickListener {
-            if (autoAddress.text.length == 0 || autoService.text.length == 0 || autoOperation.text.length == 0) {
-                Toast.makeText(context, "Error", Toast.LENGTH_LONG).show()
-            } else {
-                val bundle = Bundle()
-                bundle.putInt("res", licNumber)
-                bundle.putString("serviceName", serviceName)
-                bundle.putInt("servicesId", servicesId)
+            if (validate()){
+                    val bundle = Bundle()
+                    bundle.putInt("res", licNumber)
+                    bundle.putString("serviceName", serviceName)
+                    bundle.putInt("servicesId", servicesId)
 
-                bundle.putString("operationName", operationName)
-                bundle.putInt("operationsId", operationsId)
+                    bundle.putString("operationName", operationName)
+                    bundle.putInt("operationsId", operationsId)
 
-                bundle.putString("address", address)
-                bundle.putInt("placementId", placementId)
+                    bundle.putString("address", address)
+                    bundle.putInt("placementId", placementId)
 
-                bundle.putString("to", autoDateFrom.text.toString())
-                bundle.putString("from", autoDateTo.text.toString())
-                Navigation.findNavController(it).navigate(R.id.navigation_personal, bundle)
+                    bundle.putString("to", autoDateFrom.text.toString())
+                    bundle.putString("from", autoDateTo.text.toString())
+                    Navigation.findNavController(it).navigate(R.id.navigation_personal, bundle)
             }
         }
     }

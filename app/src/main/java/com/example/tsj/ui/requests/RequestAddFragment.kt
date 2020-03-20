@@ -19,7 +19,6 @@ import com.example.tsj.service.model.RequestAddressesModel
 import com.example.tsj.service.model.RequestTypeModel
 import com.example.tsj.service.request.AddRequest
 import com.example.tsj.service.request.UpdateRequest
-import com.example.tsj.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_bid_add.*
 import kotlinx.android.synthetic.main.fragment_bid_add.view.*
 
@@ -56,49 +55,89 @@ class RequestAddFragment : Fragment() {
         }
 
     }
+    private fun validate(): Boolean{
+        var valid = true
+        if (bid_add_type.getText().toString().length == 0) {
+            request_type_out.setError("Выберите тип заявки")
+            valid = false
+        }else{
+            request_type_out.setErrorEnabled(false)
+        }
+
+        if (bid_add_porch.getText().toString().length == 0) {
+            text_bid_add_porch.setError("Поле не должно быть пустым")
+            valid = false
+        }else{
+            text_bid_add_porch.setErrorEnabled(false)
+        }
+
+        if (bid_add_flat.getText().toString().length == 0) {
+            text_bid_add_flat.setError("Поле не должно быть пустым")
+            valid = false
+        }else{
+            text_bid_add_flat.setErrorEnabled(false)
+        }
+
+        if (bid_add_adres.getText().toString().length == 0) {
+            text_bid_add_adres.setError("Выберите адрес")
+            valid = false
+        }else{
+            text_bid_add_adres.setErrorEnabled(false)
+        }
+
+        if (request_description.getText().toString().length == 0) {
+            text_request_description.setError("Поле не должно быть пустым")
+            valid = false
+        }else{
+            text_request_description.setErrorEnabled(false)
+        }
+
+        return valid
+    }
 
 
     private fun initViews(root: View) {
 
         root.request_add.setOnClickListener {
-            MainActivity.alert.show()
-            if (RequestDetailFragment.requestModel.id != null) {
-                val body = UpdateRequest()
-                body.id = RequestDetailFragment.requestModel.id
-                body.description = root.request_description.text.toString()
-                body.floor = root.bid_add_flat.text.toString().toInt()
-                body.entrance = root.bid_add_porch.text.toString().toInt()
-                body.requestTypeId = requestTypeId
+            if (validate()){
+                MainActivity.alert.show()
+                if (RequestDetailFragment.requestModel.id != null) {
+                    val body = UpdateRequest()
+                    body.id = RequestDetailFragment.requestModel.id
+                    body.description = root.request_description.text.toString()
+                    body.floor = root.bid_add_flat.text.toString().toInt()
+                    body.entrance = root.bid_add_porch.text.toString().toInt()
+                    body.requestTypeId = requestTypeId
 
-                viewModel.updateRequest(body).observe(this, Observer {
-                    if (it) {
-                        Toast.makeText(context, "ok", Toast.LENGTH_LONG).show()
-                        findNavController().popBackStack()
-                    } else {
-                        Toast.makeText(context, "ошибка", Toast.LENGTH_LONG).show()
-                    }
-                    MainActivity.alert.hide()
-                })
-            } else {
-                val body = AddRequest(
-                    placementId,
-                    requestTypeId,
-                    root.bid_add_porch.text.toString().toInt(),
-                    root.bid_add_flat.text.toString().toInt(),
-                    root.request_description.text.toString()
-                )
+                    viewModel.updateRequest(body).observe(this, Observer {
+                        if (it) {
+                            Toast.makeText(context, "ok", Toast.LENGTH_LONG).show()
+                            findNavController().popBackStack()
+                        } else {
+                            Toast.makeText(context, "ошибка", Toast.LENGTH_LONG).show()
+                        }
+                        MainActivity.alert.hide()
+                    })
+                } else {
+                    val body = AddRequest(
+                        placementId,
+                        requestTypeId,
+                        root.bid_add_porch.text.toString().toInt(),
+                        root.bid_add_flat.text.toString().toInt(),
+                        root.request_description.text.toString()
+                    )
 
-                viewModel.addRequest(body).observe(this, Observer {
-                    if (it) {
-                        Toast.makeText(context, "ok", Toast.LENGTH_LONG).show()
-                        findNavController().popBackStack()
-                    } else {
-                        Toast.makeText(context, "ошибка", Toast.LENGTH_LONG).show()
-                    }
-                    MainActivity.alert.hide()
-                })
+                    viewModel.addRequest(body).observe(this, Observer {
+                        if (it) {
+                            Toast.makeText(context, "ok", Toast.LENGTH_LONG).show()
+                            findNavController().popBackStack()
+                        } else {
+                            Toast.makeText(context, "ошибка", Toast.LENGTH_LONG).show()
+                        }
+                        MainActivity.alert.hide()
+                    })
+                }
             }
-
         }
 
         //types

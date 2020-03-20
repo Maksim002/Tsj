@@ -18,7 +18,6 @@ import com.example.tsj.R
 import com.example.tsj.adapters.message.ViewPagerAdapter
 import com.example.tsj.service.model.AddressModel
 import com.example.tsj.service.model.MessagesPersonsModel
-import com.example.tsj.ui.voting.tab.VoteEndFragment
 import com.example.tsj.ui.voting.tab.VoteInProcessFragment
 import kotlinx.android.synthetic.main.fragment_vote.*
 

@@ -60,7 +60,7 @@
             android:layout_marginHorizontal="@dimen/marginHorizontal"
             android:layout_marginTop="16dp">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <AutoCompleteTextView
                 android:id="@+id/text_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -77,7 +77,7 @@
             android:layout_marginHorizontal="@dimen/marginHorizontal"
             android:layout_marginTop="13dp">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <AutoCompleteTextView
                 android:id="@+id/text_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

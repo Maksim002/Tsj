@@ -11,9 +11,7 @@ import com.example.tsj.adapters.NewsAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tsj.MainActivity
-import com.example.tsj.service.AppPreferences
 
 class NewsFragment : Fragment() {
 
