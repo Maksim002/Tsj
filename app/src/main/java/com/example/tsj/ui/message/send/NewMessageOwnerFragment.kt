@@ -161,7 +161,7 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
             new_msg_content.error = null
             //Метод для post сообщания
             MainActivity.alert.show()
-            viewModel.messageToPerson(placementId, body, title, files).observe(this, Observer {
+            viewModel.messageToPerson(personId, body, title, files).observe(this, Observer {
                 if (it) {
                     findNavController().popBackStack()
                 } else {
