@@ -56,5 +56,12 @@ object AppPreferences {
 
     }
 
+    var licNumber: Int?
+        get() = preferences.getInt("licNumber", 0)
+        set(value) = preferences.edit {
+            if (value != null) {
+                it.putInt("licNumber", value)
+            }
+        }
 
 }
