@@ -333,25 +333,12 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
 
         new_msg_appartment.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
-                if (new_msg_appartment.text!!.isNotEmpty()) {
-                    new_appartment.defaultHintTextColor =
-                        ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                } else if (new_msg_appartment.text!!.isEmpty()) {
-                    new_appartment.defaultHintTextColor =
-                        ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
-                }
                 new_msg_appartment.showDropDown()
                 parent.getItemAtPosition(position).toString()
                 placementId = listPlacements.get(position).id
                 getMessagesPersons()
                 new_msg_who.setAdapter(null)
                 new_msg_who.setText("")
-
-                if (new_msg_appartment.text.length == 0){
-                    new_who.defaultHintTextColor =
-                        ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
-                }
-
             }
 
         new_msg_appartment.setOnClickListener {
@@ -361,8 +348,9 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
         new_msg_appartment.onFocusChangeListener = View.OnFocusChangeListener { view, b ->
             if (b) {
                 try {
+                    new_appartment.defaultHintTextColor =
+                        ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
                     new_msg_appartment.showDropDown()
-
                     if (new_msg_house.text.length == 0){
                         Toast.makeText(context, "Сначало выберте дом", Toast.LENGTH_LONG).show()
                     }
@@ -399,14 +387,8 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
         new_msg_who.onFocusChangeListener = View.OnFocusChangeListener { view, b ->
             if (b) {
                 try {
-                    if (b || new_msg_who.text!!.isNotEmpty()) {
-                        new_who.defaultHintTextColor =
-                            ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                    } else if (b || new_msg_who.text!!.isEmpty()) {
-                        new_who.defaultHintTextColor =
-                            ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
-                    }
-
+                    new_who.defaultHintTextColor =
+                        ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
                     new_msg_who.showDropDown()
                     if (new_msg_appartment.text.length == 0){
                         Toast.makeText(context, "Сначало выберте квартиру", Toast.LENGTH_LONG).show()
