@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -17,15 +16,7 @@ import com.example.tsj.R
 import com.example.tsj.service.model.RequestForConnectModel
 import com.example.tsj.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_connect.*
-import kotlinx.android.synthetic.main.fragment_history.*
-import kotlinx.android.synthetic.main.new_message_chairman.*
-import kotlinx.android.synthetic.main.new_message_chairman.view.*
-import kotlinx.android.synthetic.main.new_message_owner.*
-import okhttp3.internal.notify
 
-/**
- * A simple [Fragment] subclass.
- */
 class RequestForConnectFragment : Fragment() {
 
     private lateinit var viewModel: RequestForConnectViewModel
