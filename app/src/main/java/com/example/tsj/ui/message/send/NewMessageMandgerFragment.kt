@@ -112,8 +112,7 @@ class NewMessageMandgerFragment : Fragment(), GeneralClickListener {
             if (ContextCompat.checkSelfPermission(
                     context!!,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE
-                ) == PackageManager.PERMISSION_DENIED
-            ) {
+                ) == PackageManager.PERMISSION_DENIED) {
                 val permissions = arrayOf(
                     Manifest.permission.WRITE_EXTERNAL_STORAGE,
                     Manifest.permission.READ_EXTERNAL_STORAGE
@@ -135,8 +134,7 @@ class NewMessageMandgerFragment : Fragment(), GeneralClickListener {
     }
 
     override fun onRequestPermissionsResult(
-        requestCode: Int, permissions: Array<out String>, grantResults: IntArray
-    ) {
+        requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             getMyFile()
         } else {
@@ -215,6 +213,30 @@ class NewMessageMandgerFragment : Fragment(), GeneralClickListener {
         recyclerManager.apply {
             adapter = filesAdapter
 
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        manager_msg_referenc.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus || manager_msg_referenc.text!!.isNotEmpty()) {
+                title_container.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            } else if (manager_msg_referenc.text!!.isEmpty()) {
+                title_container.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
+            }
+        }
+
+        manager_msg_content.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus || manager_msg_content.text!!.isNotEmpty()) {
+                content_container.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            } else if (manager_msg_content.text!!.isEmpty()) {
+                content_container.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
+            }
         }
     }
 }
