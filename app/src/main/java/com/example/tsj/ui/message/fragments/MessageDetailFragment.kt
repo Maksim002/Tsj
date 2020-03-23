@@ -31,6 +31,9 @@ class MessageDetailFragment : Fragment(), GeneralClickListener {
 
     private var downloadUrl = ""
     private var idMessage = 0
+    private var typeId = 0
+    private var inBox = 1
+
     private val STORAGE_PERMISION_CODE: Int = 1000
     private lateinit var viewModel: MessagesViewModel
     private lateinit var filesAdapter: FilesAdapter
@@ -41,13 +44,13 @@ class MessageDetailFragment : Fragment(), GeneralClickListener {
 
         (activity as AppCompatActivity).supportActionBar!!.show()
         viewModel = ViewModelProviders.of(this).get(MessagesViewModel::class.java)
-        initArguments()
         setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_message_detail, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initArguments()
         initViews()
         initData()
     }
@@ -60,6 +63,14 @@ class MessageDetailFragment : Fragment(), GeneralClickListener {
             msg_detail_sender.text = "от: " + it.personName
             msg_detail_title.text = it.title
             msg_detail_content.text = it.body
+
+            if (typeId == inBox){
+                msg_detail_address.visibility = View.VISIBLE
+                msg_detail_address.text = "адрес: " + it.address
+            }else{
+                msg_detail_address.visibility = View.GONE
+            }
+
             filesAdapter = FilesAdapter(this)
             val items = it.attachments.map { attachment ->
                 FilesModel(attachment.fileName, attachment.filePath)
@@ -73,6 +84,12 @@ class MessageDetailFragment : Fragment(), GeneralClickListener {
     private fun initArguments() {
         idMessage = try {
             arguments!!.getInt("id")
+        } catch (e: Exception) {
+            0
+        }
+
+        typeId = try {
+            arguments!!.getInt("typeId")
         } catch (e: Exception) {
             0
         }

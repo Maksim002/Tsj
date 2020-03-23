@@ -47,7 +47,7 @@ class MessagesFragment(private val idMessage: Int) : Fragment(), MessageClicklIt
     private fun initRec() {
         if (AppPreferences.isLogined) {
             viewModel.messages(idMessage).observe(this, Observer { list ->
-                messageAdapter = MessageAdapter(this, list)
+                messageAdapter = MessageAdapter(idMessage, this, list)
                 recyclerview.apply { adapter = messageAdapter }
 
                 if (messageAdapter.itemCount == 0) {
@@ -62,11 +62,10 @@ class MessagesFragment(private val idMessage: Int) : Fragment(), MessageClicklIt
 
     }
 
-
     override fun onClickMessage(item: MessageItemModel) {
         val bundle = Bundle()
         bundle.putInt("id", item.id)
+        bundle.putInt("typeId", idMessage)
         findNavController().navigate(R.id.navigation_message_detail, bundle)
-
     }
 }
