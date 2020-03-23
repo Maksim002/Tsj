@@ -30,8 +30,6 @@ import com.example.tsj.service.model.MessagesPersonsModel
 import com.example.tsj.service.model.MessagesPlacementsModel
 import com.example.tsj.ui.message.MessagesViewModel
 import com.example.tsj.utils.MyUtils
-import kotlinx.android.synthetic.main.fragment_connect.*
-import kotlinx.android.synthetic.main.fragment_history.*
 import kotlinx.android.synthetic.main.new_message_owner.*
 import kotlinx.android.synthetic.main.new_message_owner.view.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -297,7 +295,6 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
             new_msg_house.showDropDown()
         }
         new_msg_house.onFocusChangeListener = View.OnFocusChangeListener { view, b ->
-            if (b) {
                 try {
                     new_msg_house.showDropDown()
 
@@ -312,7 +309,6 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
 
                 } catch (e: Exception) {
                     println()
-                }
             }
         }
     }
@@ -346,17 +342,14 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
 
         }
         new_msg_appartment.onFocusChangeListener = View.OnFocusChangeListener { view, b ->
-            if (b) {
                 try {
-                    new_appartment.defaultHintTextColor =
-                        ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+                    new_appartment.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
                     new_msg_appartment.showDropDown()
                     if (new_msg_house.text.length == 0){
                         Toast.makeText(context, "Сначало выберте дом", Toast.LENGTH_LONG).show()
                     }
                 } catch (e: Exception) {
                     println()
-                }
             }
         }
     }
@@ -385,7 +378,6 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
             new_msg_who.showDropDown()
         }
         new_msg_who.onFocusChangeListener = View.OnFocusChangeListener { view, b ->
-            if (b) {
                 try {
                     new_who.defaultHintTextColor =
                         ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
@@ -395,7 +387,6 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
                     }
                 } catch (e: Exception) {
                     println()
-                }
             }
         }
     }
