@@ -41,22 +41,25 @@
                 tools:text="от: Председатель" />
 
             <TextView
-                android:layout_marginTop="4dp"
                 android:id="@+id/msg_detail_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:textColor="@color/blackTextColor"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/msg_detail_sender"
-                tools:text="адрес: Тоголок - Молдо 24"/>
+                tools:text="адрес: Тоголок - Молдо 24" />
 
             <TextView
                 android:id="@+id/msg_detail_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="@id/msg_detail_sender"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/blackTextColor"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/msg_detail_address"
                 tools:text="27.02.2020" />
 
             <View
@@ -67,7 +70,7 @@
                 android:background="@color/dividerColor"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/msg_detail_address" />
+                app:layout_constraintTop_toBottomOf="@id/msg_detail_date" />
 
             <TextView
                 android:id="@+id/msg_detail_content"
@@ -81,11 +84,11 @@
 
 
             <androidx.recyclerview.widget.RecyclerView
-                android:layout_marginTop="12dp"
                 android:id="@+id/message_files_rv"
                 android:layout_width="match_parent"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/msg_detail_content" />

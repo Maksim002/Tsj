@@ -47,7 +47,7 @@ class MessagesFragment(private val idMessage: Int) : Fragment(), MessageClicklIt
     private fun initRec() {
         if (AppPreferences.isLogined) {
             viewModel.messages(idMessage).observe(this, Observer { list ->
-                messageAdapter = MessageAdapter(idMessage, this, list)
+                messageAdapter = MessageAdapter(this, list)
                 recyclerview.apply { adapter = messageAdapter }
 
                 if (messageAdapter.itemCount == 0) {

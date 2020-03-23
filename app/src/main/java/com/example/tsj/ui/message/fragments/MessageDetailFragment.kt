@@ -32,7 +32,6 @@ class MessageDetailFragment : Fragment(), GeneralClickListener {
     private var downloadUrl = ""
     private var idMessage = 0
     private var typeId = 0
-    private var inBox = 1
 
     private val STORAGE_PERMISION_CODE: Int = 1000
     private lateinit var viewModel: MessagesViewModel
@@ -60,16 +59,19 @@ class MessageDetailFragment : Fragment(), GeneralClickListener {
         viewModel.message(idMessage).observe(this, Observer {
             MainActivity.alert.hide()
             msg_detail_date.text = MyUtils.toMyDate(it.sendDate)
-            msg_detail_sender.text = "от: " + it.personName
+            msg_detail_sender.text = it.personNameHeader + ": " + it.personName
             msg_detail_title.text = it.title
             msg_detail_content.text = it.body
 
-            if (typeId == inBox){
+            //в отправленных адресов нету, провераяю для входящих
+            if (it.address != null) {
                 msg_detail_address.visibility = View.VISIBLE
-                msg_detail_address.text = "адрес: " + it.address
-            }else{
+                msg_detail_address.text = it.address
+            }else {
                 msg_detail_address.visibility = View.GONE
             }
+
+
 
             filesAdapter = FilesAdapter(this)
             val items = it.attachments.map { attachment ->

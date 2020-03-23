@@ -14,14 +14,16 @@
 
         <TextView
             android:id="@+id/msg_sender"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Председатель"
+            android:layout_marginEnd="8dp"
             android:textColor="@color/blackTextColor"
             android:textSize="17sp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/msg_date"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Председатель" />
 
         <TextView
             android:id="@+id/msg_title"
