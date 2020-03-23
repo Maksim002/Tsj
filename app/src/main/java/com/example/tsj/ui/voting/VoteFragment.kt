@@ -18,8 +18,6 @@ import com.example.tsj.R
 import com.example.tsj.adapters.message.ViewPagerAdapter
 import com.example.tsj.service.model.AddressModel
 import com.example.tsj.service.model.MessagesPersonsModel
-import com.example.tsj.ui.voting.tab.VoteEndFragment
-import com.example.tsj.ui.voting.tab.VoteInProcessFragment
 import kotlinx.android.synthetic.main.fragment_vote.*
 
 //dastan
@@ -106,7 +104,11 @@ class VoteFragment : Fragment() {
         vote_unfocus.requestFocus()
         val voteVpAdapter = ViewPagerAdapter(childFragmentManager)
         votingTypes.forEach {
-            voteVpAdapter.addFragment(VoteInProcessFragment(placementId, it.id), it.name)
+            voteVpAdapter.addFragment(
+                VoteInProcessFragment(
+                    placementId,
+                    it.id
+                ), it.name)
         }
         vote_vp.adapter = voteVpAdapter
         vote_tablayout.setupWithViewPager(vote_vp)

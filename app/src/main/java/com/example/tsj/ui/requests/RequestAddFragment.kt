@@ -57,39 +57,39 @@ class RequestAddFragment : Fragment() {
     }
     private fun validate(): Boolean{
         var valid = true
-        if (bid_add_type.getText().toString().length == 0) {
-            request_type_out.setError("Выберите тип заявки")
+        if (bid_add_type.text.toString().isEmpty()) {
+            request_type_out.error = "Выберите тип заявки"
             valid = false
         }else{
-            request_type_out.setErrorEnabled(false)
+            request_type_out.isErrorEnabled = false
         }
 
-        if (bid_add_porch.getText().toString().length == 0) {
-            text_bid_add_porch.setError("Поле не должно быть пустым")
+        if (bid_add_porch.text.toString().isEmpty()) {
+            text_bid_add_porch.error = "Поле не должно быть пустым"
             valid = false
         }else{
-            text_bid_add_porch.setErrorEnabled(false)
+            text_bid_add_porch.isErrorEnabled = false
         }
 
-        if (bid_add_flat.getText().toString().length == 0) {
-            text_bid_add_flat.setError("Поле не должно быть пустым")
+        if (bid_add_flat.text.toString().isEmpty()) {
+            text_bid_add_flat.error = "Поле не должно быть пустым"
             valid = false
         }else{
-            text_bid_add_flat.setErrorEnabled(false)
+            text_bid_add_flat.isErrorEnabled = false
         }
 
-        if (bid_add_adres.getText().toString().length == 0) {
-            text_bid_add_adres.setError("Выберите адрес")
+        if (bid_add_adres.text.toString().isEmpty()) {
+            text_bid_add_adres.error = "Выберите адрес"
             valid = false
         }else{
-            text_bid_add_adres.setErrorEnabled(false)
+            text_bid_add_adres.isErrorEnabled = false
         }
 
-        if (request_description.getText().toString().length == 0) {
-            text_request_description.setError("Поле не должно быть пустым")
+        if (request_description.text.toString().isEmpty()) {
+            text_request_description.error = "Поле не должно быть пустым"
             valid = false
         }else{
-            text_request_description.setErrorEnabled(false)
+            text_request_description.isErrorEnabled = false
         }
 
         return valid
@@ -145,7 +145,7 @@ class RequestAddFragment : Fragment() {
         root.bid_add_type.setOnClickListener {
             root.bid_add_type.showDropDown()
         }
-        root.bid_add_type.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
+        root.bid_add_type.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 root.bid_add_type.showDropDown()
             }

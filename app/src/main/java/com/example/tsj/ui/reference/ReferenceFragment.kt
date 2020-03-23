@@ -89,7 +89,7 @@ class ReferenceFragment : Fragment(),ReferencesListener {
             }
         }
         root.reference_address.setOnItemClickListener { parent, _, position, _ ->
-            placementId = (parent.getItemAtPosition(position) as AddressModel).placementId!!
+            placementId = (parent.getItemAtPosition(position) as AddressModel).placementId
             MainActivity.alert.show()
             viewModel.references(placementId).observe(this, Observer {
                 adapter.update(it)

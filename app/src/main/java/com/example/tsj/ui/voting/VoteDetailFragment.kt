@@ -1,4 +1,4 @@
-package com.example.tsj.ui.voting.detail
+package com.example.tsj.ui.voting
 
 
 import android.os.Bundle
@@ -14,9 +14,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.tsj.MainActivity
 import com.example.tsj.R
 import com.example.tsj.adapters.vote.VoteDetailAdapter
-import com.example.tsj.service.model.vote.VotingVariantsModel
 import com.example.tsj.service.request.VotingRequest
-import com.example.tsj.ui.voting.VoteViewModel
 import kotlinx.android.synthetic.main.fragment_vote_detail.*
 import java.lang.Exception
 

@@ -18,8 +18,8 @@ import kotlinx.android.synthetic.main.fragment_bid_detail.view.*
 class RequestDetailFragment : Fragment() {
 
     private lateinit var viewModel: RequestViewModel
-    private var requestId = 0;
-    private var detailsId = 0;
+    private var requestId = 0
+    private var detailsId = 0
 
     companion object {
         var requestModel = RequestModel()
@@ -116,15 +116,4 @@ class RequestDetailFragment : Fragment() {
         })
     }
 
-    override fun onStart() {
-        super.onStart()
-        MainActivity.alert.show()
-        viewModel.detailsModel(requestId).observe(this, Observer { list ->
-            bid_adres_content.setText(list.address)
-            bid_flat_content.setText(list.entrance.toString())
-            bid_description_content.setText(list.description)
-            bid_porch_content.setText(list.floor.toString())
-            MainActivity.alert.hide()
-        })
-    }
 }

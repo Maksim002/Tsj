@@ -120,7 +120,7 @@ class RequestViewModel : ViewModel() {
             }
 
             override fun onResponse(call: Call<String>, response: Response<String>) {
-                data.value = response.code() == 204
+                data.value = response.isSuccessful
             }
 
         })
@@ -128,26 +128,7 @@ class RequestViewModel : ViewModel() {
     }
 
 
-    fun detailsModel(requestId: Int): LiveData<DetailsModel> {
-        val data = MutableLiveData<DetailsModel>()
-        RetrofitService.apiService().detailsModel(requestId)
-            .enqueue(object : Callback<DetailsModel> {
-                override fun onFailure(call: Call<DetailsModel>, t: Throwable) {
-                    println()
-                }
 
-                override fun onResponse(
-                    call: Call<DetailsModel>,
-                    response: Response<DetailsModel>
-                ) {
-                    if (response.isSuccessful) {
-                        data.value = response.body()
-                    }
-                }
-            })
-
-        return data
-    }
 
     fun getRequest(id: Int): LiveData<RequestModel> {
         val data = MutableLiveData<RequestModel>()
