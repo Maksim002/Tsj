@@ -30,6 +30,7 @@ import com.example.tsj.adapters.files.FilesModel
 import com.example.tsj.adapters.files.GeneralClickListener
 import com.example.tsj.utils.MyUtils
 import kotlinx.android.synthetic.main.new_message_chairman.view.*
+import kotlinx.android.synthetic.main.new_message_owner.*
 import java.io.File
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -215,6 +216,30 @@ class NewMessageMandgerFragment : Fragment(), GeneralClickListener {
         recyclerManager.apply {
             adapter = filesAdapter
 
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        manager_msg_referenc.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus || manager_msg_referenc.text!!.isNotEmpty()) {
+                title_container.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            } else if (manager_msg_referenc.text!!.isEmpty()) {
+                title_container.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
+            }
+        }
+
+        manager_msg_content.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus || manager_msg_content.text!!.isNotEmpty()) {
+                content_container.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            } else if (manager_msg_content.text!!.isEmpty()) {
+                content_container.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
+            }
         }
     }
 }

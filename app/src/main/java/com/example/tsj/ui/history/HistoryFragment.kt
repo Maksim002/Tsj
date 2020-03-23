@@ -175,6 +175,8 @@ class HistoryFragment : Fragment() {
                 address = listAddress.get(position).address!!
                 MainActivity.alert.show()
                 getAutoService()
+                autoService.setAdapter(null)
+                autoService.setText("")
 
             }
         autoAddress.setOnClickListener {
@@ -184,6 +186,12 @@ class HistoryFragment : Fragment() {
             if (b) {
                 try {
                     autoAddress.showDropDown()
+
+                    if (b || autoAddress.text!!.isNotEmpty()) {
+                        Service.defaultHintTextColor =
+                            ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
+                    }
+
                 } catch (e: Exception) {
                     println()
                 }
@@ -210,23 +218,25 @@ class HistoryFragment : Fragment() {
         autoService.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
                 autoService.showDropDown()
-                Service.defaultHintTextColor =
-                    ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
                 parent.getItemAtPosition(position).toString()
                 servicesId = listServices.get(position).serviceId!!
                 serviceName = listServices.get(position).serviceName!!
             }
         autoService.setOnClickListener {
             autoService.showDropDown()
+
         }
         autoService.onFocusChangeListener = View.OnFocusChangeListener { view, b ->
             if (b) {
                 try {
                     autoService.showDropDown()
+                    Service.defaultHintTextColor =
+                        ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
 
                     if (autoAddress.text.length == 0){
                         Toast.makeText(context, "Сначало выберте адрес", Toast.LENGTH_LONG).show()
                     }
+
                 } catch (e: Exception) {
                     println()
                 }

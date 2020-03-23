@@ -30,6 +30,7 @@ import com.example.tsj.service.model.MessagesPersonsModel
 import com.example.tsj.service.model.MessagesPlacementsModel
 import com.example.tsj.ui.message.MessagesViewModel
 import com.example.tsj.utils.MyUtils
+import kotlinx.android.synthetic.main.fragment_connect.*
 import kotlinx.android.synthetic.main.fragment_history.*
 import kotlinx.android.synthetic.main.new_message_owner.*
 import kotlinx.android.synthetic.main.new_message_owner.view.*
@@ -240,6 +241,26 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
         new_msg_house.setKeyListener(null)
         new_msg_appartment.setKeyListener(null)
         new_msg_who.setKeyListener(null)
+
+        new_msg_referenc.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus || new_msg_referenc.text!!.isNotEmpty()) {
+                new_msg_referenc_error.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            } else if (new_msg_referenc.text!!.isEmpty()) {
+                new_msg_referenc_error.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
+            }
+        }
+
+        new_msg_content.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus || new_msg_content.text!!.isNotEmpty()) {
+                new_msg_content_error.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            } else if (new_msg_content.text!!.isEmpty()) {
+                new_msg_content_error.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
+            }
+        }
     }
 
     private fun getNewMsgHouse() {
@@ -259,9 +280,9 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
 
         new_msg_house.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
-                new_msg_house.showDropDown()
                 new_house.defaultHintTextColor =
-                    ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+                new_msg_house.showDropDown()
                 parent.getItemAtPosition(position).toString()
                 houseId = listHouses.get(position).id
                 getMessagesPlacements()
@@ -279,6 +300,16 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
             if (b) {
                 try {
                     new_msg_house.showDropDown()
+
+                    if (b || new_msg_appartment.text!!.isNotEmpty()) {
+                        new_appartment.defaultHintTextColor =
+                            ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
+                    }
+                    if (b || new_msg_who.text!!.isNotEmpty()){
+                        new_who.defaultHintTextColor =
+                            ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
+                    }
+
                 } catch (e: Exception) {
                     println()
                 }
@@ -302,19 +333,30 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
 
         new_msg_appartment.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
+                if (new_msg_appartment.text!!.isNotEmpty()) {
+                    new_appartment.defaultHintTextColor =
+                        ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+                } else if (new_msg_appartment.text!!.isEmpty()) {
+                    new_appartment.defaultHintTextColor =
+                        ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
+                }
                 new_msg_appartment.showDropDown()
-                new_appartment.defaultHintTextColor =
-                    ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
                 parent.getItemAtPosition(position).toString()
                 placementId = listPlacements.get(position).id
                 getMessagesPersons()
                 new_msg_who.setAdapter(null)
                 new_msg_who.setText("")
 
+                if (new_msg_appartment.text.length == 0){
+                    new_who.defaultHintTextColor =
+                        ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
+                }
+
             }
 
         new_msg_appartment.setOnClickListener {
             new_msg_appartment.showDropDown()
+
         }
         new_msg_appartment.onFocusChangeListener = View.OnFocusChangeListener { view, b ->
             if (b) {
@@ -348,8 +390,6 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
         new_msg_who.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
                 new_msg_who.showDropDown()
-                new_who.defaultHintTextColor =
-                    ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
                 parent.getItemAtPosition(position).toString()
                 personId = listPersons.get(position).id
             }
@@ -359,8 +399,15 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
         new_msg_who.onFocusChangeListener = View.OnFocusChangeListener { view, b ->
             if (b) {
                 try {
-                    new_msg_who.showDropDown()
+                    if (b || new_msg_who.text!!.isNotEmpty()) {
+                        new_who.defaultHintTextColor =
+                            ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+                    } else if (b || new_msg_who.text!!.isEmpty()) {
+                        new_who.defaultHintTextColor =
+                            ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
+                    }
 
+                    new_msg_who.showDropDown()
                     if (new_msg_appartment.text.length == 0){
                         Toast.makeText(context, "Сначало выберте квартиру", Toast.LENGTH_LONG).show()
                     }
