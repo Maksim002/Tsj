@@ -182,12 +182,12 @@ class HistoryFragment : Fragment() {
         autoAddress.setOnClickListener {
             autoAddress.showDropDown()
         }
-        autoAddress.onFocusChangeListener = View.OnFocusChangeListener { view, b ->
-            if (b) {
+        autoAddress.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
+            if (hasFocus) {
                 try {
                     autoAddress.showDropDown()
 
-                    if (b || autoAddress.text!!.isNotEmpty()) {
+                    if (hasFocus || autoAddress.text!!.isNotEmpty()) {
                         Service.defaultHintTextColor =
                             ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
                     }
@@ -226,8 +226,8 @@ class HistoryFragment : Fragment() {
             autoService.showDropDown()
 
         }
-        autoService.onFocusChangeListener = View.OnFocusChangeListener { view, b ->
-            if (b) {
+        autoService.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
+            if (hasFocus) {
                 try {
                     autoService.showDropDown()
                     Service.defaultHintTextColor =
@@ -270,8 +270,8 @@ class HistoryFragment : Fragment() {
         autoOperation.setOnClickListener {
             autoOperation.showDropDown()
         }
-        autoOperation.onFocusChangeListener = View.OnFocusChangeListener { view, b ->
-            if (b) {
+        autoOperation.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
+            if (hasFocus) {
                 try {
                     autoOperation.showDropDown()
                 } catch (e: Exception) {
@@ -283,8 +283,8 @@ class HistoryFragment : Fragment() {
 
     private fun getAutoDatesFrom() {
         autoDateFrom.setKeyListener(null);
-        autoDateFrom.setOnFocusChangeListener { view, b ->
-            if (b) {
+        autoDateFrom.setOnFocusChangeListener { view, hasFocus ->
+            if (hasFocus) {
                 DatesS.defaultHintTextColor =
                     ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
                 val picker =
@@ -309,8 +309,8 @@ class HistoryFragment : Fragment() {
 
     private fun getAutoDatesTo() {
         autoDateTo.setKeyListener(null);
-        autoDateTo.setOnFocusChangeListener { view, b ->
-            if (b) {
+        autoDateTo.setOnFocusChangeListener { view, hasFocus ->
+            if (hasFocus) {
                 val col =
                     ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
                 DatesDo.defaultHintTextColor = col
