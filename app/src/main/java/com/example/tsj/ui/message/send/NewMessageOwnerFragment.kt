@@ -294,15 +294,15 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
         new_msg_house.setOnClickListener {
             new_msg_house.showDropDown()
         }
-        new_msg_house.onFocusChangeListener = View.OnFocusChangeListener { view, b ->
+        new_msg_house.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
                 try {
                     new_msg_house.showDropDown()
 
-                    if (b || new_msg_appartment.text!!.isNotEmpty()) {
+                    if (hasFocus || new_msg_appartment.text!!.isNotEmpty()) {
                         new_appartment.defaultHintTextColor =
                             ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
                     }
-                    if (b || new_msg_who.text!!.isNotEmpty()){
+                    if (hasFocus || new_msg_who.text!!.isNotEmpty()){
                         new_who.defaultHintTextColor =
                             ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
                     }
@@ -341,7 +341,7 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
             new_msg_appartment.showDropDown()
 
         }
-        new_msg_appartment.onFocusChangeListener = View.OnFocusChangeListener { view, b ->
+        new_msg_appartment.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
                 try {
                     new_appartment.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
                     new_msg_appartment.showDropDown()
@@ -377,7 +377,7 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
         new_msg_who.setOnClickListener {
             new_msg_who.showDropDown()
         }
-        new_msg_who.onFocusChangeListener = View.OnFocusChangeListener { view, b ->
+        new_msg_who.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
                 try {
                     new_who.defaultHintTextColor =
                         ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
