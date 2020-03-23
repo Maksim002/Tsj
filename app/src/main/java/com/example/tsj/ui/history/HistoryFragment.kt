@@ -183,7 +183,6 @@ class HistoryFragment : Fragment() {
             autoAddress.showDropDown()
         }
         autoAddress.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
-            if (hasFocus) {
                 try {
                     autoAddress.showDropDown()
 
@@ -193,8 +192,6 @@ class HistoryFragment : Fragment() {
                     }
 
                 } catch (e: Exception) {
-                    println()
-                }
             }
         }
     }
@@ -227,7 +224,6 @@ class HistoryFragment : Fragment() {
 
         }
         autoService.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
-            if (hasFocus) {
                 try {
                     autoService.showDropDown()
                     Service.defaultHintTextColor =
@@ -238,8 +234,6 @@ class HistoryFragment : Fragment() {
                     }
 
                 } catch (e: Exception) {
-                    println()
-                }
             }
         }
     }
@@ -271,12 +265,9 @@ class HistoryFragment : Fragment() {
             autoOperation.showDropDown()
         }
         autoOperation.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
-            if (hasFocus) {
                 try {
                     autoOperation.showDropDown()
                 } catch (e: Exception) {
-                    println()
-                }
             }
         }
     }
