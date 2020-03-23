@@ -22,6 +22,7 @@ import com.example.tsj.service.model.OperationsModel
 import com.example.tsj.service.model.ServicesModel
 import com.example.tsj.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_history.*
+import kotlinx.android.synthetic.main.new_message_owner.*
 import kotlin.collections.ArrayList
 
 class HistoryFragment : Fragment() {
@@ -222,6 +223,10 @@ class HistoryFragment : Fragment() {
             if (b) {
                 try {
                     autoService.showDropDown()
+
+                    if (autoAddress.text.length == 0){
+                        Toast.makeText(context, "Сначало выберте адрес", Toast.LENGTH_LONG).show()
+                    }
                 } catch (e: Exception) {
                     println()
                 }

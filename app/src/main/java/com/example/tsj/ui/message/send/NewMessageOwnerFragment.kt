@@ -30,6 +30,7 @@ import com.example.tsj.service.model.MessagesPersonsModel
 import com.example.tsj.service.model.MessagesPlacementsModel
 import com.example.tsj.ui.message.MessagesViewModel
 import com.example.tsj.utils.MyUtils
+import kotlinx.android.synthetic.main.fragment_history.*
 import kotlinx.android.synthetic.main.new_message_owner.*
 import kotlinx.android.synthetic.main.new_message_owner.view.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -37,8 +38,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 
-class NewMessageOwnerFragment : Fragment(),
-    GeneralClickListener {
+class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
 
     private lateinit var viewModel: MessagesViewModel
     private val STORAGE_PERMISION_CODE: Int = 1000
@@ -81,7 +81,6 @@ class NewMessageOwnerFragment : Fragment(),
 
         return root
     }
-
     override fun onClickItem(position: Int) {
         name.removeAt(position)
         files.removeAt(position)
@@ -90,6 +89,7 @@ class NewMessageOwnerFragment : Fragment(),
         }
         adapterOwner.update(items)
     }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.new_message_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
@@ -231,6 +231,8 @@ class NewMessageOwnerFragment : Fragment(),
         super.onStart()
         initViews()
         getNewMsgHouse()
+        getMessagesPlacements()
+        getMessagesPersons()
     }
 
     private fun initViews() {
@@ -267,6 +269,10 @@ class NewMessageOwnerFragment : Fragment(),
                 new_msg_appartment.setText("")
                 new_msg_who.setAdapter(null)
                 new_msg_who.setText("")
+
+
+
+
             }
         new_msg_house.setOnClickListener {
             new_msg_house.showDropDown()
@@ -306,7 +312,9 @@ class NewMessageOwnerFragment : Fragment(),
                 getMessagesPersons()
                 new_msg_who.setAdapter(null)
                 new_msg_who.setText("")
+
             }
+
         new_msg_appartment.setOnClickListener {
             new_msg_appartment.showDropDown()
         }
@@ -314,6 +322,10 @@ class NewMessageOwnerFragment : Fragment(),
             if (b) {
                 try {
                     new_msg_appartment.showDropDown()
+
+                    if (new_msg_house.text.length == 0){
+                        Toast.makeText(context, "Сначало выберте дом", Toast.LENGTH_LONG).show()
+                    }
                 } catch (e: Exception) {
                     println()
                 }
@@ -350,6 +362,10 @@ class NewMessageOwnerFragment : Fragment(),
             if (b) {
                 try {
                     new_msg_who.showDropDown()
+
+                    if (new_msg_appartment.text.length == 0){
+                        Toast.makeText(context, "Сначало выберте квартиру", Toast.LENGTH_LONG).show()
+                    }
                 } catch (e: Exception) {
                     println()
                 }
