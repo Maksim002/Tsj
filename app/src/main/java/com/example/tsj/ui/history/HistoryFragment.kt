@@ -22,7 +22,6 @@ import com.example.tsj.service.model.OperationsModel
 import com.example.tsj.service.model.ServicesModel
 import com.example.tsj.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_history.*
-import kotlinx.android.synthetic.main.new_message_owner.*
 import kotlin.collections.ArrayList
 
 class HistoryFragment : Fragment() {
@@ -51,7 +50,7 @@ class HistoryFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var root = inflater.inflate(R.layout.fragment_history, container, false)
+        val root = inflater.inflate(R.layout.fragment_history, container, false)
         viewmodel = ViewModelProviders.of(this).get(HistoryViewModel::class.java)
 
         (activity as AppCompatActivity).supportActionBar?.show()
@@ -175,18 +174,23 @@ class HistoryFragment : Fragment() {
                 address = listAddress[position].address!!
                 MainActivity.alert.show()
                 getAutoService()
+                autoService.setAdapter(null)
+                autoService.setText("")
 
             }
         autoAddress.setOnClickListener {
             autoAddress.showDropDown()
         }
-        autoAddress.onFocusChangeListener = View.OnFocusChangeListener { _, b ->
-            if (b) {
+        autoAddress.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
                 try {
                     autoAddress.showDropDown()
+
+                    if (hasFocus || autoAddress.text!!.isNotEmpty()) {
+                        Service.defaultHintTextColor =
+                            ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
+                    }
+
                 } catch (e: Exception) {
-                    println()
-                }
             }
         }
     }
@@ -210,26 +214,25 @@ class HistoryFragment : Fragment() {
         autoService.onItemClickListener =
             AdapterView.OnItemClickListener { parent, _, position, _ ->
                 autoService.showDropDown()
-                Service.defaultHintTextColor =
-                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
                 parent.getItemAtPosition(position).toString()
                 servicesId = listServices[position].serviceId!!
                 serviceName = listServices[position].serviceName!!
             }
         autoService.setOnClickListener {
             autoService.showDropDown()
+
         }
-        autoService.onFocusChangeListener = View.OnFocusChangeListener { _, b ->
-            if (b) {
+        autoService.onFocusChangeListener = View.OnFocusChangeListener { _, _ ->
                 try {
                     autoService.showDropDown()
+                    Service.defaultHintTextColor =
+                        ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
 
                     if (autoAddress.text.isEmpty()){
                         Toast.makeText(context, "Сначало выберте адрес", Toast.LENGTH_LONG).show()
                     }
+
                 } catch (e: Exception) {
-                    println()
-                }
             }
         }
     }
@@ -260,21 +263,18 @@ class HistoryFragment : Fragment() {
         autoOperation.setOnClickListener {
             autoOperation.showDropDown()
         }
-        autoOperation.onFocusChangeListener = View.OnFocusChangeListener { _, b ->
-            if (b) {
+        autoOperation.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
                 try {
                     autoOperation.showDropDown()
                 } catch (e: Exception) {
-                    println()
-                }
             }
         }
     }
 
     private fun getAutoDatesFrom() {
         autoDateFrom.keyListener = null;
-        autoDateFrom.setOnFocusChangeListener { _, b ->
-            if (b) {
+        autoDateFrom.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
                 DatesS.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
                 val picker =
@@ -299,8 +299,8 @@ class HistoryFragment : Fragment() {
 
     private fun getAutoDatesTo() {
         autoDateTo.keyListener = null;
-        autoDateTo.setOnFocusChangeListener { _, b ->
-            if (b) {
+        autoDateTo.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
                 val col =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
                 DatesDo.defaultHintTextColor = col

@@ -31,6 +31,7 @@ class MessageDetailFragment : Fragment(), GeneralClickListener {
 
     private var downloadUrl = ""
     private var idMessage = 0
+
     private val STORAGE_PERMISION_CODE: Int = 1000
     private lateinit var viewModel: MessagesViewModel
     private lateinit var filesAdapter: FilesAdapter
@@ -41,13 +42,13 @@ class MessageDetailFragment : Fragment(), GeneralClickListener {
 
         (activity as AppCompatActivity).supportActionBar!!.show()
         viewModel = ViewModelProviders.of(this).get(MessagesViewModel::class.java)
-        initArguments()
         setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_message_detail, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initArguments()
         initViews()
         initData()
     }
@@ -57,9 +58,18 @@ class MessageDetailFragment : Fragment(), GeneralClickListener {
         viewModel.message(idMessage).observe(this, Observer {
             MainActivity.alert.hide()
             msg_detail_date.text = MyUtils.toMyDate(it.sendDate)
-            msg_detail_sender.text = "от: " + it.personName
+            msg_detail_sender.text = it.personNameHeader + ": " + it.personName
             msg_detail_title.text = it.title
             msg_detail_content.text = it.body
+
+            //в отправленных адресов нету, провераяю для входящих
+            if (it.address != null) {
+                msg_detail_address.visibility = View.VISIBLE
+                msg_detail_address.text = it.address
+            }else {
+                msg_detail_address.visibility = View.GONE
+            }
+
             filesAdapter = FilesAdapter(this)
             val items = it.attachments.map { attachment ->
                 FilesModel(attachment.fileName, attachment.filePath)
@@ -76,6 +86,7 @@ class MessageDetailFragment : Fragment(), GeneralClickListener {
         } catch (e: Exception) {
             0
         }
+
     }
 
     private fun initViews() {

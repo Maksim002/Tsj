@@ -67,9 +67,7 @@ class MessageFragment : Fragment() {
             val pagerAdapter = ViewPagerAdapter(childFragmentManager)
             it.forEach { item ->
                 pagerAdapter.addFragment(
-                    MessagesFragment(
-                        item.id
-                    ), item.name
+                    MessagesFragment(item.id), item.name
                 )
             }
             msg_viewpager.adapter = pagerAdapter
