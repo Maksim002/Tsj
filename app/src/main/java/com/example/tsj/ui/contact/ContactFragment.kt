@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -94,15 +95,23 @@ class ContactFragment : Fragment(), AccountsListener {
             MainActivity.alert.show()
             viewModel.addresses().observe(this, Observer {
                 bottomSheet = AccountsBottomSheet(this, it)
-                try {
-                    contacts_adres.text = it[0].address
+                var find = false
+
+                for (i in it) {
+
+                    if (AppPreferences.licNumber == i.licNumber) {
+                        contacts_test.text = i.licNumber.toString()
+                        contacts_adres.text = i.address
+                        find = true
+                    }
+                }
+                if (!find) {
                     contacts_test.text = it[0].licNumber.toString()
-                } catch (e: Exception) {
+                    contacts_adres.text = it[0].address
                 }
                 MainActivity.alert.hide()
             })
         }
-
 
         root.profile.setOnClickListener {
             bottomSheet.show(fragmentManager!!, "AccountsBottomSheet")
@@ -113,8 +122,9 @@ class ContactFragment : Fragment(), AccountsListener {
     }
 
     override fun getLicNumber(addressModel: AddressModel) {
+        AppPreferences.licNumber = addressModel.licNumber
         contacts_adres.text = addressModel.address
-        contacts_test.text = addressModel.licNumber.toString()
+        contacts_test.text = AppPreferences.licNumber.toString()
         bottomSheet.dismiss()
     }
 }
