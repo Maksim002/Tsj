@@ -131,11 +131,6 @@
         android:id="@+id/navigation"
         app:startDestination="@id/inboxFragment" />
     <fragment
-        android:id="@+id/outboxFragment"
-        android:name="com.example.tsj.ui.message.box.OutboxFragment"
-        android:label="navigation_outbox"
-        tools:layout="@layout/navigation_outbox" />
-    <fragment
         android:id="@+id/navigation_profile"
         android:name="com.example.tsj.ui.profile.ProfileFragment"
         android:label="@string/profile"
@@ -167,5 +162,10 @@
         android:name="com.example.tsj.ui.voting.detail.VoteDetailFragment"
         android:label="@string/voting"
         tools:layout="@layout/fragment_vote_detail" />
+    <fragment
+        android:id="@+id/navigation_request_for_connect"
+        android:name="com.example.tsj.ui.requestForConnect.RequestForConnectFragment"
+        android:label="fragment_connect"
+        tools:layout="@layout/fragment_connect" />
 
 </navigation>

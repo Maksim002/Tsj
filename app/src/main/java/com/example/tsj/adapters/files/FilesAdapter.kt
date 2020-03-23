@@ -18,8 +18,13 @@ class FilesAdapter(
 
     override fun bind(item: FilesModel, holder: ViewHolder) {
         holder.itemView.textName.text = item.text
+        if (item.url.isNotEmpty()) {
+            holder.itemView.imageId.setImageResource(R.drawable.ic_save)
+        }else{
+            holder.itemView.imageId.setImageResource(R.drawable.ic_clear_s)
+        }
         holder.itemView.imageId.setOnClickListener {
-            listener.onClickItem(holder.adapterPosition)
+            listener.onClickItem(holder.adapterPosition, item.url)
         }
     }
 

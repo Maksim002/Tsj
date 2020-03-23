@@ -41,12 +41,11 @@ class RequestFragment : Fragment(), RequestClickItemListener {
     }
 
     private fun initData() {
-        var listAddress = ArrayList<RequestsModel>()
         viewModel.requests().observe(this, Observer {address ->
             address.map {
                 it.id
             }
-            listAddress = address as ArrayList<RequestsModel>
+         var listAddress = address as ArrayList<RequestsModel>
 
             AdapterView.OnItemClickListener{ parent, view, position, i ->
                 requestsId = listAddress.get(position).id

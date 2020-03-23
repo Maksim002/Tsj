@@ -28,7 +28,7 @@ class ProfileFragment : Fragment() {
 
         root.profile_exit_btn.setOnClickListener {
             val builder = AlertDialog.Builder(activity!!)
-            builder.setTitle ("Вы уверены что хотите вытти?")
+            builder.setTitle ("Вы уверены что хотите выйти?")
 
             builder.setPositiveButton (android.R.string.yes){ d: DialogInterface, i: Int ->
                 AppPreferences.clear()
