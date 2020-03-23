@@ -15,8 +15,8 @@ import com.example.tsj.MainActivity
 
 class NewsFragment : Fragment() {
 
-    private lateinit var fAdapter: NewsAdapter
-    private lateinit var recyclerViewF: RecyclerView
+    private lateinit var newsAdapter: NewsAdapter
+    private lateinit var news_rv: RecyclerView
     private lateinit var viewModel: NewsViewModel
 
     override fun onCreateView(
@@ -26,7 +26,7 @@ class NewsFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_news, container, false)
 
-        recyclerViewF = root.findViewById(R.id.recyclerViewFile)
+        news_rv = root.findViewById(R.id.recyclerViewFile)
         getRecyclerView()
         MainActivity.alert.show()
         viewModel = ViewModelProviders.of(this).get(NewsViewModel::class.java)
@@ -37,9 +37,9 @@ class NewsFragment : Fragment() {
     }
 
     private fun getRecyclerView() {
-        fAdapter = NewsAdapter()
-        recyclerViewF.apply {
-            adapter = fAdapter
+        newsAdapter = NewsAdapter()
+        news_rv.apply {
+            adapter = newsAdapter
         }
     }
 
@@ -47,7 +47,7 @@ class NewsFragment : Fragment() {
         super.onStart()
 
         viewModel.news().observe(this, Observer { list->
-            fAdapter.setList(list)
+            newsAdapter.setList(list)
             MainActivity.alert.hide()
         })
     }

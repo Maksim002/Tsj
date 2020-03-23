@@ -148,18 +148,13 @@
         tools:layout="@layout/fragment_vote" />
     <fragment
         android:id="@+id/voteInProcess"
-        android:name="com.example.tsj.ui.voting.tab.VoteInProcessFragment"
+        android:name="com.example.tsj.ui.voting.VoteInProcessFragment"
         android:label="fragment_vote_in_process"
         tools:layout="@layout/fragment_vote_in_process" />
 
     <fragment
-        android:id="@+id/voteEnd"
-        android:name="com.example.tsj.ui.voting.tab.VoteEndFragment"
-        android:label="voting"
-        tools:layout="@layout/fragment_vote_end" />
-    <fragment
         android:id="@+id/navigation_vote_detail"
-        android:name="com.example.tsj.ui.voting.detail.VoteDetailFragment"
+        android:name="com.example.tsj.ui.voting.VoteDetailFragment"
         android:label="@string/voting"
         tools:layout="@layout/fragment_vote_detail" />
     <fragment

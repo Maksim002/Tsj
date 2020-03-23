@@ -166,7 +166,7 @@ class RelativeFragment : Fragment() {
     }
 
 
-    fun clickListener(root: View): AdapterView.OnItemClickListener {
+    private fun clickListener(root: View): AdapterView.OnItemClickListener {
         return AdapterView.OnItemClickListener { parent, _, position, _ ->
             root.text_families_who.showDropDown()
             root.text_families.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))

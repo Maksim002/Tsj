@@ -60,25 +60,25 @@ class HistoryFragment : Fragment() {
 
     private fun validate(): Boolean {
         var valid = true
-        if (autoAddress.getText().toString().length == 0) {
-            Address.setError("Выберите адрес")
+        if (autoAddress.text.toString().isEmpty()) {
+            Address.error = "Выберите адрес"
             valid = false
         } else {
-            Address.setErrorEnabled(false)
+            Address.isErrorEnabled = false
         }
 
-        if (autoService.getText().toString().length == 0) {
-            Service.setError("Выберите услугу")
+        if (autoService.text.toString().isEmpty()) {
+            Service.error = "Выберите услугу"
             valid = false
         } else {
-            Service.setErrorEnabled(false)
+            Service.isErrorEnabled = false
         }
 
-        if (autoOperation.getText().toString().length == 0) {
-            Operation.setError("Выберите операцию")
+        if (autoOperation.text.toString().isEmpty()) {
+            Operation.error = "Выберите операцию"
             valid = false
         } else {
-            Operation.setErrorEnabled(false)
+            Operation.isErrorEnabled = false
         }
 
         return valid
@@ -86,7 +86,7 @@ class HistoryFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        autoService.setKeyListener(null)
+        autoService.keyListener = null
         getAutoOperation()
         getAutoAddress()
         getAutoDatesFrom()
@@ -161,18 +161,18 @@ class HistoryFragment : Fragment() {
             autoAddress.setAdapter(adapterAddress)
             MainActivity.alert.hide()
         })
-        autoAddress.setKeyListener(null)
+        autoAddress.keyListener = null
         DatesS.defaultHintTextColor =
-            ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
+            ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
         DatesDo.defaultHintTextColor =
-            ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
+            ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
         autoAddress.onItemClickListener =
-            AdapterView.OnItemClickListener { parent, view, position, id -> autoAddress.showDropDown()
-                Address.defaultHintTextColor = ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
+            AdapterView.OnItemClickListener { parent, _, position, _ -> autoAddress.showDropDown()
+                Address.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
                 parent.getItemAtPosition(position).toString()
-                placementId = listAddress.get(position).placementId!!
-                licNumber = listAddress.get(position).licNumber!!
-                address = listAddress.get(position).address!!
+                placementId = listAddress[position].placementId!!
+                licNumber = listAddress[position].licNumber!!
+                address = listAddress[position].address!!
                 MainActivity.alert.show()
                 getAutoService()
 
@@ -180,7 +180,7 @@ class HistoryFragment : Fragment() {
         autoAddress.setOnClickListener {
             autoAddress.showDropDown()
         }
-        autoAddress.onFocusChangeListener = View.OnFocusChangeListener { view, b ->
+        autoAddress.onFocusChangeListener = View.OnFocusChangeListener { _, b ->
             if (b) {
                 try {
                     autoAddress.showDropDown()
@@ -208,23 +208,23 @@ class HistoryFragment : Fragment() {
 
 
         autoService.onItemClickListener =
-            AdapterView.OnItemClickListener { parent, view, position, id ->
+            AdapterView.OnItemClickListener { parent, _, position, _ ->
                 autoService.showDropDown()
                 Service.defaultHintTextColor =
-                    ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
                 parent.getItemAtPosition(position).toString()
-                servicesId = listServices.get(position).serviceId!!
-                serviceName = listServices.get(position).serviceName!!
+                servicesId = listServices[position].serviceId!!
+                serviceName = listServices[position].serviceName!!
             }
         autoService.setOnClickListener {
             autoService.showDropDown()
         }
-        autoService.onFocusChangeListener = View.OnFocusChangeListener { view, b ->
+        autoService.onFocusChangeListener = View.OnFocusChangeListener { _, b ->
             if (b) {
                 try {
                     autoService.showDropDown()
 
-                    if (autoAddress.text.length == 0){
+                    if (autoAddress.text.isEmpty()){
                         Toast.makeText(context, "Сначало выберте адрес", Toast.LENGTH_LONG).show()
                     }
                 } catch (e: Exception) {
@@ -248,19 +248,19 @@ class HistoryFragment : Fragment() {
         autoOperation.setKeyListener(null);
 
         autoOperation.onItemClickListener =
-            AdapterView.OnItemClickListener { parent, view, position, id ->
+            AdapterView.OnItemClickListener { parent, _, position, _ ->
                 autoOperation.showDropDown()
                 Operation.defaultHintTextColor =
-                    ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
                 parent.getItemAtPosition(position).toString()
-                operationsId = listOperations.get(position).operationId!!
-                operationName = listOperations.get(position).operationName!!
+                operationsId = listOperations[position].operationId!!
+                operationName = listOperations[position].operationName!!
 
             }
         autoOperation.setOnClickListener {
             autoOperation.showDropDown()
         }
-        autoOperation.onFocusChangeListener = View.OnFocusChangeListener { view, b ->
+        autoOperation.onFocusChangeListener = View.OnFocusChangeListener { _, b ->
             if (b) {
                 try {
                     autoOperation.showDropDown()
@@ -272,13 +272,13 @@ class HistoryFragment : Fragment() {
     }
 
     private fun getAutoDatesFrom() {
-        autoDateFrom.setKeyListener(null);
-        autoDateFrom.setOnFocusChangeListener { view, b ->
+        autoDateFrom.keyListener = null;
+        autoDateFrom.setOnFocusChangeListener { _, b ->
             if (b) {
                 DatesS.defaultHintTextColor =
-                    ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
                 val picker =
-                    DatePickerDialog(activity!!, { datePicker, year1, monthOfYear, dayOfMonth ->
+                    DatePickerDialog(activity!!, { _, year1, monthOfYear, dayOfMonth ->
                         autoDateFrom.setText(
                             MyUtils.convertDate(
                                 dayOfMonth,
@@ -298,17 +298,17 @@ class HistoryFragment : Fragment() {
     }
 
     private fun getAutoDatesTo() {
-        autoDateTo.setKeyListener(null);
-        autoDateTo.setOnFocusChangeListener { view, b ->
+        autoDateTo.keyListener = null;
+        autoDateTo.setOnFocusChangeListener { _, b ->
             if (b) {
                 val col =
-                    ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
                 DatesDo.defaultHintTextColor = col
 
                 val picker =
                     DatePickerDialog(
                         activity!!,
-                        { datePicker, year1, monthOfYear, dayOfMonth ->
+                        { _, year1, monthOfYear, dayOfMonth ->
                             autoDateTo.setText(
                                 MyUtils.convertDate(
                                     dayOfMonth,

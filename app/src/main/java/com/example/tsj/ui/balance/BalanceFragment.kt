@@ -54,8 +54,8 @@ class BalanceFragment : Fragment() {
 
     private fun validate(): Boolean {
         var valid = true
-        if (autoCompleteTextView.getText().toString().length == 0) {
-            name_text_input.setError("Выберите адрес")
+        if (autoCompleteTextView.text.toString().isEmpty()) {
+            name_text_input.error = "Выберите адрес"
             valid = false
         } else {
             name_text_input.error = null
@@ -77,7 +77,7 @@ class BalanceFragment : Fragment() {
 
     }
 
-    fun getAutoOperation() {
+    private fun getAutoOperation() {
         var listAddress = ArrayList<AddressModel>()
         viewModel.addresses().observe(this, Observer { addres ->
             val list = addres.map {
@@ -89,20 +89,20 @@ class BalanceFragment : Fragment() {
             textComplete.setAdapter(adapterO)
             MainActivity.alert.hide()
         })
-        textComplete.setKeyListener(null)
+        textComplete.keyListener = null
         textComplete.onItemClickListener =
-            AdapterView.OnItemClickListener { parent, view, position, id ->
+            AdapterView.OnItemClickListener { _, _, position, _ ->
                 textComplete.showDropDown()
                 name_text_input.defaultHintTextColor =
-                    ColorStateList.valueOf(getResources().getColor(R.color.colorAccent))
-                placementId = listAddress.get(position).placementId!!
-                address = listAddress.get(position).address!!
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+                placementId = listAddress[position].placementId
+                address = listAddress[position].address!!
 
             }
         textComplete.setOnClickListener {
             textComplete.showDropDown()
         }
-        textComplete.onFocusChangeListener = View.OnFocusChangeListener { view, b ->
+        textComplete.onFocusChangeListener = View.OnFocusChangeListener { _, _ ->
             try {
                 textComplete.showDropDown()
                 println()

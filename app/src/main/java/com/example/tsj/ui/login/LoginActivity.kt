@@ -69,19 +69,19 @@ class LoginActivity : AppCompatActivity() {
         Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
     }
 
-    private fun validate(): Boolean{
+    private fun validate(): Boolean {
         var valid = true
         if (text_email.text.toString().isEmpty() || !MyUtils.emailValidate(text_email.text.toString())) {
             main_container_email_input.error = "Введите правильный адрес"
             valid = false
-        }else{
+        } else {
             main_container_email_input.isErrorEnabled = false
         }
 
         if (text_pass.text.toString().isEmpty()) {
             main_container_password_input.error = "Введите ваш пароль"
             valid = false
-        }else{
+        } else {
             main_container_password_input.isErrorEnabled = false
         }
 
@@ -92,20 +92,24 @@ class LoginActivity : AppCompatActivity() {
         super.onStart()
 
         main_enter_button.setOnClickListener {
-                    if (validate()){
-                        val map = HashMap<String, String>()
-                        map.put("grant_type", "password")
-                        map.put("username", text_email.text.toString())
-                        map.put("password", text_pass.text.toString())
+            if (validate()) {
+                val map = HashMap<String, String>()
+                map.put("grant_type", "password")
+                map.put("username", text_email.text.toString())
+                map.put("password", text_pass.text.toString())
 
-                        viewModel.auth(map).observe(this, Observer { result ->
-                            if (AppPreferences.isLogined) {
-                                startMainActivity()
-                                AppPreferences.email = text_email.text.toString()
-                            }
-                        })
+                viewModel.auth(map).observe(this, Observer {
+                    if (it) {
+                        startMainActivity()
+                        AppPreferences.email = text_email.text.toString()
+                    } else {
+                        Toast.makeText(this, "Не правильный логин или пароль", Toast.LENGTH_LONG)
+                            .show()
                     }
+
+                })
             }
+        }
     }
 
     private fun startMainActivity() {
