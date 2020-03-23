@@ -31,7 +31,6 @@ class MessageDetailFragment : Fragment(), GeneralClickListener {
 
     private var downloadUrl = ""
     private var idMessage = 0
-    private var typeId = 0
 
     private val STORAGE_PERMISION_CODE: Int = 1000
     private lateinit var viewModel: MessagesViewModel
@@ -71,8 +70,6 @@ class MessageDetailFragment : Fragment(), GeneralClickListener {
                 msg_detail_address.visibility = View.GONE
             }
 
-
-
             filesAdapter = FilesAdapter(this)
             val items = it.attachments.map { attachment ->
                 FilesModel(attachment.fileName, attachment.filePath)
@@ -90,11 +87,6 @@ class MessageDetailFragment : Fragment(), GeneralClickListener {
             0
         }
 
-        typeId = try {
-            arguments!!.getInt("typeId")
-        } catch (e: Exception) {
-            0
-        }
     }
 
     private fun initViews() {

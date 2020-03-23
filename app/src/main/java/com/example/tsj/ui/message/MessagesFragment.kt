@@ -65,7 +65,6 @@ class MessagesFragment(private val idMessage: Int) : Fragment(), MessageClicklIt
     override fun onClickMessage(item: MessageItemModel) {
         val bundle = Bundle()
         bundle.putInt("id", item.id)
-        bundle.putInt("typeId", idMessage)
         findNavController().navigate(R.id.navigation_message_detail, bundle)
     }
 }
