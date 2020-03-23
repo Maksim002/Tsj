@@ -14,7 +14,6 @@ class RequestForConnectViewModel : ViewModel() {
 
     fun requestForConnection(body: RequestForConnectModel): LiveData<Boolean> {
         val data = MutableLiveData<Boolean>()
-
         RetrofitService.apiService().requestForConnect(body)
             .enqueue(object : retrofit2.Callback<String> {
                 override fun onFailure(call: Call<String>, t: Throwable) {
