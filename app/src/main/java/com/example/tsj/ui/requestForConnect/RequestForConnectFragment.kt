@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
+import com.example.tsj.MainActivity
 import com.example.tsj.R
 import com.example.tsj.service.model.RequestForConnectModel
 import com.example.tsj.utils.MyUtils
@@ -43,98 +45,98 @@ class RequestForConnectFragment : Fragment() {
     private fun validateEditText() {
         connect_send_btn.setOnClickListener {
 
-            val address = connect_address_edit.text.toString()
-            val number = connect_number_edit.text.toString()
 
-            var count = try {
-                connect_count_edit.text.toString().toInt()
-            } catch (e: Exception) {
-                0
-            }
+            if (validate()) {
+                val count = try {
+                    connect_count_edit.text.toString().toInt()
+                } catch (e: Exception) {
+                    0
+                }
 
-            val name = connect_name_edit.text.toString()
-            val email = connect_email_edit.text.toString()
-            val association = connect_tsj_edit.text.toString()
-            val feedback = connect_feedback_edit.text.toString()
-
-            val body =
-                RequestForConnectModel(name, association, address, number, email, count, feedback)
-
-            if (validate(address, number, count, name, email, association)) {
+                val body =
+                    RequestForConnectModel(
+                        connect_name_edit.text.toString(),
+                        connect_tsj_edit.text.toString(),
+                        connect_address_edit.text.toString(),
+                        connect_number_edit.text.toString(),
+                        connect_email_edit.text.toString(),
+                        count,
+                        connect_feedback_edit.text.toString()
+                    )
+                MainActivity.alert.show()
                 viewModel.requestForConnection(body).observe(this, Observer {
                     if (it) {
                         Toast.makeText(context, "Ваше заявка отправлена!", Toast.LENGTH_SHORT)
                             .show()
+                        findNavController().popBackStack()
+
                     } else {
                         Toast.makeText(context, "Ошибка", Toast.LENGTH_SHORT).show()
                     }
+                    MainActivity.alert.hide()
                 })
             }
         }
     }
-// address number count name email associton
 
-    fun validate(
-        address: String,
-        number: String,
-        count: Int,
-        name: String,
-        email: String,
-        association: String
-    ): Boolean {
+    private fun validate(): Boolean {
 
-        var boolean = false
+        var valid = true
 
-        if (address.isEmpty()) {
-            boolean = false
+        if (connect_address_edit.text.toString().isEmpty()) {
+            valid = false
             connect_address.error = "Заполните адрес"
         } else {
-            boolean = true
-            connect_address.error = null
+            connect_address.isErrorEnabled = false
         }
 
 
-        if (number.isEmpty()) {
+        if (connect_number_edit.text.toString().isEmpty()) {
             connect_number.error = "Заполните номер"
-            boolean = false
+            valid = false
         } else {
-            connect_number.error = null
-            boolean = true
+            connect_number.isErrorEnabled = false
         }
-
+        val count = try {
+            connect_count_edit.text.toString().toInt()
+        } catch (e: Exception) {
+            0
+        }
         if (count == 0) {
             connect_count.error = "Заполните количество квартир"
-            boolean = false
+            valid = false
         } else {
-            connect_count.error = null
-            boolean = true
+            connect_count.isErrorEnabled = false
         }
 
-        if (name.isEmpty()) {
+        if (connect_name_edit.text.toString().isEmpty()) {
             connect_name.error = "Заполните ваше имя"
-            boolean = false
+            valid = false
         } else {
-            connect_name.error = null
-            boolean = true
+            connect_name.isErrorEnabled = false
         }
 
-        if (!MyUtils.emailValidate(email)) {
+        if (!MyUtils.emailValidate(connect_email_edit.text.toString())) {
             connect_email.error = "Не правильный email"
-            boolean = false
+            valid = false
         } else {
-            connect_email.error = null
-            boolean = true
+            connect_email.isErrorEnabled = false
         }
 
-        if (association.isEmpty()) {
+        if (connect_tsj_edit.text.toString().isEmpty()) {
             connect_tsj.error = "Заполните наименование"
-            boolean = false
+            valid = false
         } else {
-            connect_tsj.error = null
-            boolean = true
+            connect_tsj.isErrorEnabled = false
         }
 
-        return boolean
+        if (connect_feedback_edit.text.toString().isEmpty()) {
+            connect_feedback.error = "Заполните ваше пожелание"
+            valid = false
+        } else {
+            connect_feedback.isErrorEnabled = false
+        }
+        return valid
     }
 
 }
