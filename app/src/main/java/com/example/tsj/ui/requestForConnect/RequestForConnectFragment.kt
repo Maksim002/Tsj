@@ -1,11 +1,13 @@
 package com.example.tsj.ui.requestForConnect
 
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -15,6 +17,11 @@ import com.example.tsj.R
 import com.example.tsj.service.model.RequestForConnectModel
 import com.example.tsj.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_connect.*
+import kotlinx.android.synthetic.main.fragment_history.*
+import kotlinx.android.synthetic.main.new_message_chairman.*
+import kotlinx.android.synthetic.main.new_message_chairman.view.*
+import kotlinx.android.synthetic.main.new_message_owner.*
+import okhttp3.internal.notify
 
 /**
  * A simple [Fragment] subclass.
@@ -36,6 +43,13 @@ class RequestForConnectFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews()
         validateEditText()
+
+        connect_name_edit.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus && connect_name_edit.text!!.isNotEmpty()) {
+                connect_name.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
+            }
+        }
     }
 
     private fun initViews() {
@@ -139,4 +153,80 @@ class RequestForConnectFragment : Fragment() {
         return valid
     }
 
+    override fun onStart() {
+        super.onStart()
+        setColor()
+    }
+
+    private fun setColor() {
+        connect_name_edit.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus || connect_name_edit.text!!.isNotEmpty()) {
+                connect_name.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            } else if (connect_name_edit.text!!.isEmpty()) {
+                connect_name.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
+            }
+        }
+
+        connect_tsj_edit.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus || connect_tsj_edit.text!!.isNotEmpty()) {
+                connect_tsj.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            } else if (connect_tsj_edit.text!!.isEmpty()) {
+                connect_tsj.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
+            }
+        }
+
+        connect_address_edit.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus || connect_address_edit.text!!.isNotEmpty()) {
+                connect_address.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            } else if (connect_address_edit.text!!.isEmpty()) {
+                connect_address.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
+            }
+        }
+
+        connect_number_edit.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus || connect_address_edit.text!!.isNotEmpty()) {
+                connect_number.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            } else if (connect_number_edit.text!!.isEmpty()) {
+                connect_number.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
+            }
+        }
+
+        connect_email_edit.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus || connect_email_edit.text!!.isNotEmpty()) {
+                connect_email.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            } else if (connect_email_edit.text!!.isEmpty()) {
+                connect_email.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
+            }
+        }
+
+        connect_count_edit.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus || connect_count_edit.text!!.isNotEmpty()) {
+                connect_count.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            } else if (connect_count_edit.text!!.isEmpty()) {
+                connect_count.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
+            }
+        }
+
+        connect_feedback_edit.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus || connect_feedback_edit.text!!.isNotEmpty()) {
+                connect_feedback.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            } else if (connect_feedback_edit.text!!.isEmpty()) {
+                connect_feedback.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
+            }
+        }
+    }
 }

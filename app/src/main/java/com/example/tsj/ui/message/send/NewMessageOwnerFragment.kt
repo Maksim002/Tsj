@@ -271,9 +271,6 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
                 new_msg_who.setAdapter(null)
                 new_msg_who.setText("")
 
-
-
-
             }
         new_msg_house.setOnClickListener {
             new_msg_house.showDropDown()
