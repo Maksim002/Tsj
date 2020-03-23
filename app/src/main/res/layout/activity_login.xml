@@ -78,7 +78,7 @@
             android:layout_marginTop="13dp">
 
             <AutoCompleteTextView
-                android:id="@+id/text_date"
+                android:id="@+id/text_pass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_key_24dp"

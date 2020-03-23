@@ -11,6 +11,7 @@ import com.example.tsj.MainActivity
 import com.example.tsj.R
 import com.example.tsj.service.AppPreferences
 import com.example.tsj.ui.login.forgot.ForgotActivity
+import com.example.tsj.utils.MyUtils
 import kotlinx.android.synthetic.main.activity_login.*
 import java.util.*
 import java.util.regex.Pattern
@@ -70,18 +71,18 @@ class LoginActivity : AppCompatActivity() {
 
     private fun validate(): Boolean{
         var valid = true
-        if (text_email.getText().toString().length == 0) {
-            main_container_email_input.setError("Выберите адрес")
+        if (text_email.text.toString().isEmpty() || MyUtils.emailValidate(text_email.text.toString())) {
+            main_container_email_input.error = "Введите правильный адрес"
             valid = false
         }else{
-            main_container_email_input.setErrorEnabled(false)
+            main_container_email_input.isErrorEnabled = false
         }
 
-        if (text_date.getText().toString().length == 0) {
-            main_container_password_input.setError("Выберите услугу")
+        if (text_pass.text.toString().isEmpty()) {
+            main_container_password_input.error = "Введите ваш пароль"
             valid = false
         }else{
-            main_container_password_input.setErrorEnabled(false)
+            main_container_password_input.isErrorEnabled = false
         }
 
         return valid
@@ -95,7 +96,7 @@ class LoginActivity : AppCompatActivity() {
                         val map = HashMap<String, String>()
                         map.put("grant_type", "password")
                         map.put("username", text_email.text.toString())
-                        map.put("password", text_date.text.toString())
+                        map.put("password", text_pass.text.toString())
 
                         viewModel.auth(map).observe(this, Observer { result ->
                             if (AppPreferences.isLogined) {
