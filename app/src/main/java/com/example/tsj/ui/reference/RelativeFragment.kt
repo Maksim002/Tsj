@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
@@ -21,7 +22,6 @@ import com.example.tsj.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_families.*
 import kotlinx.android.synthetic.main.fragment_families.view.*
 import java.util.*
-
 
 class RelativeFragment : Fragment() {
 
@@ -36,33 +36,73 @@ class RelativeFragment : Fragment() {
     ): View? {
         viewModel = ViewModelProviders.of(this).get(ReferenceViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_families, container, false)
-        initArguments()
-        initViews(root)
-        initData(root)
+            initArguments()
+            initViews(root)
+            initData(root)
+
         return root
+    }
+
+    private fun validate(): Boolean{
+        var valid = true
+        if (edit_families.text.toString().isEmpty()) {
+            text_families_name.error = "ФИО не должно быть пустым"
+            valid = false
+        }else{
+            text_families_name.isErrorEnabled = false
+        }
+
+        if (text_families_date.text.toString().isEmpty()) {
+            text_date.error = "Поле не должно быть пустым"
+            valid = false
+        }else{
+            text_date.isErrorEnabled = false
+        }
+
+        if (text_families_who.text.toString().isEmpty()) {
+            text_families.error = "Поле не должно быть пустым"
+            valid = false
+        }else{
+            text_families.isErrorEnabled = false
+        }
+
+        return valid
     }
 
     override fun onStart() {
         super.onStart()
         initHint()
+        check()
     }
 
+    private fun check(){
+            if (position != -1){
+                buttonFamilies.setText("Обновить")
+                (activity as AppCompatActivity).supportActionBar?.setTitle("Обновить")
+            }
+    }
 
     private fun initHint(){
         if(edit_families.text.isNotEmpty()){
-            text_date.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-            text_families_name.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-            text_families.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+
+                text_date.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+                text_families_name.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+                text_families.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
         }
     }
 
 
     private fun initArguments() {
+
         position = try {
             arguments!!.getInt("position")
         } catch (e: java.lang.Exception) {
             -1
         }
+
     }
 
 
@@ -75,12 +115,9 @@ class RelativeFragment : Fragment() {
             )
             root.text_families_who.setAdapter(adapter)
             if (position != -1) {
-
             }
-
         })
     }
-
 
     private fun initViews(root: View) {
         if (position != -1) {
@@ -89,6 +126,7 @@ class RelativeFragment : Fragment() {
 
         }
         root.findViewById<Button>(R.id.buttonFamilies).setOnClickListener {
+            if (validate()){
             if (position == -1) {
                 AddUpdateReferenceFragment.list.add(
                     RelativeModel(
@@ -108,7 +146,7 @@ class RelativeFragment : Fragment() {
             }
 
             findNavController().popBackStack()
-
+            }
         }
 
         root.edit_families.setOnFocusChangeListener { _, _ ->
@@ -174,6 +212,4 @@ class RelativeFragment : Fragment() {
             relative = (parent.getItemAtPosition(position) as MessagesPersonsModel).name
         }
     }
-
-
 }

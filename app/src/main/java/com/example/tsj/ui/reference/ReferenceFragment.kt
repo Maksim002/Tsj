@@ -1,6 +1,5 @@
 package com.example.tsj.ui.reference
 
-
 import android.content.res.ColorStateList
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -25,6 +24,7 @@ class ReferenceFragment : Fragment(),ReferencesListener {
 
     private lateinit var viewModel: ReferenceViewModel
     private lateinit var adapter: ReferencesAdapter
+
     private var placementId = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,8 +34,6 @@ class ReferenceFragment : Fragment(),ReferencesListener {
         viewModel = ViewModelProviders.of(this).get(ReferenceViewModel::class.java)
         initViews(root)
         initData(root)
-
-
 
         (activity as AppCompatActivity).supportActionBar?.show()
         return root
@@ -117,5 +115,4 @@ class ReferenceFragment : Fragment(),ReferencesListener {
         bundle.putInt("placementId", placementId)
         findNavController().navigate(R.id.navigation_new_reference, bundle)
     }
-
 }
