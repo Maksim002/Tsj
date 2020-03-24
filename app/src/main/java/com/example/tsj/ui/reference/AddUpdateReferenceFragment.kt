@@ -126,7 +126,6 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
                     })
                 }
             }
-
         }
     }
 
@@ -166,7 +165,6 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
         } catch (e: Exception) {
             0
         }
-
     }
 
     private fun getEditReferenceS() {

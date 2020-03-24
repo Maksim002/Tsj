@@ -17,16 +17,11 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.tsj.R
 import com.example.tsj.service.model.MessagesPersonsModel
-import com.example.tsj.service.model.PersonModel
-import com.example.tsj.service.model.ReferenceLiteModel
 import com.example.tsj.service.model.RelativeModel
-import com.example.tsj.service.request.CertificateRequest
 import com.example.tsj.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_families.*
 import kotlinx.android.synthetic.main.fragment_families.view.*
-import kotlinx.android.synthetic.main.fragment_new_reference.*
 import java.util.*
-
 
 class RelativeFragment : Fragment() {
 
@@ -53,7 +48,7 @@ class RelativeFragment : Fragment() {
     private fun validate(): Boolean{
         var valid = true
         if (edit_families.text.toString().isEmpty()) {
-            text_families_name.error = "Вы не выбрили дату"
+            text_families_name.error = "ФИО не должно быть пустым"
             valid = false
         }else{
             text_families_name.isErrorEnabled = false
@@ -137,12 +132,9 @@ class RelativeFragment : Fragment() {
             )
             root.text_families_who.setAdapter(adapter)
             if (position != -1) {
-
             }
-
         })
     }
-
 
     private fun initViews(root: View) {
         if (position != -1) {
