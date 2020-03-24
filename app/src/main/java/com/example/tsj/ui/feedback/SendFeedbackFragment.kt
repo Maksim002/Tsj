@@ -45,25 +45,25 @@ class SendFeedbackFragment : Fragment() {
     }
     private fun validate(): Boolean{
         var valid = true
-        if (edit_to_whom.getText().toString().length == 0) {
-            edit_to_whom_edit.setError("Поле не должно быть пустым")
+        if (edit_to_whom.text.toString().isEmpty()) {
+            edit_to_whom_edit.error = "Поле не должно быть пустым"
             valid = false
         }else{
-            edit_to_whom_edit.setErrorEnabled(false)
+            edit_to_whom_edit.isErrorEnabled = false
         }
 
-        if (edit_your_mail.getText().toString().length == 0) {
-            edit_your_mail_edit.setError("Поле не должно быть пустым")
+        if (edit_your_mail.text.toString().isEmpty()) {
+            edit_your_mail_edit.error = "Поле не должно быть пустым"
             valid = false
         }else{
-            edit_your_mail_edit.setErrorEnabled(false)
+            edit_your_mail_edit.isErrorEnabled = false
         }
 
-        if (edit_write_a_letter.getText().toString().length == 0) {
-            edit_write_a_letter_edit.setError("Поле не должно быть пустым")
+        if (edit_write_a_letter.text.toString().isEmpty()) {
+            edit_write_a_letter_edit.error = "Поле не должно быть пустым"
             valid = false
         }else{
-            edit_write_a_letter_edit.setErrorEnabled(false)
+            edit_write_a_letter_edit.isErrorEnabled = false
         }
 
         return valid

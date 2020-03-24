@@ -56,18 +56,18 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
 
     private fun validate(): Boolean{
         var valid = true
-        if (editReferenceS.getText().toString().length == 0) {
+        if (editReferenceS.text.toString().isEmpty()) {
             referenceS.error = "Вы не выбрили дату"
             valid = false
         }else{
-            referenceS.setErrorEnabled(false)
+            referenceS.isErrorEnabled = false
         }
 
-        if (edit_ref.getText().toString().length == 0) {
-            lRef.setError("Поле не должно быть пустым")
+        if (edit_ref.text.toString().isEmpty()) {
+            lRef.error = "Поле не должно быть пустым"
             valid = false
         }else{
-            lRef.setErrorEnabled(false)
+            lRef.isErrorEnabled = false
         }
 
         return valid

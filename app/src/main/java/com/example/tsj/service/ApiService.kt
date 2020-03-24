@@ -134,8 +134,6 @@ interface ApiService {
         @Query("id") id: Int
     ): Call<List<VoteModel>>
 
-    @GET("Requests/{id}")
-    fun detailsModel(@Path("id") id: Int): Call<DetailsModel>
 
     @GET("Voting/Addresses")
     fun votingAddress(): Call<List<AddressModel>>

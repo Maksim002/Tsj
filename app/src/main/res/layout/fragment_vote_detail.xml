@@ -7,7 +7,7 @@
     android:layout_marginStart="@dimen/marginHorizontal"
     android:layout_marginEnd="@dimen/marginHorizontal"
     android:orientation="vertical"
-    tools:context=".ui.voting.detail.VoteDetailFragment">
+    tools:context=".ui.voting.VoteDetailFragment">
 
     <LinearLayout
         android:id="@+id/vote_container"

@@ -16,7 +16,7 @@ import com.example.tsj.adapters.balance.BalanceAdapter
 import kotlinx.android.synthetic.main.fragment_balance_detail.*
 
 class BalanceDetailFragment : Fragment() {
-    private lateinit var viewModel: BalanceDetailViewModel
+    private lateinit var viewModel: BalanceViewModel
     private lateinit var balanceAdapter: BalanceAdapter
     private lateinit var balance_rv: RecyclerView
 
@@ -29,7 +29,7 @@ class BalanceDetailFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_balance_detail, container, false)
 
 
-        viewModel = ViewModelProviders.of(this).get(BalanceDetailViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(BalanceViewModel::class.java)
         MainActivity.alert.show()
         balance_rv = root.findViewById(R.id.balance_summ_recyclerview)
         getRecyclerView()

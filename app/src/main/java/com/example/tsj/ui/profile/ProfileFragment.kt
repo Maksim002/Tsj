@@ -57,13 +57,13 @@ class ProfileFragment : Fragment() {
 
 
         profile_text_email.setText(AppPreferences.email.toString())
-        profile_text_email.setTag(profile_text_email.getKeyListener())
-        profile_text_email.setKeyListener(null)
+        profile_text_email.tag = profile_text_email.keyListener
+        profile_text_email.keyListener = null
 
         profile_text_password.setText("password")
 
-        profile_text_password.setTag(profile_text_password.getKeyListener())
-        profile_text_password.setKeyListener(null)
+        profile_text_password.tag = profile_text_password.keyListener
+        profile_text_password.keyListener = null
 
         change_password.setOnClickListener {
             findNavController().navigate(R.id.navigation_change_password)
