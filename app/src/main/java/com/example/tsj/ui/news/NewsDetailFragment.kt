@@ -1,4 +1,4 @@
-package com.example.tsj.ui.message.fragments
+package com.example.tsj.ui.news
 
 
 import android.Manifest
@@ -9,120 +9,114 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
-import android.view.*
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.fragment.findNavController
 import com.example.tsj.MainActivity
 import com.example.tsj.R
-import com.example.tsj.adapters.files.FilesAdapter
-import com.example.tsj.adapters.files.FilesModel
 import com.example.tsj.adapters.files.GeneralClickListener
-import com.example.tsj.ui.message.MessagesViewModel
+import com.example.tsj.adapters.news.NewsCommentAdapter
+import com.example.tsj.adapters.news.NewsFilesAdapter
+import com.example.tsj.service.request.NewsCommentRequest
 import com.example.tsj.utils.MyUtils
-import kotlinx.android.synthetic.main.fragment_message_detail.*
+import kotlinx.android.synthetic.main.fragment_news_detail.*
 import java.lang.Exception
 
-class MessageDetailFragment : Fragment(), GeneralClickListener {
+class NewsDetailFragment : Fragment(), GeneralClickListener {
 
-    private var downloadUrl = ""
-    private var idMessage = 0
-
+    private var filePath = " "
     private val STORAGE_PERMISION_CODE: Int = 1000
-    private lateinit var viewModel: MessagesViewModel
-    private lateinit var filesAdapter: FilesAdapter
+
+    private lateinit var viewModel: NewsViewModel
+    private var newsId = 0
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        (activity as AppCompatActivity).supportActionBar!!.show()
-        viewModel = ViewModelProviders.of(this).get(MessagesViewModel::class.java)
-        setHasOptionsMenu(true)
-        return inflater.inflate(R.layout.fragment_message_detail, container, false)
+        viewModel = ViewModelProviders.of(this).get(NewsViewModel::class.java)
+        return inflater.inflate(R.layout.fragment_news_detail, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initArguments()
         initViews()
-        initData()
+        initPostComment()
     }
 
-    private fun initData() {
+    private fun initPostComment() {
+        news_detail_send_btn.setOnClickListener { view ->
+            if (news_detail_edittext.text.isNotEmpty()) {
+                news_detail_edittext.error = null
+                val body = NewsCommentRequest(newsId, news_detail_edittext.text.toString())
+                viewModel.newsCommentPost(body).observe(this, Observer {
+                    if (it) {
+                        Toast.makeText(context, "Ваши коментарии отправлены!", Toast.LENGTH_SHORT)
+                            .show()
+                        news_detail_edittext.setText(" ")
+                        news_detail_edittext.clearFocus()
+                        MyUtils.hideKeyboard(activity!!, view)
+
+                    } else {
+                        Toast.makeText(context, "Что-то пошло не так", Toast.LENGTH_SHORT).show()
+                    }
+                })
+            } else {
+                news_detail_edittext.error = "Коментарии не могут быть пустыми"
+            }
+        }
+    }
+
+
+    private fun initViews() {
         MainActivity.alert.show()
-        viewModel.message(idMessage).observe(this, Observer {
+        viewModel.newsDetail(newsId).observe(this, Observer { item ->
+            news_detail_sender.text = item.personName + " • " + MyUtils.toMyDateTime(item.postDate)
+            news_detail_title.text = item.title
+            news_detail_content.text = item.content
+
+            val fileAdapter = NewsFilesAdapter(item.attachments, this)
+
+            if (fileAdapter.itemCount == 0) {
+                news_detail_fasten_files.visibility = View.GONE
+                news_detail_files_rv.visibility = View.GONE
+            } else {
+                news_detail_files_rv.adapter = fileAdapter
+            }
+        })
+
+        viewModel.newsComment(newsId).observe(this, Observer { item ->
+            val commentAdapter = NewsCommentAdapter(item)
+            if (commentAdapter.itemCount == 0) {
+                news_detail_comment.visibility = View.GONE
+                news_detail_comment_rv.visibility = View.GONE
+            } else {
+                news_detail_comment_rv.adapter = commentAdapter
+            }
             MainActivity.alert.hide()
-            msg_detail_date.text = MyUtils.toMyDate(it.sendDate)
-            msg_detail_sender.text = it.personNameHeader + ": " + it.personName
-            msg_detail_title.text = it.title
-            msg_detail_content.text = it.body
-
-            //в отправленных адресов нету, провераяю для входящих
-            if (it.address != null) {
-                msg_detail_address.visibility = View.VISIBLE
-                msg_detail_address.text = it.address
-            }else {
-                msg_detail_address.visibility = View.GONE
-            }
-
-            filesAdapter = FilesAdapter(this)
-            val items = it.attachments.map { attachment ->
-                FilesModel(attachment.fileName, attachment.filePath)
-            }
-            filesAdapter.update(items)
-            message_files_rv.adapter = filesAdapter
-
         })
     }
 
     private fun initArguments() {
-        idMessage = try {
-            arguments!!.getInt("id")
+        newsId = try {
+            arguments!!.getInt("newsId")
         } catch (e: Exception) {
             0
         }
-
-    }
-
-    private fun initViews() {
-        msg_answer_button.setOnClickListener {
-            val messageBottomSheet = MessageBottomSheet(idMessage)
-            messageBottomSheet.show(fragmentManager!!, "MessageBottomSheet")
-        }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.delete_message_menu, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.delete_message -> {
-                deleteMessage()
-            }
-        }
-        return super.onOptionsItemSelected(item)
-
-    }
-
-    private fun deleteMessage() {
-        MainActivity.alert.show()
-        viewModel.deleteMessage(idMessage).observe(this, Observer {
-            if (it) {
-                findNavController().popBackStack()
-            }
-            MainActivity.alert.hide()
-        })
     }
 
     override fun onClickItem(position: Int, url: String) {
-        downloadUrl = url
+        filePath = url
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(
                     context!!,
@@ -151,11 +145,11 @@ class MessageDetailFragment : Fragment(), GeneralClickListener {
     }
 
     private fun downloadFile(downloadUrl: String) {
-        Toast.makeText(context,"Файл загружается.....",Toast.LENGTH_LONG).show()
+        Toast.makeText(context,"Файл загружается...",Toast.LENGTH_LONG).show()
         val reguest = DownloadManager.Request(Uri.parse(downloadUrl))
         reguest.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
         reguest.setTitle("TSJ.DOM")
-        reguest.setDescription("Файл загружается.....")
+        reguest.setDescription("Файл загружается...")
 
         reguest.allowScanningByMediaScanner()
         reguest.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
@@ -176,7 +170,7 @@ class MessageDetailFragment : Fragment(), GeneralClickListener {
         when (requestCode) {
             STORAGE_PERMISION_CODE -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    downloadFile(downloadUrl)
+                    downloadFile(filePath)
                 } else {
                     //permission from popup denied
                     Toast.makeText(context, "Нет разрешений", Toast.LENGTH_SHORT).show()
