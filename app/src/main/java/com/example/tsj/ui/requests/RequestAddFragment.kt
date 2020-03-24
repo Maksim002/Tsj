@@ -3,13 +3,13 @@ package com.example.tsj.ui.requests
 
 import android.content.res.ColorStateList
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
@@ -21,6 +21,7 @@ import com.example.tsj.service.request.AddRequest
 import com.example.tsj.service.request.UpdateRequest
 import kotlinx.android.synthetic.main.fragment_bid_add.*
 import kotlinx.android.synthetic.main.fragment_bid_add.view.*
+import java.lang.Exception
 
 class RequestAddFragment : Fragment() {
 
@@ -206,6 +207,11 @@ class RequestAddFragment : Fragment() {
             root.bid_add_adres.setText(RequestDetailFragment.requestModel.address.toString())
             root.bid_add_adres.isClickable = false
             root.bid_add_adres.isEnabled = false
+            root.request_add.text = "Обновить"
+            try{
+                (activity as AppCompatActivity?)!!.supportActionBar?.title = "Обновить"
+            }catch (e:Exception){}
+
         }
     }
 

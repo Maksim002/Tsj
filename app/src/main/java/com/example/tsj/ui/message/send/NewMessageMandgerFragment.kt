@@ -112,7 +112,8 @@ class NewMessageMandgerFragment : Fragment(), GeneralClickListener {
             if (ContextCompat.checkSelfPermission(
                     context!!,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE
-                ) == PackageManager.PERMISSION_DENIED) {
+                ) == PackageManager.PERMISSION_DENIED
+            ) {
                 val permissions = arrayOf(
                     Manifest.permission.WRITE_EXTERNAL_STORAGE,
                     Manifest.permission.READ_EXTERNAL_STORAGE
@@ -134,7 +135,8 @@ class NewMessageMandgerFragment : Fragment(), GeneralClickListener {
     }
 
     override fun onRequestPermissionsResult(
-        requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        requestCode: Int, permissions: Array<out String>, grantResults: IntArray
+    ) {
         if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             getMyFile()
         } else {
