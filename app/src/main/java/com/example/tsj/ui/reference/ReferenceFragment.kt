@@ -26,7 +26,7 @@ class ReferenceFragment : Fragment(),ReferencesListener {
 
     private lateinit var viewModel: ReferenceViewModel
     private lateinit var adapter: ReferencesAdapter
-//    private var textToolBar: String = "fefefef"
+
     private var placementId = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -113,7 +113,6 @@ class ReferenceFragment : Fragment(),ReferencesListener {
     override fun onClickItem(item: ReferenceLiteModel) {
         AddUpdateReferenceFragment.list.clear()
         val bundle = Bundle()
-//        bundle.putString("textToolBar", textToolBar)
         bundle.putInt("referenceId", item.id)
         bundle.putInt("placementId", placementId)
         findNavController().navigate(R.id.navigation_new_reference, bundle)

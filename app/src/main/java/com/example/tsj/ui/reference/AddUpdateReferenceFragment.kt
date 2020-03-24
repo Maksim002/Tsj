@@ -30,9 +30,6 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
     private lateinit var viewModel: ReferenceViewModel
     private var update = false
     val data = CertificateRequest()
-    private var textToolBar: String = "Обновлённая справка"
-    private var textBоttom: String = "Обновить"
-
 
     init {
         if (data.person == null)
@@ -195,8 +192,8 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
 
     override fun onClickItem(id: Int) {
         val bundle = Bundle()
-        bundle.putString("textToolBar", textToolBar)
-        bundle.putString("textBоttom", textBоttom)
+        bundle.putString("textToolBar", "Обновлённая справка")
+        bundle.putString("textBottom", "Обновить")
         bundle.putInt("position", id)
         findNavController().navigate(R.id.navigation_families, bundle)
     }

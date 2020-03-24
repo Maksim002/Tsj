@@ -74,17 +74,10 @@ class RelativeFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         initHint()
+        Check()
     }
-    private fun initHint(){
+    private fun Check(){
         if(edit_families.text.isNotEmpty()){
-
-                text_date.defaultHintTextColor =
-                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                text_families_name.defaultHintTextColor =
-                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                text_families.defaultHintTextColor =
-                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-
             if (textToolBar.length == 0 || textBottom.length == 0){
                 buttonFamilies.setText("")
                 (activity as AppCompatActivity?)!!.supportActionBar?.setTitle("")
@@ -95,13 +88,20 @@ class RelativeFragment : Fragment() {
         }
     }
 
+    private fun initHint(){
+        if(edit_families.text.isNotEmpty()){
+
+                text_date.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+                text_families_name.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+                text_families.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+        }
+    }
+
 
     private fun initArguments() {
-        position = try {
-            arguments!!.getInt("position")
-        } catch (e: java.lang.Exception) {
-            -1
-        }
 
         position = try {
             arguments!!.getInt("position")
@@ -116,7 +116,7 @@ class RelativeFragment : Fragment() {
         }
 
         textBottom = try {
-            arguments?.getString("textBоttom").toString()
+            arguments?.getString("textBottom").toString()
         } catch (e: java.lang.Exception) {
             ""
         }
