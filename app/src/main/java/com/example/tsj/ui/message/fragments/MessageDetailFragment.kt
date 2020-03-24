@@ -58,9 +58,9 @@ class MessageDetailFragment : Fragment(), GeneralClickListener {
         viewModel.message(idMessage).observe(this, Observer {
             MainActivity.alert.hide()
             msg_detail_date.text = MyUtils.toMyDate(it.sendDate)
-            msg_detail_sender.text = it.personNameHeader + ": " + it.personName
-            msg_detail_title.text = it.title
-            msg_detail_content.text = it.body
+            msg_detail_sender.text = "От: " + it.personName
+            msg_detail_title.text = "Адрес: " + it.title
+            msg_detail_content.text = "Дата: " + it.body
 
             //в отправленных адресов нету, провераяю для входящих
             if (it.address != null) {

@@ -32,7 +32,7 @@ class MessagesFragment(private val idMessage: Int) : Fragment(), MessageClicklIt
 
         val root = inflater.inflate(R.layout.fraagment_messages, container, false)
         viewModel = ViewModelProviders.of(this).get(MessagesViewModel::class.java)
-        recyclerview = root.findViewById(R.id.msg_recyclerview)
+        recyclerview = root.findViewById<RecyclerView>(R.id.msg_recyclerview)
 
         (activity as AppCompatActivity).supportActionBar!!.show()
         return root
