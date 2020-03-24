@@ -13,7 +13,7 @@ class VoteDetailAdapter(item: List<VotingVariantsModel>) :
     override fun bind(item: VotingVariantsModel, holder: ViewHolder) {
         holder.itemView.vote_detail_precent.text = item.percent.toString() + "%"
         holder.itemView.vote_detail_name.text = item.name
-        holder.itemView.vote_detail_progress.progress = item.percent
+        holder.itemView.vote_detail_progress.progress = item.percent.toInt()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

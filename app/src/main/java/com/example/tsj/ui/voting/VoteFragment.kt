@@ -39,13 +39,22 @@ class VoteFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_vote, container, false)
     }
 
+    override fun onStart() {
+        super.onStart()
+        if (vote_address_auto.text.isNotEmpty())
+            vote_address.defaultHintTextColor =
+                ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
         getVoteAddress()
-        if (placementId!=0 && votingTypes!=null){
-            initTabLayout(placementId,votingTypes)
+        if (placementId != 0 && votingTypes != null) {
+            initTabLayout(placementId, votingTypes)
         }
+
+
+
         vote_unfocus.requestFocus()
     }
 
@@ -79,9 +88,9 @@ class VoteFragment : Fragment() {
             }
 
         vote_address_auto.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
-            if (hasFocus){
+            if (hasFocus) {
                 vote_address_auto.showDropDown()
-            }else{
+            } else {
                 vote_unfocus.requestFocus()
             }
 
@@ -100,7 +109,7 @@ class VoteFragment : Fragment() {
 
     }
 
-    private fun initTabLayout(placementId: Int, votingTypes : List <MessagesPersonsModel> ) {
+    private fun initTabLayout(placementId: Int, votingTypes: List<MessagesPersonsModel>) {
         vote_unfocus.requestFocus()
         val voteVpAdapter = ViewPagerAdapter(childFragmentManager)
         votingTypes.forEach {
@@ -108,7 +117,8 @@ class VoteFragment : Fragment() {
                 VoteInProcessFragment(
                     placementId,
                     it.id
-                ), it.name)
+                ), it.name
+            )
         }
         vote_vp.adapter = voteVpAdapter
         vote_tablayout.setupWithViewPager(vote_vp)
