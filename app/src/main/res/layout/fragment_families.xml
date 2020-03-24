@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:focusableInTouchMode="true">
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/edit_families"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

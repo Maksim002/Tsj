@@ -18,6 +18,7 @@ import com.example.tsj.adapters.references.ReferencesAdapter
 import com.example.tsj.adapters.references.ReferencesListener
 import com.example.tsj.service.model.AddressModel
 import com.example.tsj.service.model.ReferenceLiteModel
+import kotlinx.android.synthetic.main.fragment_balance_detail.view.*
 import kotlinx.android.synthetic.main.fragment_reference.*
 import kotlinx.android.synthetic.main.fragment_reference.view.*
 
@@ -25,6 +26,7 @@ class ReferenceFragment : Fragment(),ReferencesListener {
 
     private lateinit var viewModel: ReferenceViewModel
     private lateinit var adapter: ReferencesAdapter
+//    private var textToolBar: String = "fefefef"
     private var placementId = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,8 +36,6 @@ class ReferenceFragment : Fragment(),ReferencesListener {
         viewModel = ViewModelProviders.of(this).get(ReferenceViewModel::class.java)
         initViews(root)
         initData(root)
-
-
 
         (activity as AppCompatActivity).supportActionBar?.show()
         return root
@@ -113,9 +113,9 @@ class ReferenceFragment : Fragment(),ReferencesListener {
     override fun onClickItem(item: ReferenceLiteModel) {
         AddUpdateReferenceFragment.list.clear()
         val bundle = Bundle()
+//        bundle.putString("textToolBar", textToolBar)
         bundle.putInt("referenceId", item.id)
         bundle.putInt("placementId", placementId)
         findNavController().navigate(R.id.navigation_new_reference, bundle)
     }
-
 }

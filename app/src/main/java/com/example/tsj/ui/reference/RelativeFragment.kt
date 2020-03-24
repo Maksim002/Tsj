@@ -11,15 +11,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.tsj.R
 import com.example.tsj.service.model.MessagesPersonsModel
+import com.example.tsj.service.model.PersonModel
+import com.example.tsj.service.model.ReferenceLiteModel
 import com.example.tsj.service.model.RelativeModel
+import com.example.tsj.service.request.CertificateRequest
 import com.example.tsj.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_families.*
 import kotlinx.android.synthetic.main.fragment_families.view.*
+import kotlinx.android.synthetic.main.fragment_new_reference.*
 import java.util.*
 
 
@@ -29,6 +34,8 @@ class RelativeFragment : Fragment() {
     private var relativeId = 0
     private var relative = ""
     private var position = -1
+    private lateinit var textToolBar: String
+    private lateinit var textBottom: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,23 +43,60 @@ class RelativeFragment : Fragment() {
     ): View? {
         viewModel = ViewModelProviders.of(this).get(ReferenceViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_families, container, false)
-        initArguments()
-        initViews(root)
-        initData(root)
+            initArguments()
+            initViews(root)
+            initData(root)
+
         return root
+    }
+
+    private fun validate(): Boolean{
+        var valid = true
+        if (edit_families.text.toString().isEmpty()) {
+            text_families_name.error = "Вы не выбрили дату"
+            valid = false
+        }else{
+            text_families_name.isErrorEnabled = false
+        }
+
+        if (text_families_date.text.toString().isEmpty()) {
+            text_date.error = "Поле не должно быть пустым"
+            valid = false
+        }else{
+            text_date.isErrorEnabled = false
+        }
+
+        if (text_families_who.text.toString().isEmpty()) {
+            text_families.error = "Поле не должно быть пустым"
+            valid = false
+        }else{
+            text_families.isErrorEnabled = false
+        }
+
+        return valid
     }
 
     override fun onStart() {
         super.onStart()
         initHint()
     }
-
-
     private fun initHint(){
         if(edit_families.text.isNotEmpty()){
-            text_date.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-            text_families_name.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-            text_families.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+
+                text_date.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+                text_families_name.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+                text_families.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+
+            if (textToolBar.length == 0 || textBottom.length == 0){
+                buttonFamilies.setText("")
+                (activity as AppCompatActivity?)!!.supportActionBar?.setTitle("")
+            }else{
+                buttonFamilies.setText(textBottom)
+                (activity as AppCompatActivity?)!!.supportActionBar?.setTitle(textToolBar)
+            }
         }
     }
 
@@ -62,6 +106,24 @@ class RelativeFragment : Fragment() {
             arguments!!.getInt("position")
         } catch (e: java.lang.Exception) {
             -1
+        }
+
+        position = try {
+            arguments!!.getInt("position")
+        } catch (e: java.lang.Exception) {
+            -1
+        }
+
+        textToolBar = try {
+            arguments?.getString("textToolBar").toString()
+        } catch (e: java.lang.Exception) {
+            ""
+        }
+
+        textBottom = try {
+            arguments?.getString("textBоttom").toString()
+        } catch (e: java.lang.Exception) {
+            ""
         }
     }
 
@@ -89,6 +151,7 @@ class RelativeFragment : Fragment() {
 
         }
         root.findViewById<Button>(R.id.buttonFamilies).setOnClickListener {
+            if (validate()){
             if (position == -1) {
                 AddUpdateReferenceFragment.list.add(
                     RelativeModel(
@@ -108,7 +171,7 @@ class RelativeFragment : Fragment() {
             }
 
             findNavController().popBackStack()
-
+            }
         }
 
         root.edit_families.setOnFocusChangeListener { _, _ ->
@@ -174,6 +237,4 @@ class RelativeFragment : Fragment() {
             relative = (parent.getItemAtPosition(position) as MessagesPersonsModel).name
         }
     }
-
-
 }
