@@ -192,8 +192,6 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
 
     override fun onClickItem(id: Int) {
         val bundle = Bundle()
-//        bundle.putString("textToolBar", "Обновлённая справка")
-//        bundle.putString("textBottom", "Обновить")
         bundle.putInt("position", id)
         findNavController().navigate(R.id.navigation_families, bundle)
     }

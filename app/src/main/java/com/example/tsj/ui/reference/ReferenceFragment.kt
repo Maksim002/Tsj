@@ -1,6 +1,5 @@
 package com.example.tsj.ui.reference
 
-
 import android.content.res.ColorStateList
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -18,7 +17,6 @@ import com.example.tsj.adapters.references.ReferencesAdapter
 import com.example.tsj.adapters.references.ReferencesListener
 import com.example.tsj.service.model.AddressModel
 import com.example.tsj.service.model.ReferenceLiteModel
-import kotlinx.android.synthetic.main.fragment_balance_detail.view.*
 import kotlinx.android.synthetic.main.fragment_reference.*
 import kotlinx.android.synthetic.main.fragment_reference.view.*
 

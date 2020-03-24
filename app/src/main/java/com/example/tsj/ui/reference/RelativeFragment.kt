@@ -29,8 +29,6 @@ class RelativeFragment : Fragment() {
     private var relativeId = 0
     private var relative = ""
     private var position = -1
-    private lateinit var textToolBar: String
-    private lateinit var textBottom: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -105,17 +103,6 @@ class RelativeFragment : Fragment() {
             -1
         }
 
-//        textToolBar = try {
-//            arguments?.getString("textToolBar").toString()
-//        } catch (e: java.lang.Exception) {
-//            ""
-//        }
-//
-//        textBottom = try {
-//            arguments?.getString("textBottom").toString()
-//        } catch (e: java.lang.Exception) {
-//            ""
-//        }
     }
 
 
