@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:background="#E5E5E5"
+    android:orientation="vertical"
     tools:context=".ui.reference.RelativeFragment">
 
     <com.google.android.material.textfield.TextInputLayout
@@ -14,18 +14,18 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="13dp"
+        android:focusableInTouchMode="true"
         android:hint="ФИО"
-        app:layout_constraintTop_toTopOf="parent"
-        android:focusableInTouchMode="true">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <AutoCompleteTextView
+        <EditText
             android:id="@+id/edit_families"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:padding="16dp"
             android:background="@null"
-            android:textColor="#001"/>
+            android:padding="16dp"
+            android:textColor="#001"
+            android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <ImageView
@@ -33,13 +33,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_divider"
-        app:layout_constraintTop_toBottomOf="@+id/text_families_name"/>
+        app:layout_constraintTop_toBottomOf="@+id/text_families_name" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_date"
-        android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
         android:hint="Дата рождения"
         app:layout_constraintTop_toBottomOf="@+id/li">
 
@@ -47,11 +47,11 @@
             android:id="@+id/text_families_date"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:drawableEnd="@drawable/ic_expend"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="23dp"
-            android:paddingEnd="8dp"
-            android:background="@null"/>
+            android:background="@null"
+            android:drawableEnd="@drawable/ic_expend"
+            android:paddingEnd="8dp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -60,13 +60,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_divider"
-        app:layout_constraintTop_toBottomOf="@+id/text_date"/>
+        app:layout_constraintTop_toBottomOf="@+id/text_date" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_families"
-        android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
         android:hint="Кем приходится"
         app:layout_constraintTop_toBottomOf="@+id/lin_v">
 
@@ -74,11 +74,11 @@
             android:id="@+id/text_families_who"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:drawableEnd="@drawable/ic_expend"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="23dp"
-            android:paddingEnd="8dp"
             android:background="@null"
+            android:drawableEnd="@drawable/ic_expend"
+            android:paddingEnd="8dp"
             tools:ignore="RtlSymmetry" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -87,10 +87,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_divider"
-        app:layout_constraintTop_toBottomOf="@+id/text_families"/>
+        app:layout_constraintTop_toBottomOf="@+id/text_families" />
 
-    <include layout="@layout/item_focus"
-        android:id="@+id/goneL"/>
+    <include
+        android:id="@+id/goneL"
+        layout="@layout/item_focus" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -103,12 +104,12 @@
             style="@style/RoundedOrangeBackground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="8dp"
+            android:layout_marginRight="16dp"
             android:layout_marginBottom="8dp"
             android:text="Добавить"
-            android:textColor="#FFFFFF"/>
+            android:textColor="#FFFFFF" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

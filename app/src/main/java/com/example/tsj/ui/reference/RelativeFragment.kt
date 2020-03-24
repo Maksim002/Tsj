@@ -74,18 +74,14 @@ class RelativeFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         initHint()
-        Check()
+        check()
     }
-    private fun Check(){
-        if(edit_families.text.isNotEmpty()){
-            if (textToolBar.length == 0 || textBottom.length == 0){
-                buttonFamilies.setText("")
-                (activity as AppCompatActivity?)!!.supportActionBar?.setTitle("")
-            }else{
-                buttonFamilies.setText(textBottom)
-                (activity as AppCompatActivity?)!!.supportActionBar?.setTitle(textToolBar)
+
+    private fun check(){
+            if (position != -1){
+                buttonFamilies.setText("Обновить")
+                (activity as AppCompatActivity).supportActionBar?.setTitle("Обновить")
             }
-        }
     }
 
     private fun initHint(){
@@ -109,17 +105,17 @@ class RelativeFragment : Fragment() {
             -1
         }
 
-        textToolBar = try {
-            arguments?.getString("textToolBar").toString()
-        } catch (e: java.lang.Exception) {
-            ""
-        }
-
-        textBottom = try {
-            arguments?.getString("textBottom").toString()
-        } catch (e: java.lang.Exception) {
-            ""
-        }
+//        textToolBar = try {
+//            arguments?.getString("textToolBar").toString()
+//        } catch (e: java.lang.Exception) {
+//            ""
+//        }
+//
+//        textBottom = try {
+//            arguments?.getString("textBottom").toString()
+//        } catch (e: java.lang.Exception) {
+//            ""
+//        }
     }
 
 
