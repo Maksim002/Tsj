@@ -49,31 +49,18 @@ class VoteInProcessFragment(private val placementId: Int, private val typeId: In
         })
     }
 
-    override fun onVoteItemClicked(model: VoteModel) {
+    override fun onClick(model: VoteModel, isCanVote: Boolean) {
         val bundle = Bundle()
         val endDate = MyUtils.toMyDate(model.endDate)
-        val isCanVote = false
         bundle.putString("date", endDate)
         bundle.putInt("id", model.id)
         bundle.putInt("placementId", placementId)
         bundle.putString("question", model.question)
         bundle.putBoolean("isCanVote", isCanVote)
-
         findNavController().navigate(R.id.navigation_vote_detail, bundle)
     }
 
-    override fun onVoteButtonClicked(model: VoteModel, position: Int) {
-        val bundle = Bundle()
-        val endDate = MyUtils.toMyDate(model.endDate)
-        val isCanVote = true
-        bundle.putString("date", endDate)
-        bundle.putInt("id", model.id)
-        bundle.putInt("placementId", placementId)
-        bundle.putString("question", model.question)
-        bundle.putBoolean("isCanVote", isCanVote)
 
-        findNavController().navigate(R.id.navigation_vote_detail, bundle)
-    }
 
 
 }

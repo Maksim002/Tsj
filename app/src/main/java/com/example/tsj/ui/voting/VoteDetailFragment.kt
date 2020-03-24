@@ -54,6 +54,7 @@ class VoteDetailFragment : Fragment() {
                     radioButton.text = element.name
                     vote_detail_radiogroup.addView(radioButton)
                 }
+
                 MainActivity.alert.hide()
             })
         } else {
@@ -75,10 +76,10 @@ class VoteDetailFragment : Fragment() {
                 MainActivity.alert.show()
                 viewModel.votingPost(body).observe(this, Observer {
                     MainActivity.alert.hide()
-
                     if (it) {
                         vote_detail_radiogroup.visibility = View.GONE
                         vote_detail_rv.visibility = View.VISIBLE
+                        vote_detail_accept_btn.visibility = View.VISIBLE
                         getVotedVariants()
                         Toast.makeText(context, "ОК", Toast.LENGTH_LONG).show()
                     } else {
@@ -97,6 +98,12 @@ class VoteDetailFragment : Fragment() {
             val adapter = VoteDetailAdapter(it.variants)
             vote_detail_rv.adapter = adapter
             MainActivity.alert.hide()
+            var count = 0
+            it.variants.forEach {
+                count += it.count
+            }
+            vote_count.text = "$count голосов"
+
         })
     }
 

@@ -11,11 +11,10 @@ import kotlinx.android.synthetic.main.item_message.view.*
 
 
 class MessageAdapter(
-    listener: MessageClicklItemListener,
+    private var listener: MessageClicklItemListener,
     items: List<MessageItemModel>
 ) :
     GenericRecyclerAdapter<MessageItemModel>(items) {
-    private var listener: MessageClicklItemListener = listener
 
     override fun bind(item: MessageItemModel, holder: ViewHolder) {
         holder.itemView.setOnClickListener { listener.onClickMessage(item) }

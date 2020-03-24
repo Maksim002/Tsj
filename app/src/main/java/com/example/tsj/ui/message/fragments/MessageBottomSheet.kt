@@ -69,7 +69,7 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
             MyUtils.hideKeyboard(activity!!,view)
             if (validate()){
                 if (reply.isToManager) {
-                    viewModel.sendMessageToManager(edit_title.text.toString(), edit_sms.text.toString(), files).observe(this, Observer {
+                    viewModel.sendMessageToManager( edit_sms.text.toString(),edit_title.text.toString(), files).observe(this, Observer {
                         if (it) {
                             dismiss()
                             findNavController().popBackStack()
@@ -78,8 +78,8 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
                 } else {
                     viewModel.messageToPerson(
                         reply.personId,
-                        edit_title.text.toString(),
                         edit_sms.text.toString(),
+                        edit_title.text.toString(),
                         files
                     ).observe(this,
                         Observer {
@@ -119,18 +119,18 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
 
     private fun validate(): Boolean{
         var valid = true
-        if (edit_title.getText().toString().length == 0) {
-            edit_title_text.setError("Заголовок не дожн быть пустым")
+        if (edit_title.text.toString().isEmpty()) {
+            edit_title_text.error = "Заголовок не дожн быть пустым"
             valid = false
         }else{
-            edit_title_text.setErrorEnabled(false)
+            edit_title_text.isErrorEnabled = false
         }
 
-        if (edit_sms.getText().toString().length == 0) {
-            edit_sms_text.setError("Письмо не дожно быть пустым")
+        if (edit_sms.text.toString().isEmpty()) {
+            edit_sms_text.error = "Письмо не дожно быть пустым"
             valid = false
         }else{
-            edit_sms_text.setErrorEnabled(false)
+            edit_sms_text.isErrorEnabled = false
         }
 
         return valid
@@ -139,7 +139,7 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
 
     private fun getMyFile() {
         val myFile = Intent(Intent.ACTION_PICK)
-        myFile.setType("*/*")
+        myFile.type = "*/*"
         startActivityForResult(myFile, IMAGE_PICK_CODE)
     }
 

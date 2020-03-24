@@ -45,12 +45,24 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/vote_detail_rv"
         android:layout_width="match_parent"
-        tools:itemCount="2"
         android:layout_height="wrap_content"
-        tools:listitem="@layout/item_vote_detail"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@id/vote_container"/>
+        app:layout_constraintTop_toBottomOf="@id/vote_container"
+        tools:itemCount="2"
+        tools:listitem="@layout/item_vote_detail" />
+
+
+    <TextView
+        android:id="@+id/vote_count"
+        android:textSize="18dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="48dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintBottom_toBottomOf="parent"
+        />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/vote_detail_accept_btn"
