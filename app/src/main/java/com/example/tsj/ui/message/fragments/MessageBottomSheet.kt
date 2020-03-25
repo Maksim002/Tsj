@@ -12,11 +12,13 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.*
 import android.widget.Toast
+import androidx.appcompat.view.menu.MenuAdapter
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.loader.content.CursorLoader
 import androidx.navigation.fragment.findNavController
+import com.example.tsj.MainActivity
 import com.example.tsj.R
 import com.example.tsj.service.model.ReplyModel
 import com.example.tsj.ui.message.MessagesViewModel
@@ -65,17 +67,21 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
         }
 
         send_msg_imageiew.setOnClickListener {
-
             MyUtils.hideKeyboard(activity!!,view)
             if (validate()){
                 if (reply.isToManager) {
+                    MainActivity.alert.show()
                     viewModel.sendMessageToManager( edit_sms.text.toString(),edit_title.text.toString(), files).observe(this, Observer {
+                        MainActivity.alert.hide()
                         if (it) {
                             dismiss()
                             findNavController().popBackStack()
+                        }else{
+                            Toast.makeText(context, "Ошибка при отпровлении данных", Toast.LENGTH_LONG).show()
                         }
                     })
                 } else {
+                    MainActivity.alert.show()
                     viewModel.messageToPerson(
                         reply.personId,
                         edit_sms.text.toString(),
@@ -83,12 +89,15 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
                         files
                     ).observe(this,
                         Observer {
+                            MainActivity.alert.hide()
                             if (it) {
                                 dismiss()
                                 findNavController().popBackStack()
+                            }else{
+                                Toast.makeText(context, "Ошибка при отпровлении данных", Toast.LENGTH_LONG).show()
                             }
                         })
-                    Toast.makeText(context, "Неудочно", Toast.LENGTH_LONG).show()
+
                 }
             }
 
