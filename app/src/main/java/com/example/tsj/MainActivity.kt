@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
             }
-        }, 1, 60*60000)
+        }, 1, 9*60000)
 
     }
 
