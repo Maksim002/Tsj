@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginStart="@dimen/marginHorizontal"
+    android:layout_marginEnd="@dimen/marginHorizontal"
+    android:layout_marginBottom="2dp"
+    android:elevation="8dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/item_comment_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginHorizontal"
+        android:singleLine="true"
+        tools:text="Абдылдаева Гуляй • 17.01.2020 7:41 AM"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/item_comment_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:lineSpacingExtra="5sp"
+        tools:text="Скоро в ваших ТСЖ будет возможно оплатить через терминалы Pay24!"
+        android:textColor="@color/blackTextColor" />
+
+    <View
+        android:layout_marginTop="8dp"
+        android:background="@color/dividerColor"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+</LinearLayout>
