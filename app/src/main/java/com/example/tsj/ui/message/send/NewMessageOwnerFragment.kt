@@ -21,6 +21,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.loader.content.CursorLoader
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tsj.MainActivity
 import com.example.tsj.R
 import com.example.tsj.adapters.files.FilesAdapter
 import com.example.tsj.adapters.files.FilesModel
@@ -176,8 +177,9 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
                 new_msg_appartment.text.toString()
                 new_msg_who.text.toString()
                 //проверка на пустоту edit text
-
+                MainActivity.alert.show()
                 viewModel.messageToPerson(placementId, body, title, files).observe(this, Observer {
+                    MainActivity.alert.hide()
                     if (it) {
                         findNavController().popBackStack()
                     } else {
@@ -263,7 +265,9 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
 
     private fun getNewMsgHouse() {
         var listHouses = ArrayList<MessagesHousesModel>()
+        MainActivity.alert.show()
         viewModel.houses().observe(this, Observer { services ->
+            MainActivity.alert.hide()
             val list = services.map {
                 it.address
             }
@@ -315,7 +319,9 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
 
     private fun getMessagesPlacements() {
         var listPlacements = ArrayList<MessagesPlacementsModel>()
+        MainActivity.alert.show()
         viewModel.placements(houseId).observe(this, Observer { services ->
+            MainActivity.alert.hide()
             val list = services.map {
                 it.number
             }
@@ -356,7 +362,9 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
 
     private fun getMessagesPersons() {
         var listPersons = ArrayList<MessagesPersonsModel>()
+        MainActivity.alert.show()
         viewModel.persons(placementId).observe(this, Observer { services ->
+            MainActivity.alert.hide()
             val list = services.map {
                 it.name
             }
