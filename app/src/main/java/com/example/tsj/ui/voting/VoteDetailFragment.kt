@@ -81,12 +81,13 @@ class VoteDetailFragment : Fragment() {
                         vote_detail_rv.visibility = View.VISIBLE
                         vote_detail_accept_btn.visibility = View.VISIBLE
                         getVotedVariants()
-                        Toast.makeText(context, "ОК", Toast.LENGTH_LONG).show()
+                        Toast.makeText(context, "Вы уже проголосовали!", Toast.LENGTH_LONG).show()
+                        vote_detail_accept_btn.visibility = View.GONE
                     } else {
-                        Toast.makeText(context, "Error", Toast.LENGTH_LONG).show()
-                    }
-                })
-            } else {
+                Toast.makeText(context, "Что-то пошло не так", Toast.LENGTH_LONG).show()
+            }
+            })
+        } else {
                 Toast.makeText(context, "Вы не выбрали вариант", Toast.LENGTH_LONG).show()
             }
         }
