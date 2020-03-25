@@ -9,13 +9,12 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.tsj.MainActivity
@@ -23,10 +22,10 @@ import com.example.tsj.R
 import com.example.tsj.adapters.files.GeneralClickListener
 import com.example.tsj.adapters.news.NewsCommentAdapter
 import com.example.tsj.adapters.news.NewsFilesAdapter
+import com.example.tsj.service.AppPreferences
 import com.example.tsj.service.request.NewsCommentRequest
 import com.example.tsj.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_news_detail.*
-import java.lang.Exception
 
 class NewsDetailFragment : Fragment(), GeneralClickListener {
 
@@ -54,25 +53,36 @@ class NewsDetailFragment : Fragment(), GeneralClickListener {
     }
 
     private fun initPostComment() {
-        news_detail_send_btn.setOnClickListener { view ->
-            if (news_detail_edittext.text.isNotEmpty()) {
-                news_detail_edittext.error = null
-                val body = NewsCommentRequest(newsId, news_detail_edittext.text.toString())
-                viewModel.newsCommentPost(body).observe(this, Observer {
-                    if (it) {
-                        Toast.makeText(context, "Ваши коментарии отправлены!", Toast.LENGTH_SHORT)
-                            .show()
-                        news_detail_edittext.setText(" ")
-                        news_detail_edittext.clearFocus()
-                        MyUtils.hideKeyboard(activity!!, view)
+        if (AppPreferences.isLogined) {
+            cardview.visibility = View.VISIBLE
+            news_detail_send_btn.setOnClickListener { view ->
+                if (news_detail_edittext.text.isNotEmpty()) {
+                    news_detail_edittext.error = null
+                    val body = NewsCommentRequest(newsId, news_detail_edittext.text.toString())
+                    viewModel.newsCommentPost(body).observe(this, Observer {
+                        if (it) {
+                            Toast.makeText(
+                                context,
+                                "Ваши коментарии отправлены!",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            news_detail_edittext.setText("")
+                            news_detail_edittext.clearFocus()
+                            news_detail_edittext.hint = getString(R.string.comment)
+                            MyUtils.hideKeyboard(activity!!, view)
+                            initComments()
 
-                    } else {
-                        Toast.makeText(context, "Что-то пошло не так", Toast.LENGTH_SHORT).show()
-                    }
-                })
-            } else {
-                news_detail_edittext.error = "Коментарии не могут быть пустыми"
+                        } else {
+                            Toast.makeText(context, "Что-то пошло не так", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    })
+                } else {
+                    news_detail_edittext.error = "Коментарии не могут быть пустыми"
+                }
             }
+        } else {
+            cardview.visibility = View.GONE
         }
     }
 
@@ -94,6 +104,10 @@ class NewsDetailFragment : Fragment(), GeneralClickListener {
             }
         })
 
+        initComments()
+    }
+
+    private fun initComments() {
         viewModel.newsComment(newsId).observe(this, Observer { item ->
             val commentAdapter = NewsCommentAdapter(item)
             if (commentAdapter.itemCount == 0) {
@@ -145,13 +159,12 @@ class NewsDetailFragment : Fragment(), GeneralClickListener {
     }
 
     private fun downloadFile(downloadUrl: String) {
-        Toast.makeText(context,"Файл загружается...",Toast.LENGTH_LONG).show()
+        Toast.makeText(context, "Файл загружается...", Toast.LENGTH_LONG).show()
         val reguest = DownloadManager.Request(Uri.parse(downloadUrl))
         reguest.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
         reguest.setTitle("TSJ.DOM")
         reguest.setDescription("Файл загружается...")
 
-        reguest.allowScanningByMediaScanner()
         reguest.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
         reguest.setDestinationInExternalPublicDir(
             Environment.DIRECTORY_DOWNLOADS,
