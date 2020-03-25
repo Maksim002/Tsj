@@ -151,11 +151,11 @@ class MessageDetailFragment : Fragment(), GeneralClickListener {
     }
 
     private fun downloadFile(downloadUrl: String) {
-        Toast.makeText(context,"Файл загружаеться.....",Toast.LENGTH_LONG).show()
+        Toast.makeText(context,"Файл загружается.....",Toast.LENGTH_LONG).show()
         val reguest = DownloadManager.Request(Uri.parse(downloadUrl))
         reguest.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
         reguest.setTitle("TSJ.DOM")
-        reguest.setDescription("Файл загружаеться.....")
+        reguest.setDescription("Файл загружается.....")
 
         reguest.allowScanningByMediaScanner()
         reguest.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)

@@ -162,5 +162,10 @@
         android:name="com.example.tsj.ui.requestForConnect.RequestForConnectFragment"
         android:label="fragment_connect"
         tools:layout="@layout/fragment_connect" />
+    <fragment
+        android:id="@+id/navigation_news_detail"
+        android:name="com.example.tsj.ui.news.NewsDetailFragment"
+        android:label="@string/news"
+        tools:layout="@layout/fragment_news_detail" />
 
 </navigation>

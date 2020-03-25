@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.news.NewsDetailFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@id/cardview"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/news_detail_sender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/marginHorizontal"
+                android:drawableStart="@drawable/ic_profile"
+                android:drawablePadding="10dp"
+                android:gravity="center"
+                android:singleLine="true"
+                android:textSize="13sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Администрация сайта • 17.01.2020 7:41 AM" />
+
+            <TextView
+                android:id="@+id/news_detail_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="@dimen/marginHorizontal"
+                android:textColor="@color/blackTextColor"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/news_detail_sender"
+                app:layout_constraintTop_toBottomOf="@id/news_detail_sender"
+                tools:text="Оплата через Pay24" />
+
+            <TextView
+                android:id="@+id/news_detail_content"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:lineSpacingExtra="5sp"
+                app:layout_constraintEnd_toEndOf="@id/news_detail_title"
+                app:layout_constraintStart_toStartOf="@id/news_detail_title"
+                app:layout_constraintTop_toBottomOf="@id/news_detail_title"
+                tools:text="@string/news_test" />
+
+            <TextView
+                android:id="@+id/news_detail_fasten_files"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/marginHorizontal"
+                android:text="@string/fastenFiles"
+                android:textColor="@color/blackTextColor"
+                android:textSize="13sp"
+                app:layout_constraintStart_toStartOf="@id/news_detail_title"
+                app:layout_constraintTop_toBottomOf="@id/news_detail_content" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/news_detail_files_rv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/news_detail_fasten_files"
+                tools:itemCount="3"
+                tools:listitem="@layout/item_news_file" />
+
+            <TextView
+                android:id="@+id/news_detail_comment"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/marginHorizontal"
+                android:text="@string/comments"
+                android:textColor="@color/blackTextColor"
+                android:textSize="13sp"
+                app:layout_constraintEnd_toEndOf="@id/news_detail_files_rv"
+                app:layout_constraintStart_toStartOf="@id/news_detail_fasten_files"
+                app:layout_constraintTop_toBottomOf="@id/news_detail_files_rv" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/news_detail_comment_rv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/news_detail_comment"
+                tools:itemCount="4"
+                tools:listitem="@layout/item_news_comment" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/news_detail_edittext"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/marginHorizontal"
+                android:background="@null"
+                android:hint="@string/comment"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/news_detail_send_btn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/news_detail_send_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/marginHorizontal"
+                android:src="@drawable/ic_send"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
