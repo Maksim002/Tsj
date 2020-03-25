@@ -1,7 +1,7 @@
 package com.example.tsj.service
 
-import com.example.tsj.model.MessageItemModel
-import com.example.tsj.model.VoteModel
+import com.example.tsj.service.model.MessageItemModel
+import com.example.tsj.service.model.VoteModel
 import com.example.tsj.service.model.*
 import com.example.tsj.service.model.news.NewsCommentsModel
 import com.example.tsj.service.model.news.NewsDetailModel

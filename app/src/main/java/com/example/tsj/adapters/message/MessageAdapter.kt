@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tsj.R
 import com.example.tsj.common.GenericRecyclerAdapter
 import com.example.tsj.common.ViewHolder
-import com.example.tsj.model.MessageItemModel
+import com.example.tsj.service.model.MessageItemModel
 import com.example.tsj.utils.MyUtils
 import kotlinx.android.synthetic.main.item_message.view.*
 

@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tsj.R
 import com.example.tsj.adapters.message.MessageAdapter
 import com.example.tsj.adapters.message.MessageClicklItemListener
-import com.example.tsj.model.MessageItemModel
+import com.example.tsj.service.model.MessageItemModel
 import com.example.tsj.service.AppPreferences
 import kotlinx.android.synthetic.main.fraagment_messages.*
 
