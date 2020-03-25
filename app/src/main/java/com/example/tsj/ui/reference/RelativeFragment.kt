@@ -6,12 +6,14 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.DatePicker
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
@@ -59,20 +61,22 @@ class RelativeFragment : Fragment() {
             text_date.isErrorEnabled = false
         }
 
-        if (text_families_who.text.toString().isEmpty()) {
-            text_families.error = "Поле не должно быть пустым"
-            valid = false
-        }else{
-            text_families.isErrorEnabled = false
-        }
+//        if (text_families_who.text.toString().isEmpty()) {
+//            text_families_who.error = "Поле не должно быть пустым"
+//            valid = false
+//        }else{
+//            text_families_who.isErrorEnabled = false
+//        }
 
         return valid
     }
 
     override fun onStart() {
         super.onStart()
+
         initHint()
         check()
+
     }
 
     private fun check(){
@@ -89,8 +93,8 @@ class RelativeFragment : Fragment() {
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
                 text_families_name.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                text_families.defaultHintTextColor =
-                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+//                text_families.defaultHintTextColor =
+//                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
         }
     }
 
@@ -110,7 +114,7 @@ class RelativeFragment : Fragment() {
         viewModel.relatives().observe(this, Observer {
             val adapter = ArrayAdapter<MessagesPersonsModel>(
                 context!!,
-                android.R.layout.simple_dropdown_item_1line,
+                android.R.layout.simple_spinner_dropdown_item,
                 it
             )
             root.text_families_who.setAdapter(adapter)
@@ -181,35 +185,6 @@ class RelativeFragment : Fragment() {
                 date?.show()
                 root.goneL.requestFocus()
             }
-        }
-
-        root.text_families_who.keyListener = null
-        root.text_families_who.onItemClickListener = clickListener(root)
-
-        root.text_families_who.setOnClickListener {
-            root.text_families_who.showDropDown()
-        }
-        root.text_families_who.onFocusChangeListener = View.OnFocusChangeListener { _, b ->
-            if (b) {
-                try {
-                    root.text_families_who.showDropDown()
-                } catch (e: Exception) {
-
-                }
-            } else {
-                println()
-            }
-        }
-
-    }
-
-
-    private fun clickListener(root: View): AdapterView.OnItemClickListener {
-        return AdapterView.OnItemClickListener { parent, _, position, _ ->
-            root.text_families_who.showDropDown()
-            root.text_families.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-            relativeId = (parent.getItemAtPosition(position) as MessagesPersonsModel).id
-            relative = (parent.getItemAtPosition(position) as MessagesPersonsModel).name
         }
     }
 }

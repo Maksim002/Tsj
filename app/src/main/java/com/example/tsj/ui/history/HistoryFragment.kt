@@ -244,8 +244,7 @@ class HistoryFragment : Fragment() {
                 it.operationName
             }
             listOperations = operations as ArrayList<OperationsModel>
-            val adapterOperations =
-                ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
+            val adapterOperations = ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
             autoOperation.setAdapter(adapterOperations)
         })
         autoOperation.setKeyListener(null);

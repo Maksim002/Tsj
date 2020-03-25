@@ -9,11 +9,10 @@
     tools:context=".ui.reference.RelativeFragment">
 
     <com.google.android.material.textfield.TextInputLayout
+        android:layout_marginTop="8dp"
         android:id="@+id/text_families_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="13dp"
         android:focusableInTouchMode="true"
         android:hint="ФИО"
         app:layout_constraintTop_toTopOf="parent">
@@ -47,7 +46,7 @@
             android:id="@+id/text_families_date"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginLeft="16dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginRight="23dp"
             android:background="@null"
             android:drawableEnd="@drawable/ic_expend"
@@ -62,32 +61,31 @@
         android:src="@drawable/ic_divider"
         app:layout_constraintTop_toBottomOf="@+id/text_date" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/text_families"
+    <fr.ganfra.materialspinner.MaterialSpinner
+        android:id="@+id/text_families_who"
+        app:ms_baseColor="#858584"
+        app:ms_thickness="0dp"
+        app:ms_highlightColor="#FF9116"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="23dp"
+        app:ms_hintColor="#858584"
+        app:ms_hintTextSize="16sp"
+        app:ms_arrowColor="#858584"
+        app:ms_floatingLabelColor="#FF9116"
         android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@+id/lin_v"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:hint="Кем приходится"
-        app:layout_constraintTop_toBottomOf="@+id/lin_v">
+        app:ms_floatingLabelText="Привет"
+        app:ms_hint="hint"/>
 
-        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
-            android:id="@+id/text_families_who"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="23dp"
-            android:background="@null"
-            android:drawableEnd="@drawable/ic_expend"
-            android:paddingEnd="8dp"
-            tools:ignore="RtlSymmetry" />
-    </com.google.android.material.textfield.TextInputLayout>
 
     <ImageView
         android:id="@+id/in"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_divider"
-        app:layout_constraintTop_toBottomOf="@+id/text_families" />
+        app:layout_constraintTop_toBottomOf="@+id/text_families_who"
+        tools:ignore="UnknownId" />
 
     <include
         android:id="@+id/goneL"
