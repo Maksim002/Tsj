@@ -50,34 +50,42 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-        edit_title.setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus && edit_title.text!!.isNotEmpty()) {
+//        edit_title_text
+        edit_title.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {
                 edit_title_text.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
             }
+
         }
 
         edit_sms.setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus && edit_sms.text!!.isNotEmpty()) {
+            if (hasFocus) {
                 edit_sms_text.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
             }
         }
 
         send_msg_imageiew.setOnClickListener {
-            MyUtils.hideKeyboard(activity!!,view)
-            if (validate()){
+            MyUtils.hideKeyboard(activity!!, view)
+            if (validate()) {
                 if (reply.isToManager) {
                     MainActivity.alert.show()
-                    viewModel.sendMessageToManager( edit_sms.text.toString(),edit_title.text.toString(), files).observe(this, Observer {
+                    viewModel.sendMessageToManager(
+                        edit_sms.text.toString(),
+                        edit_title.text.toString(),
+                        files
+                    ).observe(this, Observer {
                         MainActivity.alert.hide()
                         if (it) {
                             dismiss()
                             findNavController().popBackStack()
-                        }else{
-                            Toast.makeText(context, "Ошибка при отпровлении данных", Toast.LENGTH_LONG).show()
+                        } else {
+                            Toast.makeText(
+                                context,
+                                "Ошибка при отпровлении данных",
+                                Toast.LENGTH_LONG
+                            ).show()
                         }
                     })
                 } else {
@@ -93,8 +101,12 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
                             if (it) {
                                 dismiss()
                                 findNavController().popBackStack()
-                            }else{
-                                Toast.makeText(context, "Ошибка при отпровлении данных", Toast.LENGTH_LONG).show()
+                            } else {
+                                Toast.makeText(
+                                    context,
+                                    "Ошибка при отпровлении данных",
+                                    Toast.LENGTH_LONG
+                                ).show()
                             }
                         })
 
@@ -126,19 +138,19 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
         }
     }
 
-    private fun validate(): Boolean{
+    private fun validate(): Boolean {
         var valid = true
         if (edit_title.text.toString().isEmpty()) {
             edit_title_text.error = "Заголовок не дожн быть пустым"
             valid = false
-        }else{
+        } else {
             edit_title_text.isErrorEnabled = false
         }
 
         if (edit_sms.text.toString().isEmpty()) {
             edit_sms_text.error = "Письмо не дожно быть пустым"
             valid = false
-        }else{
+        } else {
             edit_sms_text.isErrorEnabled = false
         }
 

@@ -3,10 +3,9 @@ package com.example.tsj.ui.message
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.tsj.model.MessageItemModel
+import com.example.tsj.service.model.MessageItemModel
 import com.example.tsj.service.RetrofitService
 import com.example.tsj.service.model.*
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody

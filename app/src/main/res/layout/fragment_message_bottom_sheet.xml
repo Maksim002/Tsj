@@ -56,13 +56,15 @@
         android:layout_marginTop="15dp"
         android:focusableInTouchMode="true"
         android:hint="Заголовок"
+        app:hintTextColor="@color/orangeColor"
         app:layout_constraintTop_toBottomOf="@id/divider">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp" />
+            android:padding="16dp"
+            android:theme="@style/BottomLineColor" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -70,15 +72,17 @@
         android:id="@+id/edit_sms_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:hintTextColor="@color/colorAccent"
         app:layout_constraintTop_toBottomOf="@id/edit_title_text">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_sms"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="top"
             android:hint="Написать письмо"
-            android:padding="16dp" />
+            android:padding="16dp"
+            android:theme="@style/BottomLineColor" />
     </com.google.android.material.textfield.TextInputLayout>
 
 

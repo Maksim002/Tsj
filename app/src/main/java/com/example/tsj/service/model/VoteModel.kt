@@ -1,4 +1,4 @@
-package com.example.tsj.model
+package com.example.tsj.service.model
 
 import com.google.gson.annotations.SerializedName
 //dastan
