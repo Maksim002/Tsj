@@ -8,7 +8,6 @@ import com.example.tsj.service.RetrofitService
 import com.example.tsj.service.model.AddressModel
 import com.example.tsj.service.model.MessagesPersonsModel
 import com.example.tsj.service.model.vote.VotingDetailModel
-import com.example.tsj.service.request.AddRequest
 import com.example.tsj.service.request.VotingRequest
 import retrofit2.Call
 import retrofit2.Callback

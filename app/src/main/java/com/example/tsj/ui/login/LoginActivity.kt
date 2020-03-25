@@ -25,7 +25,6 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        AppPreferences.init(application)
 
         viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
 
@@ -97,6 +96,7 @@ class LoginActivity : AppCompatActivity() {
                 map.put("grant_type", "password")
                 map.put("username", text_email.text.toString())
                 map.put("password", text_pass.text.toString())
+                map.put("refresh_token", "")
 
                 viewModel.auth(map).observe(this, Observer {
                     if (it) {
