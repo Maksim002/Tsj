@@ -81,7 +81,7 @@ class VoteDetailFragment : Fragment() {
                         vote_detail_rv.visibility = View.VISIBLE
                         vote_detail_accept_btn.visibility = View.VISIBLE
                         getVotedVariants()
-                        Toast.makeText(context, "Ваш голос принять!", Toast.LENGTH_LONG).show()
+                        Toast.makeText(context, "Ваш голос принят!", Toast.LENGTH_LONG).show()
                         vote_detail_accept_btn.visibility = View.GONE
                     } else {
                 Toast.makeText(context, "Вы уже проголосовали", Toast.LENGTH_LONG).show()
