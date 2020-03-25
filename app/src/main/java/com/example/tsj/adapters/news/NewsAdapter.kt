@@ -1,32 +1,25 @@
-package com.example.tsj.adapters
+package com.example.tsj.adapters.news
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tsj.R
-import com.example.tsj.adapters.news.NewsViewHolder
-import com.example.tsj.service.model.NewsModel
+import com.example.tsj.common.GenericRecyclerAdapter
+import com.example.tsj.common.ViewHolder
+import com.example.tsj.service.model.news.NewsModel
+import com.example.tsj.utils.MyUtils
+import kotlinx.android.synthetic.main.item_file.view.*
 
-class NewsAdapter() : RecyclerView.Adapter<NewsViewHolder>() {
-
-    private var list: List<NewsModel> = ArrayList()
-
-    fun setList(list: List<NewsModel>) {
-        this.list = list
-        notifyDataSetChanged()
+class NewsAdapter(item: List<NewsModel>, listener: NewsOnItemClickListener) :
+    GenericRecyclerAdapter<NewsModel>(item) {
+    private val listener: NewsOnItemClickListener = listener
+    override fun bind(item: NewsModel, holder: ViewHolder) {
+        holder.itemView.titleF.text = item.title
+        holder.itemView.addressF.text = MyUtils.toMyDateTime(item.postDate)
+        holder.itemView.setOnClickListener { listener.newsItemOnClicked(item) }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
-        return NewsViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_file, parent, false)
-        )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return super.onCreateViewHolder(parent, R.layout.item_file)
     }
 
-    override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
-        holder.bind(list[position])
-    }
-
-    override fun getItemCount(): Int {
-        return list.size
-    }
 }

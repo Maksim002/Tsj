@@ -3,12 +3,11 @@ package com.example.tsj.ui.voting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.tsj.model.VoteModel
+import com.example.tsj.service.model.VoteModel
 import com.example.tsj.service.RetrofitService
 import com.example.tsj.service.model.AddressModel
 import com.example.tsj.service.model.MessagesPersonsModel
 import com.example.tsj.service.model.vote.VotingDetailModel
-import com.example.tsj.service.request.AddRequest
 import com.example.tsj.service.request.VotingRequest
 import retrofit2.Call
 import retrofit2.Callback

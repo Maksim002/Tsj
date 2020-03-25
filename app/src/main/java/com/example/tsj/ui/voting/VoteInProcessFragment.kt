@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.tsj.R
 import com.example.tsj.adapters.vote.VoteAdapter
 import com.example.tsj.adapters.vote.VoteItemClickListener
-import com.example.tsj.model.VoteModel
+import com.example.tsj.service.model.VoteModel
 import com.example.tsj.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_vote_in_process.*
 

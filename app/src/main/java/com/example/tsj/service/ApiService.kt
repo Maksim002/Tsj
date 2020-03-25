@@ -1,13 +1,13 @@
 package com.example.tsj.service
 
-import com.example.tsj.model.MessageItemModel
-import com.example.tsj.model.VoteModel
+import com.example.tsj.service.model.MessageItemModel
+import com.example.tsj.service.model.VoteModel
 import com.example.tsj.service.model.*
+import com.example.tsj.service.model.news.NewsCommentsModel
+import com.example.tsj.service.model.news.NewsDetailModel
+import com.example.tsj.service.model.news.NewsModel
 import com.example.tsj.service.model.vote.VotingDetailModel
-import com.example.tsj.service.request.AddRequest
-import com.example.tsj.service.request.CertificateRequest
-import com.example.tsj.service.request.UpdateRequest
-import com.example.tsj.service.request.VotingRequest
+import com.example.tsj.service.request.*
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -19,6 +19,11 @@ interface ApiService {
     @FormUrlEncoded
     @POST("Token")
     fun auth(@FieldMap params: Map<String, String>): Call<AuthModel>
+
+    @Headers("Content-Type: application/x-www-form-urlencoded")
+    @FormUrlEncoded
+    @POST("Token")
+    fun refreshToken(@FieldMap params: Map<String, String>): Call<AuthModel>
 
     @GET("News")
     fun news(): Call<List<NewsModel>>
@@ -73,7 +78,6 @@ interface ApiService {
 
     @GET("Requests/{id}")
     fun requestGet(@Path("id") id: Int): Call<RequestModel>
-
 
     @DELETE("Requests/{id}")
     fun requestDelete(@Path("id") id: Int): Call<String>
@@ -134,7 +138,6 @@ interface ApiService {
         @Query("id") id: Int
     ): Call<List<VoteModel>>
 
-
     @GET("Voting/Addresses")
     fun votingAddress(): Call<List<AddressModel>>
 
@@ -155,5 +158,17 @@ interface ApiService {
 
     @POST("RequestForConnection")
     fun requestForConnect(@Body body: RequestForConnectModel): Call<String>
+
+    @GET("News/{id}")
+    fun newsDetail(@Path("id") id: Int): Call<NewsDetailModel>
+
+    @GET("News/{id}/Comments")
+    fun newsComment(@Path("id") id: Int): Call<List<NewsCommentsModel>>
+
+    @POST("News/Comments")
+    fun newsCommentPost(@Body body: NewsCommentRequest): Call<String>
+
+    @DELETE("News/Comments/{id}")
+    fun newsCommentDelete(@Path("id") id: Int): Call<String>
 
 }

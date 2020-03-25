@@ -27,6 +27,12 @@ object AppPreferences {
             it.putString("token", value)
         }
 
+    var refreshToken: String?
+        get() = preferences.getString("refresh_token", "")
+        set(value) = preferences.edit {
+            it.putString("refresh_token", value)
+        }
+
     var isLogined: Boolean
         get() = preferences.getBoolean("isLogined", false)
         set(value) = preferences.edit {
@@ -51,6 +57,7 @@ object AppPreferences {
             it.putString("token", "")
             it.putBoolean("isLogined", false)
             it.putString("email", "")
+            it.putString("refresh_token", "")
             it.apply()
         }
 

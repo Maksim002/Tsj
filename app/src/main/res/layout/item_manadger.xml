@@ -31,8 +31,7 @@
                 android:id="@+id/imageId"
                 android:layout_width="100dp"
                 android:layout_height="40dp"
-                android:layout_weight="1"
-                />
+                android:layout_weight="1" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>

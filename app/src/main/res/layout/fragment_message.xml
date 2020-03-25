@@ -60,11 +60,12 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/msg_add"
+            app:maxImageSize="56dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/marginHorizontal"
             android:backgroundTint="#FFF"
-            android:foreground="@drawable/ic_floataction_button"
+            android:src="@drawable/ic_floataction_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 

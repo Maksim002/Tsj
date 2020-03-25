@@ -74,5 +74,13 @@
     <string name="urFeedback">Ваше пожелания</string>
     <string name="send">ОТПРАВИТЬ</string>
     <string name="connect">Подключить</string>
+    <string name="admin">Администрация сайта</string>
+    <string name="news_test">Портал ТСЖ — это интернет-сайт для вашего товарищества (ТСЖ, СНТ и др.), на котором предусмотрены специальные механизмы для размещения, хранения и оперативного обмена информацией между правлением и членами ТСЖ</string>
+    <string name="comments">КОМЕНТАРИИ:</string>
+    <string name="news">Новость</string>
+    <string name="fastenFiles">ПРИКРЕПЛЕННЫЕ ФАЙЛЫ:</string>
+    <string name="comment">Коментрировать...</string>
+    <string name="yesDelete">Да, удалить</string>
+    <string name="no">Нет</string>
 
 </resources>
