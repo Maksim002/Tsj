@@ -35,20 +35,22 @@ class VoteFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(VoteViewModel::class.java)
 
         // Inflate the layout for this fragment
-        (activity as AppCompatActivity).supportActionBar?.hide()
+        (activity as AppCompatActivity).supportActionBar?.show()
         return inflater.inflate(R.layout.fragment_vote, container, false)
     }
 
     override fun onStart() {
         super.onStart()
-        if (vote_address_auto.text.isNotEmpty())
-            vote_address.defaultHintTextColor =
+        if (vote_auto_text.text.isNotEmpty())
+            vote_text_layout.defaultHintTextColor =
                 ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initViews()
         getVoteAddress()
+
+
         if (placementId != 0 && votingTypes != null) {
             initTabLayout(placementId, votingTypes)
         }
@@ -73,12 +75,12 @@ class VoteFragment : Fragment() {
                 android.R.layout.simple_dropdown_item_1line,
                 it
             )
-            vote_address_auto.setAdapter(addressAdapter)
+            vote_auto_text.setAdapter(addressAdapter)
         })
 
-        vote_address_auto.onItemClickListener =
+        vote_auto_text.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
-                vote_address.defaultHintTextColor =
+                vote_text_layout.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
                 parent.getItemAtPosition(position).toString()
                 placementId = (parent.getItemAtPosition(position) as AddressModel).placementId
@@ -87,24 +89,17 @@ class VoteFragment : Fragment() {
                 vote_unfocus.requestFocus()
             }
 
-        vote_address_auto.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
+        vote_auto_text.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
             if (hasFocus) {
-                vote_address_auto.showDropDown()
+                vote_auto_text.showDropDown()
             } else {
                 vote_unfocus.requestFocus()
             }
 
         }
 
-        vote_address_auto.setOnClickListener {
-            vote_address_auto.showDropDown()
-        }
-
-    }
-
-    private fun initViews() {
-        vote_back_btn.setOnClickListener {
-            findNavController().popBackStack()
+        vote_auto_text.setOnClickListener {
+            vote_auto_text.showDropDown()
         }
 
     }
