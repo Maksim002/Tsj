@@ -48,6 +48,7 @@
             android:layout_height="50dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="23dp"
+            app:ms_arrowColor="@color/grayColor"
             android:background="@null"
             android:drawableEnd="@drawable/ic_expend"
             android:paddingEnd="8dp" />
@@ -62,21 +63,23 @@
         app:layout_constraintTop_toBottomOf="@+id/text_date" />
 
     <fr.ganfra.materialspinner.MaterialSpinner
+        android:layout_marginTop="5dp"
         android:id="@+id/text_families_who"
-        app:ms_baseColor="#858584"
+        app:ms_baseColor="@color/grayColor"
         app:ms_thickness="0dp"
-        app:ms_highlightColor="#FF9116"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="23dp"
-        app:ms_hintColor="#858584"
-        app:ms_hintTextSize="16sp"
-        app:ms_arrowColor="#858584"
-        app:ms_floatingLabelColor="#FF9116"
+        app:ms_highlightColor="@color/orangeColor"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="22dp"
+        app:ms_hintColor="@color/grayColor"
+        app:ms_arrowSize="10dp"
+        app:ms_hintTextSize="18dp"
+        app:ms_arrowColor="@color/itemIconTintF"
+        app:ms_floatingLabelColor="@color/orangeColor"
         android:layout_width="match_parent"
         app:layout_constraintTop_toBottomOf="@+id/lin_v"
         android:layout_height="wrap_content"
-        app:ms_floatingLabelText="Привет"
-        app:ms_hint="hint"/>
+        app:ms_floatingLabelText="Кем приходится"
+        app:ms_hint="Кем приходится"/>
 
 
     <ImageView

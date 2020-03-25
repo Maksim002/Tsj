@@ -112,11 +112,9 @@ class RelativeFragment : Fragment() {
 
     private fun initData(root: View) {
         viewModel.relatives().observe(this, Observer {
-            val adapter = ArrayAdapter<MessagesPersonsModel>(
-                context!!,
-                android.R.layout.simple_spinner_dropdown_item,
-                it
-            )
+            val adapter = ArrayAdapter<MessagesPersonsModel>(context!!, android.R.layout.simple_spinner_item, it)
+            adapter.setDropDownViewResource(android.R.layout.simple_expandable_list_item_1)
+
             root.text_families_who.setAdapter(adapter)
             if (position != -1) {
             }
