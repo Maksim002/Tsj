@@ -71,7 +71,7 @@ class NewsViewModel : ViewModel() {
         return data
     }
 
-    fun newsCommentPost (body: NewsCommentRequest): LiveData<Boolean> {
+    fun newsCommentPost(body: NewsCommentRequest): LiveData<Boolean> {
         val data = MutableLiveData<Boolean>()
         RetrofitService.apiService().newsCommentPost(body)
             .enqueue(object : Callback<String> {
@@ -88,5 +88,20 @@ class NewsViewModel : ViewModel() {
         return data
     }
 
+
+    fun newsCommentDelete(id: Int): LiveData<Boolean> {
+        val data = MutableLiveData<Boolean>()
+
+        RetrofitService.apiService().newsCommentDelete(id).enqueue(object : Callback<String> {
+            override fun onFailure(call: Call<String>, t: Throwable) {
+                data.value = false
+            }
+
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+                data.value = response.isSuccessful
+            }
+        })
+        return data
+    }
 
 }

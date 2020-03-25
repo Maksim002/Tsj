@@ -4,6 +4,8 @@ package com.example.tsj.ui.news
 import android.Manifest
 import android.app.DownloadManager
 import android.content.Context
+import android.content.DialogInterface
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
@@ -13,6 +15,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -20,14 +23,17 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.tsj.MainActivity
 import com.example.tsj.R
 import com.example.tsj.adapters.files.GeneralClickListener
+import com.example.tsj.adapters.news.CommentOnItemListener
 import com.example.tsj.adapters.news.NewsCommentAdapter
 import com.example.tsj.adapters.news.NewsFilesAdapter
 import com.example.tsj.service.AppPreferences
+import com.example.tsj.service.model.news.NewsCommentsModel
 import com.example.tsj.service.request.NewsCommentRequest
+import com.example.tsj.ui.login.LoginActivity
 import com.example.tsj.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_news_detail.*
 
-class NewsDetailFragment : Fragment(), GeneralClickListener {
+class NewsDetailFragment : Fragment(), GeneralClickListener, CommentOnItemListener {
 
     private var filePath = " "
     private val STORAGE_PERMISION_CODE: Int = 1000
@@ -109,7 +115,7 @@ class NewsDetailFragment : Fragment(), GeneralClickListener {
 
     private fun initComments() {
         viewModel.newsComment(newsId).observe(this, Observer { item ->
-            val commentAdapter = NewsCommentAdapter(item)
+            val commentAdapter = NewsCommentAdapter(item, this)
             if (commentAdapter.itemCount == 0) {
                 news_detail_comment.visibility = View.GONE
                 news_detail_comment_rv.visibility = View.GONE
@@ -191,4 +197,25 @@ class NewsDetailFragment : Fragment(), GeneralClickListener {
             }
         }
     }
+
+    override fun newsCommentButton(model: NewsCommentsModel) {
+        val builder = AlertDialog.Builder(activity!!)
+        builder.setTitle("Вы действительно хотите удалить?")
+
+        builder.setPositiveButton(getString(R.string.yesDelete)) { d: DialogInterface, i: Int ->
+            viewModel.newsCommentDelete(model.id).observe(this, Observer
+            {
+                if (it) {
+                    Toast.makeText(context, "Удалено!", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(context, "Вы уже удалили", Toast.LENGTH_SHORT).show()
+                }
+            })
+            initComments()
+        }
+        builder.setNegativeButton(getString(R.string.no)) { d: DialogInterface, i: Int ->
+        }
+        builder.show()
+    }
+
 }
