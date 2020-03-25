@@ -213,7 +213,6 @@ class NewsDetailFragment : Fragment(), GeneralClickListener, CommentOnItemListen
             })
             initComments()
         }
-
         builder.setNegativeButton(getString(R.string.no)) { d: DialogInterface, i: Int ->
         }
         builder.show()
