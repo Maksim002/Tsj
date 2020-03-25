@@ -178,7 +178,7 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
                 new_msg_who.text.toString()
                 //проверка на пустоту edit text
                 MainActivity.alert.show()
-                viewModel.messageToPerson(placementId, body, title, files).observe(this, Observer {
+                viewModel.messageToPerson(personId, body, title, files).observe(this, Observer {
                     MainActivity.alert.hide()
                     if (it) {
                         findNavController().popBackStack()
