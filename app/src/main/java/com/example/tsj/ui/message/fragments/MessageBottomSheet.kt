@@ -12,11 +12,13 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.*
 import android.widget.Toast
+import androidx.appcompat.view.menu.MenuAdapter
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.loader.content.CursorLoader
 import androidx.navigation.fragment.findNavController
+import com.example.tsj.MainActivity
 import com.example.tsj.R
 import com.example.tsj.service.model.ReplyModel
 import com.example.tsj.ui.message.MessagesViewModel
@@ -65,30 +67,37 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
         }
 
         send_msg_imageiew.setOnClickListener {
-
             MyUtils.hideKeyboard(activity!!,view)
             if (validate()){
                 if (reply.isToManager) {
-                    viewModel.sendMessageToManager(edit_title.text.toString(), edit_sms.text.toString(), files).observe(this, Observer {
+                    MainActivity.alert.show()
+                    viewModel.sendMessageToManager( edit_sms.text.toString(),edit_title.text.toString(), files).observe(this, Observer {
+                        MainActivity.alert.hide()
                         if (it) {
                             dismiss()
                             findNavController().popBackStack()
+                        }else{
+                            Toast.makeText(context, "Ошибка при отпровлении данных", Toast.LENGTH_LONG).show()
                         }
                     })
                 } else {
+                    MainActivity.alert.show()
                     viewModel.messageToPerson(
                         reply.personId,
-                        edit_title.text.toString(),
                         edit_sms.text.toString(),
+                        edit_title.text.toString(),
                         files
                     ).observe(this,
                         Observer {
+                            MainActivity.alert.hide()
                             if (it) {
                                 dismiss()
                                 findNavController().popBackStack()
+                            }else{
+                                Toast.makeText(context, "Ошибка при отпровлении данных", Toast.LENGTH_LONG).show()
                             }
                         })
-                    Toast.makeText(context, "Неудочно", Toast.LENGTH_LONG).show()
+
                 }
             }
 
@@ -119,18 +128,18 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
 
     private fun validate(): Boolean{
         var valid = true
-        if (edit_title.getText().toString().length == 0) {
-            edit_title_text.setError("Заголовок не дожн быть пустым")
+        if (edit_title.text.toString().isEmpty()) {
+            edit_title_text.error = "Заголовок не дожн быть пустым"
             valid = false
         }else{
-            edit_title_text.setErrorEnabled(false)
+            edit_title_text.isErrorEnabled = false
         }
 
-        if (edit_sms.getText().toString().length == 0) {
-            edit_sms_text.setError("Письмо не дожно быть пустым")
+        if (edit_sms.text.toString().isEmpty()) {
+            edit_sms_text.error = "Письмо не дожно быть пустым"
             valid = false
         }else{
-            edit_sms_text.setErrorEnabled(false)
+            edit_sms_text.isErrorEnabled = false
         }
 
         return valid
@@ -139,7 +148,7 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
 
     private fun getMyFile() {
         val myFile = Intent(Intent.ACTION_PICK)
-        myFile.setType("*/*")
+        myFile.type = "*/*"
         startActivityForResult(myFile, IMAGE_PICK_CODE)
     }
 

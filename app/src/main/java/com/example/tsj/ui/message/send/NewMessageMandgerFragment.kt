@@ -25,6 +25,7 @@ import androidx.lifecycle.Observer
 import androidx.loader.content.CursorLoader
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tsj.MainActivity
 import com.example.tsj.adapters.files.FilesAdapter
 import com.example.tsj.adapters.files.FilesModel
 import com.example.tsj.adapters.files.GeneralClickListener
@@ -112,7 +113,8 @@ class NewMessageMandgerFragment : Fragment(), GeneralClickListener {
             if (ContextCompat.checkSelfPermission(
                     context!!,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE
-                ) == PackageManager.PERMISSION_DENIED) {
+                ) == PackageManager.PERMISSION_DENIED
+            ) {
                 val permissions = arrayOf(
                     Manifest.permission.WRITE_EXTERNAL_STORAGE,
                     Manifest.permission.READ_EXTERNAL_STORAGE
@@ -134,7 +136,8 @@ class NewMessageMandgerFragment : Fragment(), GeneralClickListener {
     }
 
     override fun onRequestPermissionsResult(
-        requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        requestCode: Int, permissions: Array<out String>, grantResults: IntArray
+    ) {
         if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             getMyFile()
         } else {
@@ -178,8 +181,9 @@ class NewMessageMandgerFragment : Fragment(), GeneralClickListener {
         if (validate()) {
             val title = manager_msg_referenc.text.toString()
             val body = manager_msg_content.text.toString()
-            //
+            MainActivity.alert.show()
             viewModel.sendMessageToManager(body, title, files).observe(this, Observer {
+                MainActivity.alert.hide()
                 if (it) {
                     findNavController().popBackStack()
                 } else {

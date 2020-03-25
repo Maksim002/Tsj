@@ -4,25 +4,24 @@ package com.example.tsj.ui.reference
 import android.app.DatePickerDialog
 import android.content.res.ColorStateList
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.tsj.R
 import com.example.tsj.adapters.families.FamilyAdapter
 import com.example.tsj.adapters.families.FamilyListener
-import com.example.tsj.service.request.CertificateRequest
 import com.example.tsj.service.model.PersonModel
 import com.example.tsj.service.model.RelativeModel
+import com.example.tsj.service.request.CertificateRequest
 import com.example.tsj.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_new_reference.*
 import kotlinx.android.synthetic.main.fragment_new_reference.view.*
-import java.lang.Exception
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -124,7 +123,6 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
                     })
                 }
             }
-
         }
     }
 
@@ -133,10 +131,12 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
         getEditReferenceS()
         if (update) {
             reference_save.text = "Обновить"
+            (activity as AppCompatActivity?)!!.supportActionBar?.setTitle("Обновленная справка")
         }
         if (data.id != null && data.id != 0 && !update) {
             update = true
             reference_save.text = "Обновить"
+            (activity as AppCompatActivity?)!!.supportActionBar?.setTitle("Обновленная справка")
             viewModel.reference(data.id).observe(this, Observer {
                 data.person.id = it.person.id
                 edit_ref.setText(it.person.fullName)
@@ -195,6 +195,4 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
         bundle.putInt("position", id)
         findNavController().navigate(R.id.navigation_families, bundle)
     }
-
-
 }
