@@ -57,16 +57,16 @@ class MessageDetailFragment : Fragment(), GeneralClickListener {
         MainActivity.alert.show()
         viewModel.message(idMessage).observe(this, Observer {
             MainActivity.alert.hide()
-            msg_detail_date.text = MyUtils.toMyDate(it.sendDate)
+            msg_detail_date.text = "Дата: "+MyUtils.toMyDate(it.sendDate)
             msg_detail_sender.text = it.personNameHeader + ": " + it.personName
-            msg_detail_title.text = "Адрес: " + it.title
-            msg_detail_content.text = "Дата: " + it.body
+            msg_detail_title.text = it.title
+            msg_detail_content.text = it.body
 
             //в отправленных адресов нету, провераяю для входящих
             if (it.address != null) {
                 msg_detail_address.visibility = View.VISIBLE
-                msg_detail_address.text = it.address
-            }else {
+                msg_detail_address.text ="Адрес: ${it.address}"
+            } else {
                 msg_detail_address.visibility = View.GONE
             }
 
@@ -151,7 +151,7 @@ class MessageDetailFragment : Fragment(), GeneralClickListener {
     }
 
     private fun downloadFile(downloadUrl: String) {
-        Toast.makeText(context,"Файл загружается.....",Toast.LENGTH_LONG).show()
+        Toast.makeText(context, "Файл загружается.....", Toast.LENGTH_LONG).show()
         val reguest = DownloadManager.Request(Uri.parse(downloadUrl))
         reguest.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
         reguest.setTitle("TSJ.DOM")
