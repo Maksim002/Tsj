@@ -18,6 +18,7 @@ class LoginViewModel : ViewModel() {
             override fun onResponse(call: Call<AuthModel>, response: Response<AuthModel>) {
                 if (response.isSuccessful) {
                     AppPreferences.token = response.body()?.accessToken
+                    AppPreferences.refreshToken = response.body()?.refresh_token
                     AppPreferences.isLogined = true
                     result.value = true
                 } else {

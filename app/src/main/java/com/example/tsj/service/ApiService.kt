@@ -20,6 +20,11 @@ interface ApiService {
     @POST("Token")
     fun auth(@FieldMap params: Map<String, String>): Call<AuthModel>
 
+    @Headers("Content-Type: application/x-www-form-urlencoded")
+    @FormUrlEncoded
+    @POST("Token")
+    fun refreshToken(@FieldMap params: Map<String, String>): Call<AuthModel>
+
     @GET("News")
     fun news(): Call<List<NewsModel>>
 
