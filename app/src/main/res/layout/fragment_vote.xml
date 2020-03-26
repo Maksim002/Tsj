@@ -30,7 +30,7 @@
             <AutoCompleteTextView
                 android:id="@+id/vote_auto_text"
                 android:layout_width="match_parent"
-                android:layout_height="43dp"
+                android:layout_height="wrap_content"
                 android:drawableEnd="@drawable/ic_expend"
                 android:editable="false"
                 android:hint="Выберите ваш адрес"
