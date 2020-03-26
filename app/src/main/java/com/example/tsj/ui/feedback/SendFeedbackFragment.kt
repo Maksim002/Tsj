@@ -3,8 +3,6 @@ package com.example.tsj.ui.feedback
 
 import android.content.res.ColorStateList
 import android.os.Bundle
-import android.text.TextUtils
-import android.util.Patterns
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
