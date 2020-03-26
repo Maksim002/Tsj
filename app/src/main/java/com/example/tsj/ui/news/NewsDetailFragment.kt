@@ -98,8 +98,8 @@ class NewsDetailFragment : Fragment(), GeneralClickListener, CommentOnItemListen
             news_detail_sender.text = item.personName + " • " + MyUtils.toMyDateTime(item.postDate)
             news_detail_title.text = item.title
             news_detail_content.text = item.content
-            var imageUrls = ArrayList<String>()
-            var filesList = ArrayList<NewsAttachments>()
+            val imageUrls = ArrayList<String>()
+            val filesList = ArrayList<NewsAttachments>()
 
             for (i in item.attachments.indices) {
                 if (item.attachments[i].type == 0) {

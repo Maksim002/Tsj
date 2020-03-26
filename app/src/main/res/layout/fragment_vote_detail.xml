@@ -33,7 +33,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:orientation="vertical" />
+            android:orientation="vertical">
+        </RadioGroup>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/vote_detail_rv"
