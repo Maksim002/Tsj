@@ -144,8 +144,8 @@ class RelativeFragment : Fragment() {
         }
 
         root.text_families_date.keyListener = null
-        root.text_families_date.setOnFocusChangeListener { _, b ->
-            if (b) {
+        root.text_families_date.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
                 val mDet = DatePickerDialog.OnDateSetListener { _: DatePicker, year, month, day ->
                     val data = MyUtils.convertDate(day, month, year)
                     root.text_families_date.setText(data)
@@ -168,7 +168,10 @@ class RelativeFragment : Fragment() {
                 }
                 date?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                 date?.show()
-                root.goneL.requestFocus()
+                root.text_families_date.clearFocus()
+            }
+            if (!hasFocus && root.text_families_date.text.isNotEmpty()){
+                root.text_date.error = null
             }
         }
     }

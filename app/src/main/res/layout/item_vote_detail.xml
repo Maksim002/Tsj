@@ -21,14 +21,15 @@
 
     <TextView
         android:id="@+id/vote_detail_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
         android:maxLines="1"
         tools:text="В выписке из ЕГРЮЛ"
         android:textColor="@color/blackTextColor"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@id/vote_detail_precent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@id/vote_detail_precent" />
 
     <ProgressBar

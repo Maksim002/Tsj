@@ -5,7 +5,6 @@ import android.Manifest
 import android.app.DownloadManager
 import android.content.Context
 import android.content.DialogInterface
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
@@ -26,10 +25,11 @@ import com.example.tsj.adapters.files.GeneralClickListener
 import com.example.tsj.adapters.news.CommentOnItemListener
 import com.example.tsj.adapters.news.NewsCommentAdapter
 import com.example.tsj.adapters.news.NewsFilesAdapter
+import com.example.tsj.adapters.news.ViewPagerAdapter
 import com.example.tsj.service.AppPreferences
+import com.example.tsj.service.model.news.NewsAttachments
 import com.example.tsj.service.model.news.NewsCommentsModel
 import com.example.tsj.service.request.NewsCommentRequest
-import com.example.tsj.ui.login.LoginActivity
 import com.example.tsj.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_news_detail.*
 
@@ -92,15 +92,30 @@ class NewsDetailFragment : Fragment(), GeneralClickListener, CommentOnItemListen
         }
     }
 
-
     private fun initViews() {
         MainActivity.alert.show()
         viewModel.newsDetail(newsId).observe(this, Observer { item ->
             news_detail_sender.text = item.personName + " • " + MyUtils.toMyDateTime(item.postDate)
             news_detail_title.text = item.title
             news_detail_content.text = item.content
+            var imageUrls = ArrayList<String>()
+            var filesList = ArrayList<NewsAttachments>()
 
-            val fileAdapter = NewsFilesAdapter(item.attachments, this)
+            for (i in item.attachments.indices) {
+                if (item.attachments[i].type == 0) {
+                    imageUrls.add(item.attachments[i].filePath)
+                } else {
+                    filesList.add(item.attachments[i])
+                }
+            }
+
+            if (imageUrls.isNotEmpty()) {
+                news_detail_viewpager.adapter = ViewPagerAdapter(requireContext(), imageUrls)
+            } else {
+                news_detail_viewpager.visibility = View.GONE
+            }
+
+            val fileAdapter = NewsFilesAdapter(filesList, this)
 
             if (fileAdapter.itemCount == 0) {
                 news_detail_fasten_files.visibility = View.GONE
