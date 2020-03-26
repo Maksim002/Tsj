@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.example.tsj.MainActivity
 import com.example.tsj.R
 import com.example.tsj.service.model.ChangePasswordModel
 import kotlinx.android.synthetic.main.fragment_change_password.*
@@ -34,7 +35,9 @@ class ChangePassword : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initHint()
+
         change_password_btn.setOnClickListener {
+            MainActivity.alert.show()
             if (validate()) {
                 val model = ChangePasswordModel()
                 model.oldPassword = change_password_old.text.toString()
@@ -47,6 +50,7 @@ class ChangePassword : Fragment() {
                     }else{
                         Toast.makeText(context,"Произошла ошибка при изменении пароля",Toast.LENGTH_LONG).show()
                     }
+                    MainActivity.alert.hide()
                 })
             }
 

@@ -26,6 +26,7 @@ class SendFeedbackFragment : Fragment() {
         inflater.inflate(R.menu.feedback_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.send_feedback -> {
@@ -34,32 +35,37 @@ class SendFeedbackFragment : Fragment() {
         }
         return super.onOptionsItemSelected(item)
 
-    }   
+    }
 
     private fun senFeedBack() {
         MyUtils.hideKeyboard(activity!!, view!!)
-        if (validate()){
+        if (validate()) {
 
         }
-        if (MyUtils.emailValidate(edit_your_mail.text.toString())){
-        }else{
-            edit_your_mail_edit.error = "Не правельный email"
-        }
+
     }
-    private fun validate(): Boolean{
+
+    private fun validate(): Boolean {
         var valid = true
         if (edit_to_whom.text.toString().isEmpty()) {
             edit_to_whom_edit.error = "Поле не должно быть пустым"
             valid = false
-        }else{
+        } else {
             edit_to_whom_edit.isErrorEnabled = false
         }
 
         if (edit_write_a_letter.text.toString().isEmpty()) {
             edit_write_a_letter_edit.error = "Поле не должно быть пустым"
             valid = false
-        }else{
+        } else {
             edit_write_a_letter_edit.isErrorEnabled = false
+        }
+
+        if (!MyUtils.emailValidate(edit_your_mail.text.toString())) {
+            valid = false
+            edit_your_mail_edit.error = "Не правельный email"
+        } else {
+            edit_your_mail_edit.isErrorEnabled = false
         }
 
         return valid
@@ -69,7 +75,8 @@ class SendFeedbackFragment : Fragment() {
         super.onStart()
         intColor()
     }
-    private fun intColor(){
+
+    private fun intColor() {
         edit_to_whom.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus && edit_to_whom.text!!.isNotEmpty()) {
                 edit_to_whom_edit.defaultHintTextColor =
