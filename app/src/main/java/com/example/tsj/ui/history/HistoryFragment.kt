@@ -99,21 +99,21 @@ class HistoryFragment : Fragment() {
         }
 
         show.setOnClickListener {
-            if (validate()){
-                    val bundle = Bundle()
-                    bundle.putInt("res", licNumber)
-                    bundle.putString("serviceName", serviceName)
-                    bundle.putInt("servicesId", servicesId)
+            if (validate()) {
+                val bundle = Bundle()
+                bundle.putInt("res", licNumber)
+                bundle.putString("serviceName", serviceName)
+                bundle.putInt("servicesId", servicesId)
 
-                    bundle.putString("operationName", operationName)
-                    bundle.putInt("operationsId", operationsId)
+                bundle.putString("operationName", operationName)
+                bundle.putInt("operationsId", operationsId)
 
-                    bundle.putString("address", address)
-                    bundle.putInt("placementId", placementId)
+                bundle.putString("address", address)
+                bundle.putInt("placementId", placementId)
 
-                    bundle.putString("to", autoDateFrom.text.toString())
-                    bundle.putString("from", autoDateTo.text.toString())
-                    Navigation.findNavController(it).navigate(R.id.navigation_personal, bundle)
+                bundle.putString("to", autoDateFrom.text.toString())
+                bundle.putString("from", autoDateTo.text.toString())
+                Navigation.findNavController(it).navigate(R.id.navigation_personal, bundle)
             }
         }
     }
@@ -156,7 +156,8 @@ class HistoryFragment : Fragment() {
             }
             listAddress = address as ArrayList<AddressModel>
 
-            val adapterAddress = ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
+            val adapterAddress =
+                ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
             autoAddress.setAdapter(adapterAddress)
             MainActivity.alert.hide()
         })
@@ -166,8 +167,10 @@ class HistoryFragment : Fragment() {
         DatesDo.defaultHintTextColor =
             ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
         autoAddress.onItemClickListener =
-            AdapterView.OnItemClickListener { parent, _, position, _ -> autoAddress.showDropDown()
-                Address.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            AdapterView.OnItemClickListener { parent, _, position, _ ->
+                autoAddress.showDropDown()
+                Address.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
                 parent.getItemAtPosition(position).toString()
                 placementId = listAddress[position].placementId!!
                 licNumber = listAddress[position].licNumber!!
@@ -181,18 +184,23 @@ class HistoryFragment : Fragment() {
         autoAddress.setOnClickListener {
             autoAddress.showDropDown()
         }
+
         autoAddress.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
-                try {
-                    autoAddress.showDropDown()
+            try {
+                autoAddress.showDropDown()
 
-                    if (hasFocus || autoAddress.text!!.isNotEmpty()) {
-                        Service.defaultHintTextColor =
-                            ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
-                    }
+                if (!hasFocus && autoAddress.text!!.isNotEmpty()) {
+                    Service.defaultHintTextColor =
+                        ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
 
-                } catch (e: Exception) {
+                    Address.error = null
+                }
+
+            } catch (e: Exception) {
             }
         }
+
+        autoAddress.clearFocus()
     }
 
     private fun getAutoService() {
@@ -222,19 +230,23 @@ class HistoryFragment : Fragment() {
             autoService.showDropDown()
 
         }
-        autoService.onFocusChangeListener = View.OnFocusChangeListener { _, _ ->
-                try {
-                    autoService.showDropDown()
+        autoService.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
+            try {
+                autoService.showDropDown()
+                if (!hasFocus && autoAddress.text.isNotEmpty()) {
                     Service.defaultHintTextColor =
                         ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+                    Service.error = null
+                }
 
-                    if (autoAddress.text.isEmpty()){
-                        Toast.makeText(context, "Сначало выберте адрес", Toast.LENGTH_LONG).show()
-                    }
+                if (autoAddress.text.isEmpty()) {
+                    Toast.makeText(context, "Сначало выберте адрес", Toast.LENGTH_LONG).show()
+                }
 
-                } catch (e: Exception) {
+            } catch (e: Exception) {
             }
         }
+        autoService.clearFocus()
     }
 
     private fun getAutoOperation() {
@@ -247,7 +259,7 @@ class HistoryFragment : Fragment() {
             val adapterOperations = ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
             autoOperation.setAdapter(adapterOperations)
         })
-        autoOperation.setKeyListener(null);
+        autoOperation.setKeyListener(null)
 
         autoOperation.onItemClickListener =
             AdapterView.OnItemClickListener { parent, _, position, _ ->
@@ -261,13 +273,16 @@ class HistoryFragment : Fragment() {
             }
         autoOperation.setOnClickListener {
             autoOperation.showDropDown()
+
+            autoOperation.clearFocus()
         }
         autoOperation.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
-                try {
-                    autoOperation.showDropDown()
-                } catch (e: Exception) {
+            autoOperation.showDropDown()
+            if (!hasFocus && autoOperation.text.isNotEmpty()) {
+                Operation.error = null
             }
         }
+        autoOperation.clearFocus()
     }
 
     private fun getAutoDatesFrom() {
@@ -291,7 +306,7 @@ class HistoryFragment : Fragment() {
 
                     }, yearStart, monthStart, dayStart)
                 picker.show()
-                goneL.requestFocus()
+                autoDateFrom.clearFocus()
             }
         }
     }
@@ -322,7 +337,7 @@ class HistoryFragment : Fragment() {
                         }, yearEnd, monthEnd, dayEnd
                     )
                 picker.show()
-                goneL.requestFocus()
+                autoDateTo.clearFocus()
             }
         }
     }
