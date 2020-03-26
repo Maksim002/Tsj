@@ -171,4 +171,8 @@ interface ApiService {
     @DELETE("News/Comments/{id}")
     fun newsCommentDelete(@Path("id") id: Int): Call<String>
 
+    @POST("ChangePassword")
+    fun changePassword(@Body model: ChangePasswordModel): Call<Unit>
+
 }
+
