@@ -8,19 +8,19 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/Address"
-        android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
+        android:layout_marginTop="15dp"
+        android:focusableInTouchMode="true"
         android:hint="Адрес"
-        android:focusableInTouchMode="true">
+        android:padding="16dp">
 
         <AutoCompleteTextView
             android:id="@+id/autoAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableEnd="@drawable/ic_expend"
-            android:background="@null"/>
+            android:background="@null"
+            android:drawableEnd="@drawable/ic_expend" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -29,23 +29,23 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:src="@drawable/ic_divider"/>
+        android:src="@drawable/ic_divider" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/Service"
-        android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
+        android:layout_marginTop="15dp"
+        android:focusableInTouchMode="true"
         android:hint="Услуга"
-        android:focusableInTouchMode="true">
+        android:padding="16dp">
 
         <AutoCompleteTextView
             android:id="@+id/autoService"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableEnd="@drawable/ic_expend"
-            android:background="@null"/>
+            android:background="@null"
+            android:drawableEnd="@drawable/ic_expend" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -54,23 +54,24 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:src="@drawable/ic_divider"/>
+        android:src="@drawable/ic_divider" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/Operation"
-        android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
+        android:layout_marginTop="15dp"
+        android:focusableInTouchMode="true"
         android:hint="Операция"
-        android:focusableInTouchMode="true">
+        android:padding="16dp">
 
         <AutoCompleteTextView
             android:id="@+id/autoOperation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@null"
             android:drawableEnd="@drawable/ic_expend"
-            android:background="@null"/>
+            android:editable="false" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -79,7 +80,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:src="@drawable/ic_divider"/>
+        android:src="@drawable/ic_divider" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -88,41 +89,41 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/DatesS"
-            android:layout_marginTop="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Даты с"
-            android:layout_weight="1">
+            android:layout_marginTop="15dp"
+            android:layout_weight="1"
+            android:hint="Даты с">
 
             <EditText
                 android:id="@+id/autoDateFrom"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:drawableEnd="@drawable/ic_date_range_black_24dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="23dp"
-                android:paddingEnd="8dp"
-                android:background="@null"/>
+                android:background="@null"
+                android:drawableEnd="@drawable/ic_date_range_black_24dp"
+                android:paddingEnd="8dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/DatesDo"
-            android:layout_marginTop="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Дата по"
-            android:layout_weight="1">
+            android:layout_marginTop="15dp"
+            android:layout_weight="1"
+            android:hint="Дата по">
 
             <EditText
                 android:id="@+id/autoDateTo"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:drawableEnd="@drawable/ic_date_range_black_24dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="23dp"
-                android:paddingEnd="8dp"
-                android:background="@null"/>
+                android:background="@null"
+                android:drawableEnd="@drawable/ic_date_range_black_24dp"
+                android:paddingEnd="8dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
@@ -132,21 +133,22 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:src="@drawable/ic_divider"/>
+        android:src="@drawable/ic_divider" />
 
     <Button
         android:id="@+id/show"
+        style="@style/RoundedOrangeBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
         android:layout_marginLeft="16dp"
+        android:layout_marginTop="36dp"
         android:layout_marginRight="16dp"
-        android:textSize="14sp"
         android:text="Показать"
         android:textColor="#FFFFFF"
-        style="@style/RoundedOrangeBackground"/>
+        android:textSize="14sp" />
 
-    <include layout="@layout/item_focus"
-        android:id="@+id/goneL"/>
+    <include
+        android:id="@+id/goneL"
+        layout="@layout/item_focus" />
 
 </LinearLayout>
