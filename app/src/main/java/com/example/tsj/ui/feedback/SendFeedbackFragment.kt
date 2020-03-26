@@ -1,14 +1,15 @@
 package com.example.tsj.ui.feedback
 
 
+import android.content.res.ColorStateList
 import android.os.Bundle
+import android.text.TextUtils
+import android.util.Patterns
 import android.view.*
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.tsj.R
 import com.example.tsj.utils.MyUtils
-import kotlinx.android.synthetic.main.fragment_new_reference.*
 import kotlinx.android.synthetic.main.fragment_send_feedback.*
 
 class SendFeedbackFragment : Fragment() {
@@ -42,6 +43,10 @@ class SendFeedbackFragment : Fragment() {
         if (validate()){
 
         }
+        if (MyUtils.emailValidate(edit_your_mail.text.toString())){
+        }else{
+            edit_your_mail_edit.error = "Не правельный email"
+        }
     }
     private fun validate(): Boolean{
         var valid = true
@@ -52,13 +57,6 @@ class SendFeedbackFragment : Fragment() {
             edit_to_whom_edit.isErrorEnabled = false
         }
 
-        if (edit_your_mail.text.toString().isEmpty()) {
-            edit_your_mail_edit.error = "Поле не должно быть пустым"
-            valid = false
-        }else{
-            edit_your_mail_edit.isErrorEnabled = false
-        }
-
         if (edit_write_a_letter.text.toString().isEmpty()) {
             edit_write_a_letter_edit.error = "Поле не должно быть пустым"
             valid = false
@@ -67,5 +65,34 @@ class SendFeedbackFragment : Fragment() {
         }
 
         return valid
+    }
+
+    override fun onStart() {
+        super.onStart()
+        intColor()
+    }
+    private fun intColor(){
+        edit_to_whom.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus && edit_to_whom.text!!.isNotEmpty()) {
+                edit_to_whom_edit.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            }
+        }
+
+        edit_your_mail.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus && edit_your_mail.text!!.isNotEmpty()) {
+                edit_your_mail_edit.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            }
+        }
+
+        edit_write_a_letter.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus && edit_write_a_letter.text!!.isNotEmpty()) {
+                edit_write_a_letter_edit
+
+                    .defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            }
+        }
     }
 }
