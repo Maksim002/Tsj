@@ -58,7 +58,7 @@ class BalanceFragment : Fragment() {
             name_text_input.error = "Выберите адрес"
             valid = false
         } else {
-            name_text_input.error = null
+            name_text_input.isErrorEnabled = false
         }
         return valid
     }
@@ -108,7 +108,7 @@ class BalanceFragment : Fragment() {
                 textComplete.showDropDown()
 
                 if (!hasFocus && textComplete.text.isNotEmpty()){
-                    name_text_input.error = null
+                    name_text_input.isErrorEnabled = false
                 }
 
             } catch (e: Exception) {

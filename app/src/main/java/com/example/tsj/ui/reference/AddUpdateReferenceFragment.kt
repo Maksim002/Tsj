@@ -43,7 +43,11 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
         val list = ArrayList<RelativeModel>()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val root = inflater.inflate(R.layout.fragment_new_reference, container, false)
         initArguments()
         initViews(root)
@@ -54,29 +58,31 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
         return root
     }
 
-    private fun validate(): Boolean{
+    private fun validate(): Boolean {
         var valid = true
         if (editReferenceS.text.toString().isEmpty()) {
             referenceS.error = "Вы не выбрили дату"
             valid = false
-        }else{
+        } else {
             referenceS.isErrorEnabled = false
         }
 
         if (edit_ref.text.toString().isEmpty()) {
             lRef.error = "Поле не должно быть пустым"
             valid = false
-        }else{
+        } else {
             lRef.isErrorEnabled = false
         }
 
         return valid
     }
 
-    private fun initHint(){
-        if (edit_ref.text.isNotEmpty()){
-            lRef.defaultHintTextColor =  ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-            referenceS.defaultHintTextColor =  ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+    private fun initHint() {
+        if (edit_ref.text.isNotEmpty()) {
+            lRef.defaultHintTextColor =
+                ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            referenceS.defaultHintTextColor =
+                ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
         }
     }
 
@@ -88,13 +94,17 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
         root.familiesRecyclerView.adapter = refAdapter
         refAdapter.update(list)
 
-        root.edit_ref.setOnFocusChangeListener { _, _ ->
-            root.lRef.defaultHintTextColor =  ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+        root.edit_ref.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus && root.edit_ref.text.isNotEmpty()) {
+                root.lRef.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+                root.lRef.isErrorEnabled = false
+            }
         }
 
         root.reference_save.setOnClickListener {
-            MyUtils.hideKeyboard(activity!!,view!!)
-            if (validate()){
+            MyUtils.hideKeyboard(activity!!, view!!)
+            if (validate()) {
                 data.relatives = list
                 data.person.fullName = edit_ref.text.toString()
                 data.person.dateOfBirth = MyUtils.toServerDate(editReferenceS.text.toString())
@@ -105,7 +115,7 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
                         } else {
                             Toast.makeText(
                                 context,
-                                "Произошла ошибка при отправке данных",
+                                "Ошибка при отправке данных",
                                 Toast.LENGTH_LONG
                             ).show()
                         }
@@ -117,7 +127,7 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
                         } else {
                             Toast.makeText(
                                 context,
-                                "Произошла ошибка при отправке данных",
+                                "Ошибка при отправке данных",
                                 Toast.LENGTH_LONG
                             ).show()
                         }
@@ -167,21 +177,32 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
 
     private fun getEditReferenceS() {
         editReferenceS.keyListener = null
-    // Временный тракеч. Приложение падает.
-            editReferenceS.setOnFocusChangeListener { _, b ->
-                if (b) {
-                        val cldr = Calendar.getInstance()
-                        val col = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                        referenceS.defaultHintTextColor = col
-                        val picker =
-                            DatePickerDialog(activity!!, { _, year1, monthOfYear, dayOfMonth ->
-                                    editReferenceS.setText(MyUtils.convertDate(dayOfMonth, monthOfYear, year1)) },
-                                cldr.get(Calendar.YEAR),
-                                cldr.get(Calendar.MONTH),
-                                cldr.get(Calendar.DAY_OF_MONTH)
+        // Временный тракеч. Приложение падает.
+        editReferenceS.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                val cldr = Calendar.getInstance()
+                val col = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+                referenceS.defaultHintTextColor = col
+                val picker =
+                    DatePickerDialog(
+                        activity!!, { _, year1, monthOfYear, dayOfMonth ->
+                            editReferenceS.setText(
+                                MyUtils.convertDate(
+                                    dayOfMonth,
+                                    monthOfYear,
+                                    year1
+                                )
                             )
-                        picker.show()
-                        goneL.requestFocus()
+                        },
+                        cldr.get(Calendar.YEAR),
+                        cldr.get(Calendar.MONTH),
+                        cldr.get(Calendar.DAY_OF_MONTH)
+                    )
+                picker.show()
+                editReferenceS.clearFocus()
+            }
+            if (!hasFocus && editReferenceS.text.isNotEmpty()){
+                referenceS.isErrorEnabled = false
             }
         }
     }

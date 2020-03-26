@@ -139,5 +139,4 @@ class VoteDetailFragment : Fragment() {
             false
         }
     }
-
 }

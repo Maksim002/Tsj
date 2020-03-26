@@ -36,7 +36,7 @@ class ForgotActivity : AppCompatActivity() {
 
         forgot_send_button.setOnClickListener {
             if (validateEmailForgot(text_email_forgot.text.toString())) {
-                forgot_container_email_input.error = null
+                forgot_container_email_input.isErrorEnabled = false
                 sendEmail()
             } else {
                 forgot_container_email_input.error = "Логин введен не правильно"

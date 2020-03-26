@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.fragment.findNavController
 import com.example.tsj.MainActivity
 import com.example.tsj.R
 import com.example.tsj.adapters.message.ViewPagerAdapter
