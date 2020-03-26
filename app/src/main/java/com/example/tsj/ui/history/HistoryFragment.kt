@@ -193,7 +193,7 @@ class HistoryFragment : Fragment() {
                     Service.defaultHintTextColor =
                         ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
 
-                    Address.error = null
+                    Address.isErrorEnabled = false
                 }
 
             } catch (e: Exception) {
@@ -236,7 +236,7 @@ class HistoryFragment : Fragment() {
                 if (!hasFocus && autoAddress.text.isNotEmpty()) {
                     Service.defaultHintTextColor =
                         ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                    Service.error = null
+                    Service.isErrorEnabled = false
                 }
 
                 if (autoAddress.text.isEmpty()) {
@@ -279,7 +279,7 @@ class HistoryFragment : Fragment() {
         autoOperation.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
             autoOperation.showDropDown()
             if (!hasFocus && autoOperation.text.isNotEmpty()) {
-                Operation.error = null
+                Operation.isErrorEnabled = false
             }
         }
         autoOperation.clearFocus()

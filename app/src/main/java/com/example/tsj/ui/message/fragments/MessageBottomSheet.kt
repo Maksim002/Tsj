@@ -52,17 +52,18 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
         super.onViewCreated(view, savedInstanceState)
 //        edit_title_text
         edit_title.setOnFocusChangeListener { v, hasFocus ->
-            if (hasFocus) {
+            if (!hasFocus && edit_title.text!!.isNotEmpty()) {
                 edit_title_text.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+                edit_title_text.isErrorEnabled = false
             }
-
         }
 
         edit_sms.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
+            if (!hasFocus && edit_sms.text!!.isNotEmpty()) {
                 edit_sms_text.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+                edit_sms_text.isErrorEnabled = false
             }
         }
 
@@ -141,14 +142,14 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
     private fun validate(): Boolean {
         var valid = true
         if (edit_title.text.toString().isEmpty()) {
-            edit_title_text.error = "Заголовок не дожн быть пустым"
+            edit_title_text.error = "Заголовок не должен быть пустым"
             valid = false
         } else {
             edit_title_text.isErrorEnabled = false
         }
 
         if (edit_sms.text.toString().isEmpty()) {
-            edit_sms_text.error = "Письмо не дожно быть пустым"
+            edit_sms_text.error = "Письмо не должно быть пустым"
             valid = false
         } else {
             edit_sms_text.isErrorEnabled = false

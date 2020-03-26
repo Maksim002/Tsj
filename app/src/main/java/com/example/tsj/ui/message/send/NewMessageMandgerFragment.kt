@@ -224,22 +224,19 @@ class NewMessageMandgerFragment : Fragment(), GeneralClickListener {
         super.onStart()
 
         manager_msg_referenc.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus || manager_msg_referenc.text!!.isNotEmpty()) {
+            if (!hasFocus && manager_msg_referenc.text!!.isNotEmpty()) {
                 title_container.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-            } else if (manager_msg_referenc.text!!.isEmpty()) {
-                title_container.defaultHintTextColor =
-                    ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
-            }
-        }
+                title_container.isErrorEnabled = false
 
-        manager_msg_content.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus || manager_msg_content.text!!.isNotEmpty()) {
-                content_container.defaultHintTextColor =
-                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-            } else if (manager_msg_content.text!!.isEmpty()) {
-                content_container.defaultHintTextColor =
-                    ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
+            }
+
+            manager_msg_content.setOnFocusChangeListener { _, hasFocus ->
+                if (!hasFocus && manager_msg_content.text!!.isNotEmpty()) {
+                    content_container.defaultHintTextColor =
+                        ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+                    content_container.isErrorEnabled = false
+                }
             }
         }
     }

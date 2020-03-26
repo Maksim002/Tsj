@@ -48,7 +48,6 @@
             android:layout_height="50dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="23dp"
-            app:ms_arrowColor="@color/grayColor"
             android:background="@null"
             android:drawableEnd="@drawable/ic_expend"
             android:paddingEnd="8dp" />

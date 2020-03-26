@@ -9,7 +9,8 @@
     <LinearLayout
         android:id="@+id/bid_linear_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/request_add"
         android:layout_marginStart="@dimen/marginHorizontal"
         android:layout_marginEnd="@dimen/marginHorizontal"
         android:orientation="vertical"
@@ -46,7 +47,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/text_bid_add_flat"
+                android:id="@+id/text_bid_add_flat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -83,7 +84,7 @@
                 android:id="@+id/request_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Описание" />
+                android:hint="Описание"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -101,6 +102,6 @@
         android:layout_marginBottom="8dp"
         android:text="Создать"
         android:textColor="#FFF"
-        app:layout_constraintTop_toBottomOf="@id/bid_linear_container" />
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

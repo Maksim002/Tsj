@@ -69,6 +69,7 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
             if (!hasFocus && root.new_msg_referenc.text!!.isNotEmpty()) {
                 new_msg_referenc_error.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+                new_msg_referenc_error.isErrorEnabled = false
             }
         }
 
@@ -76,6 +77,7 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
             if (!hasFocus && root.new_msg_content.text!!.isNotEmpty()) {
                 new_msg_content_error.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+                new_msg_content_error.isErrorEnabled = false
             }
         }
 
@@ -250,6 +252,10 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
                 new_msg_referenc_error.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
             }
+
+            if (!hasFocus && new_msg_referenc.text!!.isNotEmpty()){
+                new_msg_referenc_error.isErrorEnabled = false
+            }
         }
 
         new_msg_content.setOnFocusChangeListener { _, hasFocus ->
@@ -293,7 +299,7 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
                 new_msg_appartment.setText("")
                 new_msg_who.setAdapter(null)
                 new_msg_who.setText("")
-
+                new_msg_house.clearFocus()
             }
         new_msg_house.setOnClickListener {
             new_msg_house.showDropDown()
@@ -309,6 +315,9 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
                     if (hasFocus || new_msg_who.text!!.isNotEmpty()){
                         new_who.defaultHintTextColor =
                             ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
+                    }
+                    if (!hasFocus && new_msg_house.text.isNotEmpty()){
+                        new_house.isErrorEnabled = false
                     }
 
                 } catch (e: Exception) {
@@ -341,6 +350,7 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
                 getMessagesPersons()
                 new_msg_who.setAdapter(null)
                 new_msg_who.setText("")
+                new_msg_appartment.clearFocus()
             }
 
         new_msg_appartment.setOnClickListener {
@@ -353,6 +363,10 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
                     new_msg_appartment.showDropDown()
                     if (new_msg_house.text.length == 0){
                         Toast.makeText(context, "Сначало выберте дом", Toast.LENGTH_LONG).show()
+                    }
+
+                    if (!hasFocus && new_msg_appartment.text.isNotEmpty()){
+                        new_appartment.isErrorEnabled = false
                     }
                 } catch (e: Exception) {
                     println()
@@ -375,12 +389,12 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
             new_msg_who.setAdapter(adapterServices)
         })
 
-
         new_msg_who.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
                 new_msg_who.showDropDown()
                 parent.getItemAtPosition(position).toString()
                 personId = listPersons.get(position).id
+                new_msg_who.clearFocus()
             }
         new_msg_who.setOnClickListener {
             new_msg_who.showDropDown()
@@ -392,6 +406,10 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
                     new_msg_who.showDropDown()
                     if (new_msg_appartment.text.length == 0){
                         Toast.makeText(context, "Сначало выберте квартиру", Toast.LENGTH_LONG).show()
+                    }
+
+                    if (!hasFocus && new_msg_who.text.isNotEmpty()){
+                        new_who.isErrorEnabled = false
                     }
                 } catch (e: Exception) {
                     println()
