@@ -8,7 +8,7 @@ import androidx.annotation.NonNull
 import androidx.viewpager.widget.PagerAdapter
 import com.bumptech.glide.Glide
 
-class ViewPagerAdapter(private val context: Context, private val imageUrls: ArrayList <String>) :
+class NewsVPAdapter(private val context: Context, private val imageUrls: ArrayList <String>) :
     PagerAdapter() {
 
     override fun getCount(): Int {

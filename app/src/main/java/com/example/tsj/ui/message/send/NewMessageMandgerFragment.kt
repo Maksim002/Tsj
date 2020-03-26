@@ -227,7 +227,7 @@ class NewMessageMandgerFragment : Fragment(), GeneralClickListener {
             if (!hasFocus && manager_msg_referenc.text!!.isNotEmpty()) {
                 title_container.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                title_container.error = null
+                title_container.isErrorEnabled = false
 
             }
 
@@ -235,7 +235,7 @@ class NewMessageMandgerFragment : Fragment(), GeneralClickListener {
                 if (!hasFocus && manager_msg_content.text!!.isNotEmpty()) {
                     content_container.defaultHintTextColor =
                         ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                    content_container.error = null
+                    content_container.isErrorEnabled = false
                 }
             }
         }

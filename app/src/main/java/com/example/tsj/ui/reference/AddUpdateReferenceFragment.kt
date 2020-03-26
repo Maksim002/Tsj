@@ -98,7 +98,7 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
             if (!hasFocus && root.edit_ref.text.isNotEmpty()) {
                 root.lRef.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                root.lRef.error = null
+                root.lRef.isErrorEnabled = false
             }
         }
 
@@ -202,7 +202,7 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
                 editReferenceS.clearFocus()
             }
             if (!hasFocus && editReferenceS.text.isNotEmpty()){
-                referenceS.error = null
+                referenceS.isErrorEnabled = false
             }
         }
     }

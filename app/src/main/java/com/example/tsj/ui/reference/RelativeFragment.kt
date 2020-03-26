@@ -171,7 +171,7 @@ class RelativeFragment : Fragment() {
                 root.text_families_date.clearFocus()
             }
             if (!hasFocus && root.text_families_date.text.isNotEmpty()){
-                root.text_date.error = null
+                root.text_date.isErrorEnabled = false
             }
         }
     }

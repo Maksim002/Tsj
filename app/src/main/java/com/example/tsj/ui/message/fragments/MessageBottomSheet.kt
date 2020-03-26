@@ -55,7 +55,7 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
             if (!hasFocus && edit_title.text!!.isNotEmpty()) {
                 edit_title_text.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                edit_title_text.error = null
+                edit_title_text.isErrorEnabled = false
             }
         }
 
@@ -63,7 +63,7 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
             if (!hasFocus && edit_sms.text!!.isNotEmpty()) {
                 edit_sms_text.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                edit_sms_text.error = null
+                edit_sms_text.isErrorEnabled = false
             }
         }
 

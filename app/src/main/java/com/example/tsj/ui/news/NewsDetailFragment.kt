@@ -25,7 +25,7 @@ import com.example.tsj.adapters.files.GeneralClickListener
 import com.example.tsj.adapters.news.CommentOnItemListener
 import com.example.tsj.adapters.news.NewsCommentAdapter
 import com.example.tsj.adapters.news.NewsFilesAdapter
-import com.example.tsj.adapters.news.ViewPagerAdapter
+import com.example.tsj.adapters.news.NewsVPAdapter
 import com.example.tsj.service.AppPreferences
 import com.example.tsj.service.model.news.NewsAttachments
 import com.example.tsj.service.model.news.NewsCommentsModel
@@ -110,7 +110,7 @@ class NewsDetailFragment : Fragment(), GeneralClickListener, CommentOnItemListen
             }
 
             if (imageUrls.isNotEmpty()) {
-                news_detail_viewpager.adapter = ViewPagerAdapter(requireContext(), imageUrls)
+                news_detail_viewpager.adapter = NewsVPAdapter(requireContext(), imageUrls)
             } else {
                 news_detail_viewpager.visibility = View.GONE
             }

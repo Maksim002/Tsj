@@ -69,7 +69,7 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
             if (!hasFocus && root.new_msg_referenc.text!!.isNotEmpty()) {
                 new_msg_referenc_error.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                new_msg_referenc_error.error = null
+                new_msg_referenc_error.isErrorEnabled = false
             }
         }
 
@@ -77,7 +77,7 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
             if (!hasFocus && root.new_msg_content.text!!.isNotEmpty()) {
                 new_msg_content_error.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                new_msg_content_error.error = null
+                new_msg_content_error.isErrorEnabled = false
             }
         }
 
@@ -254,7 +254,7 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
             }
 
             if (!hasFocus && new_msg_referenc.text!!.isNotEmpty()){
-                new_msg_referenc_error.error = null
+                new_msg_referenc_error.isErrorEnabled = false
             }
         }
 
@@ -317,7 +317,7 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
                             ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
                     }
                     if (!hasFocus && new_msg_house.text.isNotEmpty()){
-                        new_house.error = null
+                        new_house.isErrorEnabled = false
                     }
 
                 } catch (e: Exception) {
@@ -366,7 +366,7 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
                     }
 
                     if (!hasFocus && new_msg_appartment.text.isNotEmpty()){
-                        new_appartment.error = null
+                        new_appartment.isErrorEnabled = false
                     }
                 } catch (e: Exception) {
                     println()
@@ -409,7 +409,7 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
                     }
 
                     if (!hasFocus && new_msg_who.text.isNotEmpty()){
-                        new_who.error = null
+                        new_who.isErrorEnabled = false
                     }
                 } catch (e: Exception) {
                     println()

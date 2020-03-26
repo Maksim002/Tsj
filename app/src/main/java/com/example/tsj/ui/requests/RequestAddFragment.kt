@@ -150,7 +150,7 @@ class RequestAddFragment : Fragment() {
             root.bid_add_type.showDropDown()
 
             if (!hasFocus && root.bid_add_type.text.isNotEmpty()) {
-                root.request_type_out.error = null
+                root.request_type_out.isErrorEnabled = false
             }
 
         }
@@ -174,28 +174,28 @@ class RequestAddFragment : Fragment() {
             if (!hasFocus && root.bid_add_flat.text!!.isNotEmpty()) {
                 text_bid_add_flat.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                    root.text_bid_add_flat.error = null
+                    root.text_bid_add_flat.isErrorEnabled = false
             }
         }
         root.bid_add_porch.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus && root.bid_add_porch.text!!.isNotEmpty()) {
                 text_bid_add_porch.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                root.text_bid_add_porch.error = null
+                root.text_bid_add_porch.isErrorEnabled = false
             }
         }
         root.request_description.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus && root.request_description.text!!.isNotEmpty()) {
                 text_request_description.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                root.text_request_description.error = null
+                root.text_request_description.isErrorEnabled = false
             }
         }
 
         root.bid_add_adres.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
             root.bid_add_adres.showDropDown()
             if (!hasFocus && bid_add_adres.text.isNotEmpty()) {
-                root.text_bid_add_adres.error = null
+                root.text_bid_add_adres.isErrorEnabled = false
             }
         }
 
