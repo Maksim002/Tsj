@@ -248,7 +248,7 @@ class HistoryFragment : Fragment() {
                 ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
             autoOperation.setAdapter(adapterOperations)
         })
-        autoOperation.setKeyListener(null);
+        autoOperation.setKeyListener(null)
 
         autoOperation.onItemClickListener =
             AdapterView.OnItemClickListener { parent, _, position, _ ->
@@ -262,12 +262,17 @@ class HistoryFragment : Fragment() {
             }
         autoOperation.setOnClickListener {
             autoOperation.showDropDown()
+
+            autoOperation.clearFocus()
         }
         autoOperation.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
-                try {
-                    autoOperation.showDropDown()
-                } catch (e: Exception) {
+
+            if (hasFocus){
+                autoOperation.showDropDown()
+            }else{
+                goneL.requestFocus()
             }
+
         }
     }
 
@@ -292,7 +297,7 @@ class HistoryFragment : Fragment() {
 
                     }, yearStart, monthStart, dayStart)
                 picker.show()
-                goneL.requestFocus()
+                autoDateFrom.clearFocus()
             }
         }
     }
@@ -323,7 +328,7 @@ class HistoryFragment : Fragment() {
                         }, yearEnd, monthEnd, dayEnd
                     )
                 picker.show()
-                goneL.requestFocus()
+                autoDateTo.clearFocus()
             }
         }
     }
