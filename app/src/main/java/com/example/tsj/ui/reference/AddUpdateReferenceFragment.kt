@@ -30,6 +30,7 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
     private lateinit var viewModel: ReferenceViewModel
     private var update = false
     val data = CertificateRequest()
+    private lateinit var name: String
 
     init {
         if (data.person == null)
