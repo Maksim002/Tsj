@@ -167,4 +167,8 @@ interface ApiService {
 
     @POST("News/Comments")
     fun newsCommentPost(@Body body: NewsCommentRequest): Call<String>
+
+    @DELETE("News/Comments/{id}")
+    fun newsCommentDelete(@Path("id") id: Int): Call<String>
+
 }

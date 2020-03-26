@@ -55,8 +55,6 @@ class VoteFragment : Fragment() {
             initTabLayout(placementId, votingTypes)
         }
 
-
-
         vote_unfocus.requestFocus()
     }
 

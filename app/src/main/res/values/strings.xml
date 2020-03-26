@@ -80,5 +80,7 @@
     <string name="news">Новость</string>
     <string name="fastenFiles">ПРИКРЕПЛЕННЫЕ ФАЙЛЫ:</string>
     <string name="comment">Коментрировать...</string>
+    <string name="yesDelete">Да, удалить</string>
+    <string name="no">Нет</string>
 
 </resources>

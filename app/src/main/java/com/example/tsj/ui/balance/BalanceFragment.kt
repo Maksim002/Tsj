@@ -98,14 +98,19 @@ class BalanceFragment : Fragment() {
                 placementId = listAddress[position].placementId
                 address = listAddress[position].address!!
 
+                autoCompleteTextView.clearFocus()
             }
         textComplete.setOnClickListener {
             textComplete.showDropDown()
         }
-        textComplete.onFocusChangeListener = View.OnFocusChangeListener { _, _ ->
+        textComplete.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
             try {
                 textComplete.showDropDown()
-                println()
+
+                if (!hasFocus && textComplete.text.isNotEmpty()){
+                    name_text_input.error = null
+                }
+
             } catch (e: Exception) {
             }
         }
