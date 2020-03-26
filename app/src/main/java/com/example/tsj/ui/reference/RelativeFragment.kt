@@ -9,9 +9,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.DatePicker
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -24,6 +22,7 @@ import com.example.tsj.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_families.*
 import kotlinx.android.synthetic.main.fragment_families.view.*
 import java.util.*
+
 
 class RelativeFragment : Fragment() {
 
@@ -61,19 +60,11 @@ class RelativeFragment : Fragment() {
             text_date.isErrorEnabled = false
         }
 
-//        if (text_families_who.text.toString().isEmpty()) {
-//            text_families_who.error = "Поле не должно быть пустым"
-//            valid = false
-//        }else{
-//            text_families_who.isErrorEnabled = false
-//        }
-
         return valid
     }
 
     override fun onStart() {
         super.onStart()
-
         initHint()
         check()
 
@@ -93,8 +84,6 @@ class RelativeFragment : Fragment() {
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
                 text_families_name.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-//                text_families.defaultHintTextColor =
-//                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
         }
     }
 
@@ -115,7 +104,7 @@ class RelativeFragment : Fragment() {
             val adapter = ArrayAdapter<MessagesPersonsModel>(context!!, android.R.layout.simple_spinner_item, it)
             adapter.setDropDownViewResource(android.R.layout.simple_expandable_list_item_1)
 
-            root.text_families_who.setAdapter(adapter)
+            root.bind_add_request.setAdapter(adapter)
             if (position != -1) {
             }
         })
@@ -131,9 +120,7 @@ class RelativeFragment : Fragment() {
             if (validate()){
             if (position == -1) {
                 AddUpdateReferenceFragment.list.add(
-                    RelativeModel(
-                        relativeId,
-                        MyUtils.toServerDate(root.text_families_date.text.toString()),
+                    RelativeModel(relativeId, MyUtils.toServerDate(root.text_families_date.text.toString()),
                         root.edit_families.text.toString(),
                         relative
                     )
