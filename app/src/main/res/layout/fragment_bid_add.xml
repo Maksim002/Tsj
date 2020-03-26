@@ -21,6 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:focusableInTouchMode="true"
             android:hint="Тип заявки">
 
             <AutoCompleteTextView
@@ -64,6 +65,7 @@
             android:id="@+id/text_bid_add_adres"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
             android:hint="Адрес">
 
             <AutoCompleteTextView
@@ -74,6 +76,11 @@
                 android:paddingEnd="8dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <include
+            android:id="@+id/goneL"
+            android:visibility="gone"
+            layout="@layout/item_focus" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_request_description"
