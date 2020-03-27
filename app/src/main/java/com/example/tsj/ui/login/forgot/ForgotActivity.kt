@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import com.example.tsj.MainActivity
 import com.example.tsj.R
 import com.example.tsj.ui.login.LoginViewModel
 import com.example.tsj.ui.message.MessagesViewModel
@@ -56,12 +57,14 @@ class ForgotActivity : AppCompatActivity() {
     private fun sendEmail() {
 
         val email = text_email_forgot.text.toString()
+        MainActivity.alert.show()
         viewModel.forgotPassword(email).observe(this, Observer {
             if (it){
                 Toast.makeText(applicationContext, "На ваш email отправлено пиьсмо!", Toast.LENGTH_SHORT).show()
             }else{
                 Toast.makeText(applicationContext, "Такого email не существует", Toast.LENGTH_SHORT).show()
             }
+            MainActivity.alert.hide()
         })
 
     }

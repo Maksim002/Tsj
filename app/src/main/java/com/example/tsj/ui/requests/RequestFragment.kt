@@ -34,13 +34,14 @@ class RequestFragment : Fragment(), RequestClickItemListener {
         viewModel = ViewModelProviders.of(this).get(RequestViewModel::class.java)
         (activity as AppCompatActivity).supportActionBar?.show()
         val root = inflater.inflate(R.layout.fragment_bid, container, false)
-        MainActivity.alert.show()
+
         initViews(root)
         initData()
         return root
     }
 
     private fun initData() {
+        MainActivity.alert.show()
         viewModel.requests().observe(this, Observer {address ->
             address.map {
                 it.id

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.example.tsj.MainActivity
 import com.example.tsj.R
 import com.example.tsj.adapters.vote.VoteAdapter
 import com.example.tsj.adapters.vote.VoteItemClickListener
@@ -36,7 +37,9 @@ class VoteInProcessFragment(private val placementId: Int, private val typeId: In
     }
 
     private fun initRec() {
+        MainActivity.alert.show()
         viewModel.voteList(typeId, placementId).observe(this, Observer {
+            MainActivity.alert.hide()
             val voteActiveAdapter = VoteAdapter(this, it)
             vote_inprocess_rv.apply { adapter = voteActiveAdapter }
             if (voteActiveAdapter.itemCount == 0) {
@@ -59,8 +62,6 @@ class VoteInProcessFragment(private val placementId: Int, private val typeId: In
         bundle.putBoolean("isCanVote", isCanVote)
         findNavController().navigate(R.id.navigation_vote_detail, bundle)
     }
-
-
 
 
 }

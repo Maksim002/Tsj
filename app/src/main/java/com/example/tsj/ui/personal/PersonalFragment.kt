@@ -55,7 +55,6 @@ class PersonalFragment : Fragment(), PersonalListener {
         val root = inflater.inflate(R.layout.fragment_personal, container, false)
         viewModel = ViewModelProviders.of(this).get(PersonalViewModel::class.java)
         initViews(root)
-        MainActivity.alert.show()
         return root
     }
 
@@ -146,7 +145,7 @@ class PersonalFragment : Fragment(), PersonalListener {
 
     override fun onStart() {
         super.onStart()
-
+        MainActivity.alert.show()
         viewModel.invoices(
             servicesId,
             operationsId,
@@ -170,8 +169,9 @@ class PersonalFragment : Fragment(), PersonalListener {
     }
 
     override fun onClickDownload(id: Int?) {
-
+        MainActivity.alert.show()
         viewModel.download(id).observe(this, Observer { url ->
+            MainActivity.alert.hide()
             this.downloadUrl = url
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (checkSelfPermission(

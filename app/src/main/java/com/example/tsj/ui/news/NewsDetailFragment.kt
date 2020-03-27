@@ -65,6 +65,7 @@ class NewsDetailFragment : Fragment(), GeneralClickListener, CommentOnItemListen
                 if (news_detail_edittext.text.isNotEmpty()) {
                     news_detail_edittext.error = null
                     val body = NewsCommentRequest(newsId, news_detail_edittext.text.toString())
+                    MainActivity.alert.show()
                     viewModel.newsCommentPost(body).observe(this, Observer {
                         if (it) {
                             Toast.makeText(
@@ -82,6 +83,7 @@ class NewsDetailFragment : Fragment(), GeneralClickListener, CommentOnItemListen
                             Toast.makeText(context, "Что-то пошло не так", Toast.LENGTH_SHORT)
                                 .show()
                         }
+                        MainActivity.alert.hide()
                     })
                 } else {
                     news_detail_edittext.error = "Коментарии не могут быть пустыми"
@@ -129,6 +131,7 @@ class NewsDetailFragment : Fragment(), GeneralClickListener, CommentOnItemListen
     }
 
     private fun initComments() {
+        MainActivity.alert.show()
         viewModel.newsComment(newsId).observe(this, Observer { item ->
             val commentAdapter = NewsCommentAdapter(item, this)
             if (commentAdapter.itemCount == 0) {
@@ -218,13 +221,14 @@ class NewsDetailFragment : Fragment(), GeneralClickListener, CommentOnItemListen
         builder.setTitle("Вы действительно хотите удалить?")
 
         builder.setPositiveButton(getString(R.string.yesDelete)) { d: DialogInterface, i: Int ->
-            viewModel.newsCommentDelete(model.id).observe(this, Observer
-            {
+            MainActivity.alert.show()
+            viewModel.newsCommentDelete(model.id).observe(this, Observer {
                 if (it) {
                     Toast.makeText(context, "Удалено!", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(context, "Вы уже удалили", Toast.LENGTH_SHORT).show()
                 }
+                MainActivity.alert.hide()
             })
             initComments()
         }
