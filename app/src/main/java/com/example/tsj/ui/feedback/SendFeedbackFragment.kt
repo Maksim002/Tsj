@@ -4,22 +4,39 @@ package com.example.tsj.ui.feedback
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import com.example.tsj.MainActivity
 import com.example.tsj.R
+import com.example.tsj.service.AppPreferences
+import com.example.tsj.service.request.FeedbackRequest
 import com.example.tsj.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_send_feedback.*
 
 class SendFeedbackFragment : Fragment() {
-
+    private lateinit var viewModel: FeedbackViewModel
+    private var name: String = " "
+    private var email: String = " "
+    private var letter: String = " "
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         (activity as AppCompatActivity).supportActionBar?.show()
         setHasOptionsMenu(true)
+        viewModel = ViewModelProviders.of(this).get(FeedbackViewModel::class.java)
+
         return inflater.inflate(R.layout.fragment_send_feedback, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        if (AppPreferences.isLogined) {
+            edit_your_mail_edit.visibility = View.GONE
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -38,9 +55,30 @@ class SendFeedbackFragment : Fragment() {
     }
 
     private fun senFeedBack() {
+        if (AppPreferences.isLogined) {
+            name = edit_to_whom.text.toString()
+            email = AppPreferences.email.toString()
+            letter = edit_write_a_letter.text.toString()
+        } else {
+            name = edit_to_whom.text.toString()
+            email = edit_your_mail.text.toString()
+            letter = edit_write_a_letter.text.toString()
+        }
+
         MyUtils.hideKeyboard(activity!!, view!!)
         if (validate()) {
-
+            MainActivity.alert.show()
+            val body = FeedbackRequest(
+                name, email, letter
+            )
+            viewModel.sendFeedback(body).observe(this, Observer {
+                if (it) {
+                    Toast.makeText(context, "Ваше письмо отправлено!", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(context, "Ошибка!", Toast.LENGTH_SHORT).show()
+                }
+                MainActivity.alert.hide()
+            })
         }
 
     }
@@ -61,13 +99,14 @@ class SendFeedbackFragment : Fragment() {
             edit_write_a_letter_edit.isErrorEnabled = false
         }
 
-        if (!MyUtils.emailValidate(edit_your_mail.text.toString())) {
-            valid = false
-            edit_your_mail_edit.error = "Не правельный email"
-        } else {
-            edit_your_mail_edit.isErrorEnabled = false
+        if (!AppPreferences.isLogined) {
+            if (!MyUtils.emailValidate(edit_your_mail.text.toString())) {
+                valid = false
+                edit_your_mail_edit.error = "Не правильный email"
+            } else {
+                edit_your_mail_edit.isErrorEnabled = false
+            }
         }
-
         return valid
     }
 
