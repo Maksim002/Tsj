@@ -6,6 +6,7 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +31,7 @@ class RelativeFragment : Fragment() {
     private var relativeId = 0
     private var relative = ""
     private var position = -1
+    private var mLastClickTime: Long = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -146,8 +148,12 @@ class RelativeFragment : Fragment() {
         }
 
         root.text_families_date.keyListener = null
-        root.text_families_date.setOnFocusChangeListener { _, hasFocus ->
+        root.text_families_date.setOnFocusChangeListener setOnClickListener@{ _, hasFocus ->
             if (hasFocus) {
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000){
+                    return@setOnClickListener
+                }
+                mLastClickTime = SystemClock.elapsedRealtime();
                 val mDet = DatePickerDialog.OnDateSetListener { _: DatePicker, year, month, day ->
                     val data = MyUtils.convertDate(day, month, year)
                     root.text_families_date.setText(data)
