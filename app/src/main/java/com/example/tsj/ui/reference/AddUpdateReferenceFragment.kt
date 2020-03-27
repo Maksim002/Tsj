@@ -4,6 +4,7 @@ package com.example.tsj.ui.reference
 import android.app.DatePickerDialog
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,12 +27,14 @@ import kotlinx.android.synthetic.main.fragment_new_reference.view.*
 import java.util.*
 import kotlin.collections.ArrayList
 
+
 class AddUpdateReferenceFragment : Fragment(), FamilyListener {
     private lateinit var refAdapter: FamilyAdapter
     private lateinit var viewModel: ReferenceViewModel
     private var update = false
     val data = CertificateRequest()
     private lateinit var name: String
+    private var mLastClickTime: Long = 0
 
     init {
         if (data.person == null)
@@ -144,6 +147,7 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
 
     override fun onStart() {
         super.onStart()
+
         getEditReferenceS()
         if (update) {
             reference_save.text = "Обновить"
@@ -183,8 +187,15 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
     private fun getEditReferenceS() {
         editReferenceS.keyListener = null
         // Временный тракеч. Приложение падает.
-        editReferenceS.setOnFocusChangeListener { _, hasFocus ->
+        editReferenceS.setOnFocusChangeListener setOnClickListener@{ _, hasFocus ->
+            MyUtils.hideKeyboard(activity!!, view!!)
             if (hasFocus) {
+                // Педотврощает двоной клик на editText
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000){
+                    return@setOnClickListener
+                }
+                mLastClickTime = SystemClock.elapsedRealtime();
+
                 val cldr = Calendar.getInstance()
                 val col = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
                 referenceS.defaultHintTextColor = col

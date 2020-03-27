@@ -37,6 +37,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_bid_add_porch"
             android:layout_width="match_parent"
+            android:focusableInTouchMode="true"
             android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -49,8 +50,9 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/text_bid_add_flat"
+            android:id="@+id/text_bid_add_flat"
             android:layout_width="match_parent"
+            android:focusableInTouchMode="true"
             android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -65,8 +67,8 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_bid_add_adres"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:focusableInTouchMode="true"
+            android:layout_height="wrap_content"
             android:hint="Адрес">
 
             <AutoCompleteTextView
@@ -86,6 +88,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_request_description"
             android:layout_width="match_parent"
+            android:focusableInTouchMode="true"
             android:layout_height="wrap_content">
 
             <AutoCompleteTextView
@@ -95,9 +98,12 @@
                 android:hint="Описание"/>
 
         </com.google.android.material.textfield.TextInputLayout>
-
-
     </LinearLayout>
+
+    <include
+        android:id="@+id/goneL"
+        android:visibility="gone"
+        layout="@layout/item_focus" />
 
     <Button
         android:id="@+id/request_add"

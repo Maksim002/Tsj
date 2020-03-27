@@ -62,8 +62,8 @@ class NewsDetailFragment : Fragment(), GeneralClickListener, CommentOnItemListen
         if (AppPreferences.isLogined) {
             cardview.visibility = View.VISIBLE
             news_detail_send_btn.setOnClickListener { view ->
-                if (news_detail_edittext.text.isNotEmpty()) {
-                    news_detail_edittext.error = null
+                MyUtils.hideKeyboard(activity!!, view!!)
+                if (validate()){
                     val body = NewsCommentRequest(newsId, news_detail_edittext.text.toString())
                     MainActivity.alert.show()
                     viewModel.newsCommentPost(body).observe(this, Observer {
@@ -75,7 +75,6 @@ class NewsDetailFragment : Fragment(), GeneralClickListener, CommentOnItemListen
                             ).show()
                             news_detail_edittext.setText("")
                             news_detail_edittext.clearFocus()
-                            news_detail_edittext.hint = getString(R.string.comment)
                             MyUtils.hideKeyboard(activity!!, view)
                             initComments()
 
@@ -85,8 +84,6 @@ class NewsDetailFragment : Fragment(), GeneralClickListener, CommentOnItemListen
                         }
                         MainActivity.alert.hide()
                     })
-                } else {
-                    news_detail_edittext.error = "Коментарии не могут быть пустыми"
                 }
             }
         } else {
@@ -235,6 +232,16 @@ class NewsDetailFragment : Fragment(), GeneralClickListener, CommentOnItemListen
         builder.setNegativeButton(getString(R.string.no)) { d: DialogInterface, i: Int ->
         }
         builder.show()
+    }
+    private fun validate(): Boolean {
+        var valid = true
+        if (news_detail_edittext.text.toString().isEmpty()) {
+            text_bid_add_porch.error = "Поле не должно быть пустым"
+            valid = false
+        } else {
+            text_bid_add_porch.isErrorEnabled = false
+        }
+        return valid
     }
 
 }

@@ -305,6 +305,7 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
             new_msg_house.showDropDown()
         }
         new_msg_house.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
+            MyUtils.hideKeyboard(activity!!, view!!)
                 try {
                     new_msg_house.showDropDown()
 
@@ -358,6 +359,7 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
 
         }
         new_msg_appartment.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
+            MyUtils.hideKeyboard(activity!!, view!!)
                 try {
                     new_appartment.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
                     new_msg_appartment.showDropDown()
@@ -400,6 +402,7 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
             new_msg_who.showDropDown()
         }
         new_msg_who.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
+            MyUtils.hideKeyboard(activity!!, view!!)
                 try {
                     new_who.defaultHintTextColor =
                         ColorStateList.valueOf(resources.getColor(R.color.colorAccent))

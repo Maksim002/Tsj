@@ -70,10 +70,7 @@
         app:ms_floatingLabelText="Кем приходится"
         app:ms_highlightColor="@color/orangeColor"
         app:ms_hint="Кем приходится"
-        app:ms_hintColor="@color/grayColor"
-
-        />
-
+        app:ms_hintColor="@color/grayColor" />
 
     <include
         android:id="@+id/goneL"

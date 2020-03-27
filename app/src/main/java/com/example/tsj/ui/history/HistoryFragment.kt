@@ -4,6 +4,7 @@ package com.example.tsj.ui.history
 import android.app.DatePickerDialog
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.os.SystemClock
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +27,7 @@ import kotlin.collections.ArrayList
 
 class HistoryFragment : Fragment() {
     private lateinit var viewmodel: HistoryViewModel
+    private var mLastClickTime: Long = 0
 
     private var operationName: String? = null
     private var operationsId: Int = 0
@@ -292,8 +294,12 @@ class HistoryFragment : Fragment() {
 
     private fun getAutoDatesFrom() {
         autoDateFrom.keyListener = null;
-        autoDateFrom.setOnFocusChangeListener { _, hasFocus ->
+        autoDateFrom.setOnFocusChangeListener setOnClickListener@{ _, hasFocus ->
             if (hasFocus) {
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000){
+                    return@setOnClickListener
+                }
+                mLastClickTime = SystemClock.elapsedRealtime();
                 DatesS.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
                 val picker =
@@ -318,8 +324,12 @@ class HistoryFragment : Fragment() {
 
     private fun getAutoDatesTo() {
         autoDateTo.keyListener = null;
-        autoDateTo.setOnFocusChangeListener { _, hasFocus ->
+        autoDateTo.setOnFocusChangeListener setOnClickListener@{ _, hasFocus ->
             if (hasFocus) {
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000){
+                    return@setOnClickListener
+                }
+                mLastClickTime = SystemClock.elapsedRealtime();
                 val col =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
                 DatesDo.defaultHintTextColor = col

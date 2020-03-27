@@ -129,17 +129,23 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <EditText
-                android:id="@+id/news_detail_edittext"
-                android:layout_width="0dp"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_bid_add_porch"
+                android:layout_width="match_parent"
+                android:focusableInTouchMode="true"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/marginHorizontal"
-                android:background="@null"
-                android:hint="@string/comment"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/news_detail_send_btn"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/news_detail_edittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/comment"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <ImageView
                 android:id="@+id/news_detail_send_btn"

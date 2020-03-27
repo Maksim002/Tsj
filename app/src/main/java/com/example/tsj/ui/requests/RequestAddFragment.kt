@@ -19,6 +19,7 @@ import com.example.tsj.service.model.RequestAddressesModel
 import com.example.tsj.service.model.RequestTypeModel
 import com.example.tsj.service.request.AddRequest
 import com.example.tsj.service.request.UpdateRequest
+import com.example.tsj.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_bid_add.*
 import kotlinx.android.synthetic.main.fragment_bid_add.view.*
 import java.lang.Exception
@@ -57,7 +58,6 @@ class RequestAddFragment : Fragment() {
             text_request_description.defaultHintTextColor =
                 ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
         }
-
     }
 
     private fun validate(): Boolean {
@@ -96,20 +96,13 @@ class RequestAddFragment : Fragment() {
         } catch (e: Exception) {
             bid_add_type.error = "Заполните поле"
             valid = false
-
         }
-
         return valid
     }
-
 
     private fun initViews(root: View) {
 
         root.request_add.setOnClickListener {
-
-            //
-
-
             if (validate()) {
                 MainActivity.alert.show()
                 if (RequestDetailFragment.requestModel.id != null) {
@@ -184,6 +177,7 @@ class RequestAddFragment : Fragment() {
         }
 
         root.bid_add_adres.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+            MyUtils.hideKeyboard(activity!!, view!!)
             root.bid_add_adres.showDropDown()
             if (!hasFocus && bid_add_adres.text.isNotEmpty()) {
                 root.text_bid_add_adres.isErrorEnabled = false
@@ -246,6 +240,4 @@ class RequestAddFragment : Fragment() {
             MainActivity.alert.hide()
         })
     }
-
-
 }
