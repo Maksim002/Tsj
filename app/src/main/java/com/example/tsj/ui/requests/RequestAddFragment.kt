@@ -47,50 +47,56 @@ class RequestAddFragment : Fragment() {
     }
 
     private fun initHint() {
-        if (bid_add_flat.text!!.isNotEmpty()){
-            request_type_out.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-            text_bid_add_porch.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-            text_bid_add_flat.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-            text_bid_add_adres.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-            text_request_description.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+        if (bid_add_flat.text!!.isNotEmpty()) {
+            text_bid_add_porch.defaultHintTextColor =
+                ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            text_bid_add_flat.defaultHintTextColor =
+                ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            text_bid_add_adres.defaultHintTextColor =
+                ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            text_request_description.defaultHintTextColor =
+                ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
         }
 
     }
-    private fun validate(): Boolean{
+
+    private fun validate(): Boolean {
         var valid = true
-        if (bid_add_type.text.toString().isEmpty()) {
-            request_type_out.error = "Выберите тип заявки"
-            valid = false
-        }else{
-            request_type_out.isErrorEnabled = false
-        }
 
         if (bid_add_porch.text.toString().isEmpty()) {
             text_bid_add_porch.error = "Поле не должно быть пустым"
             valid = false
-        }else{
+        } else {
             text_bid_add_porch.isErrorEnabled = false
         }
 
         if (bid_add_flat.text.toString().isEmpty()) {
             text_bid_add_flat.error = "Поле не должно быть пустым"
             valid = false
-        }else{
+        } else {
             text_bid_add_flat.isErrorEnabled = false
         }
 
         if (bid_add_adres.text.toString().isEmpty()) {
             text_bid_add_adres.error = "Выберите адрес"
             valid = false
-        }else{
+        } else {
             text_bid_add_adres.isErrorEnabled = false
         }
 
         if (request_description.text.toString().isEmpty()) {
             text_request_description.error = "Поле не должно быть пустым"
             valid = false
-        }else{
+        } else {
             text_request_description.isErrorEnabled = false
+        }
+
+        try {
+            requestTypeId = (bid_add_type.selectedItem as RequestTypeModel).requestTypeId
+        } catch (e: Exception) {
+            bid_add_type.error = "Заполните поле"
+            valid = false
+
         }
 
         return valid
@@ -100,7 +106,11 @@ class RequestAddFragment : Fragment() {
     private fun initViews(root: View) {
 
         root.request_add.setOnClickListener {
-            if (validate()){
+
+            //
+
+
+            if (validate()) {
                 MainActivity.alert.show()
                 if (RequestDetailFragment.requestModel.id != null) {
                     val body = UpdateRequest()
@@ -142,25 +152,6 @@ class RequestAddFragment : Fragment() {
         }
 
         //types
-        root.bid_add_type.keyListener = null
-        root.bid_add_type.setOnClickListener {
-            root.bid_add_type.showDropDown()
-        }
-        root.bid_add_type.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
-            root.bid_add_type.showDropDown()
-
-            if (!hasFocus && root.bid_add_type.text.isNotEmpty()) {
-                root.request_type_out.isErrorEnabled = false
-            }
-
-        }
-        root.bid_add_type.setOnItemClickListener { parent, _, position, _ ->
-            requestTypeId =
-                (parent.getItemAtPosition(position) as RequestTypeModel).requestTypeId
-            request_type_out.defaultHintTextColor =
-                ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-            root.bid_add_type.clearFocus()
-        }
 
         //addresses
         root.bid_add_adres.keyListener = null
@@ -174,7 +165,7 @@ class RequestAddFragment : Fragment() {
             if (!hasFocus && root.bid_add_flat.text!!.isNotEmpty()) {
                 text_bid_add_flat.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                    root.text_bid_add_flat.isErrorEnabled = false
+                root.text_bid_add_flat.isErrorEnabled = false
             }
         }
         root.bid_add_porch.setOnFocusChangeListener { _, hasFocus ->
@@ -214,9 +205,10 @@ class RequestAddFragment : Fragment() {
             root.bid_add_adres.isClickable = false
             root.bid_add_adres.isEnabled = false
             root.request_add.text = "Обновить"
-            try{
+            try {
                 (activity as AppCompatActivity?)!!.supportActionBar?.title = "Обновить"
-            }catch (e:Exception){}
+            } catch (e: Exception) {
+            }
 
         }
     }
@@ -227,10 +219,18 @@ class RequestAddFragment : Fragment() {
             //types
             val typeAdapter = ArrayAdapter<RequestTypeModel>(
                 context!!,
-                R.layout.support_simple_spinner_dropdown_item,
+                R.layout.item_spinner_adapter,
                 it
             )
-            bid_add_type.setAdapter(typeAdapter)
+            typeAdapter.setDropDownViewResource(R.layout.item_spinner_dropdown)
+            bid_add_type.adapter = typeAdapter
+            if (RequestDetailFragment.requestModel.id != null) {
+                it.forEachIndexed { index, model ->
+                    if (RequestDetailFragment.requestModel.requestTypeName == model.requestTypeName){
+                        bid_add_type.setSelection(index+1)
+                    }
+                }
+            }
             MainActivity.alert.hide()
 
         })

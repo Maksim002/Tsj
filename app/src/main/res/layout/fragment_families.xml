@@ -6,23 +6,24 @@
     android:layout_height="match_parent"
     android:background="#E5E5E5"
     android:orientation="vertical"
+    android:padding="12dp"
     tools:context=".ui.reference.RelativeFragment">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_marginTop="8dp"
         android:id="@+id/text_families_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:focusableInTouchMode="true"
+
         android:hint="ФИО"
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
+            android:padding="10dp"
             android:id="@+id/edit_families"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:padding="16dp"
             android:textColor="#001"
             android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -38,19 +39,16 @@
         android:id="@+id/text_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
         android:hint="Дата рождения"
         app:layout_constraintTop_toBottomOf="@+id/li">
 
         <EditText
+            android:padding="10dp"
             android:id="@+id/text_families_date"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="23dp"
+            android:layout_height="wrap_content"
             android:background="@null"
-            android:drawableEnd="@drawable/ic_expend"
-            android:paddingEnd="8dp" />
+            android:drawableEnd="@drawable/ic_expend" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -62,32 +60,20 @@
         app:layout_constraintTop_toBottomOf="@+id/text_date" />
 
     <fr.ganfra.materialspinner.MaterialSpinner
-        android:layout_marginTop="5dp"
         android:id="@+id/bind_add_request"
-        app:ms_baseColor="@color/grayColor"
-        app:ms_thickness="0dp"
-        app:ms_highlightColor="@color/orangeColor"
-        android:layout_marginLeft="7dp"
-        android:layout_marginRight="22dp"
-        app:ms_hintColor="@color/grayColor"
-        app:ms_arrowSize="10dp"
-        app:ms_hintTextSize="18dp"
-        app:ms_arrowColor="@color/itemIconTintF"
-        app:ms_floatingLabelColor="@color/orangeColor"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/lin_v"
-        android:layout_height="wrap_content"
+        app:ms_arrowColor="@color/itemIconTintF"
+        app:ms_baseColor="@color/grayColor"
+        app:ms_floatingLabelColor="@color/orangeColor"
         app:ms_floatingLabelText="Кем приходится"
-        app:ms_hint="Кем приходится"/>
+        app:ms_highlightColor="@color/orangeColor"
+        app:ms_hint="Кем приходится"
+        app:ms_hintColor="@color/grayColor"
 
+        />
 
-    <ImageView
-        android:id="@+id/in"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_divider"
-        app:layout_constraintTop_toBottomOf="@+id/bind_add_request"
-        tools:ignore="UnknownId" />
 
     <include
         android:id="@+id/goneL"
@@ -104,10 +90,6 @@
             style="@style/RoundedOrangeBackground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="8dp"
             android:text="Добавить"
             android:textColor="#FFFFFF" />
     </LinearLayout>
