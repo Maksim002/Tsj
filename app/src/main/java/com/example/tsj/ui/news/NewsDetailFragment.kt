@@ -101,11 +101,11 @@ class NewsDetailFragment : Fragment(), GeneralClickListener, CommentOnItemListen
             val imageUrls = ArrayList<String>()
             val filesList = ArrayList<NewsAttachments>()
 
-            for (i in item.attachments.indices) {
-                if (item.attachments[i].type == 0) {
-                    imageUrls.add(item.attachments[i].filePath)
+            for (i in item.attachments) {
+                if (i.type == 0) {
+                    imageUrls.add(i.filePath)
                 } else {
-                    filesList.add(item.attachments[i])
+                    filesList.add(i)
                 }
             }
 

@@ -23,11 +23,14 @@ class NewsVPAdapter(private val context: Context, private val imageUrls: ArrayLi
     override fun instantiateItem(@NonNull container: ViewGroup, position: Int): Any {
 
         val imageView = ImageView(context)
-        Glide.with(imageView)
-            .load(imageUrls[position])
-            .centerCrop()
-            .into(imageView)
-        container.addView(imageView)
+        try {
+            Glide.with(imageView)
+                .load(imageUrls[position])
+                .centerCrop()
+                .into(imageView)
+            container.addView(imageView)
+
+        }catch (e:Exception){}
 
         return imageView
     }

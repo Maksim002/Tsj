@@ -21,6 +21,7 @@ import com.example.tsj.service.model.RelativeModel
 import com.example.tsj.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_families.*
 import kotlinx.android.synthetic.main.fragment_families.view.*
+import java.lang.Exception
 import java.util.*
 
 
@@ -37,26 +38,26 @@ class RelativeFragment : Fragment() {
     ): View? {
         viewModel = ViewModelProviders.of(this).get(ReferenceViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_families, container, false)
-            initArguments()
-            initViews(root)
-            initData(root)
+        initArguments()
+        initViews(root)
+        initData(root)
 
         return root
     }
 
-    private fun validate(): Boolean{
+    private fun validate(): Boolean {
         var valid = true
         if (edit_families.text.toString().isEmpty()) {
             text_families_name.error = "ФИО не должно быть пустым"
             valid = false
-        }else{
+        } else {
             text_families_name.isErrorEnabled = false
         }
 
         if (text_families_date.text.toString().isEmpty()) {
             text_date.error = "Поле не должно быть пустым"
             valid = false
-        }else{
+        } else {
             text_date.isErrorEnabled = false
         }
 
@@ -70,20 +71,20 @@ class RelativeFragment : Fragment() {
 
     }
 
-    private fun check(){
-            if (position != -1){
-                buttonFamilies.setText("Обновить")
-                (activity as AppCompatActivity).supportActionBar?.setTitle("Обновить")
-            }
+    private fun check() {
+        if (position != -1) {
+            buttonFamilies.setText("Обновить")
+            (activity as AppCompatActivity).supportActionBar?.setTitle("Обновить")
+        }
     }
 
-    private fun initHint(){
-        if(edit_families.text.isNotEmpty()){
+    private fun initHint() {
+        if (edit_families.text.isNotEmpty()) {
 
-                text_date.defaultHintTextColor =
-                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                text_families_name.defaultHintTextColor =
-                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            text_date.defaultHintTextColor =
+                ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            text_families_name.defaultHintTextColor =
+                ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
         }
     }
 
@@ -100,12 +101,21 @@ class RelativeFragment : Fragment() {
 
 
     private fun initData(root: View) {
-        viewModel.relatives().observe(this, Observer {
-            val adapter = ArrayAdapter<MessagesPersonsModel>(context!!, android.R.layout.simple_spinner_item, it)
-            adapter.setDropDownViewResource(android.R.layout.simple_expandable_list_item_1)
 
-            root.bind_add_request.setAdapter(adapter)
+        viewModel.relatives().observe(this, Observer {
+            val adapter =
+                ArrayAdapter<MessagesPersonsModel>(context!!, R.layout.item_spinner_adapter, it)
+            adapter.setDropDownViewResource(R.layout.item_spinner_dropdown)
+            root.bind_add_request.adapter = adapter
             if (position != -1) {
+                val id = AddUpdateReferenceFragment.list[position].relativeId
+                it.forEachIndexed { index, model ->
+                    if (model.id == id) {
+                        root.bind_add_request.setSelection(index + 1)
+                    }
+                }
+
+
             }
         })
     }
@@ -117,29 +127,41 @@ class RelativeFragment : Fragment() {
 
         }
         root.findViewById<Button>(R.id.buttonFamilies).setOnClickListener {
-            if (validate()){
-            if (position == -1) {
-                AddUpdateReferenceFragment.list.add(
-                    RelativeModel(relativeId, MyUtils.toServerDate(root.text_families_date.text.toString()),
+            try {
+                relativeId = (root.bind_add_request.selectedItem as MessagesPersonsModel).id
+                relative = (root.bind_add_request.selectedItem as MessagesPersonsModel).name
+            }catch (e:Exception){
+                root.bind_add_request.error = "Заполните поле"
+            }
+
+            if (validate()) {
+
+
+                if (position == -1) {
+                    AddUpdateReferenceFragment.list.add(
+                        RelativeModel(
+                            relativeId,
+                            MyUtils.toServerDate(root.text_families_date.text.toString()),
+                            root.edit_families.text.toString(),
+                            relative
+                        )
+                    )
+                } else {
+                    AddUpdateReferenceFragment.list[position] = RelativeModel(
+                        relativeId,
+                        MyUtils.toServerDate(root.text_families_date.text.toString()),
                         root.edit_families.text.toString(),
                         relative
                     )
-                )
-            } else {
-                AddUpdateReferenceFragment.list[position] = RelativeModel(
-                    relativeId,
-                    MyUtils.toServerDate(root.text_families_date.text.toString()),
-                    root.edit_families.text.toString(),
-                    relative
-                )
-            }
+                }
 
-            findNavController().popBackStack()
+                findNavController().popBackStack()
             }
         }
 
         root.edit_families.setOnFocusChangeListener { _, _ ->
-            root.text_families_name.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            root.text_families_name.defaultHintTextColor =
+                ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
 
         }
 
@@ -170,7 +192,7 @@ class RelativeFragment : Fragment() {
                 date?.show()
                 root.text_families_date.clearFocus()
             }
-            if (!hasFocus && root.text_families_date.text.isNotEmpty()){
+            if (!hasFocus && root.text_families_date.text.isNotEmpty()) {
                 root.text_date.isErrorEnabled = false
             }
         }
