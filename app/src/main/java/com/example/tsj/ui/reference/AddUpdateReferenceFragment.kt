@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.example.tsj.MainActivity
 import com.example.tsj.R
 import com.example.tsj.adapters.families.FamilyAdapter
 import com.example.tsj.adapters.families.FamilyListener
@@ -109,6 +110,7 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
                 data.person.fullName = edit_ref.text.toString()
                 data.person.dateOfBirth = MyUtils.toServerDate(editReferenceS.text.toString())
                 if (!update) {
+                    MainActivity.alert.show()
                     viewModel.addReferences(data).observe(this, Observer {
                         if (it) {
                             findNavController().popBackStack()
@@ -119,8 +121,10 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
                                 Toast.LENGTH_LONG
                             ).show()
                         }
+                        MainActivity.alert.hide()
                     })
                 } else {
+                    MainActivity.alert.show()
                     viewModel.updateReference(data).observe(this, Observer {
                         if (it) {
                             findNavController().popBackStack()
@@ -131,6 +135,7 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
                                 Toast.LENGTH_LONG
                             ).show()
                         }
+                        MainActivity.alert.hide()
                     })
                 }
             }
@@ -201,7 +206,7 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
                 picker.show()
                 editReferenceS.clearFocus()
             }
-            if (!hasFocus && editReferenceS.text.isNotEmpty()){
+            if (!hasFocus && editReferenceS.text.isNotEmpty()) {
                 referenceS.isErrorEnabled = false
             }
         }

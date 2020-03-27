@@ -37,12 +37,14 @@ class ChangePassword : Fragment() {
         initHint()
 
         change_password_btn.setOnClickListener {
-            MainActivity.alert.show()
+
             if (validate()) {
+
                 val model = ChangePasswordModel()
                 model.oldPassword = change_password_old.text.toString()
                 model.newPassword = change_password_new.text.toString()
                 model.confirmPassword = change_password_accept.text.toString()
+                MainActivity.alert.show()
                 viewModel.references(model).observe(this, Observer {
                     if (it){
                         Toast.makeText(context,"Пароль успешно изменен",Toast.LENGTH_LONG).show()

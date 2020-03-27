@@ -34,7 +34,6 @@ class BalanceFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(BalanceViewModel::class.java)
         textComplete = root.findViewById(R.id.autoCompleteTextView)
         model = AddressModel()
-        MainActivity.alert.show()
         root.balance_show_button.setOnClickListener {
             if (validate()) {
                 if (placementId != 0) {
@@ -79,6 +78,7 @@ class BalanceFragment : Fragment() {
 
     private fun getAutoOperation() {
         var listAddress = ArrayList<AddressModel>()
+        MainActivity.alert.show()
         viewModel.addresses().observe(this, Observer { addres ->
             val list = addres.map {
                 it.address
@@ -107,7 +107,7 @@ class BalanceFragment : Fragment() {
             try {
                 textComplete.showDropDown()
 
-                if (!hasFocus && textComplete.text.isNotEmpty()){
+                if (!hasFocus && textComplete.text.isNotEmpty()) {
                     name_text_input.isErrorEnabled = false
                 }
 

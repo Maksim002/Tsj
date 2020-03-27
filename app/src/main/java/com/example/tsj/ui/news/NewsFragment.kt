@@ -32,7 +32,6 @@ class NewsFragment : Fragment(), NewsOnItemClickListener {
         val root = inflater.inflate(R.layout.fragment_news, container, false)
 
         news_rv = root.findViewById(R.id.recyclerViewFile)
-        MainActivity.alert.show()
         viewModel = ViewModelProviders.of(this).get(NewsViewModel::class.java)
 
         (activity as AppCompatActivity).supportActionBar?.show()
@@ -41,6 +40,7 @@ class NewsFragment : Fragment(), NewsOnItemClickListener {
     }
 
     private fun getRecyclerView() {
+        MainActivity.alert.show()
         viewModel.news().observe(this, Observer { list ->
             newsAdapter = NewsAdapter(list, this)
             news_rv.apply {

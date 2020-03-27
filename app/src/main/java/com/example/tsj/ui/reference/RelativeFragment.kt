@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.example.tsj.MainActivity
 import com.example.tsj.R
 import com.example.tsj.service.model.MessagesPersonsModel
 import com.example.tsj.service.model.RelativeModel
@@ -101,8 +102,9 @@ class RelativeFragment : Fragment() {
 
 
     private fun initData(root: View) {
-
+        MainActivity.alert.show()
         viewModel.relatives().observe(this, Observer {
+            MainActivity.alert.hide()
             val adapter =
                 ArrayAdapter<MessagesPersonsModel>(context!!, R.layout.item_spinner_adapter, it)
             adapter.setDropDownViewResource(R.layout.item_spinner_dropdown)
@@ -130,7 +132,7 @@ class RelativeFragment : Fragment() {
             try {
                 relativeId = (root.bind_add_request.selectedItem as MessagesPersonsModel).id
                 relative = (root.bind_add_request.selectedItem as MessagesPersonsModel).name
-            }catch (e:Exception){
+            } catch (e: Exception) {
                 root.bind_add_request.error = "Заполните поле"
             }
 
