@@ -58,7 +58,6 @@ class RequestAddFragment : Fragment() {
             text_request_description.defaultHintTextColor =
                 ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
         }
-
     }
 
     private fun validate(): Boolean {
@@ -92,16 +91,18 @@ class RequestAddFragment : Fragment() {
             text_request_description.isErrorEnabled = false
         }
 
+        try {
+            requestTypeId = (bid_add_type.selectedItem as RequestTypeModel).requestTypeId
+        } catch (e: Exception) {
+            bid_add_type.error = "Заполните поле"
+            valid = false
+        }
         return valid
     }
 
     private fun initViews(root: View) {
 
         root.request_add.setOnClickListener {
-
-            //
-
-
             if (validate()) {
                 MainActivity.alert.show()
                 if (RequestDetailFragment.requestModel.id != null) {
@@ -144,26 +145,7 @@ class RequestAddFragment : Fragment() {
         }
 
         //types
-        root.bid_add_type.keyListener = null
-        root.bid_add_type.setOnClickListener {
-            root.bid_add_type.showDropDown()
-        }
-        root.bid_add_type.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
-            root.bid_add_type.showDropDown()
-            MyUtils.hideKeyboard(activity!!, view!!)
 
-            if (!hasFocus && root.bid_add_type.text.isNotEmpty()) {
-                root.request_type_out.isErrorEnabled = false
-            }
-
-        }
-        root.bid_add_type.setOnItemClickListener { parent, _, position, _ ->
-            requestTypeId =
-                (parent.getItemAtPosition(position) as RequestTypeModel).requestTypeId
-            request_type_out.defaultHintTextColor =
-                ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-            root.bid_add_type.clearFocus()
-        }
         //addresses
         root.bid_add_adres.keyListener = null
 
@@ -231,10 +213,18 @@ class RequestAddFragment : Fragment() {
             //types
             val typeAdapter = ArrayAdapter<RequestTypeModel>(
                 context!!,
-                R.layout.support_simple_spinner_dropdown_item,
+                R.layout.item_spinner_adapter,
                 it
             )
-            bid_add_type.setAdapter(typeAdapter)
+            typeAdapter.setDropDownViewResource(R.layout.item_spinner_dropdown)
+            bid_add_type.adapter = typeAdapter
+            if (RequestDetailFragment.requestModel.id != null) {
+                it.forEachIndexed { index, model ->
+                    if (RequestDetailFragment.requestModel.requestTypeName == model.requestTypeName){
+                        bid_add_type.setSelection(index+1)
+                    }
+                }
+            }
             MainActivity.alert.hide()
 
         })
@@ -250,6 +240,4 @@ class RequestAddFragment : Fragment() {
             MainActivity.alert.hide()
         })
     }
-
-
 }
