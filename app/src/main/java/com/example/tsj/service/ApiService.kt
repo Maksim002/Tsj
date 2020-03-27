@@ -174,5 +174,8 @@ interface ApiService {
     @POST("ChangePassword")
     fun changePassword(@Body model: ChangePasswordModel): Call<Unit>
 
+    @POST("Contact/Feedback")
+    fun sendFeedback(@Body model: FeedbackRequest): Call<String>
+
 }
 
