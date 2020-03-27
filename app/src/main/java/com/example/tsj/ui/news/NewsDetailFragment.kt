@@ -31,7 +31,9 @@ import com.example.tsj.service.model.news.NewsAttachments
 import com.example.tsj.service.model.news.NewsCommentsModel
 import com.example.tsj.service.request.NewsCommentRequest
 import com.example.tsj.utils.MyUtils
+import kotlinx.android.synthetic.main.fragment_bid_add.*
 import kotlinx.android.synthetic.main.fragment_news_detail.*
+import kotlinx.android.synthetic.main.fragment_bid_add.text_bid_add_porch as text_bid_add_porch1
 
 class NewsDetailFragment : Fragment(), GeneralClickListener, CommentOnItemListener {
 
@@ -62,8 +64,8 @@ class NewsDetailFragment : Fragment(), GeneralClickListener, CommentOnItemListen
         if (AppPreferences.isLogined) {
             cardview.visibility = View.VISIBLE
             news_detail_send_btn.setOnClickListener { view ->
-                if (news_detail_edittext.text.isNotEmpty()) {
-                    news_detail_edittext.error = null
+                MyUtils.hideKeyboard(activity!!, view!!)
+                if (validate()){
                     val body = NewsCommentRequest(newsId, news_detail_edittext.text.toString())
                     viewModel.newsCommentPost(body).observe(this, Observer {
                         if (it) {
@@ -74,7 +76,6 @@ class NewsDetailFragment : Fragment(), GeneralClickListener, CommentOnItemListen
                             ).show()
                             news_detail_edittext.setText("")
                             news_detail_edittext.clearFocus()
-                            news_detail_edittext.hint = getString(R.string.comment)
                             MyUtils.hideKeyboard(activity!!, view)
                             initComments()
 
@@ -83,8 +84,6 @@ class NewsDetailFragment : Fragment(), GeneralClickListener, CommentOnItemListen
                                 .show()
                         }
                     })
-                } else {
-                    news_detail_edittext.error = "Коментарии не могут быть пустыми"
                 }
             }
         } else {
@@ -231,6 +230,16 @@ class NewsDetailFragment : Fragment(), GeneralClickListener, CommentOnItemListen
         builder.setNegativeButton(getString(R.string.no)) { d: DialogInterface, i: Int ->
         }
         builder.show()
+    }
+    private fun validate(): Boolean {
+        var valid = true
+        if (news_detail_edittext.text.toString().isEmpty()) {
+            text_bid_add_porch.error = "Поле не должно быть пустым"
+            valid = false
+        } else {
+            text_bid_add_porch.isErrorEnabled = false
+        }
+        return valid
     }
 
 }

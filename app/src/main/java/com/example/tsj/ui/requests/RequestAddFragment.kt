@@ -19,6 +19,7 @@ import com.example.tsj.service.model.RequestAddressesModel
 import com.example.tsj.service.model.RequestTypeModel
 import com.example.tsj.service.request.AddRequest
 import com.example.tsj.service.request.UpdateRequest
+import com.example.tsj.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_bid_add.*
 import kotlinx.android.synthetic.main.fragment_bid_add.view.*
 import java.lang.Exception
@@ -96,7 +97,6 @@ class RequestAddFragment : Fragment() {
         return valid
     }
 
-
     private fun initViews(root: View) {
 
         root.request_add.setOnClickListener {
@@ -148,6 +148,7 @@ class RequestAddFragment : Fragment() {
         }
         root.bid_add_type.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
             root.bid_add_type.showDropDown()
+            MyUtils.hideKeyboard(activity!!, view!!)
 
             if (!hasFocus && root.bid_add_type.text.isNotEmpty()) {
                 root.request_type_out.isErrorEnabled = false
@@ -193,6 +194,7 @@ class RequestAddFragment : Fragment() {
         }
 
         root.bid_add_adres.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+            MyUtils.hideKeyboard(activity!!, view!!)
             root.bid_add_adres.showDropDown()
             if (!hasFocus && bid_add_adres.text.isNotEmpty()) {
                 root.text_bid_add_adres.isErrorEnabled = false

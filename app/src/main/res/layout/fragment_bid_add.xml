@@ -36,6 +36,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_bid_add_porch"
             android:layout_width="match_parent"
+            android:focusableInTouchMode="true"
             android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -50,6 +51,7 @@
         <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/text_bid_add_flat"
             android:layout_width="match_parent"
+            android:focusableInTouchMode="true"
             android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -85,6 +87,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_request_description"
             android:layout_width="match_parent"
+            android:focusableInTouchMode="true"
             android:layout_height="wrap_content">
 
             <AutoCompleteTextView
@@ -95,7 +98,10 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-
+        <include
+            android:id="@+id/goneL"
+            android:visibility="gone"
+            layout="@layout/item_focus" />
     </LinearLayout>
 
     <Button

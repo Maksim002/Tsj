@@ -38,6 +38,7 @@
         android:id="@+id/text_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:focusableInTouchMode="true"
         android:layout_marginTop="15dp"
         android:hint="Дата рождения"
         app:layout_constraintTop_toBottomOf="@+id/li">
@@ -61,6 +62,10 @@
         android:src="@drawable/ic_divider"
         app:layout_constraintTop_toBottomOf="@+id/text_date" />
 
+    <include
+        android:id="@+id/goneL"
+        layout="@layout/item_focus" />
+
     <fr.ganfra.materialspinner.MaterialSpinner
         android:layout_marginTop="5dp"
         android:id="@+id/bind_add_request"
@@ -69,6 +74,7 @@
         app:ms_highlightColor="@color/orangeColor"
         android:layout_marginLeft="7dp"
         android:layout_marginRight="22dp"
+        android:focusableInTouchMode="false"
         app:ms_hintColor="@color/grayColor"
         app:ms_arrowSize="10dp"
         app:ms_hintTextSize="18dp"
@@ -88,10 +94,6 @@
         android:src="@drawable/ic_divider"
         app:layout_constraintTop_toBottomOf="@+id/bind_add_request"
         tools:ignore="UnknownId" />
-
-    <include
-        android:id="@+id/goneL"
-        layout="@layout/item_focus" />
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -18,6 +18,7 @@
             android:id="@+id/new_house"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
             android:layout_weight="0.3">
 
             <AutoCompleteTextView
@@ -37,6 +38,7 @@
             android:id="@+id/new_appartment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
             android:layout_weight="0.7">
 
             <AutoCompleteTextView
@@ -62,6 +64,7 @@
             android:id="@+id/new_msg_who"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:drawableEnd="@drawable/ic_expend"
             android:hint="@string/user"
@@ -71,6 +74,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/new_msg_referenc_error"
         android:layout_width="match_parent"
+        android:focusableInTouchMode="true"
         android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -86,6 +90,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/new_msg_content_error"
         android:layout_width="match_parent"
+        android:focusableInTouchMode="true"
         android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -97,6 +102,11 @@
             android:paddingEnd="8dp" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <include
+        android:id="@+id/goneL"
+        android:visibility="gone"
+        layout="@layout/item_focus" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_marginTop="10dp"

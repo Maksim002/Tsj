@@ -179,6 +179,7 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
         editReferenceS.keyListener = null
         // Временный тракеч. Приложение падает.
         editReferenceS.setOnFocusChangeListener { _, hasFocus ->
+            MyUtils.hideKeyboard(activity!!, view!!)
             if (hasFocus) {
                 val cldr = Calendar.getInstance()
                 val col = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
