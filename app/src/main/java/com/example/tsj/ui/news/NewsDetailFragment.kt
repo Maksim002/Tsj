@@ -31,9 +31,7 @@ import com.example.tsj.service.model.news.NewsAttachments
 import com.example.tsj.service.model.news.NewsCommentsModel
 import com.example.tsj.service.request.NewsCommentRequest
 import com.example.tsj.utils.MyUtils
-import kotlinx.android.synthetic.main.fragment_bid_add.*
 import kotlinx.android.synthetic.main.fragment_news_detail.*
-import kotlinx.android.synthetic.main.fragment_bid_add.text_bid_add_porch as text_bid_add_porch1
 
 class NewsDetailFragment : Fragment(), GeneralClickListener, CommentOnItemListener {
 
