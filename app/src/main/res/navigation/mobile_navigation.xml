@@ -167,5 +167,10 @@
         android:name="com.example.tsj.ui.news.NewsDetailFragment"
         android:label="@string/news"
         tools:layout="@layout/fragment_news_detail" />
+    <fragment
+        android:id="@+id/feedbackSendFragment"
+        android:name="com.example.tsj.FeedbackSendFragment"
+        android:label="fragment_feedback_send"
+        tools:layout="@layout/fragment_feedback_send" />
 
 </navigation>

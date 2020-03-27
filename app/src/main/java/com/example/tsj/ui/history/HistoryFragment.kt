@@ -54,7 +54,6 @@ class HistoryFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_history, container, false)
         viewmodel = ViewModelProviders.of(this).get(HistoryViewModel::class.java)
-
         (activity as AppCompatActivity).supportActionBar?.show()
         return root
     }
@@ -134,6 +133,7 @@ class HistoryFragment : Fragment() {
     }
 
     private fun getDate() {
+        MainActivity.alert.show()
         viewmodel.periods().observe(this, Observer { periods ->
             autoDateFrom.setText(MyUtils.toMyDate(periods.from!!))
             autoDateTo.setText(MyUtils.toMyDate(periods.to!!))
@@ -147,11 +147,13 @@ class HistoryFragment : Fragment() {
             dayEnd = dayTo
             monthEnd = monthTo - 1
             yearEnd = yearTo
+            MainActivity.alert.hide()
         })
     }
 
     private fun getAutoAddress() {
         var listAddress = ArrayList<AddressModel>()
+        MainActivity.alert.show()
         viewmodel.addresses().observe(this, Observer { address ->
             val list = address.map {
                 it.address
@@ -207,6 +209,7 @@ class HistoryFragment : Fragment() {
 
     private fun getAutoService() {
         var listServices = ArrayList<ServicesModel>()
+        MainActivity.alert.show()
         viewmodel.services(placementId).observe(this, Observer { services ->
 
             val list = services.map {
@@ -253,6 +256,7 @@ class HistoryFragment : Fragment() {
 
     private fun getAutoOperation() {
         var listOperations = ArrayList<OperationsModel>()
+        MainActivity.alert.show()
         viewmodel.operations().observe(this, Observer { operations ->
             val list = operations.map {
                 it.operationName
@@ -260,6 +264,7 @@ class HistoryFragment : Fragment() {
             listOperations = operations as ArrayList<OperationsModel>
             val adapterOperations = ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
             autoOperation.setAdapter(adapterOperations)
+            MainActivity.alert.hide()
         })
         autoOperation.setKeyListener(null)
 

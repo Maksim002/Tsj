@@ -48,49 +48,47 @@ class RequestAddFragment : Fragment() {
     }
 
     private fun initHint() {
-        if (bid_add_flat.text!!.isNotEmpty()){
-            request_type_out.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-            text_bid_add_porch.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-            text_bid_add_flat.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-            text_bid_add_adres.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-            text_request_description.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+        if (bid_add_flat.text!!.isNotEmpty()) {
+            text_bid_add_porch.defaultHintTextColor =
+                ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            text_bid_add_flat.defaultHintTextColor =
+                ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            text_bid_add_adres.defaultHintTextColor =
+                ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            text_request_description.defaultHintTextColor =
+                ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
         }
 
     }
-    private fun validate(): Boolean{
+
+    private fun validate(): Boolean {
         var valid = true
-        if (bid_add_type.text.toString().isEmpty()) {
-            request_type_out.error = "Выберите тип заявки"
-            valid = false
-        }else{
-            request_type_out.isErrorEnabled = false
-        }
 
         if (bid_add_porch.text.toString().isEmpty()) {
             text_bid_add_porch.error = "Поле не должно быть пустым"
             valid = false
-        }else{
+        } else {
             text_bid_add_porch.isErrorEnabled = false
         }
 
         if (bid_add_flat.text.toString().isEmpty()) {
             text_bid_add_flat.error = "Поле не должно быть пустым"
             valid = false
-        }else{
+        } else {
             text_bid_add_flat.isErrorEnabled = false
         }
 
         if (bid_add_adres.text.toString().isEmpty()) {
             text_bid_add_adres.error = "Выберите адрес"
             valid = false
-        }else{
+        } else {
             text_bid_add_adres.isErrorEnabled = false
         }
 
         if (request_description.text.toString().isEmpty()) {
             text_request_description.error = "Поле не должно быть пустым"
             valid = false
-        }else{
+        } else {
             text_request_description.isErrorEnabled = false
         }
 
@@ -100,7 +98,11 @@ class RequestAddFragment : Fragment() {
     private fun initViews(root: View) {
 
         root.request_add.setOnClickListener {
-            if (validate()){
+
+            //
+
+
+            if (validate()) {
                 MainActivity.alert.show()
                 if (RequestDetailFragment.requestModel.id != null) {
                     val body = UpdateRequest()
@@ -162,7 +164,6 @@ class RequestAddFragment : Fragment() {
                 ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
             root.bid_add_type.clearFocus()
         }
-
         //addresses
         root.bid_add_adres.keyListener = null
 
@@ -175,7 +176,7 @@ class RequestAddFragment : Fragment() {
             if (!hasFocus && root.bid_add_flat.text!!.isNotEmpty()) {
                 text_bid_add_flat.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                    root.text_bid_add_flat.isErrorEnabled = false
+                root.text_bid_add_flat.isErrorEnabled = false
             }
         }
         root.bid_add_porch.setOnFocusChangeListener { _, hasFocus ->
@@ -216,9 +217,10 @@ class RequestAddFragment : Fragment() {
             root.bid_add_adres.isClickable = false
             root.bid_add_adres.isEnabled = false
             root.request_add.text = "Обновить"
-            try{
+            try {
                 (activity as AppCompatActivity?)!!.supportActionBar?.title = "Обновить"
-            }catch (e:Exception){}
+            } catch (e: Exception) {
+            }
 
         }
     }

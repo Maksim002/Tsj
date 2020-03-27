@@ -16,12 +16,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.example.tsj.MainActivity
 import com.example.tsj.R
 import com.example.tsj.service.model.MessagesPersonsModel
 import com.example.tsj.service.model.RelativeModel
 import com.example.tsj.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_families.*
 import kotlinx.android.synthetic.main.fragment_families.view.*
+import java.lang.Exception
 import java.util.*
 
 
@@ -100,13 +102,22 @@ class RelativeFragment : Fragment() {
 
 
     private fun initData(root: View) {
+        MainActivity.alert.show()
         viewModel.relatives().observe(this, Observer {
             val adapter = ArrayAdapter<MessagesPersonsModel>(
                 context!!, android.R.layout.simple_spinner_item, it)
             adapter.setDropDownViewResource(android.R.layout.simple_expandable_list_item_1)
-
             root.bind_add_request.setAdapter(adapter)
+            MainActivity.alert.hide()
             if (position != -1) {
+                val id = AddUpdateReferenceFragment.list[position].relativeId
+                it.forEachIndexed { index, model ->
+                    if (model.id == id) {
+                        root.bind_add_request.setSelection(index + 1)
+                    }
+                }
+
+
             }
         })
     }
@@ -119,67 +130,77 @@ class RelativeFragment : Fragment() {
         }
         root.findViewById<Button>(R.id.buttonFamilies).setOnClickListener {
             if (validate()) {
-                if (position == -1) {
-                    AddUpdateReferenceFragment.list.add(
-                        RelativeModel(
+                try {
+                    relativeId = (root.bind_add_request.selectedItem as MessagesPersonsModel).id
+                    relative = (root.bind_add_request.selectedItem as MessagesPersonsModel).name
+                } catch (e: Exception) {
+                    root.bind_add_request.error = "Заполните поле"
+                }
+
+                if (validate()) {
+                    if (position == -1) {
+                        AddUpdateReferenceFragment.list.add(
+                            RelativeModel(
+                                relativeId,
+                                MyUtils.toServerDate(root.text_families_date.text.toString()),
+                                root.edit_families.text.toString(),
+                                relative
+                            )
+                        )
+                    } else {
+                        AddUpdateReferenceFragment.list[position] = RelativeModel(
                             relativeId,
                             MyUtils.toServerDate(root.text_families_date.text.toString()),
                             root.edit_families.text.toString(),
                             relative
                         )
-                    )
-                } else {
-                    AddUpdateReferenceFragment.list[position] = RelativeModel(
-                        relativeId,
-                        MyUtils.toServerDate(root.text_families_date.text.toString()),
-                        root.edit_families.text.toString(),
-                        relative
-                    )
-                }
+                    }
 
-                findNavController().popBackStack()
+                    findNavController().popBackStack()
+                }
             }
-        }
 
-        root.edit_families.setOnFocusChangeListener { _, _ ->
-            root.text_families_name.defaultHintTextColor =
-                ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            root.edit_families.setOnFocusChangeListener { _, _ ->
+                root.text_families_name.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
 
-        }
-
-        root.text_families_date.keyListener = null
-        root.text_families_date.setOnFocusChangeListener setOnClickListener@{ _, hasFocus ->
-            if (hasFocus) {
-                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000){
-                    return@setOnClickListener
-                }
-                mLastClickTime = SystemClock.elapsedRealtime();
-                val mDet = DatePickerDialog.OnDateSetListener { _: DatePicker, year, month, day ->
-                    val data = MyUtils.convertDate(day, month, year)
-                    root.text_families_date.setText(data)
-                }
-                val calendar = Calendar.getInstance()
-                val year: Int = calendar.get(Calendar.YEAR)
-                val month: Int = calendar.get(Calendar.MONTH)
-                val day: Int = calendar.get(Calendar.DAY_OF_MONTH)
-                val col = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                root.text_date.defaultHintTextColor = col
-                val date = context?.let {
-                    DatePickerDialog(
-                        it,
-                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                        mDet,
-                        year,
-                        month,
-                        day
-                    )
-                }
-                date?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                date?.show()
-                root.text_families_date.clearFocus()
             }
-            if (!hasFocus && root.text_families_date.text.isNotEmpty()) {
-                root.text_date.isErrorEnabled = false
+
+            root.text_families_date.keyListener = null
+            root.text_families_date.setOnFocusChangeListener setOnClickListener@{ _, hasFocus ->
+                if (hasFocus) {
+                    if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
+                        return@setOnClickListener
+                    }
+                    mLastClickTime = SystemClock.elapsedRealtime();
+                    val mDet =
+                        DatePickerDialog.OnDateSetListener { _: DatePicker, year, month, day ->
+                            val data = MyUtils.convertDate(day, month, year)
+                            root.text_families_date.setText(data)
+                        }
+                    val calendar = Calendar.getInstance()
+                    val year: Int = calendar.get(Calendar.YEAR)
+                    val month: Int = calendar.get(Calendar.MONTH)
+                    val day: Int = calendar.get(Calendar.DAY_OF_MONTH)
+                    val col = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+                    root.text_date.defaultHintTextColor = col
+                    val date = context?.let {
+                        DatePickerDialog(
+                            it,
+                            android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                            mDet,
+                            year,
+                            month,
+                            day
+                        )
+                    }
+                    date?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                    date?.show()
+                    root.text_families_date.clearFocus()
+                }
+                if (!hasFocus && root.text_families_date.text.isNotEmpty()) {
+                    root.text_date.isErrorEnabled = false
+                }
             }
         }
     }

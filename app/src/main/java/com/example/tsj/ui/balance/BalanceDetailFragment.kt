@@ -30,7 +30,6 @@ class BalanceDetailFragment : Fragment() {
 
 
         viewModel = ViewModelProviders.of(this).get(BalanceViewModel::class.java)
-        MainActivity.alert.show()
         balance_rv = root.findViewById(R.id.balance_summ_recyclerview)
         getRecyclerView()
 
@@ -58,7 +57,7 @@ class BalanceDetailFragment : Fragment() {
         } catch (e: Exception) {
             ""
         }
-
+        MainActivity.alert.show()
         viewModel.services(id).observe(this, Observer { list ->
             balanceAdapter.setList(list)
             MainActivity.alert.hide()
