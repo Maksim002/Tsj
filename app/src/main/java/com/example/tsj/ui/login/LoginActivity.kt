@@ -97,7 +97,7 @@ class LoginActivity : AppCompatActivity() {
                 map.put("username", text_email.text.toString())
                 map.put("password", text_pass.text.toString())
                 map.put("refresh_token", "")
-                MainActivity.alert.show()
+
                 viewModel.auth(map).observe(this, Observer {
                     if (it) {
                         startMainActivity()
@@ -106,7 +106,6 @@ class LoginActivity : AppCompatActivity() {
                         Toast.makeText(this, "Не правильный логин или пароль", Toast.LENGTH_LONG)
                             .show()
                     }
-                    MainActivity.alert.show()
 
                 })
             }

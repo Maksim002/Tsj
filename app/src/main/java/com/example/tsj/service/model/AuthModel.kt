@@ -7,9 +7,6 @@ class AuthModel {
     @SerializedName("access_token")
     @Expose
     var accessToken: String? = null
-    @SerializedName("refresh_token")
-    @Expose
-    var refresh_token: String? = null
     @SerializedName("token_type")
     @Expose
     var tokenType: String? = null
