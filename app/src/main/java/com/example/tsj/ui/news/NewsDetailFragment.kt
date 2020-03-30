@@ -102,7 +102,7 @@ class NewsDetailFragment : Fragment(), GeneralClickListener, CommentOnItemListen
             val filesList = ArrayList<NewsAttachments>()
 
             for (i in item.attachments) {
-                if (MyUtils.IsImage(i.fileName)) {
+                if (MyUtils.isImage(i.fileName)) {
                     imageUrls.add(i.filePath)
                 } else {
                     filesList.add(i)

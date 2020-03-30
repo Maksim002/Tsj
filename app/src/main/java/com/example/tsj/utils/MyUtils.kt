@@ -78,10 +78,19 @@ object MyUtils {
     }
 
 
-    fun IsImage(fileName: String): Boolean {
+    fun isImage(fileName: String): Boolean {
         val regExpn = "([^\\s]+(\\.(?i)(jpg|png|gif|bmp))$)"
         val pattern = Pattern.compile(regExpn, Pattern.CASE_INSENSITIVE)
         val matcher = pattern.matcher(fileName)
         return matcher.matches()
+    }
+
+
+    fun fileName(url: String): String {
+            return try {
+                url.substring(url.lastIndexOf("/")+1)
+            }catch (e:Exception){
+                url
+            }
     }
 }
