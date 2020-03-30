@@ -16,7 +16,6 @@ import com.example.tsj.MainActivity
 import com.example.tsj.R
 import com.example.tsj.service.model.ChangePasswordModel
 import kotlinx.android.synthetic.main.fragment_change_password.*
-import kotlinx.android.synthetic.main.fragment_profile.*
 
 
 class ChangePassword : Fragment() {
@@ -45,7 +44,7 @@ class ChangePassword : Fragment() {
                 model.newPassword = change_password_new.text.toString()
                 model.confirmPassword = change_password_accept.text.toString()
                 MainActivity.alert.show()
-                viewModel.references(model).observe(this, Observer {
+                viewModel.cnahgePassword(model).observe(this, Observer {
                     if (it){
                         Toast.makeText(context,"Пароль успешно изменен",Toast.LENGTH_LONG).show()
                         findNavController().popBackStack()

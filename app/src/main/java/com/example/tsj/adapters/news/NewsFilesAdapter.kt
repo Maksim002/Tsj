@@ -9,17 +9,15 @@ import com.example.tsj.common.ViewHolder
 import com.example.tsj.service.model.news.NewsAttachments
 import kotlinx.android.synthetic.main.item_news_file.view.*
 
-class NewsFilesAdapter(item: List<NewsAttachments>,  fileListener : GeneralClickListener) :
+class NewsFilesAdapter(item: List<NewsAttachments>, private val fileListener: GeneralClickListener) :
     GenericRecyclerAdapter<NewsAttachments>(item) {
-
-   val fileListener : GeneralClickListener = fileListener
 
     override fun bind(item: NewsAttachments, holder: ViewHolder) {
 
-            holder.itemView.news_file_title.text = item.fileName
+        holder.itemView.news_file_title.text = item.fileName
 
         holder.itemView.news_file_download.setOnClickListener {
-            fileListener.onClickItem(holder.adapterPosition, item.filePath)
+            fileListener.onClickItem(holder.adapterPosition, item.filePath, item.fileName)
         }
     }
 

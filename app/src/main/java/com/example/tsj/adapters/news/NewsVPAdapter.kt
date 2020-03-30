@@ -7,8 +7,9 @@ import android.widget.ImageView
 import androidx.annotation.NonNull
 import androidx.viewpager.widget.PagerAdapter
 import com.bumptech.glide.Glide
+import com.example.tsj.R
 
-class NewsVPAdapter(private val context: Context, private val imageUrls: ArrayList <String>) :
+class NewsVPAdapter(private val context: Context, private val imageUrls: ArrayList<String>) :
     PagerAdapter() {
 
     override fun getCount(): Int {
@@ -26,11 +27,13 @@ class NewsVPAdapter(private val context: Context, private val imageUrls: ArrayLi
         try {
             Glide.with(imageView)
                 .load(imageUrls[position])
+                .thumbnail(Glide.with(imageView).load(R.drawable.ic_placeholder))
                 .centerCrop()
                 .into(imageView)
             container.addView(imageView)
 
-        }catch (e:Exception){}
+        } catch (e: Exception) {
+        }
 
         return imageView
     }

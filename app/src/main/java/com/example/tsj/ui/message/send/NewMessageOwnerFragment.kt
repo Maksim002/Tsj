@@ -84,7 +84,7 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
         return root
     }
 
-    override fun onClickItem(position: Int, url: String) {
+    override fun onClickItem(position: Int, url: String,fileName:String) {
         name.removeAt(position)
         files.removeAt(position)
         val items = name.map {
