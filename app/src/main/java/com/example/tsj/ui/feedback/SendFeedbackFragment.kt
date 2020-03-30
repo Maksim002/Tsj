@@ -14,6 +14,7 @@ import com.example.tsj.R
 import com.example.tsj.service.AppPreferences
 import com.example.tsj.service.request.FeedbackRequest
 import com.example.tsj.utils.MyUtils
+import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.fragment_send_feedback.*
 
 class SendFeedbackFragment : Fragment() {
@@ -29,14 +30,15 @@ class SendFeedbackFragment : Fragment() {
         setHasOptionsMenu(true)
         viewModel = ViewModelProviders.of(this).get(FeedbackViewModel::class.java)
 
-        return inflater.inflate(R.layout.fragment_send_feedback, container, false)
+        val root = inflater.inflate(R.layout.fragment_send_feedback, container, false)
+        return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (AppPreferences.isLogined) {
-            edit_your_mail_edit.visibility = View.GONE
-        }
+        edit_your_mail.setText(AppPreferences.email.toString())
+        edit_your_mail.tag = edit_your_mail.keyListener
+        edit_your_mail.keyListener = null
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -92,13 +94,6 @@ class SendFeedbackFragment : Fragment() {
             edit_to_whom_edit.isErrorEnabled = false
         }
 
-        if (edit_write_a_letter.text.toString().isEmpty()) {
-            edit_write_a_letter_edit.error = "Поле не должно быть пустым"
-            valid = false
-        } else {
-            edit_write_a_letter_edit.isErrorEnabled = false
-        }
-
         if (!AppPreferences.isLogined) {
             if (!MyUtils.emailValidate(edit_your_mail.text.toString())) {
                 valid = false
@@ -113,6 +108,12 @@ class SendFeedbackFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         intColor()
+        initHint()
+    }
+
+    fun initHint() {
+        edit_your_mail_edit.defaultHintTextColor =
+                ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
     }
 
     private fun intColor() {
