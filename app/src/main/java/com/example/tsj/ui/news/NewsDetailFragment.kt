@@ -36,6 +36,7 @@ import kotlinx.android.synthetic.main.fragment_news_detail.*
 class NewsDetailFragment : Fragment(), GeneralClickListener, CommentOnItemListener {
 
     private var filePath = " "
+    private var fileName = " "
     private val STORAGE_PERMISION_CODE: Int = 1000
 
     private lateinit var viewModel: NewsViewModel
@@ -101,7 +102,7 @@ class NewsDetailFragment : Fragment(), GeneralClickListener, CommentOnItemListen
             val filesList = ArrayList<NewsAttachments>()
 
             for (i in item.attachments) {
-                if (i.type == 0) {
+                if (MyUtils.IsImage(i.fileName)) {
                     imageUrls.add(i.filePath)
                 } else {
                     filesList.add(i)
@@ -127,6 +128,9 @@ class NewsDetailFragment : Fragment(), GeneralClickListener, CommentOnItemListen
         initComments()
     }
 
+
+
+
     private fun initComments() {
         MainActivity.alert.show()
         viewModel.newsComment(newsId).observe(this, Observer { item ->
@@ -149,9 +153,9 @@ class NewsDetailFragment : Fragment(), GeneralClickListener, CommentOnItemListen
         }
     }
 
-    override fun onClickItem(position: Int, url: String) {
+    override fun onClickItem(position: Int, url: String,fileName:String) {
         filePath = url
-
+        this.fileName = fileName
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(
                     context!!,
@@ -183,7 +187,7 @@ class NewsDetailFragment : Fragment(), GeneralClickListener, CommentOnItemListen
         Toast.makeText(context, "Файл загружается...", Toast.LENGTH_LONG).show()
         val reguest = DownloadManager.Request(Uri.parse(downloadUrl))
         reguest.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
-        reguest.setTitle("TSJ.DOM")
+        reguest.setTitle(fileName)
         reguest.setDescription("Файл загружается...")
 
         reguest.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)

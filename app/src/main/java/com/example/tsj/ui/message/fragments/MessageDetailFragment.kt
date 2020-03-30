@@ -121,7 +121,7 @@ class MessageDetailFragment : Fragment(), GeneralClickListener {
         })
     }
 
-    override fun onClickItem(position: Int, url: String) {
+    override fun onClickItem(position: Int, url: String,fileName:String) {
         downloadUrl = url
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(

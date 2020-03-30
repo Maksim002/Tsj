@@ -57,9 +57,9 @@ object MyUtils {
     }
 
     fun dateConverting(text: String): Triple<Int, Int, Int> {
-        var day = text.substring(8, 10)
-        var month = text.substring(5, 7)
-        var year = text.substring(0, 4)
+        val day = text.substring(8, 10)
+        val month = text.substring(5, 7)
+        val year = text.substring(0, 4)
         return Triple(day.toInt(), month.toInt(), year.toInt())
     }
 
@@ -74,6 +74,14 @@ object MyUtils {
             ("""^(([\w-]+\.)+[\w-]+|([a-zA-Z]{1}|[\w-]{2,}))@((([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\.([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\.([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\.([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])){1}|([a-zA-Z]+[\w-]+\.)+[a-zA-Z]{2,4})$""")
         val pattern = Pattern.compile(regExpn, Pattern.CASE_INSENSITIVE)
         val matcher = pattern.matcher(text)
+        return matcher.matches()
+    }
+
+
+    fun IsImage(fileName: String): Boolean {
+        val regExpn = "([^\\s]+(\\.(?i)(jpg|png|gif|bmp))$)"
+        val pattern = Pattern.compile(regExpn, Pattern.CASE_INSENSITIVE)
+        val matcher = pattern.matcher(fileName)
         return matcher.matches()
     }
 }
