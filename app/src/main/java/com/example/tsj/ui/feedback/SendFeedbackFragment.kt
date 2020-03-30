@@ -9,19 +9,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.example.tsj.MainActivity
 import com.example.tsj.R
 import com.example.tsj.service.AppPreferences
 import com.example.tsj.service.request.FeedbackRequest
 import com.example.tsj.utils.MyUtils
-import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.fragment_send_feedback.*
 
 class SendFeedbackFragment : Fragment() {
     private lateinit var viewModel: FeedbackViewModel
-    private var name: String = " "
-    private var email: String = " "
-    private var letter: String = " "
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -63,25 +60,17 @@ class SendFeedbackFragment : Fragment() {
     }
 
     private fun senFeedBack() {
-        if (AppPreferences.isLogined) {
-            name = edit_to_whom.text.toString()
-            email = AppPreferences.email.toString()
-            letter = edit_write_a_letter.text.toString()
-        } else {
-            name = edit_to_whom.text.toString()
-            email = edit_your_mail.text.toString()
-            letter = edit_write_a_letter.text.toString()
-        }
 
         MyUtils.hideKeyboard(activity!!, view!!)
         if (validate()) {
             MainActivity.alert.show()
             val body = FeedbackRequest(
-                name, email, letter
+                edit_to_whom.text.toString(),  edit_your_mail.text.toString(), edit_write_a_letter.text.toString()
             )
             viewModel.sendFeedback(body).observe(this, Observer {
                 if (it) {
                     Toast.makeText(context, "Ваше письмо отправлено!", Toast.LENGTH_SHORT).show()
+                    findNavController().popBackStack()
                 } else {
                     Toast.makeText(context, "Ошибка!", Toast.LENGTH_SHORT).show()
                 }
@@ -98,6 +87,13 @@ class SendFeedbackFragment : Fragment() {
             valid = false
         } else {
             edit_to_whom_edit.isErrorEnabled = false
+        }
+
+        if (edit_write_a_letter.text.toString().isEmpty()) {
+            edit_write_a_letter_edit.error = "Поле не должно быть пустым"
+            valid = false
+        } else {
+            edit_write_a_letter_edit.isErrorEnabled = false
         }
 
         if (!AppPreferences.isLogined) {
