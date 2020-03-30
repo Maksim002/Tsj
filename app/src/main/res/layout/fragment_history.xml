@@ -75,6 +75,11 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <include
+        android:id="@+id/goneL"
+        android:visibility="gone"
+        layout="@layout/item_focus" />
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -146,9 +151,5 @@
         android:text="Показать"
         android:textColor="#FFFFFF"
         android:textSize="14sp" />
-
-    <include
-        android:id="@+id/goneL"
-        layout="@layout/item_focus" />
 
 </LinearLayout>
