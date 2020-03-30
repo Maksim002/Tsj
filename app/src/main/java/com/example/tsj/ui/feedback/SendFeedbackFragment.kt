@@ -30,15 +30,21 @@ class SendFeedbackFragment : Fragment() {
         setHasOptionsMenu(true)
         viewModel = ViewModelProviders.of(this).get(FeedbackViewModel::class.java)
 
-        val root = inflater.inflate(R.layout.fragment_send_feedback, container, false)
-        return root
+        return inflater.inflate(R.layout.fragment_send_feedback, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        edit_your_mail.setText(AppPreferences.email.toString())
-        edit_your_mail.tag = edit_your_mail.keyListener
-        edit_your_mail.keyListener = null
+
+
+        if (AppPreferences.isLogined){
+            edit_your_mail.setText(AppPreferences.email.toString())
+            edit_your_mail.tag = edit_your_mail.keyListener
+            edit_your_mail.keyListener = null
+            initHint()
+        }else{
+            edit_your_mail.setText("")
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -108,7 +114,6 @@ class SendFeedbackFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         intColor()
-        initHint()
     }
 
     fun initHint() {
