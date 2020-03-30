@@ -121,7 +121,7 @@ class MessageDetailFragment : Fragment(), GeneralClickListener {
         })
     }
 
-    override fun onClickItem(position: Int, url: String) {
+    override fun onClickItem(position: Int, url: String,fileName:String) {
         downloadUrl = url
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(
@@ -154,7 +154,7 @@ class MessageDetailFragment : Fragment(), GeneralClickListener {
         Toast.makeText(context, "Файл загружается.....", Toast.LENGTH_LONG).show()
         val reguest = DownloadManager.Request(Uri.parse(downloadUrl))
         reguest.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
-        reguest.setTitle("TSJ.DOM")
+        reguest.setTitle(MyUtils.fileName(downloadUrl))
         reguest.setDescription("Файл загружается.....")
 
         reguest.allowScanningByMediaScanner()

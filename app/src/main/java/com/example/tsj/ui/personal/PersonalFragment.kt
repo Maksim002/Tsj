@@ -201,7 +201,7 @@ class PersonalFragment : Fragment(), PersonalListener {
     private fun downloadFile(downloadUrl: String) {
         val reguest = DownloadManager.Request(Uri.parse(downloadUrl))
         reguest.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
-        reguest.setTitle("TSJ.DOM")
+        reguest.setTitle(MyUtils.fileName(downloadUrl))
         reguest.setDescription("Файл загружаеться.....")
 
         reguest.allowScanningByMediaScanner()

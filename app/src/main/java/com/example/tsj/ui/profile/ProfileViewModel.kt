@@ -11,7 +11,7 @@ import retrofit2.Response
 
 class ProfileViewModel : ViewModel() {
 
-    fun references(model: ChangePasswordModel): LiveData<Boolean> {
+    fun cnahgePassword(model: ChangePasswordModel): LiveData<Boolean> {
         val data = MutableLiveData<Boolean>()
         RetrofitService.apiService().changePassword(model)
             .enqueue(object : Callback<Unit> {
@@ -20,7 +20,7 @@ class ProfileViewModel : ViewModel() {
                 }
 
                 override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
-                    if (response.isSuccessful) data.value = true
+                    data.value = response.isSuccessful
 
                 }
 
