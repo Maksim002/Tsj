@@ -80,7 +80,6 @@ class HistoryFragment : Fragment() {
         } else {
             Operation.isErrorEnabled = false
         }
-
         return valid
     }
 
@@ -123,12 +122,18 @@ class HistoryFragment : Fragment() {
         if (autoAddress.text.isNotEmpty()) {
             Address.defaultHintTextColor =
                 ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+        }
+
+        if (autoService.text.isNotEmpty()) {
             Service.defaultHintTextColor =
                 ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+        }
+        if (autoOperation.text.isNotEmpty()) {
             Operation.defaultHintTextColor =
                 ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-
         }
+
+        goneL.requestFocus()
 
     }
 
@@ -183,6 +188,7 @@ class HistoryFragment : Fragment() {
                 getAutoService()
                 autoService.setAdapter(null)
                 autoService.setText("")
+                autoAddress.clearFocus()
 
             }
         autoAddress.setOnClickListener {
@@ -191,7 +197,9 @@ class HistoryFragment : Fragment() {
 
         autoAddress.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
             try {
-                autoAddress.showDropDown()
+                if (hasFocus) {
+                    autoAddress.showDropDown()
+                }
 
                 if (!hasFocus && autoAddress.text!!.isNotEmpty()) {
                     Service.defaultHintTextColor =
@@ -230,11 +238,12 @@ class HistoryFragment : Fragment() {
                 parent.getItemAtPosition(position).toString()
                 servicesId = listServices[position].serviceId!!
                 serviceName = listServices[position].serviceName!!
+                autoService.clearFocus()
             }
         autoService.setOnClickListener {
             autoService.showDropDown()
-
         }
+
         autoService.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
             try {
                 autoService.showDropDown()
@@ -262,7 +271,8 @@ class HistoryFragment : Fragment() {
                 it.operationName
             }
             listOperations = operations as ArrayList<OperationsModel>
-            val adapterOperations = ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
+            val adapterOperations =
+                ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
             autoOperation.setAdapter(adapterOperations)
             MainActivity.alert.hide()
         })
@@ -271,23 +281,26 @@ class HistoryFragment : Fragment() {
         autoOperation.onItemClickListener =
             AdapterView.OnItemClickListener { parent, _, position, _ ->
                 autoOperation.showDropDown()
-                Operation.defaultHintTextColor =
-                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
                 parent.getItemAtPosition(position).toString()
                 operationsId = listOperations[position].operationId!!
                 operationName = listOperations[position].operationName!!
-
+                autoOperation.clearFocus()
             }
         autoOperation.setOnClickListener {
             autoOperation.showDropDown()
-
-            autoOperation.clearFocus()
         }
         autoOperation.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
-            autoOperation.showDropDown()
-            if (!hasFocus && autoOperation.text.isNotEmpty()) {
-                Operation.isErrorEnabled = false
+            try {
+                autoOperation.showDropDown()
+                if (!hasFocus && autoOperation.text.isNotEmpty()) {
+                    Operation.defaultHintTextColor =
+                        ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+                    Operation.isErrorEnabled = false
+                }
+            } catch (e: Exception) {
+
             }
+
         }
         autoOperation.clearFocus()
     }
@@ -296,7 +309,7 @@ class HistoryFragment : Fragment() {
         autoDateFrom.keyListener = null;
         autoDateFrom.setOnFocusChangeListener setOnClickListener@{ _, hasFocus ->
             if (hasFocus) {
-                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000){
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
                     return@setOnClickListener
                 }
                 mLastClickTime = SystemClock.elapsedRealtime();
@@ -326,7 +339,7 @@ class HistoryFragment : Fragment() {
         autoDateTo.keyListener = null;
         autoDateTo.setOnFocusChangeListener setOnClickListener@{ _, hasFocus ->
             if (hasFocus) {
-                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000){
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
                     return@setOnClickListener
                 }
                 mLastClickTime = SystemClock.elapsedRealtime();
