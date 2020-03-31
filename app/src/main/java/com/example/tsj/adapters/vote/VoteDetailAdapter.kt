@@ -17,7 +17,7 @@ class VoteDetailAdapter(item: List<VotingVariantsModel>) :
         holder.itemView.vote_detail_precent.text = item.percent.toString() + "%"
         holder.itemView.vote_detail_name.text = item.name
 
-        if (item.percent == 0.0){
+        if (item.percent == 0.00){
             holder.itemView.vote_detail_progress.progress = 1
         }else{
             holder.itemView.vote_detail_progress.progress = item.percent.toInt() }
