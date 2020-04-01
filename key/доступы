@@ -1,0 +1,7 @@
+password tsjdomcom
+alias tsjdomcom
+password tsjdomcom
+
+key store password tsjdomcom
+key alias tsjdomcom
+key password tsjdomcom

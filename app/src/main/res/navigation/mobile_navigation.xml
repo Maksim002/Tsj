@@ -7,124 +7,124 @@
 
     <fragment
         android:id="@+id/navigation_news"
-        android:name="com.example.tsj.ui.news.NewsFragment"
+        android:name="com.timelysoft.tsjdomcom.ui.news.NewsFragment"
         android:label="@string/title_news"
         tools:layout="@layout/fragment_news" />
 
     <fragment
         android:id="@+id/navigation_message"
-        android:name="com.example.tsj.ui.message.MessageFragment"
+        android:name="com.timelysoft.tsjdomcom.ui.message.MessageFragment"
         android:label="@string/title_message"
         tools:layout="@layout/fragment_message" />
 
     <fragment
         android:id="@+id/navigation_contacts"
-        android:name="com.example.tsj.ui.contact.ContactFragment"
+        android:name="com.timelysoft.tsjdomcom.ui.contact.ContactFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_contacts" />
 
     <fragment
         android:id="@+id/navigation_history"
-        android:name="com.example.tsj.ui.history.HistoryFragment"
+        android:name="com.timelysoft.tsjdomcom.ui.history.HistoryFragment"
         android:label="@string/history"
         tools:layout="@layout/fragment_history" />
 
     <fragment
         android:id="@+id/navigation_balance"
-        android:name="com.example.tsj.ui.balance.BalanceFragment"
+        android:name="com.timelysoft.tsjdomcom.ui.balance.BalanceFragment"
         android:label="@string/title_balance"
         tools:layout="@layout/fragment_balance" />
 
     <fragment
         android:id="@+id/navigation_bid"
-        android:name="com.example.tsj.ui.requests.RequestFragment"
+        android:name="com.timelysoft.tsjdomcom.ui.requests.RequestFragment"
         android:label="@string/title_bid"
         tools:layout="@layout/fragment_bid" />
 
     <fragment
         android:id="@+id/navigation_personal"
-        android:name="com.example.tsj.ui.personal.PersonalFragment"
+        android:name="com.timelysoft.tsjdomcom.ui.personal.PersonalFragment"
         android:label="@string/history"
         tools:layout="@layout/fragment_personal" />
 
     <fragment
         android:id="@+id/navigation_balance_detail"
-        android:name="com.example.tsj.ui.balance.BalanceDetailFragment"
+        android:name="com.timelysoft.tsjdomcom.ui.balance.BalanceDetailFragment"
         android:label="@string/title_balance"
         tools:layout="@layout/fragment_balance_detail" />
 
     <fragment
         android:id="@+id/navigation_new_reference"
-        android:name="com.example.tsj.ui.reference.AddUpdateReferenceFragment"
+        android:name="com.timelysoft.tsjdomcom.ui.reference.AddUpdateReferenceFragment"
         android:label="@string/new_reference"
         tools:layout="@layout/fragment_new_reference" />
 
     <fragment
         android:id="@+id/navigation_reference"
-        android:name="com.example.tsj.ui.reference.ReferenceFragment"
+        android:name="com.timelysoft.tsjdomcom.ui.reference.ReferenceFragment"
         android:label="@string/references"
         tools:layout="@layout/fragment_reference" />
 
     <fragment
         android:id="@+id/navigation_families"
-        android:name="com.example.tsj.ui.reference.RelativeFragment"
+        android:name="com.timelysoft.tsjdomcom.ui.reference.RelativeFragment"
         android:label="@string/families"
         tools:layout="@layout/fragment_families" />
 
     <fragment
         android:id="@+id/navigation_bid_add"
-        android:name="com.example.tsj.ui.requests.RequestAddFragment"
+        android:name="com.timelysoft.tsjdomcom.ui.requests.RequestAddFragment"
         android:label="@string/new_bid"
         tools:layout="@layout/fragment_bid_add" />
 
     <fragment
         android:id="@+id/navigation_bid_detail"
-        android:name="com.example.tsj.ui.requests.RequestDetailFragment"
+        android:name="com.timelysoft.tsjdomcom.ui.requests.RequestDetailFragment"
         android:label="@string/bid"
         tools:layout="@layout/fragment_bid_detail" />
 
     <fragment
         android:id="@+id/navigation_feedback"
-        android:name="com.example.tsj.ui.feedback.FeedbackFragment"
+        android:name="com.timelysoft.tsjdomcom.ui.feedback.FeedbackFragment"
         android:label="@string/contacts"
         tools:layout="@layout/fragment_feedback" />
 
     <fragment
         android:id="@+id/navigation_send_feedback"
-        android:name="com.example.tsj.ui.feedback.SendFeedbackFragment"
+        android:name="com.timelysoft.tsjdomcom.ui.feedback.SendFeedbackFragment"
         android:label="@string/new_msg"
         tools:layout="@layout/fragment_send_feedback" />
 
     <fragment
         android:id="@+id/navigation_portalTSJ"
-        android:name="com.example.tsj.ui.portal.PortalFragment"
+        android:name="com.timelysoft.tsjdomcom.ui.portal.PortalFragment"
         android:label="@string/about_portal"
         tools:layout="@layout/fragment_portal_tsj" />
     <fragment
         android:id="@+id/navigation_new_message_owner"
-        android:name="com.example.tsj.ui.message.send.NewMessageOwnerFragment"
+        android:name="com.timelysoft.tsjdomcom.ui.message.send.NewMessageOwnerFragment"
         android:label="@string/msgForOwner"
         tools:layout="@layout/new_message_owner" />
 
     <fragment
         android:id="@+id/navigation_new_message_chairman"
-        android:name="com.example.tsj.ui.message.send.NewMessageMandgerFragment"
+        android:name="com.timelysoft.tsjdomcom.ui.message.send.NewMessageMandgerFragment"
         android:label="@string/msgForChairman"
         tools:layout="@layout/new_message_chairman" />
 
     <fragment
         android:id="@+id/navigation_message_detail"
-        android:name="com.example.tsj.ui.message.fragments.MessageDetailFragment"
+        android:name="com.timelysoft.tsjdomcom.ui.message.fragments.MessageDetailFragment"
         android:label="@string/detail_msg"
         tools:layout="@layout/fragment_message_detail" />
     <fragment
         android:id="@+id/messageBottomSheet"
-        android:name="com.example.tsj.ui.message.fragments.MessageBottomSheet"
+        android:name="com.timelysoft.tsjdomcom.ui.message.fragments.MessageBottomSheet"
         android:label="fragment_message_bottom_sheet"
         tools:layout="@layout/fragment_message_bottom_sheet" />
     <fragment
         android:id="@+id/inboxFragment"
-        android:name="com.example.tsj.ui.message.MessagesFragment"
+        android:name="com.timelysoft.tsjdomcom.ui.message.MessagesFragment"
         android:label="navigation_inbox"
         tools:layout="@layout/fraagment_messages" />
     <navigation
@@ -132,44 +132,44 @@
         app:startDestination="@id/inboxFragment" />
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.example.tsj.ui.profile.ProfileFragment"
+        android:name="com.timelysoft.tsjdomcom.ui.profile.ProfileFragment"
         android:label="@string/profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/navigation_change_password"
-        android:name="com.example.tsj.ui.profile.ChangePassword"
+        android:name="com.timelysoft.tsjdomcom.ui.profile.ChangePassword"
         android:label="@string/changePassword"
         tools:layout="@layout/fragment_change_password"/>
 
     <fragment
         android:id="@+id/navigation_vote"
-        android:name="com.example.tsj.ui.voting.VoteFragment"
+        android:name="com.timelysoft.tsjdomcom.ui.voting.VoteFragment"
         android:label="@string/voting"
         tools:layout="@layout/fragment_vote" />
     <fragment
         android:id="@+id/voteInProcess"
-        android:name="com.example.tsj.ui.voting.VoteInProcessFragment"
+        android:name="com.timelysoft.tsjdomcom.ui.voting.VoteInProcessFragment"
         android:label="fragment_vote_in_process"
         tools:layout="@layout/fragment_vote_in_process" />
 
     <fragment
         android:id="@+id/navigation_vote_detail"
-        android:name="com.example.tsj.ui.voting.VoteDetailFragment"
+        android:name="com.timelysoft.tsjdomcom.ui.voting.VoteDetailFragment"
         android:label="@string/voting"
         tools:layout="@layout/fragment_vote_detail" />
     <fragment
         android:id="@+id/navigation_request_for_connect"
-        android:name="com.example.tsj.ui.requestForConnect.RequestForConnectFragment"
+        android:name="com.timelysoft.tsjdomcom.ui.requestForConnect.RequestForConnectFragment"
         android:label="fragment_connect"
         tools:layout="@layout/fragment_connect" />
     <fragment
         android:id="@+id/navigation_news_detail"
-        android:name="com.example.tsj.ui.news.NewsDetailFragment"
+        android:name="com.timelysoft.tsjdomcom.ui.news.NewsDetailFragment"
         android:label="@string/news"
         tools:layout="@layout/fragment_news_detail" />
     <fragment
         android:id="@+id/feedbackSendFragment"
-        android:name="com.example.tsj.FeedbackSendFragment"
+        android:name="com.timelysoft.tsjdomcom.FeedbackSendFragment"
         android:label="fragment_feedback_send"
         tools:layout="@layout/fragment_feedback_send" />
 
