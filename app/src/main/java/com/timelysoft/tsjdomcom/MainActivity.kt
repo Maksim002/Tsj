@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
+
         alert = LoadingAlert(this)
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -40,7 +41,6 @@ class MainActivity : AppCompatActivity() {
         onBackPressed()
         return true
     }
-
 
 
 }
