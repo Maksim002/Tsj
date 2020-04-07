@@ -31,7 +31,7 @@ object RetrofitService {
             .writeTimeout(90, TimeUnit.SECONDS)
             .build()
 
-    private fun retrofit(baseUrl: String = "https://kg.tsjdom.com/api/"): Retrofit =
+    private fun retrofit(baseUrl: String = "https://test.tsjdom.com:204/api/"): Retrofit =
         Retrofit.Builder()
             .client(client)
             .baseUrl(baseUrl)

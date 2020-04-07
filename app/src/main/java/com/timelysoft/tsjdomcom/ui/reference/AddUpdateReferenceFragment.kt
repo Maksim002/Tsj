@@ -160,7 +160,7 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
             viewModel.reference(data.id).observe(this, Observer {
                 data.person.id = it.person.id
                 edit_ref.setText(it.person.fullName)
-                editReferenceS.setText(MyUtils.toMyDate(it.forDate))
+                editReferenceS.setText(MyUtils.toMyDate(it.person.dateOfBirth))
                 it.relatives.forEach { item ->
                     list.add(item)
                 }

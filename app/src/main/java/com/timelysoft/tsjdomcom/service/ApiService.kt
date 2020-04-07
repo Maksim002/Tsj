@@ -177,5 +177,10 @@ interface ApiService {
     @POST("Contact/Feedback")
     fun sendFeedback(@Body model: FeedbackRequest): Call<String>
 
+
+    @PUT("FirebaseTokens")
+    fun sendFirebaseToken(@Body model: FirebaseTokenModel): Call<Unit>
+
+
 }
 

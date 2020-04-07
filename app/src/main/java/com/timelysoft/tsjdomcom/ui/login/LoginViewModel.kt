@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.timelysoft.tsjdomcom.service.AppPreferences
 import com.timelysoft.tsjdomcom.service.RetrofitService
 import com.timelysoft.tsjdomcom.service.model.AuthModel
+import com.timelysoft.tsjdomcom.service.request.FirebaseTokenModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -32,10 +33,10 @@ class LoginViewModel : ViewModel() {
         return result
     }
 
-    fun forgotPassword(email : String) : LiveData <Boolean> {
-        val data = MutableLiveData <Boolean>()
+    fun forgotPassword(email: String): LiveData<Boolean> {
+        val data = MutableLiveData<Boolean>()
 
-        RetrofitService.apiService().forgotPassword(email).enqueue(object : Callback< String>{
+        RetrofitService.apiService().forgotPassword(email).enqueue(object : Callback<String> {
             override fun onFailure(call: Call<String>, t: Throwable) {
                 data.value = false
             }
@@ -46,6 +47,20 @@ class LoginViewModel : ViewModel() {
 
         })
         return data
+    }
+
+    fun sendToken(firebaseTokenModel: FirebaseTokenModel) {
+        RetrofitService.apiService().sendFirebaseToken(firebaseTokenModel)
+            .enqueue(object : Callback<Unit> {
+                override fun onFailure(call: Call<Unit>, t: Throwable) {
+                    println()
+                }
+
+                override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+                    println()
+                }
+
+            })
     }
 
 }

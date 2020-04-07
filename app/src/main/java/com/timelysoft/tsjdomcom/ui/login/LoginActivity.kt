@@ -7,9 +7,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.iid.FirebaseInstanceId
 import com.timelysoft.tsjdomcom.MainActivity
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.service.AppPreferences
+import com.timelysoft.tsjdomcom.service.request.FirebaseTokenModel
 import com.timelysoft.tsjdomcom.ui.login.forgot.ForgotActivity
 import com.timelysoft.tsjdomcom.utils.MyUtils
 import kotlinx.android.synthetic.main.activity_login.*
@@ -101,6 +104,17 @@ class LoginActivity : AppCompatActivity() {
                     if (it) {
                         startMainActivity()
                         AppPreferences.email = text_email.text.toString()
+
+                        FirebaseInstanceId.getInstance().instanceId
+                            .addOnCompleteListener(OnCompleteListener { task ->
+                                if (!task.isSuccessful) {
+                                    return@OnCompleteListener
+                                }
+                                val token = task.result?.token
+                                if (token != null)
+                                    viewModel.sendToken(FirebaseTokenModel(token, 0))
+                            })
+
                     } else {
                         Toast.makeText(this, "Не правильный логин или пароль", Toast.LENGTH_LONG)
                             .show()

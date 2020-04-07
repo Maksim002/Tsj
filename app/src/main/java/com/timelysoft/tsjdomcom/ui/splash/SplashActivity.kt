@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.FirebaseApp
+import com.google.firebase.messaging.FirebaseMessaging
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.service.AppPreferences
 import com.timelysoft.tsjdomcom.ui.login.LoginActivity
@@ -17,6 +19,8 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         AppPreferences.init(application)
+        FirebaseApp.initializeApp(this)
+        FirebaseMessaging.getInstance().isAutoInitEnabled = true
         initSplashScreen()
     }
 
