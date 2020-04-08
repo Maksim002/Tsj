@@ -68,7 +68,7 @@ class ReferenceFragment : Fragment(),ReferencesListener {
     private fun initViews(root: View) {
 
         root.reference_add.setOnClickListener {
-            AddUpdateReferenceFragment.list.clear()
+            AddUpdateReferenceFragment.relativesList.clear()
             val bundle = Bundle()
             bundle.putInt("placementId", placementId)
             findNavController().navigate(R.id.navigation_new_reference, bundle)
@@ -109,7 +109,7 @@ class ReferenceFragment : Fragment(),ReferencesListener {
     }
 
     override fun onClickItem(item: ReferenceLiteModel) {
-        AddUpdateReferenceFragment.list.clear()
+        AddUpdateReferenceFragment.relativesList.clear()
         val bundle = Bundle()
         bundle.putInt("referenceId", item.id)
         bundle.putInt("placementId", placementId)
