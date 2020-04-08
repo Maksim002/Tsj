@@ -69,7 +69,7 @@
         android:id="@+id/navigation_families"
         android:name="com.timelysoft.tsjdomcom.ui.reference.RelativeFragment"
         android:label="@string/families"
-        tools:layout="@layout/fragment_families" />
+        tools:layout="@layout/fragment_relative" />
 
     <fragment
         android:id="@+id/navigation_bid_add"
@@ -167,10 +167,6 @@
         android:name="com.timelysoft.tsjdomcom.ui.news.NewsDetailFragment"
         android:label="@string/news"
         tools:layout="@layout/fragment_news_detail" />
-    <fragment
-        android:id="@+id/feedbackSendFragment"
-        android:name="com.timelysoft.tsjdomcom.FeedbackSendFragment"
-        android:label="fragment_feedback_send"
-        tools:layout="@layout/fragment_feedback_send" />
+
 
 </navigation>

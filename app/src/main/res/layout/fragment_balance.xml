@@ -9,14 +9,14 @@
     tools:context=".ui.balance.BalanceFragment">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/name_text_input"
+        android:id="@+id/balance_address_out"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:hint="Адрес">
 
         <AutoCompleteTextView
-            android:id="@+id/autoCompleteTextView"
+            android:id="@+id/balance_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableEnd="@drawable/ic_expend"

@@ -30,7 +30,7 @@ class BalanceDetailFragment : Fragment() {
 
 
         viewModel = ViewModelProviders.of(this).get(BalanceViewModel::class.java)
-        balance_rv = root.findViewById(R.id.balance_summ_recyclerview)
+        balance_rv = root.findViewById(R.id.balance_detail_rv)
         getRecyclerView()
 
         return root
@@ -39,9 +39,8 @@ class BalanceDetailFragment : Fragment() {
 
     private fun getRecyclerView() {
         balanceAdapter = BalanceAdapter()
-        balance_rv.apply {
-            adapter = balanceAdapter
-        }
+        balance_rv.adapter =  balanceAdapter
+
     }
 
     override fun onStart() {
@@ -52,7 +51,7 @@ class BalanceDetailFragment : Fragment() {
             0
         }
 
-        textBalance.text = try {
+        balance_detail_address.text = try {
             arguments!!.getString("address")
         } catch (e: Exception) {
             ""
