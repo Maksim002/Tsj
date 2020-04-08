@@ -17,7 +17,6 @@ class RequestForConnectViewModel : ViewModel() {
                 override fun onFailure(call: Call<String>, t: Throwable) {
                     data.value = false
                 }
-
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     data.value = response.isSuccessful
                 }
