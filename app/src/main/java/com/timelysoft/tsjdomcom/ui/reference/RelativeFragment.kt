@@ -20,8 +20,8 @@ import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.service.model.MessagesPersonsModel
 import com.timelysoft.tsjdomcom.service.model.RelativeModel
 import com.timelysoft.tsjdomcom.utils.MyUtils
-import kotlinx.android.synthetic.main.fragment_families.*
-import kotlinx.android.synthetic.main.fragment_families.view.*
+import kotlinx.android.synthetic.main.fragment_relative.*
+import kotlinx.android.synthetic.main.fragment_relative.view.*
 import java.lang.Exception
 import java.util.*
 
@@ -38,7 +38,7 @@ class RelativeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         viewModel = ViewModelProviders.of(this).get(ReferenceViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_families, container, false)
+        val root = inflater.inflate(R.layout.fragment_relative, container, false)
         initArguments()
         initViews(root)
         initData(root)
@@ -46,20 +46,20 @@ class RelativeFragment : Fragment() {
         return root
     }
 
-    private fun validate(): Boolean {
+    private fun isValid(): Boolean {
         var valid = true
-        if (edit_families.text.toString().isEmpty()) {
-            text_families_name.error = "ФИО не должно быть пустым"
+        if (relative_name.text.toString().isEmpty()) {
+            relative_name_out.error = "ФИО не должно быть пустым"
             valid = false
         } else {
-            text_families_name.isErrorEnabled = false
+            relative_name_out.isErrorEnabled = false
         }
 
-        if (text_families_date.text.toString().isEmpty()) {
-            text_date.error = "Поле не должно быть пустым"
+        if (relative_date.text.toString().isEmpty()) {
+            relative_date_out.error = "Поле не должно быть пустым"
             valid = false
         } else {
-            text_date.isErrorEnabled = false
+            relative_date_out.isErrorEnabled = false
         }
 
         return valid
@@ -74,17 +74,17 @@ class RelativeFragment : Fragment() {
 
     private fun check() {
         if (position != -1) {
-            buttonFamilies.setText("Обновить")
-            (activity as AppCompatActivity).supportActionBar?.setTitle("Обновить")
+            buttonFamilies.text = "Обновить"
+            (activity as AppCompatActivity).supportActionBar?.title = "Обновить"
         }
     }
 
     private fun initHint() {
-        if (edit_families.text.isNotEmpty()) {
+        if (relative_name.text.isNotEmpty()) {
 
-            text_date.defaultHintTextColor =
+            relative_date_out.defaultHintTextColor =
                 ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-            text_families_name.defaultHintTextColor =
+            relative_name_out.defaultHintTextColor =
                 ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
         }
     }
@@ -94,7 +94,7 @@ class RelativeFragment : Fragment() {
 
         position = try {
             arguments!!.getInt("position")
-        } catch (e: java.lang.Exception) {
+        } catch (e: Exception) {
             -1
         }
 
@@ -105,15 +105,15 @@ class RelativeFragment : Fragment() {
         MainActivity.alert.show()
         viewModel.relatives().observe(this, Observer {
             MainActivity.alert.hide()
-            val adapter =
+            val adapterRelative =
                 ArrayAdapter<MessagesPersonsModel>(context!!, R.layout.item_spinner_adapter, it)
-            adapter.setDropDownViewResource(R.layout.item_spinner_dropdown)
-            root.bind_add_request.adapter = adapter
+            adapterRelative.setDropDownViewResource(R.layout.item_spinner_dropdown)
+            root.relative_relative.adapter = adapterRelative
             if (position != -1) {
                 val id = AddUpdateReferenceFragment.list[position].relativeId
                 it.forEachIndexed { index, model ->
                     if (model.id == id) {
-                        root.bind_add_request.setSelection(index + 1)
+                        root.relative_relative.setSelection(index + 1)
                     }
                 }
 
@@ -124,35 +124,33 @@ class RelativeFragment : Fragment() {
 
     private fun initViews(root: View) {
         if (position != -1) {
-            root.text_families_date.setText(MyUtils.toMyDate(AddUpdateReferenceFragment.list[position].dateOfBirth))
-            root.edit_families.setText(AddUpdateReferenceFragment.list[position].fullName)
+            root.relative_date.setText(MyUtils.toMyDate(AddUpdateReferenceFragment.list[position].dateOfBirth))
+            root.relative_name.setText(AddUpdateReferenceFragment.list[position].fullName)
 
         }
-        root.findViewById<Button>(R.id.buttonFamilies).setOnClickListener {
+        root.buttonFamilies.setOnClickListener {
             try {
-                relativeId = (root.bind_add_request.selectedItem as MessagesPersonsModel).id
-                relative = (root.bind_add_request.selectedItem as MessagesPersonsModel).name
+                relativeId = (root.relative_relative.selectedItem as MessagesPersonsModel).id
+                relative = (root.relative_relative.selectedItem as MessagesPersonsModel).name
             } catch (e: Exception) {
-                root.bind_add_request.error = "Заполните поле"
+                root.relative_relative.error = "Заполните поле"
             }
 
-            if (validate()) {
-
-
+            if (isValid()) {
                 if (position == -1) {
                     AddUpdateReferenceFragment.list.add(
                         RelativeModel(
                             relativeId,
-                            MyUtils.toServerDate(root.text_families_date.text.toString()),
-                            root.edit_families.text.toString(),
+                            MyUtils.toServerDate(root.relative_date.text.toString()),
+                            root.relative_name.text.toString(),
                             relative
                         )
                     )
                 } else {
                     AddUpdateReferenceFragment.list[position] = RelativeModel(
                         relativeId,
-                        MyUtils.toServerDate(root.text_families_date.text.toString()),
-                        root.edit_families.text.toString(),
+                        MyUtils.toServerDate(root.relative_date.text.toString()),
+                        root.relative_name.text.toString(),
                         relative
                     )
                 }
@@ -161,25 +159,25 @@ class RelativeFragment : Fragment() {
             }
         }
 
-        root.edit_families.setOnFocusChangeListener { _, _ ->
-            root.text_families_name.defaultHintTextColor =
+        root.relative_name.setOnFocusChangeListener { _, _ ->
+            root.relative_name_out.defaultHintTextColor =
                 ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
 
         }
 
-        root.text_families_date.keyListener = null
-        root.text_families_date.setOnFocusChangeListener { _, hasFocus ->
+        root.relative_date.keyListener = null
+        root.relative_date.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 val mDet = DatePickerDialog.OnDateSetListener { _: DatePicker, year, month, day ->
                     val data = MyUtils.convertDate(day, month, year)
-                    root.text_families_date.setText(data)
+                    root.relative_date.setText(data)
                 }
                 val calendar = Calendar.getInstance()
                 val year: Int = calendar.get(Calendar.YEAR)
                 val month: Int = calendar.get(Calendar.MONTH)
                 val day: Int = calendar.get(Calendar.DAY_OF_MONTH)
                 val col = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                root.text_date.defaultHintTextColor = col
+                root.relative_date_out.defaultHintTextColor = col
                 val date = context?.let {
                     DatePickerDialog(
                         it,
@@ -192,10 +190,10 @@ class RelativeFragment : Fragment() {
                 }
                 date?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                 date?.show()
-                root.text_families_date.clearFocus()
+                root.relative_date.clearFocus()
             }
-            if (!hasFocus && root.text_families_date.text.isNotEmpty()) {
-                root.text_date.isErrorEnabled = false
+            if (!hasFocus && root.relative_date.text.isNotEmpty()) {
+                root.relative_date_out.isErrorEnabled = false
             }
         }
     }

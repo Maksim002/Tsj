@@ -10,20 +10,19 @@
     tools:context=".ui.reference.RelativeFragment">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/text_families_name"
+        android:id="@+id/relative_name_out"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:focusableInTouchMode="true"
-
         android:hint="ФИО"
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
-            android:padding="10dp"
-            android:id="@+id/edit_families"
+            android:id="@+id/relative_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
+            android:padding="10dp"
             android:textColor="#001"
             android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -33,22 +32,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_divider"
-        app:layout_constraintTop_toBottomOf="@+id/text_families_name" />
+        app:layout_constraintTop_toBottomOf="@+id/relative_name_out" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/text_date"
+        android:id="@+id/relative_date_out"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Дата рождения"
         app:layout_constraintTop_toBottomOf="@+id/li">
 
         <EditText
-            android:padding="10dp"
-            android:id="@+id/text_families_date"
+            android:id="@+id/relative_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:drawableEnd="@drawable/ic_expend" />
+            android:drawableEnd="@drawable/ic_expend"
+            android:padding="10dp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -57,10 +56,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_divider"
-        app:layout_constraintTop_toBottomOf="@+id/text_date" />
+        app:layout_constraintTop_toBottomOf="@+id/relative_date_out" />
 
     <fr.ganfra.materialspinner.MaterialSpinner
-        android:id="@+id/bind_add_request"
+        android:id="@+id/relative_relative"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/lin_v"
