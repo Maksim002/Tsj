@@ -29,22 +29,21 @@ import kotlin.collections.ArrayList
 
 
 class AddUpdateReferenceFragment : Fragment(), FamilyListener {
-    private lateinit var refAdapter: FamilyAdapter
+    private lateinit var relativeAdapter: FamilyAdapter
     private lateinit var viewModel: ReferenceViewModel
     private var update = false
-    val data = CertificateRequest()
-    private lateinit var name: String
+    val certificateRequest = CertificateRequest()
     private var mLastClickTime: Long = 0
 
     init {
-        if (data.person == null)
-            data.person = PersonModel()
-        if (data.relatives == null)
-            data.relatives = listOf()
+        if (certificateRequest.person == null)
+            certificateRequest.person = PersonModel()
+        if (certificateRequest.relatives == null)
+            certificateRequest.relatives = listOf()
     }
 
     companion object {
-        val list = ArrayList<RelativeModel>()
+        val relativesList = ArrayList<RelativeModel>()
     }
 
     override fun onCreateView(
@@ -64,28 +63,28 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
 
     private fun validate(): Boolean {
         var valid = true
-        if (editReferenceS.text.toString().isEmpty()) {
-            referenceS.error = "Вы не выбрили дату"
+        if (reference_date.text.toString().isEmpty()) {
+            reference_date_out.error = "Вы не выбрали дату"
             valid = false
         } else {
-            referenceS.isErrorEnabled = false
+            reference_date_out.isErrorEnabled = false
         }
 
-        if (edit_ref.text.toString().isEmpty()) {
-            lRef.error = "Поле не должно быть пустым"
+        if (reference_name.text.toString().isEmpty()) {
+            reference_name_out.error = "Поле не должно быть пустым"
             valid = false
         } else {
-            lRef.isErrorEnabled = false
+            reference_name_out.isErrorEnabled = false
         }
 
         return valid
     }
 
     private fun initHint() {
-        if (edit_ref.text.isNotEmpty()) {
-            lRef.defaultHintTextColor =
+        if (reference_name.text.isNotEmpty()) {
+            reference_name_out.defaultHintTextColor =
                 ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-            referenceS.defaultHintTextColor =
+            reference_date_out.defaultHintTextColor =
                 ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
         }
     }
@@ -94,27 +93,27 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
         root.reference_add_relative.setOnClickListener {
             findNavController().navigate(R.id.navigation_families)
         }
-        refAdapter = FamilyAdapter(this)
-        root.familiesRecyclerView.adapter = refAdapter
-        refAdapter.update(list)
+        relativeAdapter = FamilyAdapter(this)
+        root.relative_rv.adapter = relativeAdapter
+        relativeAdapter.update(relativesList)
 
-        root.edit_ref.setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus && root.edit_ref.text.isNotEmpty()) {
-                root.lRef.defaultHintTextColor =
+        root.reference_name.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus && root.reference_name.text.isNotEmpty()) {
+                root.reference_name_out.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                root.lRef.isErrorEnabled = false
+                root.reference_name_out.isErrorEnabled = false
             }
         }
 
         root.reference_save.setOnClickListener {
             MyUtils.hideKeyboard(activity!!, view!!)
             if (validate()) {
-                data.relatives = list
-                data.person.fullName = edit_ref.text.toString()
-                data.person.dateOfBirth = MyUtils.toServerDate(editReferenceS.text.toString())
+                certificateRequest.relatives = relativesList
+                certificateRequest.person.fullName = reference_name.text.toString()
+                certificateRequest.person.dateOfBirth = MyUtils.toServerDate(reference_date.text.toString())
                 if (!update) {
                     MainActivity.alert.show()
-                    viewModel.addReferences(data).observe(this, Observer {
+                    viewModel.addReferences(certificateRequest).observe(this, Observer {
                         if (it) {
                             findNavController().popBackStack()
                         } else {
@@ -128,7 +127,7 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
                     })
                 } else {
                     MainActivity.alert.show()
-                    viewModel.updateReference(data).observe(this, Observer {
+                    viewModel.updateReference(certificateRequest).observe(this, Observer {
                         if (it) {
                             findNavController().popBackStack()
                         } else {
@@ -151,33 +150,34 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
         getEditReferenceS()
         if (update) {
             reference_save.text = "Обновить"
-            (activity as AppCompatActivity?)!!.supportActionBar?.setTitle("Обновленная справка")
+            (activity as AppCompatActivity?)!!.supportActionBar?.title = "Обновленная справка"
         }
-        if (data.id != null && data.id != 0 && !update) {
+        if (certificateRequest.id != null && certificateRequest.id != 0 && !update) {
             update = true
             reference_save.text = "Обновить"
-            (activity as AppCompatActivity?)!!.supportActionBar?.setTitle("Обновленная справка")
-            viewModel.reference(data.id).observe(this, Observer {
-                data.person.id = it.person.id
-                edit_ref.setText(it.person.fullName)
-                editReferenceS.setText(MyUtils.toMyDate(it.person.dateOfBirth))
+            (activity as AppCompatActivity?)!!.supportActionBar?.title = "Обновленная справка"
+            viewModel.reference(certificateRequest.id).observe(this, Observer {
+                certificateRequest.person.id = it.person.id
+                reference_name.setText(it.person.fullName)
+                reference_date.setText(MyUtils.toMyDate(it.person.dateOfBirth))
                 it.relatives.forEach { item ->
-                    list.add(item)
+                    relativesList.add(item)
                 }
-                refAdapter.update(list)
+                relativeAdapter.update(relativesList)
                 initHint()
             })
         }
+        initHint()
     }
 
     private fun initArguments() {
-        data.placementId = try {
+        certificateRequest.placementId = try {
             arguments!!.getInt("placementId")
         } catch (e: Exception) {
             0
         }
 
-        data.id = try {
+        certificateRequest.id = try {
             arguments!!.getInt("referenceId")
         } catch (e: Exception) {
             0
@@ -185,9 +185,9 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
     }
 
     private fun getEditReferenceS() {
-        editReferenceS.keyListener = null
+        reference_date.keyListener = null
         // Временный тракеч. Приложение падает.
-        editReferenceS.setOnFocusChangeListener setOnClickListener@{ _, hasFocus ->
+        reference_date.setOnFocusChangeListener setOnClickListener@{ _, hasFocus ->
             MyUtils.hideKeyboard(activity!!, view!!)
             if (hasFocus) {
                 // Педотврощает двоной клик на editText
@@ -198,11 +198,11 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
 
                 val cldr = Calendar.getInstance()
                 val col = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                referenceS.defaultHintTextColor = col
+                reference_date_out.defaultHintTextColor = col
                 val picker =
                     DatePickerDialog(
                         activity!!, { _, year1, monthOfYear, dayOfMonth ->
-                            editReferenceS.setText(
+                            reference_date.setText(
                                 MyUtils.convertDate(
                                     dayOfMonth,
                                     monthOfYear,
@@ -215,17 +215,17 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
                         cldr.get(Calendar.DAY_OF_MONTH)
                     )
                 picker.show()
-                editReferenceS.clearFocus()
+                reference_date.clearFocus()
             }
-            if (!hasFocus && editReferenceS.text.isNotEmpty()) {
-                referenceS.isErrorEnabled = false
+            if (!hasFocus && reference_date.text.isNotEmpty()) {
+                reference_date_out.isErrorEnabled = false
             }
         }
     }
 
     override fun onClickDelete(id: Int) {
-        list.removeAt(id)
-        refAdapter.update(list)
+        relativesList.removeAt(id)
+        relativeAdapter.update(relativesList)
     }
 
     override fun onClickItem(id: Int) {

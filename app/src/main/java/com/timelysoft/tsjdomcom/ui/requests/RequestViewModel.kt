@@ -43,13 +43,13 @@ class RequestViewModel : ViewModel() {
                     call: Call<List<RequestTypeModel>>,
                     response: Response<List<RequestTypeModel>>
                 ) {
-                    data.value = response.body()
+                    if (response.isSuccessful)
+                        data.value = response.body()
                 }
 
                 override fun onFailure(call: Call<List<RequestTypeModel>>, t: Throwable) {
 
                 }
-
 
             })
 
@@ -67,7 +67,8 @@ class RequestViewModel : ViewModel() {
                     call: Call<List<RequestAddressesModel>>,
                     response: Response<List<RequestAddressesModel>>
                 ) {
-                    data.value = response.body()
+                    if (response.isSuccessful)
+                        data.value = response.body()
                 }
 
                 override fun onFailure(call: Call<List<RequestAddressesModel>>, t: Throwable) {
@@ -89,7 +90,8 @@ class RequestViewModel : ViewModel() {
             }
 
             override fun onResponse(call: Call<String>, response: Response<String>) {
-                data.value = response.isSuccessful
+                if (response.isSuccessful)
+                    data.value = response.isSuccessful
             }
 
         })
@@ -128,13 +130,10 @@ class RequestViewModel : ViewModel() {
     }
 
 
-
-
     fun getRequest(id: Int): LiveData<RequestModel> {
         val data = MutableLiveData<RequestModel>()
         RetrofitService.apiService().requestGet(id).enqueue(object : Callback<RequestModel> {
             override fun onFailure(call: Call<RequestModel>, t: Throwable) {
-                println()
             }
 
             override fun onResponse(call: Call<RequestModel>, response: Response<RequestModel>) {

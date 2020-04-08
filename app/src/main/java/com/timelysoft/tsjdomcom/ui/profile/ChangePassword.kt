@@ -44,7 +44,7 @@ class ChangePassword : Fragment() {
                 model.newPassword = change_password_new.text.toString()
                 model.confirmPassword = change_password_accept.text.toString()
                 MainActivity.alert.show()
-                viewModel.cnahgePassword(model).observe(this, Observer {
+                viewModel.changePassword(model).observe(this, Observer {
                     if (it){
                         Toast.makeText(context,"Пароль успешно изменен",Toast.LENGTH_LONG).show()
                         findNavController().popBackStack()
@@ -90,7 +90,7 @@ class ChangePassword : Fragment() {
         return valid
     }
 
-    fun initHint() {
+    private fun initHint() {
         change_password_old.setOnFocusChangeListener { view: View, hasFocus: Boolean ->
             if (!hasFocus && change_password_old.text!!.isNotEmpty()) {
                 change_password_old_input.defaultHintTextColor =

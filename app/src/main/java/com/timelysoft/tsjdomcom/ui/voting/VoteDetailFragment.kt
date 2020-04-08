@@ -26,11 +26,11 @@ class VoteDetailFragment : Fragment() {
     private var isCanVote = false
     private var placementId = 0
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         viewModel = ViewModelProviders.of(this).get(VoteViewModel::class.java)
 
         (activity as AppCompatActivity).supportActionBar!!.show()
@@ -84,10 +84,10 @@ class VoteDetailFragment : Fragment() {
                         Toast.makeText(context, "Ваш голос принят!", Toast.LENGTH_LONG).show()
                         vote_detail_accept_btn.visibility = View.GONE
                     } else {
-                Toast.makeText(context, "Вы уже проголосовали", Toast.LENGTH_LONG).show()
-            }
-            })
-        } else {
+                        Toast.makeText(context, "Вы уже проголосовали", Toast.LENGTH_LONG).show()
+                    }
+                })
+            } else {
                 Toast.makeText(context, "Вы не выбрали вариант", Toast.LENGTH_LONG).show()
             }
         }

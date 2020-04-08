@@ -20,7 +20,6 @@ class ReferenceViewModel : ViewModel() {
         RetrofitService.apiService().references(id)
             .enqueue(object : Callback<List<ReferenceLiteModel>> {
                 override fun onFailure(call: Call<List<ReferenceLiteModel>>, t: Throwable) {
-                    println()
                 }
 
                 override fun onResponse(
@@ -42,14 +41,15 @@ class ReferenceViewModel : ViewModel() {
         val data = MutableLiveData<ReferencesFullModel>()
         RetrofitService.apiService().reference(id).enqueue(object : Callback<ReferencesFullModel> {
             override fun onFailure(call: Call<ReferencesFullModel>, t: Throwable) {
-                println()
+
             }
 
             override fun onResponse(
                 call: Call<ReferencesFullModel>,
                 response: Response<ReferencesFullModel>
             ) {
-                data.value = response.body()
+                if (response.isSuccessful)
+                    data.value = response.body()
             }
 
         })
@@ -73,7 +73,6 @@ class ReferenceViewModel : ViewModel() {
             }
 
             override fun onFailure(call: Call<List<AddressModel>>, t: Throwable) {
-                println()
             }
         })
 
@@ -87,7 +86,7 @@ class ReferenceViewModel : ViewModel() {
         RetrofitService.apiService().relatives()
             .enqueue(object : Callback<List<MessagesPersonsModel>> {
                 override fun onFailure(call: Call<List<MessagesPersonsModel>>, t: Throwable) {
-                    println()
+
                 }
 
                 override fun onResponse(

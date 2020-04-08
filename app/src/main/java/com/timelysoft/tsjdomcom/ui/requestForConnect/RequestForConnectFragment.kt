@@ -25,14 +25,12 @@ class RequestForConnectFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         viewModel = ViewModelProviders.of(this).get(RequestForConnectViewModel::class.java)
         return inflater.inflate(R.layout.fragment_connect, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initViews()
         validateEditText()
 
         connect_name_edit.setOnFocusChangeListener { _, hasFocus ->
@@ -43,15 +41,12 @@ class RequestForConnectFragment : Fragment() {
         }
     }
 
-    private fun initViews() {
-
-    }
 
     private fun validateEditText() {
         connect_send_btn.setOnClickListener {
 
 
-            if (validate()) {
+            if (isValid()) {
                 val count = try {
                     connect_count_edit.text.toString().toInt()
                 } catch (e: Exception) {
@@ -76,7 +71,7 @@ class RequestForConnectFragment : Fragment() {
                         findNavController().popBackStack()
 
                     } else {
-                        Toast.makeText(context, "Ошибка", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Ошибка при отправлении данных", Toast.LENGTH_SHORT).show()
                     }
                     MainActivity.alert.hide()
                 })
@@ -84,7 +79,7 @@ class RequestForConnectFragment : Fragment() {
         }
     }
 
-    private fun validate(): Boolean {
+    private fun isValid(): Boolean {
 
         var valid = true
 

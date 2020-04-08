@@ -110,7 +110,7 @@ class RelativeFragment : Fragment() {
             adapterRelative.setDropDownViewResource(R.layout.item_spinner_dropdown)
             root.relative_relative.adapter = adapterRelative
             if (position != -1) {
-                val id = AddUpdateReferenceFragment.list[position].relativeId
+                val id = AddUpdateReferenceFragment.relativesList[position].relativeId
                 it.forEachIndexed { index, model ->
                     if (model.id == id) {
                         root.relative_relative.setSelection(index + 1)
@@ -124,8 +124,8 @@ class RelativeFragment : Fragment() {
 
     private fun initViews(root: View) {
         if (position != -1) {
-            root.relative_date.setText(MyUtils.toMyDate(AddUpdateReferenceFragment.list[position].dateOfBirth))
-            root.relative_name.setText(AddUpdateReferenceFragment.list[position].fullName)
+            root.relative_date.setText(MyUtils.toMyDate(AddUpdateReferenceFragment.relativesList[position].dateOfBirth))
+            root.relative_name.setText(AddUpdateReferenceFragment.relativesList[position].fullName)
 
         }
         root.buttonFamilies.setOnClickListener {
@@ -138,7 +138,7 @@ class RelativeFragment : Fragment() {
 
             if (isValid()) {
                 if (position == -1) {
-                    AddUpdateReferenceFragment.list.add(
+                    AddUpdateReferenceFragment.relativesList.add(
                         RelativeModel(
                             relativeId,
                             MyUtils.toServerDate(root.relative_date.text.toString()),
@@ -147,7 +147,7 @@ class RelativeFragment : Fragment() {
                         )
                     )
                 } else {
-                    AddUpdateReferenceFragment.list[position] = RelativeModel(
+                    AddUpdateReferenceFragment.relativesList[position] = RelativeModel(
                         relativeId,
                         MyUtils.toServerDate(root.relative_date.text.toString()),
                         root.relative_name.text.toString(),

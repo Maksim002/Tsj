@@ -60,7 +60,7 @@ class RequestAddFragment : Fragment() {
         }
     }
 
-    private fun validate(): Boolean {
+    private fun isValid(): Boolean {
         var valid = true
 
         if (bid_add_porch.text.toString().isEmpty()) {
@@ -103,7 +103,7 @@ class RequestAddFragment : Fragment() {
     private fun initViews(root: View) {
 
         root.request_add.setOnClickListener {
-            if (validate()) {
+            if (isValid()) {
                 MainActivity.alert.show()
                 if (RequestDetailFragment.requestModel.id != null) {
                     val body = UpdateRequest()
@@ -143,10 +143,6 @@ class RequestAddFragment : Fragment() {
                 }
             }
         }
-
-        //types
-
-        //addresses
         root.bid_add_adres.keyListener = null
 
         root.bid_add_adres.setOnClickListener {

@@ -26,23 +26,21 @@ class VoteInProcessFragment(private val placementId: Int, private val typeId: In
         savedInstanceState: Bundle?
     ): View? {
         viewModel = ViewModelProviders.of(this).get(VoteViewModel::class.java)
-
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_vote_in_process, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initRec()
+        initData()
     }
 
-    private fun initRec() {
+    private fun initData() {
         MainActivity.alert.show()
-        viewModel.voteList(typeId, placementId).observe(this, Observer {
+        viewModel.votes(typeId, placementId).observe(this, Observer {
             MainActivity.alert.hide()
-            val voteActiveAdapter = VoteAdapter(this, it)
-            vote_inprocess_rv.apply { adapter = voteActiveAdapter }
-            if (voteActiveAdapter.itemCount == 0) {
+            val voteAdapter = VoteAdapter(this, it)
+            vote_inprocess_rv.adapter = voteAdapter
+            if (voteAdapter.itemCount == 0) {
                 vote_inprocess_rv.visibility = View.GONE
                 vote_inprocess_empty.visibility = View.VISIBLE
             } else {

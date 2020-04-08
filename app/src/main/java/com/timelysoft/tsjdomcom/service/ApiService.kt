@@ -133,7 +133,7 @@ interface ApiService {
     fun forgotPassword(@Query("email") email: String): Call<String>
 
     @GET("Voting")
-    fun votingList(
+    fun votes(
         @Query("typeId") typeId: Int,
         @Query("id") id: Int
     ): Call<List<VoteModel>>

@@ -14,25 +14,25 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/profile_container_email_input"
+            android:id="@+id/profile_email_out"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/marginHorizontal"
             android:layout_marginTop="16dp">
 
             <EditText
-                android:editable="false"
-                android:id="@+id/profile_text_email"
+                android:id="@+id/profile_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_mail_24dp"
                 android:drawablePadding="8dp"
+                android:editable="false"
                 android:hint="@string/email"
                 android:inputType="textEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/profile_container_password_input"
+            android:id="@+id/profile_password_out"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/marginHorizontal"
@@ -41,12 +41,12 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <EditText
-                android:editable="false"
-                android:id="@+id/profile_text_password"
+                android:id="@+id/profile_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_key_24dp"
                 android:drawablePadding="8dp"
+                android:editable="false"
                 android:hint="@string/password"
                 android:inputType="textPassword"
                 android:maxLines="1" />
@@ -54,12 +54,12 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-            android:id="@+id/change_password"
+            android:id="@+id/profile_change_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/marginHorizontal"
-            android:paddingEnd="@dimen/marginHorizontal"
             android:padding="12dp"
+            android:paddingEnd="@dimen/marginHorizontal"
             android:paddingBottom="@dimen/marginHorizontal"
             android:text="@string/changePassword"
             android:textColor="@color/orangeColor" />

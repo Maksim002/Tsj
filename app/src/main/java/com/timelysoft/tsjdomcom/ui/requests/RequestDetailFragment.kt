@@ -33,7 +33,6 @@ class RequestDetailFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(RequestViewModel::class.java)
         (activity as AppCompatActivity).supportActionBar?.show()
         initArguments()
-        initViews(root)
         initData(root)
         return root
     }
@@ -50,9 +49,6 @@ class RequestDetailFragment : Fragment() {
             root.bid_title.text = it.requestTypeName
             MainActivity.alert.hide()
         })
-    }
-
-    private fun initViews(root: View) {
     }
 
     private fun initArguments() {
@@ -85,11 +81,9 @@ class RequestDetailFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.request_edit -> {
-                //edit
                 editRequest()
             }
             R.id.request_delete -> {
-                //delete
                 deleteRequest()
             }
         }
@@ -97,7 +91,6 @@ class RequestDetailFragment : Fragment() {
     }
 
     private fun editRequest() {
-
         findNavController().navigate(R.id.navigation_bid_add)
     }
 

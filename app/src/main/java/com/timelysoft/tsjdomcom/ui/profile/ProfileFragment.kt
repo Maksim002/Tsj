@@ -61,28 +61,28 @@ class ProfileFragment : Fragment() {
     private fun initView() {
 
 
-        profile_text_email.setText(AppPreferences.email.toString())
-        profile_text_email.tag = profile_text_email.keyListener
-        profile_text_email.keyListener = null
+        profile_email.setText(AppPreferences.email.toString())
+        profile_email.tag = profile_email.keyListener
+        profile_email.keyListener = null
 
-        profile_text_password.setText("password")
+        profile_password.setText("password")
 
-        profile_text_password.tag = profile_text_password.keyListener
-        profile_text_password.keyListener = null
+        profile_password.tag = profile_password.keyListener
+        profile_password.keyListener = null
 
-        change_password.setOnClickListener {
+        profile_change_password.setOnClickListener {
             findNavController().navigate(R.id.navigation_change_password)
         }
     }
 
-    fun initHint() {
-        if (profile_text_email.text.isNotEmpty()) {
-            profile_container_email_input.defaultHintTextColor =
+    private fun initHint() {
+        if (profile_email.text.isNotEmpty()) {
+            profile_email_out.defaultHintTextColor =
                 ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
         }
 
-        if (profile_text_password.text.isNotEmpty()){
-            profile_container_password_input.defaultHintTextColor =
+        if (profile_password.text.isNotEmpty()){
+            profile_password_out.defaultHintTextColor =
                 ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
         }
     }
