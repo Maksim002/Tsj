@@ -7,7 +7,7 @@
     tools:context=".ui.history.HistoryFragment">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/Address"
+        android:id="@+id/history_address_out"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -16,7 +16,7 @@
         android:padding="16dp">
 
         <AutoCompleteTextView
-            android:id="@+id/autoAddress"
+            android:id="@+id/history_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
@@ -32,7 +32,7 @@
         android:src="@drawable/ic_divider" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/Service"
+        android:id="@+id/history_service_out"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -41,7 +41,7 @@
         android:padding="16dp">
 
         <AutoCompleteTextView
-            android:id="@+id/autoService"
+            android:id="@+id/history_service"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
@@ -57,7 +57,7 @@
         android:src="@drawable/ic_divider" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/Operation"
+        android:id="@+id/history_operation_out"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -66,7 +66,7 @@
         android:padding="16dp">
 
         <AutoCompleteTextView
-            android:id="@+id/autoOperation"
+            android:id="@+id/history_operation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
@@ -76,7 +76,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <include
-        android:id="@+id/goneL"
+        android:id="@+id/_history_goneL_owner"
         android:visibility="gone"
         layout="@layout/item_focus" />
 
@@ -93,7 +93,7 @@
         android:orientation="horizontal">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/DatesS"
+            android:id="@+id/history_from_out"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -101,7 +101,7 @@
             android:hint="Даты с">
 
             <EditText
-                android:id="@+id/autoDateFrom"
+                android:id="@+id/history_from_date"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="16dp"
@@ -113,7 +113,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/DatesDo"
+            android:id="@+id/history_do_out"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -121,7 +121,7 @@
             android:hint="Дата по">
 
             <EditText
-                android:id="@+id/autoDateTo"
+                android:id="@+id/history_to_date"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="16dp"
@@ -141,7 +141,7 @@
         android:src="@drawable/ic_divider" />
 
     <Button
-        android:id="@+id/show"
+        android:id="@+id/history_show"
         style="@style/RoundedOrangeBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -151,5 +151,4 @@
         android:text="Показать"
         android:textColor="#FFFFFF"
         android:textSize="14sp" />
-
 </LinearLayout>

@@ -7,10 +7,10 @@
     tools:context=".ui.message.MessagesFragment">
 
     <TextView
-        android:id="@+id/msg_empty_textview"
+        android:id="@+id/messages_empty_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableTop="@drawable/ic_empty_msg"
+        android:drawableTop="@drawable/ic_empty_message"
         android:drawablePadding="@dimen/marginHorizontal"
         android:gravity="center"
         android:text="Список сообщений пуст"
@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/msg_recyclerview"
+        android:id="@+id/messages_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"

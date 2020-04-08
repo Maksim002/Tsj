@@ -38,24 +38,24 @@ class MessageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews()
         if (AppPreferences.isLogined) {
-            msg_auth_view.visibility = View.VISIBLE
-            msg_auth_image.visibility = View.GONE
+            message_auth_view.visibility = View.VISIBLE
+            message_auth_image.visibility = View.GONE
             MainActivity.alert.show()
             initTabLayout()
         } else {
-            msg_auth_view.visibility = View.GONE
-            msg_auth_image.visibility = View.VISIBLE
+            message_auth_view.visibility = View.GONE
+            message_auth_image.visibility = View.VISIBLE
         }
 
     }
 
     private fun initViews() {
 
-        msg_add.setOnClickListener {
+        message_add.setOnClickListener {
             choose()
         }
 
-        btn_auth.setOnClickListener {
+        message_btn_auth.setOnClickListener {
             val intent = Intent(context, LoginActivity::class.java).putExtra("transition", true)
             startActivity(intent)
         }
@@ -70,8 +70,8 @@ class MessageFragment : Fragment() {
                     MessagesFragment(item.id), item.name
                 )
             }
-            msg_viewpager.adapter = pagerAdapter
-            msg_tablayout.setupWithViewPager(msg_viewpager)
+            message_viewpager.adapter = pagerAdapter
+            message_tab_layout.setupWithViewPager(message_viewpager)
         })
     }
 

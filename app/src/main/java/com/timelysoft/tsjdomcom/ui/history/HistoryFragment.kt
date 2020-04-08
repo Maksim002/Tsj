@@ -60,45 +60,45 @@ class HistoryFragment : Fragment() {
 
     private fun validate(): Boolean {
         var valid = true
-        if (autoAddress.text.toString().isEmpty()) {
-            Address.error = "Выберите адрес"
+        if (history_address.text.toString().isEmpty()) {
+            history_address_out.error = "Выберите адрес"
             valid = false
         } else {
-            Address.isErrorEnabled = false
+            history_address_out.isErrorEnabled = false
         }
 
-        if (autoService.text.toString().isEmpty()) {
-            Service.error = "Выберите услугу"
+        if (history_service.text.toString().isEmpty()) {
+            history_service_out.error = "Выберите услугу"
             valid = false
         } else {
-            Service.isErrorEnabled = false
+            history_service_out.isErrorEnabled = false
         }
 
-        if (autoOperation.text.toString().isEmpty()) {
-            Operation.error = "Выберите операцию"
+        if (history_operation.text.toString().isEmpty()) {
+            history_operation_out.error = "Выберите операцию"
             valid = false
         } else {
-            Operation.isErrorEnabled = false
+            history_operation_out.isErrorEnabled = false
         }
         return valid
     }
 
     override fun onStart() {
         super.onStart()
-        autoService.keyListener = null
+        history_service.keyListener = null
         getAutoOperation()
         getAutoAddress()
         getAutoDatesFrom()
         getAutoDatesTo()
         getDate()
         hintText()
-        if (autoAddress != null) {
+        if (history_address != null) {
             getAutoService()
         } else {
             getAutoAddress()
         }
 
-        show.setOnClickListener {
+        history_show.setOnClickListener {
             if (validate()) {
                 val bundle = Bundle()
                 bundle.putInt("res", licNumber)
@@ -111,37 +111,37 @@ class HistoryFragment : Fragment() {
                 bundle.putString("address", address)
                 bundle.putInt("placementId", placementId)
 
-                bundle.putString("to", autoDateFrom.text.toString())
-                bundle.putString("from", autoDateTo.text.toString())
+                bundle.putString("to", history_from_date.text.toString())
+                bundle.putString("from", history_to_date.text.toString())
                 Navigation.findNavController(it).navigate(R.id.navigation_personal, bundle)
             }
         }
     }
 
     private fun hintText() {
-        if (autoAddress.text.isNotEmpty()) {
-            Address.defaultHintTextColor =
+        if (history_address.text.isNotEmpty()) {
+            history_address_out.defaultHintTextColor =
                 ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
         }
 
-        if (autoService.text.isNotEmpty()) {
-            Service.defaultHintTextColor =
+        if (history_service.text.isNotEmpty()) {
+            history_service_out.defaultHintTextColor =
                 ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
         }
-        if (autoOperation.text.isNotEmpty()) {
-            Operation.defaultHintTextColor =
+        if (history_operation.text.isNotEmpty()) {
+            history_operation_out.defaultHintTextColor =
                 ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
         }
 
-        goneL.requestFocus()
+        _history_goneL_owner.requestFocus()
 
     }
 
     private fun getDate() {
         MainActivity.alert.show()
         viewmodel.periods().observe(this, Observer { periods ->
-            autoDateFrom.setText(MyUtils.toMyDate(periods.from!!))
-            autoDateTo.setText(MyUtils.toMyDate(periods.to!!))
+            history_from_date.setText(MyUtils.toMyDate(periods.from!!))
+            history_to_date.setText(MyUtils.toMyDate(periods.to!!))
             // Ковертация и присваевание
             val (dayFrom, monthFrom, yearFrom) = MyUtils.dateConverting(periods.from.toString())
             dayStart = dayFrom
@@ -167,18 +167,18 @@ class HistoryFragment : Fragment() {
 
             val adapterAddress =
                 ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
-            autoAddress.setAdapter(adapterAddress)
+            history_address.setAdapter(adapterAddress)
             MainActivity.alert.hide()
         })
-        autoAddress.keyListener = null
-        DatesS.defaultHintTextColor =
+        history_address.keyListener = null
+        history_from_out.defaultHintTextColor =
             ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-        DatesDo.defaultHintTextColor =
+        history_do_out.defaultHintTextColor =
             ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-        autoAddress.onItemClickListener =
+        history_address.onItemClickListener =
             AdapterView.OnItemClickListener { parent, _, position, _ ->
-                autoAddress.showDropDown()
-                Address.defaultHintTextColor =
+                history_address.showDropDown()
+                history_address_out.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
                 parent.getItemAtPosition(position).toString()
                 placementId = listAddress[position].placementId!!
@@ -186,33 +186,33 @@ class HistoryFragment : Fragment() {
                 address = listAddress[position].address!!
                 MainActivity.alert.show()
                 getAutoService()
-                autoService.setAdapter(null)
-                autoService.setText("")
-                autoAddress.clearFocus()
+                history_service.setAdapter(null)
+                history_service.setText("")
+                history_address.clearFocus()
 
             }
-        autoAddress.setOnClickListener {
-            autoAddress.showDropDown()
+        history_address.setOnClickListener {
+            history_address.showDropDown()
         }
 
-        autoAddress.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
+        history_address.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
             try {
                 if (hasFocus) {
-                    autoAddress.showDropDown()
+                    history_address.showDropDown()
                 }
 
-                if (!hasFocus && autoAddress.text!!.isNotEmpty()) {
-                    Service.defaultHintTextColor =
+                if (!hasFocus && history_address.text!!.isNotEmpty()) {
+                    history_service_out.defaultHintTextColor =
                         ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
 
-                    Address.isErrorEnabled = false
+                    history_address_out.isErrorEnabled = false
                 }
 
             } catch (e: Exception) {
             }
         }
 
-        autoAddress.clearFocus()
+        history_address.clearFocus()
     }
 
     private fun getAutoService() {
@@ -227,40 +227,40 @@ class HistoryFragment : Fragment() {
             val adapterServices =
                 ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
             adapterServices.notifyDataSetChanged()
-            autoService.setAdapter(adapterServices)
+            history_service.setAdapter(adapterServices)
             MainActivity.alert.hide()
         })
 
 
-        autoService.onItemClickListener =
+        history_service.onItemClickListener =
             AdapterView.OnItemClickListener { parent, _, position, _ ->
-                autoService.showDropDown()
+                history_service.showDropDown()
                 parent.getItemAtPosition(position).toString()
                 servicesId = listServices[position].serviceId!!
                 serviceName = listServices[position].serviceName!!
-                autoService.clearFocus()
+                history_service.clearFocus()
             }
-        autoService.setOnClickListener {
-            autoService.showDropDown()
+        history_service.setOnClickListener {
+            history_service.showDropDown()
         }
 
-        autoService.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
+        history_service.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
             try {
-                autoService.showDropDown()
-                if (!hasFocus && autoAddress.text.isNotEmpty()) {
-                    Service.defaultHintTextColor =
+                history_service.showDropDown()
+                if (!hasFocus && history_address.text.isNotEmpty()) {
+                    history_service_out.defaultHintTextColor =
                         ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                    Service.isErrorEnabled = false
+                    history_service_out.isErrorEnabled = false
                 }
 
-                if (autoAddress.text.isEmpty()) {
+                if (history_address.text.isEmpty()) {
                     Toast.makeText(context, "Сначало выберте адрес", Toast.LENGTH_LONG).show()
                 }
 
             } catch (e: Exception) {
             }
         }
-        autoService.clearFocus()
+        history_service.clearFocus()
     }
 
     private fun getAutoOperation() {
@@ -273,51 +273,51 @@ class HistoryFragment : Fragment() {
             listOperations = operations as ArrayList<OperationsModel>
             val adapterOperations =
                 ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
-            autoOperation.setAdapter(adapterOperations)
+            history_operation.setAdapter(adapterOperations)
             MainActivity.alert.hide()
         })
-        autoOperation.setKeyListener(null)
+        history_operation.setKeyListener(null)
 
-        autoOperation.onItemClickListener =
+        history_operation.onItemClickListener =
             AdapterView.OnItemClickListener { parent, _, position, _ ->
-                autoOperation.showDropDown()
+                history_operation.showDropDown()
                 parent.getItemAtPosition(position).toString()
                 operationsId = listOperations[position].operationId!!
                 operationName = listOperations[position].operationName!!
-                autoOperation.clearFocus()
+                history_operation.clearFocus()
             }
-        autoOperation.setOnClickListener {
-            autoOperation.showDropDown()
+        history_operation.setOnClickListener {
+            history_operation.showDropDown()
         }
-        autoOperation.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
+        history_operation.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
             try {
-                autoOperation.showDropDown()
-                if (!hasFocus && autoOperation.text.isNotEmpty()) {
-                    Operation.defaultHintTextColor =
+                history_operation.showDropDown()
+                if (!hasFocus && history_operation.text.isNotEmpty()) {
+                    history_operation_out.defaultHintTextColor =
                         ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                    Operation.isErrorEnabled = false
+                    history_operation_out.isErrorEnabled = false
                 }
             } catch (e: Exception) {
 
             }
 
         }
-        autoOperation.clearFocus()
+        history_operation.clearFocus()
     }
 
     private fun getAutoDatesFrom() {
-        autoDateFrom.keyListener = null;
-        autoDateFrom.setOnFocusChangeListener setOnClickListener@{ _, hasFocus ->
+        history_from_date.keyListener = null;
+        history_from_date.setOnFocusChangeListener setOnClickListener@{ _, hasFocus ->
             if (hasFocus) {
                 if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
                     return@setOnClickListener
                 }
                 mLastClickTime = SystemClock.elapsedRealtime();
-                DatesS.defaultHintTextColor =
+                history_from_out.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
                 val picker =
                     DatePickerDialog(activity!!, { _, year1, monthOfYear, dayOfMonth ->
-                        autoDateFrom.setText(
+                        history_from_date.setText(
                             MyUtils.convertDate(
                                 dayOfMonth,
                                 monthOfYear + 1,
@@ -330,14 +330,14 @@ class HistoryFragment : Fragment() {
 
                     }, yearStart, monthStart, dayStart)
                 picker.show()
-                autoDateFrom.clearFocus()
+                history_from_date.clearFocus()
             }
         }
     }
 
     private fun getAutoDatesTo() {
-        autoDateTo.keyListener = null;
-        autoDateTo.setOnFocusChangeListener setOnClickListener@{ _, hasFocus ->
+        history_to_date.keyListener = null;
+        history_to_date.setOnFocusChangeListener setOnClickListener@{ _, hasFocus ->
             if (hasFocus) {
                 if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
                     return@setOnClickListener
@@ -345,13 +345,13 @@ class HistoryFragment : Fragment() {
                 mLastClickTime = SystemClock.elapsedRealtime();
                 val col =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                DatesDo.defaultHintTextColor = col
+                history_do_out.defaultHintTextColor = col
 
                 val picker =
                     DatePickerDialog(
                         activity!!,
                         { _, year1, monthOfYear, dayOfMonth ->
-                            autoDateTo.setText(
+                            history_to_date.setText(
                                 MyUtils.convertDate(
                                     dayOfMonth,
                                     monthOfYear + 1,
@@ -365,7 +365,7 @@ class HistoryFragment : Fragment() {
                         }, yearEnd, monthEnd, dayEnd
                     )
                 picker.show()
-                autoDateTo.clearFocus()
+                history_to_date.clearFocus()
             }
         }
     }

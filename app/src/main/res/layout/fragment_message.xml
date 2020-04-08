@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/msg_auth_image"
+        android:id="@+id/message_auth_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
@@ -15,7 +15,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableTop="@drawable/ic_empty_msg"
+            android:drawableTop="@drawable/ic_empty_message"
             android:drawablePadding="@dimen/marginHorizontal"
             android:gravity="center"
             android:text="Вам необходимо авторизоваться"
@@ -23,9 +23,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
         <Button
             android:layout_marginTop="16dp"
-            android:id="@+id/btn_auth"
+            android:id="@+id/message_btn_auth"
             style="@style/RoundedOrangeBackground"
             android:layout_width="match_parent"
             android:layout_height="48dp"
@@ -38,27 +39,27 @@
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/msg_auth_view"
+        android:id="@+id/message_auth_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/msg_tablayout"
+            android:id="@+id/message_tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.viewpager.widget.ViewPager
-            android:id="@+id/msg_viewpager"
+            android:id="@+id/message_viewpager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/msg_tablayout" />
+            app:layout_constraintTop_toBottomOf="@id/message_tab_layout" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/msg_add"
+            android:id="@+id/message_add"
             app:maxImageSize="56dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

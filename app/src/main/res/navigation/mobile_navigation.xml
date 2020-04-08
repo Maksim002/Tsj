@@ -126,7 +126,7 @@
         android:id="@+id/inboxFragment"
         android:name="com.timelysoft.tsjdomcom.ui.message.MessagesFragment"
         android:label="navigation_inbox"
-        tools:layout="@layout/fraagment_messages" />
+        tools:layout="@layout/fragment_messages" />
     <navigation
         android:id="@+id/navigation"
         app:startDestination="@id/inboxFragment" />
@@ -167,6 +167,5 @@
         android:name="com.timelysoft.tsjdomcom.ui.news.NewsDetailFragment"
         android:label="@string/news"
         tools:layout="@layout/fragment_news_detail" />
-
 
 </navigation>
