@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "359894081265",
+    "firebase_url": "https://tsjdomcom.firebaseio.com",
+    "project_id": "tsjdomcom",
+    "storage_bucket": "tsjdomcom.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:359894081265:android:5e363030c7e9a1cc5f1350",
+        "android_client_info": {
+          "package_name": "com.timelysoft.tsjdomcom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "359894081265-8pbmjgohd4s6cfonjok1dabmc5jdu952.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKYZlTj0aXHR7m9N2ywQe9U04zeZ3dKGE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "359894081265-8pbmjgohd4s6cfonjok1dabmc5jdu952.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "359894081265-1cnh417d01bphj0ig0bufeia07do0kea.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.timelysoft.tsjdomcom"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

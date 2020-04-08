@@ -22,8 +22,8 @@ class BalanceFragment : Fragment() {
     private lateinit var viewModel: BalanceViewModel
     private var placementId: Int = 0
     private lateinit var address: String
-    private lateinit var model: AddressModel
-    private lateinit var textComplete: AutoCompleteTextView
+    private lateinit var listAddress: List<AddressModel>
+    private lateinit var addressesAutoComplete: AutoCompleteTextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,15 +31,13 @@ class BalanceFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_balance, container, false)
         viewModel = ViewModelProviders.of(this).get(BalanceViewModel::class.java)
-        textComplete = root.findViewById(R.id.autoCompleteTextView)
-        model = AddressModel()
+        addressesAutoComplete = root.findViewById(R.id.balance_address)
         root.balance_show_button.setOnClickListener {
             if (validate()) {
                 if (placementId != 0) {
                     val bundle = Bundle()
                     bundle.putInt("placementId", placementId)
                     bundle.putString("address", address)
-
                     findNavController().navigate(R.id.navigation_balance_detail, bundle)
                 } else {
                     Toast.makeText(context, "Не выбраны данные", Toast.LENGTH_LONG).show()
@@ -52,62 +50,60 @@ class BalanceFragment : Fragment() {
 
     private fun validate(): Boolean {
         var valid = true
-        if (autoCompleteTextView.text.toString().isEmpty()) {
-            name_text_input.error = "Выберите адрес"
+        if (addressesAutoComplete.text.toString().isEmpty()) {
+            balance_address_out.error = "Выберите адрес"
             valid = false
         } else {
-            name_text_input.isErrorEnabled = false
+            balance_address_out.isErrorEnabled = false
         }
         return valid
     }
 
     override fun onStart() {
         super.onStart()
+        initData()
         getAutoOperation()
         initHint()
     }
 
+    private fun initData() {
+        MainActivity.alert.show()
+        viewModel.addresses().observe(this, Observer { address ->
+            listAddress = address
+            val addressAdapter =
+                ArrayAdapter<AddressModel>(context!!, android.R.layout.simple_dropdown_item_1line, listAddress)
+            addressesAutoComplete.setAdapter(addressAdapter)
+            MainActivity.alert.hide()
+        })
+    }
+
     private fun initHint() {
-        if (autoCompleteTextView.text.isNotEmpty())
-            name_text_input.defaultHintTextColor =
+        if (addressesAutoComplete.text.isNotEmpty())
+            balance_address_out.defaultHintTextColor =
                 ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-
-
     }
 
     private fun getAutoOperation() {
-        var listAddress = ArrayList<AddressModel>()
-        MainActivity.alert.show()
-        viewModel.addresses().observe(this, Observer { addres ->
-            val list = addres.map {
-                it.address
-            }
-            listAddress = addres as ArrayList<AddressModel>
-            val adapterO =
-                ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
-            textComplete.setAdapter(adapterO)
-            MainActivity.alert.hide()
-        })
-        textComplete.keyListener = null
-        textComplete.onItemClickListener =
+
+        addressesAutoComplete.keyListener = null
+        addressesAutoComplete.onItemClickListener =
             AdapterView.OnItemClickListener { _, _, position, _ ->
-                textComplete.showDropDown()
-                name_text_input.defaultHintTextColor =
+                addressesAutoComplete.showDropDown()
+                balance_address_out.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
                 placementId = listAddress[position].placementId
                 address = listAddress[position].address!!
-
-                autoCompleteTextView.clearFocus()
+                addressesAutoComplete.clearFocus()
             }
-        textComplete.setOnClickListener {
-            textComplete.showDropDown()
+        addressesAutoComplete.setOnClickListener {
+            addressesAutoComplete.showDropDown()
         }
-        textComplete.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
+        addressesAutoComplete.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
             try {
-                textComplete.showDropDown()
+                addressesAutoComplete.showDropDown()
 
-                if (!hasFocus && textComplete.text.isNotEmpty()) {
-                    name_text_input.isErrorEnabled = false
+                if (!hasFocus && addressesAutoComplete.text.isNotEmpty()) {
+                    balance_address_out.isErrorEnabled = false
                 }
 
             } catch (e: Exception) {
