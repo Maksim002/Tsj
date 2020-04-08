@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.fragment_reference.view.*
 class ReferenceFragment : Fragment(),ReferencesListener {
 
     private lateinit var viewModel: ReferenceViewModel
-    private lateinit var adapter: ReferencesAdapter
+    private lateinit var referencesAdapter: ReferencesAdapter
 
     private var placementId = 0
     override fun onCreateView(
@@ -46,7 +46,7 @@ class ReferenceFragment : Fragment(),ReferencesListener {
 
     private fun initHint() {
         if (reference_address.text.isNotEmpty()){
-            reference_address_text.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            reference_address_out.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
         }
     }
 
@@ -67,14 +67,14 @@ class ReferenceFragment : Fragment(),ReferencesListener {
 
     private fun initViews(root: View) {
 
-        root.new_references.setOnClickListener {
+        root.reference_add.setOnClickListener {
             AddUpdateReferenceFragment.list.clear()
             val bundle = Bundle()
             bundle.putInt("placementId", placementId)
             findNavController().navigate(R.id.navigation_new_reference, bundle)
         }
-        adapter = ReferencesAdapter(ArrayList(),this)
-        root.recyclerViewReferences.adapter = adapter
+        referencesAdapter = ReferencesAdapter(ArrayList(),this)
+        root.reference_rv.adapter = referencesAdapter
 
 
         root.reference_address.keyListener = null
@@ -90,19 +90,19 @@ class ReferenceFragment : Fragment(),ReferencesListener {
             placementId = (parent.getItemAtPosition(position) as AddressModel).placementId
             MainActivity.alert.show()
             viewModel.references(placementId).observe(this, Observer {
-                adapter.update(it)
+                referencesAdapter.update(it)
                 MainActivity.alert.hide()
             })
-            root.new_references.visibility = View.VISIBLE
+            root.reference_add.visibility = View.VISIBLE
         }
 
         if (placementId != 0) {
             MainActivity.alert.show()
             viewModel.references(placementId).observe(this, Observer {
-                adapter.update(it)
+                referencesAdapter.update(it)
                 MainActivity.alert.hide()
             })
-            root.new_references.visibility = View.VISIBLE
+            root.reference_add.visibility = View.VISIBLE
         }
 
 

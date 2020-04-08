@@ -9,7 +9,7 @@
     tools:context=".ui.reference.ReferenceFragment">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/reference_address_text"
+        android:id="@+id/reference_address_out"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
@@ -27,7 +27,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewReferences"
+        android:id="@+id/reference_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="8dp"
@@ -41,7 +41,7 @@
         android:background="#FFFFFF">
 
         <Button
-            android:id="@+id/new_references"
+            android:id="@+id/reference_add"
             style="@style/RoundedOrangeBackground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
