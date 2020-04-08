@@ -26,23 +26,4 @@ class FeedbackViewModel : ViewModel() {
         return data
     }
 
-//
-//    fun references(model: ChangePasswordModel): LiveData<Boolean> {
-//        val data = MutableLiveData<Boolean>()
-//        RetrofitService.apiService().changePassword(model)
-//            .enqueue(object : Callback<Unit> {
-//                override fun onFailure(call: Call<Unit>, t: Throwable) {
-//                    data.value = false
-//                }
-//
-//                override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
-//                    data.value = response.isSuccessful
-//
-//                }
-//
-//            })
-//
-//
-//        return data
-//    }
 }

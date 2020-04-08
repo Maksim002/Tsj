@@ -32,15 +32,11 @@ class SendFeedbackFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
+        initHint()
         if (AppPreferences.isLogined){
-            edit_your_mail.setText(AppPreferences.email.toString())
-            edit_your_mail.tag = edit_your_mail.keyListener
-            edit_your_mail.keyListener = null
-            initHint()
-        }else{
-            edit_your_mail.setText("")
+            feedback_email.setText(AppPreferences.email.toString())
+            feedback_email.tag = feedback_email.keyListener
+            feedback_email.keyListener = null
         }
     }
 
@@ -62,17 +58,17 @@ class SendFeedbackFragment : Fragment() {
     private fun senFeedBack() {
 
         MyUtils.hideKeyboard(activity!!, view!!)
-        if (validate()) {
+        if (isValid()) {
             MainActivity.alert.show()
             val body = FeedbackRequest(
-                edit_to_whom.text.toString(),  edit_your_mail.text.toString(), edit_write_a_letter.text.toString()
+                feedbact_name.text.toString(),  feedback_email.text.toString(), feedback_message.text.toString()
             )
             viewModel.sendFeedback(body).observe(this, Observer {
                 if (it) {
                     Toast.makeText(context, "Ваше письмо отправлено!", Toast.LENGTH_SHORT).show()
                     findNavController().popBackStack()
                 } else {
-                    Toast.makeText(context, "Ошибка!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Произошла ошибка при отправлении!", Toast.LENGTH_SHORT).show()
                 }
                 MainActivity.alert.hide()
             })
@@ -80,28 +76,28 @@ class SendFeedbackFragment : Fragment() {
 
     }
 
-    private fun validate(): Boolean {
+    private fun isValid(): Boolean {
         var valid = true
-        if (edit_to_whom.text.toString().isEmpty()) {
-            edit_to_whom_edit.error = "Поле не должно быть пустым"
+        if (feedbact_name.text.toString().isEmpty()) {
+            feedbact_name_out.error = "Поле не должно быть пустым"
             valid = false
         } else {
-            edit_to_whom_edit.isErrorEnabled = false
+            feedbact_name_out.isErrorEnabled = false
         }
 
-        if (edit_write_a_letter.text.toString().isEmpty()) {
-            edit_write_a_letter_edit.error = "Поле не должно быть пустым"
+        if (feedback_message.text.toString().isEmpty()) {
+            feedback_message_out.error = "Поле не должно быть пустым"
             valid = false
         } else {
-            edit_write_a_letter_edit.isErrorEnabled = false
+            feedback_message_out.isErrorEnabled = false
         }
 
         if (!AppPreferences.isLogined) {
-            if (!MyUtils.emailValidate(edit_your_mail.text.toString())) {
+            if (!MyUtils.emailValidate(feedback_email.text.toString())) {
                 valid = false
-                edit_your_mail_edit.error = "Не правильный email"
+                feedback_email_out.error = "Не правильный email"
             } else {
-                edit_your_mail_edit.isErrorEnabled = false
+                feedback_email_out.isErrorEnabled = false
             }
         }
         return valid
@@ -112,29 +108,29 @@ class SendFeedbackFragment : Fragment() {
         intColor()
     }
 
-    fun initHint() {
-        edit_your_mail_edit.defaultHintTextColor =
+    private fun initHint() {
+        feedback_email_out.defaultHintTextColor =
                 ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
     }
 
     private fun intColor() {
-        edit_to_whom.setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus && edit_to_whom.text!!.isNotEmpty()) {
-                edit_to_whom_edit.defaultHintTextColor =
+        feedbact_name.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus && feedbact_name.text!!.isNotEmpty()) {
+                feedbact_name_out.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
             }
         }
 
-        edit_your_mail.setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus && edit_your_mail.text!!.isNotEmpty()) {
-                edit_your_mail_edit.defaultHintTextColor =
+        feedback_email.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus && feedback_email.text!!.isNotEmpty()) {
+                feedback_email_out.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
             }
         }
 
-        edit_write_a_letter.setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus && edit_write_a_letter.text!!.isNotEmpty()) {
-                edit_write_a_letter_edit
+        feedback_message.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus && feedback_message.text!!.isNotEmpty()) {
+                feedback_message_out
 
                     .defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))

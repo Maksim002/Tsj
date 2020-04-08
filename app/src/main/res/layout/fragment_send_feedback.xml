@@ -8,12 +8,12 @@
     tools:context=".ui.feedback.SendFeedbackFragment">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/edit_to_whom_edit"
+        android:id="@+id/feedbact_name_out"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/edit_to_whom"
+            android:id="@+id/feedbact_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_vertical_margin"
@@ -23,12 +23,12 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/edit_your_mail_edit"
+        android:id="@+id/feedback_email_out"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/edit_your_mail"
+            android:id="@+id/feedback_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
@@ -38,12 +38,12 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/edit_write_a_letter_edit"
+        android:id="@+id/feedback_message_out"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/edit_write_a_letter"
+            android:id="@+id/feedback_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_vertical_margin"
