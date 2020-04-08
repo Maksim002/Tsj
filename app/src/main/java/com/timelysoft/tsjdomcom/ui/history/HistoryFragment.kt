@@ -22,7 +22,7 @@ import com.timelysoft.tsjdomcom.service.model.AddressModel
 import com.timelysoft.tsjdomcom.service.model.OperationsModel
 import com.timelysoft.tsjdomcom.service.model.ServicesModel
 import com.timelysoft.tsjdomcom.utils.MyUtils
-import kotlinx.android.synthetic.main.history_fragment.*
+import kotlinx.android.synthetic.main.fragment_history.*
 import kotlin.collections.ArrayList
 
 class HistoryFragment : Fragment() {
@@ -52,7 +52,7 @@ class HistoryFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.history_fragment, container, false)
+        val root = inflater.inflate(R.layout.fragment_history, container, false)
         viewmodel = ViewModelProviders.of(this).get(HistoryViewModel::class.java)
         (activity as AppCompatActivity).supportActionBar?.show()
         return root
@@ -61,24 +61,24 @@ class HistoryFragment : Fragment() {
     private fun validate(): Boolean {
         var valid = true
         if (history_address.text.toString().isEmpty()) {
-            history_address_auto.error = "Выберите адрес"
+            history_address_out.error = "Выберите адрес"
             valid = false
         } else {
-            history_address_auto.isErrorEnabled = false
+            history_address_out.isErrorEnabled = false
         }
 
         if (history_service.text.toString().isEmpty()) {
-            history_service_auto.error = "Выберите услугу"
+            history_service_out.error = "Выберите услугу"
             valid = false
         } else {
-            history_service_auto.isErrorEnabled = false
+            history_service_out.isErrorEnabled = false
         }
 
         if (history_operation.text.toString().isEmpty()) {
-            history_operation_auto.error = "Выберите операцию"
+            history_operation_out.error = "Выберите операцию"
             valid = false
         } else {
-            history_operation_auto.isErrorEnabled = false
+            history_operation_out.isErrorEnabled = false
         }
         return valid
     }
@@ -120,20 +120,20 @@ class HistoryFragment : Fragment() {
 
     private fun hintText() {
         if (history_address.text.isNotEmpty()) {
-            history_address_auto.defaultHintTextColor =
+            history_address_out.defaultHintTextColor =
                 ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
         }
 
         if (history_service.text.isNotEmpty()) {
-            history_service_auto.defaultHintTextColor =
+            history_service_out.defaultHintTextColor =
                 ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
         }
         if (history_operation.text.isNotEmpty()) {
-            history_operation_auto.defaultHintTextColor =
+            history_operation_out.defaultHintTextColor =
                 ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
         }
 
-        _history_goneL.requestFocus()
+        _history_goneL_owner.requestFocus()
 
     }
 
@@ -171,14 +171,14 @@ class HistoryFragment : Fragment() {
             MainActivity.alert.hide()
         })
         history_address.keyListener = null
-        history_from_auto.defaultHintTextColor =
+        history_from_out.defaultHintTextColor =
             ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-        history_do_auto.defaultHintTextColor =
+        history_do_out.defaultHintTextColor =
             ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
         history_address.onItemClickListener =
             AdapterView.OnItemClickListener { parent, _, position, _ ->
                 history_address.showDropDown()
-                history_address_auto.defaultHintTextColor =
+                history_address_out.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
                 parent.getItemAtPosition(position).toString()
                 placementId = listAddress[position].placementId!!
@@ -202,10 +202,10 @@ class HistoryFragment : Fragment() {
                 }
 
                 if (!hasFocus && history_address.text!!.isNotEmpty()) {
-                    history_service_auto.defaultHintTextColor =
+                    history_service_out.defaultHintTextColor =
                         ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
 
-                    history_address_auto.isErrorEnabled = false
+                    history_address_out.isErrorEnabled = false
                 }
 
             } catch (e: Exception) {
@@ -248,9 +248,9 @@ class HistoryFragment : Fragment() {
             try {
                 history_service.showDropDown()
                 if (!hasFocus && history_address.text.isNotEmpty()) {
-                    history_service_auto.defaultHintTextColor =
+                    history_service_out.defaultHintTextColor =
                         ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                    history_service_auto.isErrorEnabled = false
+                    history_service_out.isErrorEnabled = false
                 }
 
                 if (history_address.text.isEmpty()) {
@@ -293,9 +293,9 @@ class HistoryFragment : Fragment() {
             try {
                 history_operation.showDropDown()
                 if (!hasFocus && history_operation.text.isNotEmpty()) {
-                    history_operation_auto.defaultHintTextColor =
+                    history_operation_out.defaultHintTextColor =
                         ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                    history_operation_auto.isErrorEnabled = false
+                    history_operation_out.isErrorEnabled = false
                 }
             } catch (e: Exception) {
 
@@ -313,7 +313,7 @@ class HistoryFragment : Fragment() {
                     return@setOnClickListener
                 }
                 mLastClickTime = SystemClock.elapsedRealtime();
-                history_from_auto.defaultHintTextColor =
+                history_from_out.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
                 val picker =
                     DatePickerDialog(activity!!, { _, year1, monthOfYear, dayOfMonth ->
@@ -345,7 +345,7 @@ class HistoryFragment : Fragment() {
                 mLastClickTime = SystemClock.elapsedRealtime();
                 val col =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                history_do_auto.defaultHintTextColor = col
+                history_do_out.defaultHintTextColor = col
 
                 val picker =
                     DatePickerDialog(

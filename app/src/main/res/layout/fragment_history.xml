@@ -7,7 +7,7 @@
     tools:context=".ui.history.HistoryFragment">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/history_address_auto"
+        android:id="@+id/history_address_out"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -32,7 +32,7 @@
         android:src="@drawable/ic_divider" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/history_service_auto"
+        android:id="@+id/history_service_out"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -57,7 +57,7 @@
         android:src="@drawable/ic_divider" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/history_operation_auto"
+        android:id="@+id/history_operation_out"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -76,7 +76,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <include
-        android:id="@+id/_history_goneL"
+        android:id="@+id/_history_goneL_owner"
         android:visibility="gone"
         layout="@layout/item_focus" />
 
@@ -93,7 +93,7 @@
         android:orientation="horizontal">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/history_from_auto"
+            android:id="@+id/history_from_out"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -113,7 +113,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/history_do_auto"
+            android:id="@+id/history_do_out"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"

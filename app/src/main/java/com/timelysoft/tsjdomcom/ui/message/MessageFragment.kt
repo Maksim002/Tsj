@@ -17,7 +17,7 @@ import com.timelysoft.tsjdomcom.adapters.message.ViewPagerAdapter
 import com.timelysoft.tsjdomcom.service.AppPreferences
 import com.timelysoft.tsjdomcom.ui.login.LoginActivity
 import kotlinx.android.synthetic.main.alert_for_who.*
-import kotlinx.android.synthetic.main.message_fragment.*
+import kotlinx.android.synthetic.main.fragment_message.*
 
 class MessageFragment : Fragment() {
 
@@ -28,7 +28,7 @@ class MessageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         viewModel = ViewModelProviders.of(this).get(MessagesViewModel::class.java)
-        val root = inflater.inflate(R.layout.message_fragment, container, false)
+        val root = inflater.inflate(R.layout.fragment_message, container, false)
         (activity as AppCompatActivity).supportActionBar!!.show()
 
         return root

@@ -24,7 +24,7 @@ import com.timelysoft.tsjdomcom.adapters.files.FilesModel
 import com.timelysoft.tsjdomcom.adapters.files.GeneralClickListener
 import com.timelysoft.tsjdomcom.ui.message.MessagesViewModel
 import com.timelysoft.tsjdomcom.utils.MyUtils
-import kotlinx.android.synthetic.main.message_detail_fragment.*
+import kotlinx.android.synthetic.main.fragment_message_detail.*
 import java.lang.Exception
 
 class MessageDetailFragment : Fragment(), GeneralClickListener {
@@ -43,7 +43,7 @@ class MessageDetailFragment : Fragment(), GeneralClickListener {
         (activity as AppCompatActivity).supportActionBar!!.show()
         viewModel = ViewModelProviders.of(this).get(MessagesViewModel::class.java)
         setHasOptionsMenu(true)
-        return inflater.inflate(R.layout.message_detail_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_message_detail, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

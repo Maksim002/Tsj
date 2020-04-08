@@ -62,22 +62,22 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
         val root = inflater.inflate(R.layout.new_message_owner, container, false)
         viewModel = ViewModelProviders.of(this).get(MessagesViewModel::class.java)
 
-        recyclerOwner = root.findViewById(R.id.recyclerOwner)
+        recyclerOwner = root.findViewById(R.id.recycler_owner)
         getRecyclerView()
 
         root.new_msg_referent.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus && root.new_msg_referent.text!!.isNotEmpty()) {
-                new_msg_referent_error.defaultHintTextColor =
+                new_msg_referent_error_owner.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                new_msg_referent_error.isErrorEnabled = false
+                new_msg_referent_error_owner.isErrorEnabled = false
             }
         }
 
         root.new_msg_content.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus && root.new_msg_content.text!!.isNotEmpty()) {
-                new_msg_content_error.defaultHintTextColor =
+                new_msg_content_error_owner.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                new_msg_content_error.isErrorEnabled = false
+                new_msg_content_error_owner.isErrorEnabled = false
             }
         }
 
@@ -194,38 +194,38 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
     private fun validate(): Boolean{
         var valid = true
         if (new_msg_house.getText().toString().length == 0) {
-            new_house.setError("Выберите Дом")
+            new_house_owner.setError("Выберите Дом")
             valid = false
         }else{
-            new_house.setErrorEnabled(false)
+            new_house_owner.setErrorEnabled(false)
         }
 
         if (new_msg_apartment.getText().toString().length == 0) {
-            new_apartment.setError("Выберите квартиру")
+            new_apartment_owner.setError("Выберите квартиру")
             valid = false
         }else{
-            new_apartment.setErrorEnabled(false)
+            new_apartment_owner.setErrorEnabled(false)
         }
 
         if (new_msg_who.getText().toString().length == 0) {
-            new_who.setError("Выберите пользователя")
+            new_who_owner.setError("Выберите пользователя")
             valid = false
         }else{
-            new_who.setErrorEnabled(false)
+            new_who_owner.setErrorEnabled(false)
         }
 
         if (new_msg_referent.getText().toString().length == 0) {
-            new_msg_referent_error.setError("Заголовок не должен быть пустым")
+            new_msg_referent_error_owner.setError("Заголовок не должен быть пустым")
             valid = false
         }else{
-            new_msg_referent_error.setErrorEnabled(false)
+            new_msg_referent_error_owner.setErrorEnabled(false)
         }
 
         if (new_msg_content.getText().toString().length == 0) {
-            new_msg_content_error.setError("Письмо не должно быть пустым")
+            new_msg_content_error_owner.setError("Письмо не должно быть пустым")
             valid = false
         }else{
-            new_msg_content_error.setErrorEnabled(false)
+            new_msg_content_error_owner.setErrorEnabled(false)
         }
 
         return valid
@@ -246,24 +246,24 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
 
         new_msg_referent.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus || new_msg_referent.text!!.isNotEmpty()) {
-                new_msg_referent_error.defaultHintTextColor =
+                new_msg_referent_error_owner.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
             } else if (new_msg_referent.text!!.isEmpty()) {
-                new_msg_referent_error.defaultHintTextColor =
+                new_msg_referent_error_owner.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
             }
 
             if (!hasFocus && new_msg_referent.text!!.isNotEmpty()){
-                new_msg_referent_error.isErrorEnabled = false
+                new_msg_referent_error_owner.isErrorEnabled = false
             }
         }
 
         new_msg_content.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus || new_msg_content.text!!.isNotEmpty()) {
-                new_msg_content_error.defaultHintTextColor =
+                new_msg_content_error_owner.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
             } else if (new_msg_content.text!!.isEmpty()) {
-                new_msg_content_error.defaultHintTextColor =
+                new_msg_content_error_owner.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
             }
         }
@@ -288,7 +288,7 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
 
         new_msg_house.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
-                new_house.defaultHintTextColor =
+                new_house_owner.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
                 new_msg_house.showDropDown()
                 parent.getItemAtPosition(position).toString()
@@ -310,15 +310,15 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
                     new_msg_house.showDropDown()
 
                     if (hasFocus || new_msg_apartment.text!!.isNotEmpty()) {
-                        new_apartment.defaultHintTextColor =
+                        new_apartment_owner.defaultHintTextColor =
                             ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
                     }
                     if (hasFocus || new_msg_who.text!!.isNotEmpty()){
-                        new_who.defaultHintTextColor =
+                        new_who_owner.defaultHintTextColor =
                             ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
                     }
                     if (!hasFocus && new_msg_house.text.isNotEmpty()){
-                        new_house.isErrorEnabled = false
+                        new_house_owner.isErrorEnabled = false
                     }
 
                 } catch (e: Exception) {
@@ -361,14 +361,14 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
         new_msg_apartment.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
             MyUtils.hideKeyboard(activity!!, view!!)
                 try {
-                    new_apartment.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+                    new_apartment_owner.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
                     new_msg_apartment.showDropDown()
                     if (new_msg_house.text.length == 0){
                         Toast.makeText(context, "Сначало выберте дом", Toast.LENGTH_LONG).show()
                     }
 
                     if (!hasFocus && new_msg_apartment.text.isNotEmpty()){
-                        new_apartment.isErrorEnabled = false
+                        new_apartment_owner.isErrorEnabled = false
                     }
                 } catch (e: Exception) {
                     println()
@@ -404,7 +404,7 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
         new_msg_who.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
             MyUtils.hideKeyboard(activity!!, view!!)
                 try {
-                    new_who.defaultHintTextColor =
+                    new_who_owner.defaultHintTextColor =
                         ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
                     new_msg_who.showDropDown()
                     if (new_msg_apartment.text.length == 0){
@@ -412,7 +412,7 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
                     }
 
                     if (!hasFocus && new_msg_who.text.isNotEmpty()){
-                        new_who.isErrorEnabled = false
+                        new_who_owner.isErrorEnabled = false
                     }
                 } catch (e: Exception) {
                     println()

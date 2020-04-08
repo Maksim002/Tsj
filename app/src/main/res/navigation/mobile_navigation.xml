@@ -15,19 +15,19 @@
         android:id="@+id/navigation_message"
         android:name="com.timelysoft.tsjdomcom.ui.message.MessageFragment"
         android:label="@string/title_message"
-        tools:layout="@layout/message_fragment" />
+        tools:layout="@layout/fragment_message" />
 
     <fragment
         android:id="@+id/navigation_contacts"
         android:name="com.timelysoft.tsjdomcom.ui.contact.ContactFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/contacts_fragment" />
+        tools:layout="@layout/fragment_contacts" />
 
     <fragment
         android:id="@+id/navigation_history"
         android:name="com.timelysoft.tsjdomcom.ui.history.HistoryFragment"
         android:label="@string/history"
-        tools:layout="@layout/history_fragment" />
+        tools:layout="@layout/fragment_history" />
 
     <fragment
         android:id="@+id/navigation_balance"
@@ -116,17 +116,17 @@
         android:id="@+id/navigation_message_detail"
         android:name="com.timelysoft.tsjdomcom.ui.message.fragments.MessageDetailFragment"
         android:label="@string/detail_msg"
-        tools:layout="@layout/message_detail_fragment" />
+        tools:layout="@layout/fragment_message_detail" />
     <fragment
         android:id="@+id/messageBottomSheet"
         android:name="com.timelysoft.tsjdomcom.ui.message.fragments.MessageBottomSheet"
         android:label="fragment_message_bottom_sheet"
-        tools:layout="@layout/message_bottom_sheet_fragment" />
+        tools:layout="@layout/fragment_message_bottom_sheet" />
     <fragment
         android:id="@+id/inboxFragment"
         android:name="com.timelysoft.tsjdomcom.ui.message.MessagesFragment"
         android:label="navigation_inbox"
-        tools:layout="@layout/messages_fragment" />
+        tools:layout="@layout/fragment_messages" />
     <navigation
         android:id="@+id/navigation"
         app:startDestination="@id/inboxFragment" />

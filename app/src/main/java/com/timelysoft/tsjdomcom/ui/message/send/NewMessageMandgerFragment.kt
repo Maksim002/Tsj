@@ -61,19 +61,19 @@ class NewMessageMandgerFragment : Fragment(), GeneralClickListener {
         editBody = root.findViewById(R.id.manager_msg_ref)
         editTitle = root.findViewById(R.id.manager_msg_content)
 
-        recyclerManager = root.findViewById(R.id.manager_recycler_view)
+        recyclerManager = root.findViewById(R.id.manager_recycler_сhairman)
         getRecyclerView()
 
         root.manager_msg_ref.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus && root.manager_msg_ref.text!!.isNotEmpty()) {
-                title_container.defaultHintTextColor =
+                title_container_сhairman.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
             }
         }
 
         root.manager_msg_content.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus && root.manager_msg_content.text!!.isNotEmpty()) {
-                content_container.defaultHintTextColor =
+                content_container_сhairman.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
             }
         }
@@ -196,17 +196,17 @@ class NewMessageMandgerFragment : Fragment(), GeneralClickListener {
     private fun validate(): Boolean {
         var valid = true
         if (manager_msg_ref.getText().toString().length == 0) {
-            title_container.setError("Заголовок не должен быть пустым")
+            title_container_сhairman.setError("Заголовок не должен быть пустым")
             valid = false
         } else {
-            title_container.setErrorEnabled(false)
+            title_container_сhairman.setErrorEnabled(false)
         }
 
         if (manager_msg_content.getText().toString().length == 0) {
-            content_container.setError("Письмо не должно быть пустым")
+            content_container_сhairman.setError("Письмо не должно быть пустым")
             valid = false
         } else {
-            content_container.setErrorEnabled(false)
+            content_container_сhairman.setErrorEnabled(false)
         }
 
         return valid
@@ -225,17 +225,17 @@ class NewMessageMandgerFragment : Fragment(), GeneralClickListener {
 
         manager_msg_ref.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus && manager_msg_ref.text!!.isNotEmpty()) {
-                title_container.defaultHintTextColor =
+                title_container_сhairman.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                title_container.isErrorEnabled = false
+                title_container_сhairman.isErrorEnabled = false
 
             }
 
             manager_msg_content.setOnFocusChangeListener { _, hasFocus ->
                 if (!hasFocus && manager_msg_content.text!!.isNotEmpty()) {
-                    content_container.defaultHintTextColor =
+                    content_container_сhairman.defaultHintTextColor =
                         ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                    content_container.isErrorEnabled = false
+                    content_container_сhairman.isErrorEnabled = false
                 }
             }
         }

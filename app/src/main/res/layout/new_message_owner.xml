@@ -15,7 +15,7 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/new_house"
+            android:id="@+id/new_house_owner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="true"
@@ -35,7 +35,7 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/new_apartment"
+            android:id="@+id/new_apartment_owner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="true"
@@ -54,7 +54,7 @@
     </LinearLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/new_who"
+        android:id="@+id/new_who_owner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -70,7 +70,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/new_msg_referent_error"
+        android:id="@+id/new_msg_referent_error_owner"
         android:layout_width="match_parent"
         android:focusableInTouchMode="true"
         android:layout_height="wrap_content">
@@ -86,7 +86,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/new_msg_content_error"
+        android:id="@+id/new_msg_content_error_owner"
         android:layout_width="match_parent"
         android:focusableInTouchMode="true"
         android:layout_height="wrap_content">
@@ -102,13 +102,13 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <include
-        android:id="@+id/_history_goneL"
+        android:id="@+id/_history_goneL_owner"
         android:visibility="gone"
         layout="@layout/item_focus" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_marginTop="10dp"
-        android:id="@+id/recyclerOwner"
+        android:id="@+id/recycler_owner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>

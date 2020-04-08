@@ -72,7 +72,7 @@
         app:ms_hintColor="@color/grayColor" />
 
     <include
-        android:id="@+id/_history_goneL"
+        android:id="@+id/_history_goneL_owner"
         layout="@layout/item_focus" />
 
     <LinearLayout

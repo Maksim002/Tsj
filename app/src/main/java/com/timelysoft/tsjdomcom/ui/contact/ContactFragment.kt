@@ -20,8 +20,8 @@ import com.timelysoft.tsjdomcom.service.model.AddressModel
 import com.timelysoft.tsjdomcom.ui.contact.fragments.AccountsBottomSheet
 import com.timelysoft.tsjdomcom.ui.contact.fragments.AccountsListener
 import com.timelysoft.tsjdomcom.ui.login.LoginActivity
-import kotlinx.android.synthetic.main.contacts_fragment.*
-import kotlinx.android.synthetic.main.contacts_fragment.view.*
+import kotlinx.android.synthetic.main.fragment_contacts.*
+import kotlinx.android.synthetic.main.fragment_contacts.view.*
 
 class ContactFragment : Fragment(), AccountsListener {
     private lateinit var viewModel: ContactViewModel
@@ -31,7 +31,7 @@ class ContactFragment : Fragment(), AccountsListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.contacts_fragment, container, false)
+        val root = inflater.inflate(R.layout.fragment_contacts, container, false)
         viewModel = ViewModelProviders.of(this).get(ContactViewModel::class.java)
 
         val imageHistory: ImageView = root.findViewById(R.id.contact_image_history)

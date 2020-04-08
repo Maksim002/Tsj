@@ -9,7 +9,7 @@
     tools:context=".ui.feedback.SendFeedbackFragment">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/title_container"
+        android:id="@+id/title_container_сhairman"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -24,7 +24,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/content_container"
+        android:id="@+id/content_container_сhairman"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -39,7 +39,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/manager_recycler_view"
+        android:id="@+id/manager_recycler_сhairman"
         android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
