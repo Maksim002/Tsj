@@ -16,10 +16,10 @@ class PersonalViewModel : ViewModel() {
         operationsId: Int,
         placementId: Int,
         tos: String?,
-        froms: String?
+        from: String?
     ): LiveData<CurrentBalance> {
         val data = MutableLiveData<CurrentBalance>()
-        RetrofitService.apiService().invoices(placementId, servicesId, operationsId, tos!!, froms!!)
+        RetrofitService.apiService().invoices(placementId, servicesId, operationsId, tos!!, from!!)
             .enqueue(object : Callback<CurrentBalance> {
 
                 override fun onFailure(call: Call<CurrentBalance>, t: Throwable) {

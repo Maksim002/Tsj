@@ -27,7 +27,7 @@ import com.timelysoft.tsjdomcom.utils.MyUtils
 import java.lang.Exception
 
 class PersonalFragment : Fragment(), PersonalListener {
-    private val STORAGE_PERMISION_CODE: Int = 1000
+    private val STORAGE_PERMISSION_CODE: Int = 1000
     private lateinit var adapterPayments: PersonalAdapterPayments
     private lateinit var adapterAccount: PersonalAdapterAccounts
     private lateinit var recyclerViewPlatei: RecyclerView
@@ -131,14 +131,14 @@ class PersonalFragment : Fragment(), PersonalListener {
     }
 
     private fun initViews(root: View) {
-        textCurrant = root.findViewById(R.id.list_currant)
-        textAddress = root.findViewById(R.id.text_address)
-        textOperation = root.findViewById(R.id.text_operation_name)
-        textService = root.findViewById(R.id.text_service_name)
-        textToFrom = root.findViewById(R.id.text_to_from)
-        textBalance = root.findViewById(R.id.text_balance)
-        layoutAccounts = root.findViewById(R.id.accounts)
-        layoutPayments = root.findViewById(R.id.payments)
+        textCurrant = root.findViewById(R.id.personal_list_currant)
+        textAddress = root.findViewById(R.id.personal_text_address)
+        textOperation = root.findViewById(R.id.personal_text_operation_name)
+        textService = root.findViewById(R.id.personal_text_service_name)
+        textToFrom = root.findViewById(R.id.personal_text_to_from)
+        textBalance = root.findViewById(R.id.personal_text_balance)
+        layoutAccounts = root.findViewById(R.id.personal_accounts)
+        layoutPayments = root.findViewById(R.id.personal_payments)
         recyclerViewPlatei = root.findViewById(R.id.recyclerPersonal)
         recyclerViewAccount = root.findViewById(R.id.recyclerViewAccount)
     }
@@ -182,7 +182,7 @@ class PersonalFragment : Fragment(), PersonalListener {
                     //permission denied
                     val permissions = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE)
                     //show popup to request runtime permission
-                    requestPermissions(permissions, STORAGE_PERMISION_CODE)
+                    requestPermissions(permissions, STORAGE_PERMISSION_CODE)
 
 
                 } else {
@@ -199,20 +199,20 @@ class PersonalFragment : Fragment(), PersonalListener {
     }
 
     private fun downloadFile(downloadUrl: String) {
-        val reguest = DownloadManager.Request(Uri.parse(downloadUrl))
-        reguest.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
-        reguest.setTitle(MyUtils.fileName(downloadUrl))
-        reguest.setDescription("Файл загружаеться.....")
+        val request = DownloadManager.Request(Uri.parse(downloadUrl))
+        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
+        request.setTitle(MyUtils.fileName(downloadUrl))
+        request.setDescription("Файл загружаеться.....")
 
-        reguest.allowScanningByMediaScanner()
-        reguest.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-        reguest.setDestinationInExternalPublicDir(
+        request.allowScanningByMediaScanner()
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+        request.setDestinationInExternalPublicDir(
             Environment.DIRECTORY_DOWNLOADS,
             "${System.currentTimeMillis()}"
         )
 
         val manager = activity?.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-        manager.enqueue(reguest)
+        manager.enqueue(request)
     }
 
 
@@ -222,7 +222,7 @@ class PersonalFragment : Fragment(), PersonalListener {
         grantResults: IntArray
     ) {
         when (requestCode) {
-            STORAGE_PERMISION_CODE -> {
+            STORAGE_PERMISSION_CODE -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     downloadFile(downloadUrl)
                 } else {
