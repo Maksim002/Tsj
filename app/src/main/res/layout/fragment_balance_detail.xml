@@ -49,7 +49,7 @@
                     android:textSize="12sp" />
 
                 <TextView
-                    android:id="@+id/textBalance"
+                    android:id="@+id/balance_detail_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="7 небо, Токомбаева, д.53/2 кв 11"
@@ -111,7 +111,7 @@
                     app:layout_constraintTop_toBottomOf="@id/statice_debt_textview" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/balance_summ_recyclerview"
+                    android:id="@+id/balance_detail_rv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"

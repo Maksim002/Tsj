@@ -16,15 +16,17 @@ class BalanceViewModel : ViewModel() {
         val data = MutableLiveData<List<AddressModel>>()
 
         RetrofitService.apiService().addresses().enqueue(object : Callback<List<AddressModel>> {
-            override fun onResponse(call: Call<List<AddressModel>>, response: Response<List<AddressModel>>){
-                if (response.isSuccessful){
+            override fun onResponse(
+                call: Call<List<AddressModel>>,
+                response: Response<List<AddressModel>>
+            ) {
+                if (response.isSuccessful) {
                     data.value = response.body()
-
                 }
             }
 
             override fun onFailure(call: Call<List<AddressModel>>, t: Throwable) {
-                println()
+
             }
         })
 
@@ -41,7 +43,8 @@ class BalanceViewModel : ViewModel() {
                     call: Call<List<BalanceStatusModel>>,
                     response: Response<List<BalanceStatusModel>>
                 ) {
-                    data.value = response.body()
+                    if (response.isSuccessful)
+                        data.value = response.body()
                 }
 
                 override fun onFailure(call: Call<List<BalanceStatusModel>>, t: Throwable) {
