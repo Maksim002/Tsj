@@ -15,7 +15,6 @@ import kotlinx.android.synthetic.main.fragment_profile_bottom_sheet.view.*
 class AccountsBottomSheet(
     private val accountsListener: AccountsListener,
     private val item: List<AddressModel> = ArrayList()
-//
 ) :
     BottomSheetDialogFragment(), ContactListener {
     private lateinit var adapter: ContactsAdapter
