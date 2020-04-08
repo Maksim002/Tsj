@@ -92,7 +92,7 @@ class RequestAddFragment : Fragment() {
         }
 
         try {
-            requestTypeId = (bid_add_type.selectedItem as RequestTypeModel).requestTypeId
+            requestTypeId = (bid_add_type.selectedItem as RequestTypeModel).requestTypeId!!
         } catch (e: Exception) {
             bid_add_type.error = "Заполните поле"
             valid = false

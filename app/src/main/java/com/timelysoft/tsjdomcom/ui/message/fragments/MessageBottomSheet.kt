@@ -100,6 +100,11 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
                             MainActivity.alert.hide()
                             if (it) {
                                 dismiss()
+                                Toast.makeText(
+                                    context,
+                                    "Ваше сообщение отправлено!",
+                                    Toast.LENGTH_LONG
+                                ).show()
                                 findNavController().popBackStack()
                             } else {
                                 Toast.makeText(

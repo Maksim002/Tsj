@@ -71,7 +71,7 @@ class MessageDetailFragment : Fragment(), GeneralClickListener {
             }
 
             filesAdapter = FilesAdapter(this)
-            val items = it.attachments.map { attachment ->
+            val items = it.attachments!!.map { attachment ->
                 FilesModel(attachment.fileName, attachment.filePath)
             }
             filesAdapter.update(items)

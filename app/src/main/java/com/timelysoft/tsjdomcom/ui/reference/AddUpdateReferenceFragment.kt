@@ -157,10 +157,10 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
             reference_save.text = "Обновить"
             (activity as AppCompatActivity?)!!.supportActionBar?.title = "Обновленная справка"
             viewModel.reference(certificateRequest.id).observe(this, Observer {
-                certificateRequest.person.id = it.person.id
-                reference_name.setText(it.person.fullName)
-                reference_date.setText(MyUtils.toMyDate(it.person.dateOfBirth))
-                it.relatives.forEach { item ->
+                certificateRequest.person.id = it.person?.id
+                reference_name.setText(it.person?.fullName)
+                reference_date.setText(MyUtils.toMyDate(it.person!!.dateOfBirth))
+                it.relatives?.forEach { item ->
                     relativesList.add(item)
                 }
                 relativeAdapter.update(relativesList)
