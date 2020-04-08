@@ -9,16 +9,13 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import com.timelysoft.tsjdomcom.R
 
-/**
- * A simple [Fragment] subclass.
- */
+
 class PortalFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val root = inflater.inflate(R.layout.fragment_portal_tsj, container, false)
         (activity as AppCompatActivity).supportActionBar!!.show()
         return root
