@@ -52,21 +52,21 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
 //        edit_title_text
         edit_title.setOnFocusChangeListener { v, hasFocus ->
             if (!hasFocus && edit_title.text!!.isNotEmpty()) {
-                edit_title_text_sheet.defaultHintTextColor =
+                edit_title_sheet_message.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                edit_title_text_sheet.isErrorEnabled = false
+                edit_title_sheet_message.isErrorEnabled = false
             }
         }
 
         edit_sms.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus && edit_sms.text!!.isNotEmpty()) {
-                edit_sms_text_sheet.defaultHintTextColor =
+                edit_sms_sheet_message.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                edit_sms_text_sheet.isErrorEnabled = false
+                edit_sms_sheet_message.isErrorEnabled = false
             }
         }
 
-        send_image_sheet.setOnClickListener {
+        send_image_sheet_message.setOnClickListener {
             MyUtils.hideKeyboard(activity!!, view)
             if (validate()) {
                 if (reply.isToManager) {
@@ -113,7 +113,7 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
                 }
             }
 
-            fasten_file_image_sheet.setOnClickListener {
+            fasten_file_image_sheet_message.setOnClickListener {
                 MyUtils.hideKeyboard(activity!!, view)
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -141,17 +141,17 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
     private fun validate(): Boolean {
         var valid = true
         if (edit_title.text.toString().isEmpty()) {
-            edit_title_text_sheet.error = "Заголовок не должен быть пустым"
+            edit_title_sheet_message.error = "Заголовок не должен быть пустым"
             valid = false
         } else {
-            edit_title_text_sheet.isErrorEnabled = false
+            edit_title_sheet_message.isErrorEnabled = false
         }
 
         if (edit_sms.text.toString().isEmpty()) {
-            edit_sms_text_sheet.error = "Письмо не должно быть пустым"
+            edit_sms_sheet_message.error = "Письмо не должно быть пустым"
             valid = false
         } else {
-            edit_sms_text_sheet.isErrorEnabled = false
+            edit_sms_sheet_message.isErrorEnabled = false
         }
 
         return valid

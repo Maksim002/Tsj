@@ -57,17 +57,17 @@ class MessageDetailFragment : Fragment(), GeneralClickListener {
         MainActivity.alert.show()
         viewModel.message(idMessage).observe(this, Observer {
             MainActivity.alert.hide()
-            msg_detail_date.text = "Дата: "+MyUtils.toMyDate(it.sendDate)
-            msg_detail_sender.text = it.personNameHeader + ": " + it.personName
-            msg_detail_title.text = it.title
-            msg_detail_content.text = it.body
+            message_detail_date.text = "Дата: "+MyUtils.toMyDate(it.sendDate)
+            message_detail_sender.text = it.personNameHeader + ": " + it.personName
+            message_detail_title.text = it.title
+            message_detail_content.text = it.body
 
             //в отправленных адресов нету, провераяю для входящих
             if (it.address != null) {
-                msg_detail_address.visibility = View.VISIBLE
-                msg_detail_address.text ="Адрес: ${it.address}"
+                message_detail_address.visibility = View.VISIBLE
+                message_detail_address.text ="Адрес: ${it.address}"
             } else {
-                msg_detail_address.visibility = View.GONE
+                message_detail_address.visibility = View.GONE
             }
 
             filesAdapter = FilesAdapter(this)
@@ -90,7 +90,7 @@ class MessageDetailFragment : Fragment(), GeneralClickListener {
     }
 
     private fun initViews() {
-        msg_answer_button.setOnClickListener {
+        message_answer_button.setOnClickListener {
             val messageBottomSheet = MessageBottomSheet(idMessage)
             messageBottomSheet.show(fragmentManager!!, "MessageBottomSheet")
         }

@@ -65,19 +65,19 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
         recyclerOwner = root.findViewById(R.id.recycler_owner)
         getRecyclerView()
 
-        root.new_msg_referent.setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus && root.new_msg_referent.text!!.isNotEmpty()) {
-                new_msg_referent_error_owner.defaultHintTextColor =
+        root.new_message_referent.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus && root.new_message_referent.text!!.isNotEmpty()) {
+                new_message_referent_error_owner.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                new_msg_referent_error_owner.isErrorEnabled = false
+                new_message_referent_error_owner.isErrorEnabled = false
             }
         }
 
-        root.new_msg_content.setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus && root.new_msg_content.text!!.isNotEmpty()) {
-                new_msg_content_error_owner.defaultHintTextColor =
+        root.new_message_content.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus && root.new_message_content.text!!.isNotEmpty()) {
+                new_message_content_error_owner.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                new_msg_content_error_owner.isErrorEnabled = false
+                new_message_content_error_owner.isErrorEnabled = false
             }
         }
 
@@ -173,11 +173,11 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
     private fun sendMessage() {
         MyUtils.hideKeyboard(activity!!, view!!)
             if (validate()){
-                val title = new_msg_referent.text.toString()
-                val body = new_msg_content.text.toString()
-                new_msg_house.text.toString()
-                new_msg_apartment.text.toString()
-                new_msg_who.text.toString()
+                val title = new_message_referent.text.toString()
+                val body = new_message_content.text.toString()
+                new_message_house.text.toString()
+                new_message_apartment.text.toString()
+                new_message_who.text.toString()
                 //проверка на пустоту edit text
                 MainActivity.alert.show()
                 viewModel.messageToPerson(personId, body, title, files).observe(this, Observer {
@@ -193,39 +193,39 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
 
     private fun validate(): Boolean{
         var valid = true
-        if (new_msg_house.getText().toString().length == 0) {
+        if (new_message_house.getText().toString().length == 0) {
             new_house_owner.setError("Выберите Дом")
             valid = false
         }else{
             new_house_owner.setErrorEnabled(false)
         }
 
-        if (new_msg_apartment.getText().toString().length == 0) {
+        if (new_message_apartment.getText().toString().length == 0) {
             new_apartment_owner.setError("Выберите квартиру")
             valid = false
         }else{
             new_apartment_owner.setErrorEnabled(false)
         }
 
-        if (new_msg_who.getText().toString().length == 0) {
+        if (new_message_who.getText().toString().length == 0) {
             new_who_owner.setError("Выберите пользователя")
             valid = false
         }else{
             new_who_owner.setErrorEnabled(false)
         }
 
-        if (new_msg_referent.getText().toString().length == 0) {
-            new_msg_referent_error_owner.setError("Заголовок не должен быть пустым")
+        if (new_message_referent.getText().toString().length == 0) {
+            new_message_referent_error_owner.setError("Заголовок не должен быть пустым")
             valid = false
         }else{
-            new_msg_referent_error_owner.setErrorEnabled(false)
+            new_message_referent_error_owner.setErrorEnabled(false)
         }
 
-        if (new_msg_content.getText().toString().length == 0) {
-            new_msg_content_error_owner.setError("Письмо не должно быть пустым")
+        if (new_message_content.getText().toString().length == 0) {
+            new_message_content_error_owner.setError("Письмо не должно быть пустым")
             valid = false
         }else{
-            new_msg_content_error_owner.setErrorEnabled(false)
+            new_message_content_error_owner.setErrorEnabled(false)
         }
 
         return valid
@@ -240,30 +240,30 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
     }
 
     private fun initViews() {
-        new_msg_house.setKeyListener(null)
-        new_msg_apartment.setKeyListener(null)
-        new_msg_who.setKeyListener(null)
+        new_message_house.setKeyListener(null)
+        new_message_apartment.setKeyListener(null)
+        new_message_who.setKeyListener(null)
 
-        new_msg_referent.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus || new_msg_referent.text!!.isNotEmpty()) {
-                new_msg_referent_error_owner.defaultHintTextColor =
+        new_message_referent.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus || new_message_referent.text!!.isNotEmpty()) {
+                new_message_referent_error_owner.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-            } else if (new_msg_referent.text!!.isEmpty()) {
-                new_msg_referent_error_owner.defaultHintTextColor =
+            } else if (new_message_referent.text!!.isEmpty()) {
+                new_message_referent_error_owner.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
             }
 
-            if (!hasFocus && new_msg_referent.text!!.isNotEmpty()){
-                new_msg_referent_error_owner.isErrorEnabled = false
+            if (!hasFocus && new_message_referent.text!!.isNotEmpty()){
+                new_message_referent_error_owner.isErrorEnabled = false
             }
         }
 
-        new_msg_content.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus || new_msg_content.text!!.isNotEmpty()) {
-                new_msg_content_error_owner.defaultHintTextColor =
+        new_message_content.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus || new_message_content.text!!.isNotEmpty()) {
+                new_message_content_error_owner.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-            } else if (new_msg_content.text!!.isEmpty()) {
-                new_msg_content_error_owner.defaultHintTextColor =
+            } else if (new_message_content.text!!.isEmpty()) {
+                new_message_content_error_owner.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
             }
         }
@@ -281,43 +281,43 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
             val adapterServices =
                 ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
             adapterServices.notifyDataSetChanged()
-            new_msg_house.setAdapter(adapterServices)
+            new_message_house.setAdapter(adapterServices)
 
         })
 
 
-        new_msg_house.onItemClickListener =
+        new_message_house.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
                 new_house_owner.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                new_msg_house.showDropDown()
+                new_message_house.showDropDown()
                 parent.getItemAtPosition(position).toString()
                 houseId = listHouses.get(position).id
                 getMessagesPlacements()
 
-                new_msg_apartment.setAdapter(null)
-                new_msg_apartment.setText("")
-                new_msg_who.setAdapter(null)
-                new_msg_who.setText("")
-                new_msg_house.clearFocus()
+                new_message_apartment.setAdapter(null)
+                new_message_apartment.setText("")
+                new_message_who.setAdapter(null)
+                new_message_who.setText("")
+                new_message_house.clearFocus()
             }
-        new_msg_house.setOnClickListener {
-            new_msg_house.showDropDown()
+        new_message_house.setOnClickListener {
+            new_message_house.showDropDown()
         }
-        new_msg_house.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
+        new_message_house.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
             MyUtils.hideKeyboard(activity!!, view!!)
                 try {
-                    new_msg_house.showDropDown()
+                    new_message_house.showDropDown()
 
-                    if (hasFocus || new_msg_apartment.text!!.isNotEmpty()) {
+                    if (hasFocus || new_message_apartment.text!!.isNotEmpty()) {
                         new_apartment_owner.defaultHintTextColor =
                             ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
                     }
-                    if (hasFocus || new_msg_who.text!!.isNotEmpty()){
+                    if (hasFocus || new_message_who.text!!.isNotEmpty()){
                         new_who_owner.defaultHintTextColor =
                             ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
                     }
-                    if (!hasFocus && new_msg_house.text.isNotEmpty()){
+                    if (!hasFocus && new_message_house.text.isNotEmpty()){
                         new_house_owner.isErrorEnabled = false
                     }
 
@@ -339,35 +339,35 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
             val adapterServices =
                 ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
             adapterServices.notifyDataSetChanged()
-            new_msg_apartment.setAdapter(adapterServices)
+            new_message_apartment.setAdapter(adapterServices)
         })
 
 
-        new_msg_apartment.onItemClickListener =
+        new_message_apartment.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
-                new_msg_apartment.showDropDown()
+                new_message_apartment.showDropDown()
                 parent.getItemAtPosition(position).toString()
                 placementId = listPlacements.get(position).id
                 getMessagesPersons()
-                new_msg_who.setAdapter(null)
-                new_msg_who.setText("")
-                new_msg_apartment.clearFocus()
+                new_message_who.setAdapter(null)
+                new_message_who.setText("")
+                new_message_apartment.clearFocus()
             }
 
-        new_msg_apartment.setOnClickListener {
-            new_msg_apartment.showDropDown()
+        new_message_apartment.setOnClickListener {
+            new_message_apartment.showDropDown()
 
         }
-        new_msg_apartment.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
+        new_message_apartment.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
             MyUtils.hideKeyboard(activity!!, view!!)
                 try {
                     new_apartment_owner.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                    new_msg_apartment.showDropDown()
-                    if (new_msg_house.text.length == 0){
+                    new_message_apartment.showDropDown()
+                    if (new_message_house.text.length == 0){
                         Toast.makeText(context, "Сначало выберте дом", Toast.LENGTH_LONG).show()
                     }
 
-                    if (!hasFocus && new_msg_apartment.text.isNotEmpty()){
+                    if (!hasFocus && new_message_apartment.text.isNotEmpty()){
                         new_apartment_owner.isErrorEnabled = false
                     }
                 } catch (e: Exception) {
@@ -388,30 +388,30 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
             val adapterServices =
                 ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
             adapterServices.notifyDataSetChanged()
-            new_msg_who.setAdapter(adapterServices)
+            new_message_who.setAdapter(adapterServices)
         })
 
-        new_msg_who.onItemClickListener =
+        new_message_who.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
-                new_msg_who.showDropDown()
+                new_message_who.showDropDown()
                 parent.getItemAtPosition(position).toString()
                 personId = listPersons.get(position).id
-                new_msg_who.clearFocus()
+                new_message_who.clearFocus()
             }
-        new_msg_who.setOnClickListener {
-            new_msg_who.showDropDown()
+        new_message_who.setOnClickListener {
+            new_message_who.showDropDown()
         }
-        new_msg_who.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
+        new_message_who.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
             MyUtils.hideKeyboard(activity!!, view!!)
                 try {
                     new_who_owner.defaultHintTextColor =
                         ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                    new_msg_who.showDropDown()
-                    if (new_msg_apartment.text.length == 0){
+                    new_message_who.showDropDown()
+                    if (new_message_apartment.text.length == 0){
                         Toast.makeText(context, "Сначало выберте квартиру", Toast.LENGTH_LONG).show()
                     }
 
-                    if (!hasFocus && new_msg_who.text.isNotEmpty()){
+                    if (!hasFocus && new_message_who.text.isNotEmpty()){
                         new_who_owner.isErrorEnabled = false
                     }
                 } catch (e: Exception) {

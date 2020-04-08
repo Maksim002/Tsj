@@ -10,7 +10,7 @@
         android:id="@+id/messages_empty_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableTop="@drawable/ic_empty_msg"
+        android:drawableTop="@drawable/ic_empty_message"
         android:drawablePadding="@dimen/marginHorizontal"
         android:gravity="center"
         android:text="Список сообщений пуст"
