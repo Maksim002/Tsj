@@ -43,17 +43,13 @@ class RequestFragment : Fragment(), RequestClickItemListener {
     private fun initData() {
         MainActivity.alert.show()
         viewModel.requests().observe(this, Observer {address ->
-            address.map {
-                it.id
-            }
-         var listAddress = address as ArrayList<RequestsModel>
 
-            AdapterView.OnItemClickListener{ parent, view, position, i ->
-                requestsId = listAddress.get(position).id
+            AdapterView.OnItemClickListener{ _, _, position, _ ->
+                requestsId = address[position].id
             }
 
             if (address.isNotEmpty()) {
-                requestAdapter.update(address as ArrayList<RequestsModel>)
+                requestAdapter.update(address)
                 bid_is_empty_textview.visibility = View.GONE
                 bid_recyclerview.visibility = View.VISIBLE
             } else {
