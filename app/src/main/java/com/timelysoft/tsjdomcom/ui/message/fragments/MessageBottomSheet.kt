@@ -23,7 +23,7 @@ import com.timelysoft.tsjdomcom.service.model.ReplyModel
 import com.timelysoft.tsjdomcom.ui.message.MessagesViewModel
 import com.timelysoft.tsjdomcom.utils.MyUtils
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import kotlinx.android.synthetic.main.fragment_message_bottom_sheet.*
+import kotlinx.android.synthetic.main.message_bottom_sheet_fragment.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -44,7 +44,7 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
         savedInstanceState: Bundle?
     ): View? {
         viewModel = ViewModelProviders.of(this).get(MessagesViewModel::class.java)
-        return inflater.inflate(R.layout.fragment_message_bottom_sheet, container, false)
+        return inflater.inflate(R.layout.message_bottom_sheet_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -66,7 +66,7 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
             }
         }
 
-        send_msg_imageiew.setOnClickListener {
+        send_msg_image.setOnClickListener {
             MyUtils.hideKeyboard(activity!!, view)
             if (validate()) {
                 if (reply.isToManager) {
@@ -113,7 +113,7 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
                 }
             }
 
-            fasten_file_imageview.setOnClickListener {
+            fasten_file_image.setOnClickListener {
                 MyUtils.hideKeyboard(activity!!, view)
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

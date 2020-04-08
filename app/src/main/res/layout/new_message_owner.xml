@@ -35,14 +35,14 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/new_appartment"
+            android:id="@+id/new_apartment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="true"
             android:layout_weight="0.7">
 
             <AutoCompleteTextView
-                android:id="@+id/new_msg_appartment"
+                android:id="@+id/new_msg_apartment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
@@ -51,8 +51,6 @@
                 android:paddingEnd="8dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
-
-
     </LinearLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -72,13 +70,13 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/new_msg_referenc_error"
+        android:id="@+id/new_msg_referent_error"
         android:layout_width="match_parent"
         android:focusableInTouchMode="true"
         android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/new_msg_referenc"
+            android:id="@+id/new_msg_referent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_vertical_margin"
@@ -104,7 +102,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <include
-        android:id="@+id/goneL"
+        android:id="@+id/_history_goneL"
         android:visibility="gone"
         layout="@layout/item_focus" />
 

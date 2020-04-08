@@ -20,14 +20,11 @@ class AccountsBottomSheet(
     private lateinit var adapter: ContactsAdapter
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val root = inflater.inflate(R.layout.fragment_profile_bottom_sheet, container, false)
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val root = inflater.inflate(R.layout.profile_bottom_sheet_fragment, container, false)
         initRec(root)
         return root
     }
-
 
     private fun initRec(root: View) {
         adapter = ContactsAdapter(item,this)
@@ -37,6 +34,4 @@ class AccountsBottomSheet(
     override fun onClickItem(addressModel: AddressModel) {
         accountsListener.getLicNumber(addressModel)
     }
-
-
 }

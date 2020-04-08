@@ -10,7 +10,7 @@
         android:layout_height="match_parent">
 
         <Button
-            android:id="@+id/btn_profile"
+            android:id="@+id/contacts_btn_profile"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_margin="@dimen/marginHorizontal"
@@ -19,7 +19,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/imageC"
+            android:id="@+id/contacts_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleType="fitXY"
@@ -29,7 +29,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
-            android:id="@+id/profile"
+            android:id="@+id/contacts_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24sp"
@@ -37,13 +37,13 @@
             android:background="@drawable/ic_menu_white"
             android:gravity="center"
             android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="@+id/imageC"
+            app:layout_constraintBottom_toBottomOf="@+id/contacts_image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/contacts_adres"
+                android:id="@+id/contacts_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -64,7 +64,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/linearLayout"
+            android:id="@+id/contacts_linear_layout"
             style="@style/AppTheme.RoundedCornerMaterialButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -75,25 +75,25 @@
             android:orientation="horizontal"
             android:padding="8dp"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/imageC"
-            app:layout_constraintTop_toBottomOf="@+id/imageC">
+            app:layout_constraintBottom_toBottomOf="@+id/contacts_image"
+            app:layout_constraintTop_toBottomOf="@+id/contacts_image">
 
             <ImageView
-                android:id="@+id/imageHistory"
+                android:id="@+id/contact_image_history"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:src="@drawable/ic_history" />
 
             <ImageView
-                android:id="@+id/imageBalance"
+                android:id="@+id/contact_image_balance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:src="@drawable/ic_balance" />
 
             <ImageView
-                android:id="@+id/imageBid"
+                android:id="@+id/contact_image_bid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -101,7 +101,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/button_contacts"
+            android:id="@+id/contacts_button"
             style="@style/RoundedOrangeBackground"
             android:layout_width="match_parent"
             android:layout_height="48dp"
@@ -110,21 +110,21 @@
             android:text="Подключить"
             android:textColor="#FFFFFF"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/imageC"
-            app:layout_constraintTop_toBottomOf="@+id/imageC" />
+            app:layout_constraintBottom_toBottomOf="@+id/contacts_image"
+            app:layout_constraintTop_toBottomOf="@+id/contacts_image" />
 
         <LinearLayout
-            android:id="@+id/lT"
+            android:id="@+id/contact_linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="40dp"
             android:layout_marginRight="16dp"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/imageC">
+            app:layout_constraintTop_toBottomOf="@+id/contacts_image">
 
             <TextView
-                android:id="@+id/textR"
+                android:id="@+id/contact_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Разное"
@@ -134,12 +134,12 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/reference"
+            android:id="@+id/contact_liner_reference"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="26dp"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/lT">
+            app:layout_constraintTop_toBottomOf="@+id/contact_linear">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -159,15 +159,15 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/voting"
+            android:id="@+id/contact_liner_voting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/reference">
+            app:layout_constraintTop_toBottomOf="@+id/contact_liner_reference">
 
             <ImageView
-                android:id="@+id/img_voting"
+                android:id="@+id/contact_img_voting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
@@ -184,15 +184,15 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/contacts"
+            android:id="@+id/contacts_liner_contact"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/voting">
+            app:layout_constraintTop_toBottomOf="@+id/contact_liner_voting">
 
             <ImageView
-                android:id="@+id/contactstt"
+                android:id="@+id/contact_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
@@ -209,12 +209,12 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/linearPortalTSJ"
+            android:id="@+id/contact_linear_tsj"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/contacts">
+            app:layout_constraintTop_toBottomOf="@+id/contacts_liner_contact">
 
             <ImageView
                 android:layout_width="wrap_content"

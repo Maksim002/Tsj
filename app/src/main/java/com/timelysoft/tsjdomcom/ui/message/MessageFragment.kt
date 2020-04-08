@@ -17,7 +17,7 @@ import com.timelysoft.tsjdomcom.adapters.message.ViewPagerAdapter
 import com.timelysoft.tsjdomcom.service.AppPreferences
 import com.timelysoft.tsjdomcom.ui.login.LoginActivity
 import kotlinx.android.synthetic.main.alert_for_who.*
-import kotlinx.android.synthetic.main.fragment_message.*
+import kotlinx.android.synthetic.main.message_fragment.*
 
 class MessageFragment : Fragment() {
 
@@ -28,7 +28,7 @@ class MessageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         viewModel = ViewModelProviders.of(this).get(MessagesViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_message, container, false)
+        val root = inflater.inflate(R.layout.message_fragment, container, false)
         (activity as AppCompatActivity).supportActionBar!!.show()
 
         return root
@@ -55,7 +55,7 @@ class MessageFragment : Fragment() {
             choose()
         }
 
-        btn_auth.setOnClickListener {
+        mes_btn_auth.setOnClickListener {
             val intent = Intent(context, LoginActivity::class.java).putExtra("transition", true)
             startActivity(intent)
         }

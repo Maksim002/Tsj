@@ -16,7 +16,7 @@ import com.timelysoft.tsjdomcom.adapters.message.MessageAdapter
 import com.timelysoft.tsjdomcom.adapters.message.MessageClicklItemListener
 import com.timelysoft.tsjdomcom.service.model.MessageItemModel
 import com.timelysoft.tsjdomcom.service.AppPreferences
-import kotlinx.android.synthetic.main.fraagment_messages.*
+import kotlinx.android.synthetic.main.messages_fragment.*
 
 class MessagesFragment(private val idMessage: Int) : Fragment(), MessageClicklItemListener {
 
@@ -30,9 +30,9 @@ class MessagesFragment(private val idMessage: Int) : Fragment(), MessageClicklIt
         savedInstanceState: Bundle?
     ): View? {
 
-        val root = inflater.inflate(R.layout.fraagment_messages, container, false)
+        val root = inflater.inflate(R.layout.messages_fragment, container, false)
         viewModel = ViewModelProviders.of(this).get(MessagesViewModel::class.java)
-        recyclerview = root.findViewById(R.id.msg_recyclerview)
+        recyclerview = root.findViewById(R.id.messages_recyclerview)
 
         (activity as AppCompatActivity).supportActionBar!!.show()
         return root
@@ -51,10 +51,10 @@ class MessagesFragment(private val idMessage: Int) : Fragment(), MessageClicklIt
                 recyclerview.apply { adapter = messageAdapter }
 
                 if (messageAdapter.itemCount == 0) {
-                    msg_empty_textview.visibility = View.VISIBLE
+                    messages_empty_text.visibility = View.VISIBLE
                     recyclerview.visibility = View.GONE
                 } else {
-                    msg_empty_textview.visibility = View.GONE
+                    messages_empty_text.visibility = View.GONE
                     recyclerview.visibility = View.VISIBLE
                 }
             })

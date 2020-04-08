@@ -58,14 +58,14 @@ class NewMessageMandgerFragment : Fragment(), GeneralClickListener {
         setHasOptionsMenu(true)
         val root = inflater.inflate(R.layout.new_message_chairman, container, false)
 
-        editBody = root.findViewById(R.id.manager_msg_referenc)
+        editBody = root.findViewById(R.id.manager_msg_ref)
         editTitle = root.findViewById(R.id.manager_msg_content)
 
-        recyclerManager = root.findViewById(R.id.recycler_view_manager)
+        recyclerManager = root.findViewById(R.id.manager_recycler_view)
         getRecyclerView()
 
-        root.manager_msg_referenc.setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus && root.manager_msg_referenc.text!!.isNotEmpty()) {
+        root.manager_msg_ref.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus && root.manager_msg_ref.text!!.isNotEmpty()) {
                 title_container.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
             }
@@ -179,7 +179,7 @@ class NewMessageMandgerFragment : Fragment(), GeneralClickListener {
     private fun sendMessage() {
         MyUtils.hideKeyboard(activity!!, view!!)
         if (validate()) {
-            val title = manager_msg_referenc.text.toString()
+            val title = manager_msg_ref.text.toString()
             val body = manager_msg_content.text.toString()
             MainActivity.alert.show()
             viewModel.sendMessageToManager(body, title, files).observe(this, Observer {
@@ -195,7 +195,7 @@ class NewMessageMandgerFragment : Fragment(), GeneralClickListener {
 
     private fun validate(): Boolean {
         var valid = true
-        if (manager_msg_referenc.getText().toString().length == 0) {
+        if (manager_msg_ref.getText().toString().length == 0) {
             title_container.setError("Заголовок не должен быть пустым")
             valid = false
         } else {
@@ -223,8 +223,8 @@ class NewMessageMandgerFragment : Fragment(), GeneralClickListener {
     override fun onStart() {
         super.onStart()
 
-        manager_msg_referenc.setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus && manager_msg_referenc.text!!.isNotEmpty()) {
+        manager_msg_ref.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus && manager_msg_ref.text!!.isNotEmpty()) {
                 title_container.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
                 title_container.isErrorEnabled = false

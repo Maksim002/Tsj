@@ -81,7 +81,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <include
-            android:id="@+id/goneL"
+            android:id="@+id/_history_goneL"
             android:visibility="gone"
             layout="@layout/item_focus" />
 
@@ -101,7 +101,7 @@
     </LinearLayout>
 
     <include
-        android:id="@+id/goneL"
+        android:id="@+id/_history_goneL"
         android:visibility="gone"
         layout="@layout/item_focus" />
 

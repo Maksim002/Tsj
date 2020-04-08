@@ -20,8 +20,8 @@ import com.timelysoft.tsjdomcom.service.model.AddressModel
 import com.timelysoft.tsjdomcom.ui.contact.fragments.AccountsBottomSheet
 import com.timelysoft.tsjdomcom.ui.contact.fragments.AccountsListener
 import com.timelysoft.tsjdomcom.ui.login.LoginActivity
-import kotlinx.android.synthetic.main.fragment_contacts.*
-import kotlinx.android.synthetic.main.fragment_contacts.view.*
+import kotlinx.android.synthetic.main.contacts_fragment.*
+import kotlinx.android.synthetic.main.contacts_fragment.view.*
 
 class ContactFragment : Fragment(), AccountsListener {
     private lateinit var viewModel: ContactViewModel
@@ -31,15 +31,15 @@ class ContactFragment : Fragment(), AccountsListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_contacts, container, false)
+        val root = inflater.inflate(R.layout.contacts_fragment, container, false)
         viewModel = ViewModelProviders.of(this).get(ContactViewModel::class.java)
 
-        val imageHistory: ImageView = root.findViewById(R.id.imageHistory)
-        val imageBalance: ImageView = root.findViewById(R.id.imageBalance)
-        val imageBid: ImageView = root.findViewById(R.id.imageBid)
-        val buttonC: Button = root.findViewById(R.id.button_contacts)
-        val ref: LinearLayout = root.findViewById(R.id.reference)
-        val layoutC: LinearLayout = root.findViewById(R.id.linearLayout)
+        val imageHistory: ImageView = root.findViewById(R.id.contact_image_history)
+        val imageBalance: ImageView = root.findViewById(R.id.contact_image_balance)
+        val imageBid: ImageView = root.findViewById(R.id.contact_image_bid)
+        val buttonC: Button = root.findViewById(R.id.contacts_button)
+        val ref: LinearLayout = root.findViewById(R.id.contact_liner_reference)
+        val layoutC: LinearLayout = root.findViewById(R.id.contacts_linear_layout)
         bottomSheet = AccountsBottomSheet(this)
         buttonC.setOnClickListener {
             findNavController().navigate(R.id.navigation_request_for_connect)
@@ -48,13 +48,13 @@ class ContactFragment : Fragment(), AccountsListener {
         if (AppPreferences.isLogined) {
             layoutC.visibility = View.VISIBLE
             ref.visibility = View.VISIBLE
-            root.profile.visibility = View.VISIBLE
-            root.voting.visibility = View.VISIBLE
+            root.contacts_profile.visibility = View.VISIBLE
+            root.contact_liner_voting.visibility = View.VISIBLE
         } else {
             buttonC.visibility = View.VISIBLE
             ref.visibility = View.GONE
-            root.profile.visibility = View.GONE
-            root.voting.visibility = View.GONE
+            root.contacts_profile.visibility = View.GONE
+            root.contact_liner_voting.visibility = View.GONE
         }
 
         ref.setOnClickListener {
@@ -71,18 +71,18 @@ class ContactFragment : Fragment(), AccountsListener {
             findNavController().navigate(R.id.navigation_bid)
         }
 
-        root.contacts.setOnClickListener {
+        root.contacts_liner_contact.setOnClickListener {
             findNavController().navigate(R.id.navigation_feedback)
         }
 
-        root.linearPortalTSJ.setOnClickListener {
+        root.contact_linear_tsj.setOnClickListener {
             findNavController().navigate(R.id.navigation_portalTSJ)
         }
-        root.voting.setOnClickListener {
+        root.contact_liner_voting.setOnClickListener {
             findNavController().navigate(R.id.navigation_vote)
         }
 
-        root.btn_profile.setOnClickListener {
+        root.contacts_btn_profile.setOnClickListener {
             if (AppPreferences.isLogined) {
                 findNavController().navigate(R.id.navigation_profile)
             } else {
@@ -100,19 +100,19 @@ class ContactFragment : Fragment(), AccountsListener {
 
                     if (AppPreferences.licNumber == i.licNumber) {
                         contacts_test.text = i.licNumber.toString()
-                        contacts_adres.text = i.address
+                        contacts_address.text = i.address
                         find = true
                     }
                 }
                 if (!find) {
                     contacts_test.text = it[0].licNumber.toString()
-                    contacts_adres.text = it[0].address
+                    contacts_address.text = it[0].address
                 }
                 MainActivity.alert.hide()
             })
         }
 
-        root.profile.setOnClickListener {
+        root.contacts_profile.setOnClickListener {
             bottomSheet.show(fragmentManager!!, "AccountsBottomSheet")
         }
 
@@ -122,7 +122,7 @@ class ContactFragment : Fragment(), AccountsListener {
 
     override fun getLicNumber(addressModel: AddressModel) {
         AppPreferences.licNumber = addressModel.licNumber
-        contacts_adres.text = addressModel.address
+        contacts_address.text = addressModel.address
         contacts_test.text = AppPreferences.licNumber.toString()
         bottomSheet.dismiss()
     }
