@@ -3,16 +3,15 @@ package com.timelysoft.tsjdomcom.service.model
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class InvoicesAccounts(
-
+class PersonModel {
     @SerializedName("Id")
     @Expose
-    var id: Int,
-    @SerializedName("Amount")
+    var id: Int = 0
+    @SerializedName("DateOfBirth")
     @Expose
-    var amount: Double,
-    @SerializedName("Date")
+    var dateOfBirth: String = ""
+    @SerializedName("FullName")
     @Expose
-    var date: String
+    var fullName: String = ""
 
-)
+}

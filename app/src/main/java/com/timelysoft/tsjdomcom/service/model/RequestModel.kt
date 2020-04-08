@@ -3,8 +3,7 @@ package com.timelysoft.tsjdomcom.service.model
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class DetailsModel {
-
+class RequestModel {
     @SerializedName("Address")
     @Expose
     var address: String = ""
@@ -22,7 +21,7 @@ class DetailsModel {
     var requestTypeName: String = ""
     @SerializedName("IsEditableAndCloseable")
     @Expose
-    var isEditableAndCloseable: Boolean = false
+    var editableAndCloseable: Boolean = false
     @SerializedName("Description")
     @Expose
     var description: String = ""

@@ -3,12 +3,11 @@ package com.timelysoft.tsjdomcom.service.model
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class OperationsModel {
-    @SerializedName("OperationId")
+class AttachmentModel{
+    @SerializedName("FileName")
     @Expose
-    var operationId: Int = 0
-    @SerializedName("OperationName")
+    var fileName: String = ""
+    @SerializedName("FilePath")
     @Expose
-    var operationName: String = ""
-
+    var filePath: String = ""
 }

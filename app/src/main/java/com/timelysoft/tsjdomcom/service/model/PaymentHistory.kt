@@ -6,11 +6,11 @@ import com.google.gson.annotations.SerializedName
 class PaymentHistory (
     @SerializedName("PersonName")
     @Expose
-    var personName: String? = null,
+    var personName: String,
     @SerializedName("Amount")
     @Expose
-    var amount: Int? = null,
+    var amount: Int,
     @SerializedName("Date")
     @Expose
-    var date: String? = null
+    var date: String
     )

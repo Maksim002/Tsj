@@ -183,6 +183,7 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
                 viewModel.messageToPerson(personId, body, title, files).observe(this, Observer {
                     MainActivity.alert.hide()
                     if (it) {
+                        Toast.makeText(context, "Ваше сообщение отправлено!", Toast.LENGTH_LONG).show()
                         findNavController().popBackStack()
                     } else {
                         Toast.makeText(context, "Неудочно", Toast.LENGTH_LONG).show()

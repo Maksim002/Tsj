@@ -154,12 +154,12 @@ class PersonalFragment : Fragment(), PersonalListener {
             MyUtils.toServerDate(to!!)
         )
             .observe(this, Observer {
-                if (it.paymentsHistory?.size != 0) {
-                    adapterAccount.listUpdate(it.paymentsHistory!!)
+                if (it.paymentsHistory.isNotEmpty()) {
+                    adapterAccount.listUpdate(it.paymentsHistory)
                     recyclerViewAccount.visibility = View.VISIBLE
                     layoutPayments.visibility = View.VISIBLE
                 } else {
-                    adapterPayments.listUpdate(it.invoicesHistory!!)
+                    adapterPayments.listUpdate(it.invoicesHistory)
                     recyclerViewPlatei.visibility = View.VISIBLE
                     layoutAccounts.visibility = View.VISIBLE
                 }
