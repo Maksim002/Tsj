@@ -7,13 +7,13 @@ class AddressModel {
 
     @SerializedName("LicNumber")
     @Expose
-    var licNumber: Int? = null
+    var licNumber: Int = 0
     @SerializedName("PlacementId")
     @Expose
-    var placementId: Int=0
+    var placementId: Int = 0
     @SerializedName("Address")
     @Expose
-    var address: String? = null
+    var address: String = " "
 
     override fun toString(): String {
         return address.toString()

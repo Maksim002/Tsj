@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 class PersonModel {
     @SerializedName("Id")
     @Expose
-    var id: Int? = null
+    var id: Int = 0
     @SerializedName("DateOfBirth")
     @Expose
     var dateOfBirth: String = ""

@@ -7,12 +7,12 @@ class InvoicesAccounts(
 
     @SerializedName("Id")
     @Expose
-    var id: Int? = null,
+    var id: Int,
     @SerializedName("Amount")
     @Expose
-    var amount: Double? = null,
+    var amount: Double,
     @SerializedName("Date")
     @Expose
-    var date: String? = null
+    var date: String
 
 )

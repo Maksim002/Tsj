@@ -7,8 +7,8 @@ class BalanceStatusModel {
 
     @SerializedName("ServiceName")
     @Expose
-    var serviceName: String? = null
+    var serviceName: String = ""
     @SerializedName("Balance")
     @Expose
-    var balance: Double? = null
+    var balance: Double = 0.0
 }

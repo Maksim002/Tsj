@@ -12,10 +12,10 @@ class ReferencesFullModel {
     var forDate: String = ""
     @SerializedName("Id")
     @Expose
-    var id: Int? = null
+    var id: Int = 0
     @SerializedName("Person")
     @Expose
-    var person: PersonModel? = null
+    lateinit var person: PersonModel
     @SerializedName("Relatives")
     @Expose
     var relatives: List<RelativeModel>? = null

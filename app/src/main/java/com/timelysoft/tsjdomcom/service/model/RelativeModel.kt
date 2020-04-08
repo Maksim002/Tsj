@@ -7,10 +7,10 @@ import com.timelysoft.tsjdomcom.utils.MyUtils.toMyDate
 class RelativeModel {
     @SerializedName("Id")
     @Expose
-    var id: Int? = null
+    var id: Int = 0
     @SerializedName("RelativeId")
     @Expose
-    var relativeId: Int? = null
+    var relativeId: Int = 0
     @SerializedName("DateOfBirth")
     @Expose
     var dateOfBirth: String = ""
@@ -25,7 +25,7 @@ class RelativeModel {
         get() = toMyDate(dateOfBirth)
 
     constructor(
-        relativeId: Int?,
+        relativeId: Int,
         dateOfBirth: String,
         fullName: String,
         relative: String

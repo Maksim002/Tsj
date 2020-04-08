@@ -6,11 +6,11 @@ import com.google.gson.annotations.SerializedName
 class CurrentBalance (
     @SerializedName("Balance")
     @Expose
-    var balance: Double? = null,
+    var balance: Double,
     @SerializedName("InvoicesHistory")
     @Expose
-    var invoicesHistory: List<InvoicesAccounts>? = null,
+    var invoicesHistory: List<InvoicesAccounts>,
     @SerializedName("PaymentsHistory")
     @Expose
-    var paymentsHistory: List<PaymentHistory>? = null
+    var paymentsHistory: List<PaymentHistory>
 )

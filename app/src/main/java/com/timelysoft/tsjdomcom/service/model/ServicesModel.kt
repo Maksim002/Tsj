@@ -6,9 +6,9 @@ import com.google.gson.annotations.SerializedName
 class ServicesModel {
     @SerializedName("ServiceId")
     @Expose
-    var serviceId: Int? = null
+    var serviceId: Int = 0
     @SerializedName("ServiceName")
     @Expose
-    var serviceName: String? = null
+    var serviceName: String = ""
 
 }

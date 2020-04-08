@@ -157,9 +157,9 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
             reference_save.text = "Обновить"
             (activity as AppCompatActivity?)!!.supportActionBar?.title = "Обновленная справка"
             viewModel.reference(certificateRequest.id).observe(this, Observer {
-                certificateRequest.person.id = it.person?.id
-                reference_name.setText(it.person?.fullName)
-                reference_date.setText(MyUtils.toMyDate(it.person!!.dateOfBirth))
+                certificateRequest.person.id = it.person.id
+                reference_name.setText(it.person.fullName)
+                reference_date.setText(MyUtils.toMyDate(it.person.dateOfBirth))
                 it.relatives?.forEach { item ->
                     relativesList.add(item)
                 }
@@ -194,7 +194,7 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
                 if (SystemClock.elapsedRealtime() - mLastClickTime < 1000){
                     return@setOnClickListener
                 }
-                mLastClickTime = SystemClock.elapsedRealtime();
+                mLastClickTime = SystemClock.elapsedRealtime()
 
                 val cldr = Calendar.getInstance()
                 val col = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))

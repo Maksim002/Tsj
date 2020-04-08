@@ -18,10 +18,10 @@ class MessageModel {
     var personNameHeader: String = ""
     @SerializedName("IsToManager")
     @Expose
-    var isToManager: Boolean? = null
+    var isToManager: Boolean = false
     @SerializedName("Id")
     @Expose
-    var id: Int? = null
+    var id: Int = 0
     @SerializedName("SendDate")
     @Expose
     var sendDate: String = ""

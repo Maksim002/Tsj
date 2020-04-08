@@ -7,24 +7,24 @@ class DetailsModel {
 
     @SerializedName("Address")
     @Expose
-    var address: String? = null
+    var address: String = ""
     @SerializedName("Entrance")
     @Expose
-    var entrance: Int? = null
+    var entrance: Int = 0
     @SerializedName("Floor")
     @Expose
-    var floor: Int? = null
+    var floor: Int = 0
     @SerializedName("Id")
     @Expose
-    var id: Int? = null
+    var id: Int = 0
     @SerializedName("RequestTypeName")
     @Expose
-    var requestTypeName: String? = null
+    var requestTypeName: String = ""
     @SerializedName("IsEditableAndCloseable")
     @Expose
-    var isEditableAndCloseable: Boolean? = null
+    var isEditableAndCloseable: Boolean = false
     @SerializedName("Description")
     @Expose
-    var description: String? = null
+    var description: String = ""
 
 }

@@ -9,7 +9,7 @@ class ReferenceLiteModel {
     var id: Int = 0
     @SerializedName("CertificateNumber")
     @Expose
-    var certificateNumber: Int? = null
+    var certificateNumber: Int = 0
     @SerializedName("ForDate")
     @Expose
     var forDate: String = ""
