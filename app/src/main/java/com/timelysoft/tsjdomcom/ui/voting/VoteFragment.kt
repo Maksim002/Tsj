@@ -19,7 +19,6 @@ import com.timelysoft.tsjdomcom.service.model.AddressModel
 import com.timelysoft.tsjdomcom.service.model.MessagesPersonsModel
 import kotlinx.android.synthetic.main.fragment_vote.*
 
-//dastan
 class VoteFragment : Fragment() {
 
     private lateinit var viewModel: VoteViewModel
@@ -40,8 +39,8 @@ class VoteFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        if (vote_auto_text.text.isNotEmpty())
-            vote_text_layout.defaultHintTextColor =
+        if (vote_address.text.isNotEmpty())
+            vote_address_out.defaultHintTextColor =
                 ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
     }
 
@@ -72,12 +71,12 @@ class VoteFragment : Fragment() {
                 android.R.layout.simple_dropdown_item_1line,
                 it
             )
-            vote_auto_text.setAdapter(addressAdapter)
+            vote_address.setAdapter(addressAdapter)
         })
 
-        vote_auto_text.onItemClickListener =
+        vote_address.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
-                vote_text_layout.defaultHintTextColor =
+                vote_address_out.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
                 parent.getItemAtPosition(position).toString()
                 placementId = (parent.getItemAtPosition(position) as AddressModel).placementId
@@ -86,17 +85,17 @@ class VoteFragment : Fragment() {
                 vote_unfocus.requestFocus()
             }
 
-        vote_auto_text.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
+        vote_address.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
             if (hasFocus) {
-                vote_auto_text.showDropDown()
+                vote_address.showDropDown()
             } else {
                 vote_unfocus.requestFocus()
             }
 
         }
 
-        vote_auto_text.setOnClickListener {
-            vote_auto_text.showDropDown()
+        vote_address.setOnClickListener {
+            vote_address.showDropDown()
         }
 
     }

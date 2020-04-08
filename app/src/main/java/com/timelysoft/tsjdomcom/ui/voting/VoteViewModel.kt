@@ -14,21 +14,19 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class VoteViewModel : ViewModel() {
-    //dastan
-    fun voteList(typeId: Int, id: Int): LiveData<List<VoteModel>> {
+    fun votes(typeId: Int, id: Int): LiveData<List<VoteModel>> {
         val data = MutableLiveData<List<VoteModel>>()
-
-        RetrofitService.apiService().votingList(typeId, id)
+        RetrofitService.apiService().votes(typeId, id)
             .enqueue(object : Callback<List<VoteModel>> {
                 override fun onFailure(call: Call<List<VoteModel>>, t: Throwable) {
-                    println("")
                 }
 
                 override fun onResponse(
                     call: Call<List<VoteModel>>,
                     response: Response<List<VoteModel>>
                 ) {
-                    data.value = response.body()
+                    if (response.isSuccessful)
+                        data.value = response.body()
                 }
 
             })
@@ -41,14 +39,14 @@ class VoteViewModel : ViewModel() {
         RetrofitService.apiService().votingAddress()
             .enqueue(object : Callback<List<AddressModel>> {
                 override fun onFailure(call: Call<List<AddressModel>>, t: Throwable) {
-                    println()
                 }
 
                 override fun onResponse(
                     call: Call<List<AddressModel>>,
                     response: Response<List<AddressModel>>
                 ) {
-                    data.value = response.body()
+                    if (response.isSuccessful)
+                        data.value = response.body()
                 }
 
             })
@@ -57,34 +55,38 @@ class VoteViewModel : ViewModel() {
 
     fun voteTypes(): LiveData<List<MessagesPersonsModel>> {
         val data = MutableLiveData<List<MessagesPersonsModel>>()
-        RetrofitService.apiService().votingType().enqueue(object : Callback<List<MessagesPersonsModel>> {
-            override fun onFailure(call: Call<List<MessagesPersonsModel>>, t: Throwable) {
-                println()
-            }
-            override fun onResponse(
-                call: Call<List<MessagesPersonsModel>>,
-                response: Response<List<MessagesPersonsModel>>
-            ) {
-                data.value = response.body()
-            }
-        })
+        RetrofitService.apiService().votingType()
+            .enqueue(object : Callback<List<MessagesPersonsModel>> {
+                override fun onFailure(call: Call<List<MessagesPersonsModel>>, t: Throwable) {
+                }
+
+                override fun onResponse(
+                    call: Call<List<MessagesPersonsModel>>,
+                    response: Response<List<MessagesPersonsModel>>
+                ) {
+                    if (response.isSuccessful)
+                        data.value = response.body()
+                }
+            })
 
         return data
     }
 
-    fun voteVariants(id : Int): LiveData<List<MessagesPersonsModel>> {
+    fun voteVariants(id: Int): LiveData<List<MessagesPersonsModel>> {
         val data = MutableLiveData<List<MessagesPersonsModel>>()
-        RetrofitService.apiService().votingVariants(id).enqueue(object : Callback<List<MessagesPersonsModel>> {
-            override fun onFailure(call: Call<List<MessagesPersonsModel>>, t: Throwable) {
-                println()
-            }
-            override fun onResponse(
-                call: Call<List<MessagesPersonsModel>>,
-                response: Response<List<MessagesPersonsModel>>
-            ) {
-                data.value = response.body()
-            }
-        })
+        RetrofitService.apiService().votingVariants(id)
+            .enqueue(object : Callback<List<MessagesPersonsModel>> {
+                override fun onFailure(call: Call<List<MessagesPersonsModel>>, t: Throwable) {
+                }
+
+                override fun onResponse(
+                    call: Call<List<MessagesPersonsModel>>,
+                    response: Response<List<MessagesPersonsModel>>
+                ) {
+                    if (response.isSuccessful)
+                        data.value = response.body()
+                }
+            })
         return data
     }
 
@@ -103,18 +105,21 @@ class VoteViewModel : ViewModel() {
         return data
     }
 
-    fun voteDetail(id : Int): LiveData<VotingDetailModel> {
+    fun voteDetail(id: Int): LiveData<VotingDetailModel> {
         val data = MutableLiveData<VotingDetailModel>()
         RetrofitService.apiService().votingDetail(id).enqueue(object : Callback<VotingDetailModel> {
             override fun onFailure(call: Call<VotingDetailModel>, t: Throwable) {
-                println()
+
             }
 
             override fun onResponse(
                 call: Call<VotingDetailModel>,
                 response: Response<VotingDetailModel>
             ) {
-                data.value = response.body()
+                if (response.isSuccessful) {
+                    data.value = response.body()
+                }
+
             }
 
         })
