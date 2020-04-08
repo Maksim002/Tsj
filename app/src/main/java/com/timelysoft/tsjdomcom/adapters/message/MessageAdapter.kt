@@ -10,11 +10,7 @@ import com.timelysoft.tsjdomcom.utils.MyUtils
 import kotlinx.android.synthetic.main.item_message.view.*
 
 
-class MessageAdapter(
-    private var listener: MessageClicklItemListener,
-    items: List<MessageItemModel>
-) :
-    GenericRecyclerAdapter<MessageItemModel>(items) {
+class MessageAdapter(private var listener: MessageClicklItemListener, items: List<MessageItemModel>) : GenericRecyclerAdapter<MessageItemModel>(items) {
 
     override fun bind(item: MessageItemModel, holder: ViewHolder) {
         holder.itemView.setOnClickListener { listener.onClickMessage(item) }
