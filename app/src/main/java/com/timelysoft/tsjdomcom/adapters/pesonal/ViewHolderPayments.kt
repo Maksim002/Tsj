@@ -8,7 +8,7 @@ import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.service.model.InvoicesAccounts
 import com.timelysoft.tsjdomcom.utils.MyUtils
 
-class PersonalViewHolderPayments(itemView: View,private val listener: PersonalListener) :
+class ViewHolderPayments(itemView: View, private val listener: PersonalListener) :
     RecyclerView.ViewHolder(itemView) {
 
     var title = itemView.findViewById<TextView>(R.id.scrip)

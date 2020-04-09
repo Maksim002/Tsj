@@ -7,7 +7,7 @@ import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.service.model.InvoicesAccounts
 
 class InvoiceAdapter(listener: PersonalListener) :
-    RecyclerView.Adapter<PersonalViewHolderPayments>() {
+    RecyclerView.Adapter<ViewHolderPayments>() {
 
     private var model: List<InvoicesAccounts> = ArrayList()
     private var listene: PersonalListener
@@ -22,8 +22,8 @@ class InvoiceAdapter(listener: PersonalListener) :
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonalViewHolderPayments {
-        return PersonalViewHolderPayments(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderPayments {
+        return ViewHolderPayments(
             LayoutInflater.from(parent.context).inflate(R.layout.item_personal, parent, false),
             listene
         )
@@ -33,7 +33,7 @@ class InvoiceAdapter(listener: PersonalListener) :
         return model.size
     }
 
-    override fun onBindViewHolder(holderPlateiPersonal: PersonalViewHolderPayments, position: Int) {
-        holderPlateiPersonal.bind(model.get(position));
+    override fun onBindViewHolder(holderPlatei: ViewHolderPayments, position: Int) {
+        holderPlatei.bind(model.get(position));
     }
 }

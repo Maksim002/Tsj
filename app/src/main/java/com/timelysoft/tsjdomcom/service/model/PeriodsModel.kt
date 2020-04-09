@@ -6,8 +6,8 @@ import com.google.gson.annotations.SerializedName
 class PeriodsModel {
     @SerializedName("From")
     @Expose
-    var from: String? = null
+    var from: String = ""
     @SerializedName("To")
     @Expose
-    var to: String? = null
+    var to: String = ""
 }

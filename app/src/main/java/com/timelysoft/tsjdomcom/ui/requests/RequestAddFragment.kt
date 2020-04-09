@@ -105,7 +105,7 @@ class RequestAddFragment : Fragment() {
         root.request_add.setOnClickListener {
             if (isValid()) {
                 MainActivity.alert.show()
-                if (RequestDetailFragment.requestModel.id != null) {
+                if (RequestDetailFragment.requestModel.id != 0) {
                     val body = UpdateRequest()
                     body.id = RequestDetailFragment.requestModel.id
                     body.description = root.request_description.text.toString()
@@ -187,7 +187,7 @@ class RequestAddFragment : Fragment() {
             root.bid_add_adres.clearFocus()
         }
 
-        if (RequestDetailFragment.requestModel.id != null) {
+        if (RequestDetailFragment.requestModel.id != 0) {
             root.bid_add_porch.setText(RequestDetailFragment.requestModel.entrance.toString())
             root.bid_add_flat.setText(RequestDetailFragment.requestModel.floor.toString())
             root.request_description.setText(RequestDetailFragment.requestModel.description.toString())
@@ -214,7 +214,7 @@ class RequestAddFragment : Fragment() {
             )
             typeAdapter.setDropDownViewResource(R.layout.item_spinner_dropdown)
             bid_add_type.adapter = typeAdapter
-            if (RequestDetailFragment.requestModel.id != null) {
+            if (RequestDetailFragment.requestModel.id != 0) {
                 it.forEachIndexed { index, model ->
                     if (RequestDetailFragment.requestModel.requestTypeName == model.requestTypeName){
                         bid_add_type.setSelection(index+1)
