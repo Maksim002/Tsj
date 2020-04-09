@@ -218,7 +218,7 @@
 
                  <androidx.recyclerview.widget.RecyclerView
                      android:visibility="gone"
-                     android:id="@+id/history_detail_recyclerPersonal"
+                     android:id="@+id/history_detail_recycler_payments"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
                      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -228,7 +228,7 @@
                      android:visibility="gone"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
-                     android:id="@+id/history_detail_recyclerViewAccount"
+                     android:id="@+id/history_detail_recycler_invoice"
                      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                      android:nestedScrollingEnabled="false"/>
 

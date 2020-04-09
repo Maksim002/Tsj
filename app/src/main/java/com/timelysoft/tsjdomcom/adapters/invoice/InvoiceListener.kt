@@ -1,4 +1,4 @@
-package com.timelysoft.tsjdomcom.adapters.pesonal
+package com.timelysoft.tsjdomcom.adapters.invoice
 
 interface InvoiceListener {
 

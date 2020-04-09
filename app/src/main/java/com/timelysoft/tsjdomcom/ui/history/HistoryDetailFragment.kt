@@ -18,14 +18,15 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.timelysoft.tsjdomcom.MainActivity
 import com.timelysoft.tsjdomcom.R
-import com.timelysoft.tsjdomcom.adapters.pesonal.InvoiceAdapter
-import com.timelysoft.tsjdomcom.adapters.pesonal.PaymentsAdapter
-import com.timelysoft.tsjdomcom.adapters.pesonal.InvoiceListener
+import com.timelysoft.tsjdomcom.adapters.invoice.InvoiceAdapter
+import com.timelysoft.tsjdomcom.adapters.payments.PaymentsAdapter
+import com.timelysoft.tsjdomcom.adapters.invoice.InvoiceListener
 import com.timelysoft.tsjdomcom.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_history_detail.*
 import java.lang.Exception
 
-class HistoryDetailFragment : Fragment(), InvoiceListener {
+class HistoryDetailFragment : Fragment(),
+    InvoiceListener {
     private val STORAGE_PERMISION_CODE: Int = 1000
     private lateinit var invoiceAdapter: InvoiceAdapter
     private lateinit var paymentsAdapter: PaymentsAdapter
@@ -48,10 +49,11 @@ class HistoryDetailFragment : Fragment(), InvoiceListener {
     }
 
     private fun initRV() {
-        invoiceAdapter = InvoiceAdapter(this)
-        history_detail_recyclerPersonal.adapter = invoiceAdapter
+        invoiceAdapter =
+            InvoiceAdapter(this)
+        history_detail_recycler_payments.adapter = invoiceAdapter
         paymentsAdapter = PaymentsAdapter()
-        history_detail_recyclerViewAccount.adapter = paymentsAdapter
+        history_detail_recycler_invoice.adapter = paymentsAdapter
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -135,11 +137,11 @@ class HistoryDetailFragment : Fragment(), InvoiceListener {
             .observe(this, Observer {
                 if (it.paymentsHistory.size != 0) {
                     paymentsAdapter.update(it.paymentsHistory)
-                    history_detail_recyclerViewAccount.visibility = View.VISIBLE
+                    history_detail_recycler_invoice.visibility = View.VISIBLE
                     history_detail_payments.visibility = View.VISIBLE
                 } else {
                     invoiceAdapter.update(it.invoicesHistory)
-                    history_detail_recyclerPersonal.visibility = View.VISIBLE
+                    history_detail_recycler_payments.visibility = View.VISIBLE
                     history_detail_accounts.visibility = View.VISIBLE
                 }
                 MainActivity.alert.hide()
