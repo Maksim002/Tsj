@@ -1,4 +1,4 @@
-package com.timelysoft.tsjdomcom.ui.personal
+package com.timelysoft.tsjdomcom.ui.history
 
 import android.Manifest
 import android.app.DownloadManager
@@ -11,36 +11,26 @@ import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.RecyclerView
 import com.timelysoft.tsjdomcom.MainActivity
 import com.timelysoft.tsjdomcom.R
-import com.timelysoft.tsjdomcom.adapters.pesonal.PersonalAdapterAccounts
-import com.timelysoft.tsjdomcom.adapters.pesonal.PersonalAdapterPayments
+import com.timelysoft.tsjdomcom.adapters.invoice.InvoiceAdapter
+import com.timelysoft.tsjdomcom.adapters.payments.PaymentsAdapter
+import com.timelysoft.tsjdomcom.adapters.invoice.InvoiceListener
 import com.timelysoft.tsjdomcom.utils.MyUtils
+import kotlinx.android.synthetic.main.fragment_history_detail.*
 import java.lang.Exception
 
-class PersonalFragment : Fragment(), PersonalListener {
-    private val STORAGE_PERMISSION_CODE: Int = 1000
-    private lateinit var adapterPayments: PersonalAdapterPayments
-    private lateinit var adapterAccount: PersonalAdapterAccounts
-    private lateinit var recyclerViewPlatei: RecyclerView
-    private lateinit var recyclerViewAccount: RecyclerView
-    private lateinit var textCurrant: TextView
-    private lateinit var textAddress: TextView
-    private lateinit var textOperation: TextView
-    private lateinit var layoutAccounts: LinearLayout
-    private lateinit var layoutPayments: LinearLayout
-    private lateinit var textService: TextView
-    private lateinit var textToFrom: TextView
-    private lateinit var textBalance: TextView
-    private lateinit var viewModel: PersonalViewModel
+class HistoryDetailFragment : Fragment(),
+    InvoiceListener {
+    private val STORAGE_PERMISION_CODE: Int = 1000
+    private lateinit var invoiceAdapter: InvoiceAdapter
+    private lateinit var paymentsAdapter: PaymentsAdapter
+    private lateinit var viewModel: HistoryViewModel
     private var to: String? = ""
     private var from: String? = ""
     private var servicesId: Int = 0
@@ -52,17 +42,18 @@ class PersonalFragment : Fragment(), PersonalListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_personal, container, false)
-        viewModel = ViewModelProviders.of(this).get(PersonalViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_history_detail, container, false)
+        viewModel = ViewModelProviders.of(this).get(HistoryViewModel::class.java)
         initViews(root)
         return root
     }
 
     private fun initRV() {
-        adapterPayments = PersonalAdapterPayments(this)
-        recyclerViewPlatei.adapter = adapterPayments
-        adapterAccount = PersonalAdapterAccounts()
-        recyclerViewAccount.adapter = adapterAccount
+        invoiceAdapter =
+            InvoiceAdapter(this)
+        history_detail_recycler_payments.adapter = invoiceAdapter
+        paymentsAdapter = PaymentsAdapter()
+        history_detail_recycler_invoice.adapter = paymentsAdapter
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -123,24 +114,14 @@ class PersonalFragment : Fragment(), PersonalListener {
             ""
         }
 
-        textCurrant.text = "Лицевой счет №$id"
-        textAddress.text = address.toString()
-        textOperation.text = operationName.toString()
-        textService.text = serviceName.toString()
-        textToFrom.text = "История оплат с $to - $from"
+        history_detail_list_currant.text = "Лицевой счет №$id"
+        history_detail_text_address.text = address.toString()
+        history_detail_text_operation_name.text = operationName.toString()
+        history_detail_text_service_name.text = serviceName.toString()
+        history_detail_text_to_from.text = "История оплат с $to - $from"
     }
 
     private fun initViews(root: View) {
-        textCurrant = root.findViewById(R.id.personal_list_currant)
-        textAddress = root.findViewById(R.id.personal_text_address)
-        textOperation = root.findViewById(R.id.personal_text_operation_name)
-        textService = root.findViewById(R.id.personal_text_service_name)
-        textToFrom = root.findViewById(R.id.personal_text_to_from)
-        textBalance = root.findViewById(R.id.personal_text_balance)
-        layoutAccounts = root.findViewById(R.id.personal_accounts)
-        layoutPayments = root.findViewById(R.id.personal_payments)
-        recyclerViewPlatei = root.findViewById(R.id.recyclerPersonal)
-        recyclerViewAccount = root.findViewById(R.id.recyclerViewAccount)
     }
 
     override fun onStart() {
@@ -154,14 +135,14 @@ class PersonalFragment : Fragment(), PersonalListener {
             MyUtils.toServerDate(to!!)
         )
             .observe(this, Observer {
-                if (it.paymentsHistory.isNotEmpty()) {
-                    adapterAccount.listUpdate(it.paymentsHistory)
-                    recyclerViewAccount.visibility = View.VISIBLE
-                    layoutPayments.visibility = View.VISIBLE
+                if (it.paymentsHistory.size != 0) {
+                    paymentsAdapter.update(it.paymentsHistory)
+                    history_detail_recycler_invoice.visibility = View.VISIBLE
+                    history_detail_payments.visibility = View.VISIBLE
                 } else {
-                    adapterPayments.listUpdate(it.invoicesHistory)
-                    recyclerViewPlatei.visibility = View.VISIBLE
-                    layoutAccounts.visibility = View.VISIBLE
+                    invoiceAdapter.update(it.invoicesHistory)
+                    history_detail_recycler_payments.visibility = View.VISIBLE
+                    history_detail_accounts.visibility = View.VISIBLE
                 }
                 MainActivity.alert.hide()
 
@@ -182,7 +163,7 @@ class PersonalFragment : Fragment(), PersonalListener {
                     //permission denied
                     val permissions = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE)
                     //show popup to request runtime permission
-                    requestPermissions(permissions, STORAGE_PERMISSION_CODE)
+                    requestPermissions(permissions, STORAGE_PERMISION_CODE)
 
 
                 } else {
@@ -199,20 +180,20 @@ class PersonalFragment : Fragment(), PersonalListener {
     }
 
     private fun downloadFile(downloadUrl: String) {
-        val request = DownloadManager.Request(Uri.parse(downloadUrl))
-        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
-        request.setTitle(MyUtils.fileName(downloadUrl))
-        request.setDescription("Файл загружаеться.....")
+        val reguest = DownloadManager.Request(Uri.parse(downloadUrl))
+        reguest.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
+        reguest.setTitle(MyUtils.fileName(downloadUrl))
+        reguest.setDescription("Файл загружаеться.....")
 
-        request.allowScanningByMediaScanner()
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-        request.setDestinationInExternalPublicDir(
+        reguest.allowScanningByMediaScanner()
+        reguest.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+        reguest.setDestinationInExternalPublicDir(
             Environment.DIRECTORY_DOWNLOADS,
             "${System.currentTimeMillis()}"
         )
 
         val manager = activity?.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-        manager.enqueue(request)
+        manager.enqueue(reguest)
     }
 
 
@@ -222,7 +203,7 @@ class PersonalFragment : Fragment(), PersonalListener {
         grantResults: IntArray
     ) {
         when (requestCode) {
-            STORAGE_PERMISSION_CODE -> {
+            STORAGE_PERMISION_CODE -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     downloadFile(downloadUrl)
                 } else {
