@@ -1,39 +1,28 @@
 package com.timelysoft.tsjdomcom.adapters.pesonal
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.timelysoft.tsjdomcom.R
+import com.timelysoft.tsjdomcom.common.GenericRecyclerAdapter
+import com.timelysoft.tsjdomcom.common.ViewHolder
 import com.timelysoft.tsjdomcom.service.model.InvoicesAccounts
+import com.timelysoft.tsjdomcom.utils.MyUtils
+import kotlinx.android.synthetic.main.item_invoice.view.number
+import kotlinx.android.synthetic.main.item_invoice.view.scrip
+import kotlinx.android.synthetic.main.item_invoice.view.*
 
-class InvoiceAdapter(listener: PersonalListener) :
-    RecyclerView.Adapter<ViewHolderPayments>() {
+class InvoiceAdapter(private val listener: InvoiceListener, item: List<InvoicesAccounts> = ArrayList()): GenericRecyclerAdapter<InvoicesAccounts>(item){
 
-    private var model: List<InvoicesAccounts> = ArrayList()
-    private var listene: PersonalListener
-
-    init {
-        this.listene = listener
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return super.onCreateViewHolder(parent, R.layout.item_invoice)
     }
 
+    override fun bind(item: InvoicesAccounts, holder: ViewHolder) {
+        holder.itemView.scrip.text = item.amount.toString()
+        holder.itemView.number.text = MyUtils.toMyDate(item.date.toString())
 
-    fun listUpdate(list: List<InvoicesAccounts>) {
-        model = list
-        notifyDataSetChanged()
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderPayments {
-        return ViewHolderPayments(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_personal, parent, false),
-            listene
-        )
-    }
-
-    override fun getItemCount(): Int {
-        return model.size
-    }
-
-    override fun onBindViewHolder(holderPlatei: ViewHolderPayments, position: Int) {
-        holderPlatei.bind(model.get(position));
+        holder.itemView.icon.setOnClickListener {
+            listener.onClickDownload(item.id)
+        }
     }
 }

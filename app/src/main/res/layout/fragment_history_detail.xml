@@ -19,7 +19,7 @@
          android:padding="16dp">
 
          <TextView
-             android:id="@+id/list_currant"
+             android:id="@+id/history_detail_list_currant"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              tools:text="Лицевой счет № 2425"
@@ -28,7 +28,7 @@
              android:textStyle="bold"/>
 
          <TextView
-             android:id="@+id/text_balance"
+             android:id="@+id/history_detail_text_balance"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              tools:text="Текущий баланс -08.14c"
@@ -80,7 +80,7 @@
                      android:layout_marginTop="4dp">
 
                      <TextView
-                         android:id="@+id/text_service_name"
+                         android:id="@+id/history_detail_text_service_name"
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
                          tools:text="Техобслуживание"
@@ -89,7 +89,7 @@
                          android:layout_weight="1"/>
 
                      <TextView
-                         android:id="@+id/text_operation_name"
+                         android:id="@+id/history_detail_text_operation_name"
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
                          tools:text="Платежи"
@@ -113,7 +113,7 @@
                          android:textSize="12sp"/>
 
                      <TextView
-                         android:id="@+id/text_address"
+                         android:id="@+id/history_detail_text_address"
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
                          tools:text="7 небо, Токомбаева, д.53/2 кв 11"
@@ -126,7 +126,7 @@
          </androidx.cardview.widget.CardView>
 
          <TextView
-             android:id="@+id/text_to_from"
+             android:id="@+id/history_detail_text_to_from"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              tools:text="История оплат с 12/11/2019 - 12/02/2020"
@@ -148,7 +148,7 @@
 
                  <LinearLayout
                      android:visibility="gone"
-                     android:id="@+id/payments"
+                     android:id="@+id/history_detail_payments"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
                      android:orientation="horizontal"
@@ -186,7 +186,7 @@
 
                  <LinearLayout
                      android:visibility="gone"
-                     android:id="@+id/accounts"
+                     android:id="@+id/history_detail_accounts"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
                      android:orientation="horizontal"
@@ -218,7 +218,7 @@
 
                  <androidx.recyclerview.widget.RecyclerView
                      android:visibility="gone"
-                     android:id="@+id/recyclerPersonal"
+                     android:id="@+id/history_detail_recyclerPersonal"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
                      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -228,7 +228,7 @@
                      android:visibility="gone"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
-                     android:id="@+id/recyclerViewAccount"
+                     android:id="@+id/history_detail_recyclerViewAccount"
                      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                      android:nestedScrollingEnabled="false"/>
 

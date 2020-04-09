@@ -18,15 +18,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.timelysoft.tsjdomcom.MainActivity
 import com.timelysoft.tsjdomcom.R
-import com.timelysoft.tsjdomcom.adapters.pesonal.PaymentsAdapter
 import com.timelysoft.tsjdomcom.adapters.pesonal.InvoiceAdapter
-import com.timelysoft.tsjdomcom.adapters.pesonal.PersonalListener
+import com.timelysoft.tsjdomcom.adapters.pesonal.PaymentsAdapter
+import com.timelysoft.tsjdomcom.adapters.pesonal.InvoiceListener
 import com.timelysoft.tsjdomcom.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_history_detail.*
 import java.lang.Exception
 
-class HistoryDetailFragment : Fragment(),
-    PersonalListener {
+class HistoryDetailFragment : Fragment(), InvoiceListener {
     private val STORAGE_PERMISION_CODE: Int = 1000
     private lateinit var invoiceAdapter: InvoiceAdapter
     private lateinit var paymentsAdapter: PaymentsAdapter
@@ -50,9 +49,9 @@ class HistoryDetailFragment : Fragment(),
 
     private fun initRV() {
         invoiceAdapter = InvoiceAdapter(this)
-        recyclerPersonal.adapter = invoiceAdapter
+        history_detail_recyclerPersonal.adapter = invoiceAdapter
         paymentsAdapter = PaymentsAdapter()
-        recyclerViewAccount.adapter = paymentsAdapter
+        history_detail_recyclerViewAccount.adapter = paymentsAdapter
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -113,11 +112,11 @@ class HistoryDetailFragment : Fragment(),
             ""
         }
 
-        list_currant.text = "Лицевой счет №$id"
-        text_address.text = address.toString()
-        text_operation_name.text = operationName.toString()
-        text_service_name.text = serviceName.toString()
-        text_to_from.text = "История оплат с $to - $from"
+        history_detail_list_currant.text = "Лицевой счет №$id"
+        history_detail_text_address.text = address.toString()
+        history_detail_text_operation_name.text = operationName.toString()
+        history_detail_text_service_name.text = serviceName.toString()
+        history_detail_text_to_from.text = "История оплат с $to - $from"
     }
 
     private fun initViews(root: View) {
@@ -134,14 +133,14 @@ class HistoryDetailFragment : Fragment(),
             MyUtils.toServerDate(to!!)
         )
             .observe(this, Observer {
-                if (it.paymentsHistory?.size != 0) {
-                    paymentsAdapter.listUpdate(it.paymentsHistory!!)
-                    recyclerViewAccount.visibility = View.VISIBLE
-                    payments.visibility = View.VISIBLE
+                if (it.paymentsHistory.size != 0) {
+                    paymentsAdapter.update(it.paymentsHistory)
+                    history_detail_recyclerViewAccount.visibility = View.VISIBLE
+                    history_detail_payments.visibility = View.VISIBLE
                 } else {
-                    invoiceAdapter.listUpdate(it.invoicesHistory!!)
-                    recyclerPersonal.visibility = View.VISIBLE
-                    accounts.visibility = View.VISIBLE
+                    invoiceAdapter.update(it.invoicesHistory)
+                    history_detail_recyclerPersonal.visibility = View.VISIBLE
+                    history_detail_accounts.visibility = View.VISIBLE
                 }
                 MainActivity.alert.hide()
 

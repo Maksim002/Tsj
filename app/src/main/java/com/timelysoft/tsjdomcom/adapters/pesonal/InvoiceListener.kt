@@ -1,6 +1,6 @@
 package com.timelysoft.tsjdomcom.adapters.pesonal
 
-interface PersonalListener {
+interface InvoiceListener {
 
     fun onClickDownload(id: Int?)
 }
