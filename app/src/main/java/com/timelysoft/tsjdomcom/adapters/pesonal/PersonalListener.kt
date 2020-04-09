@@ -1,4 +1,4 @@
-package com.timelysoft.tsjdomcom.ui.personal
+package com.timelysoft.tsjdomcom.adapters.pesonal
 
 interface PersonalListener {
 

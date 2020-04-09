@@ -1,4 +1,4 @@
-package com.timelysoft.tsjdomcom.ui.personal
+package com.timelysoft.tsjdomcom.ui.history
 
 import android.Manifest
 import android.app.DownloadManager
@@ -11,36 +11,26 @@ import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.RecyclerView
 import com.timelysoft.tsjdomcom.MainActivity
 import com.timelysoft.tsjdomcom.R
-import com.timelysoft.tsjdomcom.adapters.pesonal.PersonalAdapterAccounts
-import com.timelysoft.tsjdomcom.adapters.pesonal.PersonalAdapterPayments
+import com.timelysoft.tsjdomcom.adapters.pesonal.PaymentsAdapter
+import com.timelysoft.tsjdomcom.adapters.pesonal.InvoiceAdapter
+import com.timelysoft.tsjdomcom.adapters.pesonal.PersonalListener
 import com.timelysoft.tsjdomcom.utils.MyUtils
+import kotlinx.android.synthetic.main.fragment_history_detail.*
 import java.lang.Exception
 
-class PersonalFragment : Fragment(), PersonalListener {
+class HistoryDetailFragment : Fragment(),
+    PersonalListener {
     private val STORAGE_PERMISION_CODE: Int = 1000
-    private lateinit var adapterPayments: PersonalAdapterPayments
-    private lateinit var adapterAccount: PersonalAdapterAccounts
-    private lateinit var recyclerViewPlatei: RecyclerView
-    private lateinit var recyclerViewAccount: RecyclerView
-    private lateinit var textCurrant: TextView
-    private lateinit var textAddress: TextView
-    private lateinit var textOperation: TextView
-    private lateinit var layoutAccounts: LinearLayout
-    private lateinit var layoutPayments: LinearLayout
-    private lateinit var textService: TextView
-    private lateinit var textToFrom: TextView
-    private lateinit var textBalance: TextView
-    private lateinit var viewModel: PersonalViewModel
+    private lateinit var invoiceAdapter: InvoiceAdapter
+    private lateinit var paymentsAdapter: PaymentsAdapter
+    private lateinit var viewModel: HistoryViewModel
     private var to: String? = ""
     private var from: String? = ""
     private var servicesId: Int = 0
@@ -52,17 +42,17 @@ class PersonalFragment : Fragment(), PersonalListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_personal, container, false)
-        viewModel = ViewModelProviders.of(this).get(PersonalViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_history_detail, container, false)
+        viewModel = ViewModelProviders.of(this).get(HistoryViewModel::class.java)
         initViews(root)
         return root
     }
 
     private fun initRV() {
-        adapterPayments = PersonalAdapterPayments(this)
-        recyclerViewPlatei.adapter = adapterPayments
-        adapterAccount = PersonalAdapterAccounts()
-        recyclerViewAccount.adapter = adapterAccount
+        invoiceAdapter = InvoiceAdapter(this)
+        recyclerPersonal.adapter = invoiceAdapter
+        paymentsAdapter = PaymentsAdapter()
+        recyclerViewAccount.adapter = paymentsAdapter
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -123,24 +113,14 @@ class PersonalFragment : Fragment(), PersonalListener {
             ""
         }
 
-        textCurrant.text = "Лицевой счет №$id"
-        textAddress.text = address.toString()
-        textOperation.text = operationName.toString()
-        textService.text = serviceName.toString()
-        textToFrom.text = "История оплат с $to - $from"
+        list_currant.text = "Лицевой счет №$id"
+        text_address.text = address.toString()
+        text_operation_name.text = operationName.toString()
+        text_service_name.text = serviceName.toString()
+        text_to_from.text = "История оплат с $to - $from"
     }
 
     private fun initViews(root: View) {
-        textCurrant = root.findViewById(R.id.list_currant)
-        textAddress = root.findViewById(R.id.text_address)
-        textOperation = root.findViewById(R.id.text_operation_name)
-        textService = root.findViewById(R.id.text_service_name)
-        textToFrom = root.findViewById(R.id.text_to_from)
-        textBalance = root.findViewById(R.id.text_balance)
-        layoutAccounts = root.findViewById(R.id.accounts)
-        layoutPayments = root.findViewById(R.id.payments)
-        recyclerViewPlatei = root.findViewById(R.id.recyclerPersonal)
-        recyclerViewAccount = root.findViewById(R.id.recyclerViewAccount)
     }
 
     override fun onStart() {
@@ -155,13 +135,13 @@ class PersonalFragment : Fragment(), PersonalListener {
         )
             .observe(this, Observer {
                 if (it.paymentsHistory?.size != 0) {
-                    adapterAccount.listUpdate(it.paymentsHistory!!)
+                    paymentsAdapter.listUpdate(it.paymentsHistory!!)
                     recyclerViewAccount.visibility = View.VISIBLE
-                    layoutPayments.visibility = View.VISIBLE
+                    payments.visibility = View.VISIBLE
                 } else {
-                    adapterPayments.listUpdate(it.invoicesHistory!!)
-                    recyclerViewPlatei.visibility = View.VISIBLE
-                    layoutAccounts.visibility = View.VISIBLE
+                    invoiceAdapter.listUpdate(it.invoicesHistory!!)
+                    recyclerPersonal.visibility = View.VISIBLE
+                    accounts.visibility = View.VISIBLE
                 }
                 MainActivity.alert.hide()
 

@@ -1,29 +1,39 @@
 package com.timelysoft.tsjdomcom.adapters.pesonal
 
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.timelysoft.tsjdomcom.R
-import com.timelysoft.tsjdomcom.common.GenericRecyclerAdapter
-import com.timelysoft.tsjdomcom.common.ViewHolder
-import com.timelysoft.tsjdomcom.service.model.PaymentHistory
-import com.timelysoft.tsjdomcom.utils.MyUtils
-import kotlinx.android.synthetic.main.item_account.view.*
+import com.timelysoft.tsjdomcom.service.model.InvoicesAccounts
 
-class PersonalAdapterAccounts(item: List<PaymentHistory> = ArrayList() ): GenericRecyclerAdapter<PaymentHistory>(item){
+class InvoiceAdapter(listener: PersonalListener) :
+    RecyclerView.Adapter<PersonalViewHolderPayments>() {
 
-    fun listUpdate(items: List<PaymentHistory>) {
-        this.items = items
+    private var model: List<InvoicesAccounts> = ArrayList()
+    private var listene: PersonalListener
+
+    init {
+        this.listene = listener
+    }
+
+
+    fun listUpdate(list: List<InvoicesAccounts>) {
+        model = list
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return super.onCreateViewHolder(parent, R.layout.item_account)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonalViewHolderPayments {
+        return PersonalViewHolderPayments(
+            LayoutInflater.from(parent.context).inflate(R.layout.item_personal, parent, false),
+            listene
+        )
     }
 
-    override fun bind(item: PaymentHistory, holder: ViewHolder) {
-        holder.itemView.payment.text = item.personName
-        holder.itemView.scrip.text = item.amount.toString()
-        holder.itemView.number.text = MyUtils.toMyDate(item.date.toString())
+    override fun getItemCount(): Int {
+        return model.size
     }
 
+    override fun onBindViewHolder(holderPlateiPersonal: PersonalViewHolderPayments, position: Int) {
+        holderPlateiPersonal.bind(model.get(position));
+    }
 }

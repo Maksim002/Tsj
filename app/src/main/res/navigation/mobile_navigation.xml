@@ -43,9 +43,9 @@
 
     <fragment
         android:id="@+id/navigation_personal"
-        android:name="com.timelysoft.tsjdomcom.ui.personal.PersonalFragment"
+        android:name="com.timelysoft.tsjdomcom.ui.history.HistoryDetailFragment"
         android:label="@string/history"
-        tools:layout="@layout/fragment_personal" />
+        tools:layout="@layout/fragment_history_detail" />
 
     <fragment
         android:id="@+id/navigation_balance_detail"
