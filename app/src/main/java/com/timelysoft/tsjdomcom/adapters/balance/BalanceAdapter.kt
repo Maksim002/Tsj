@@ -15,11 +15,6 @@ class BalanceAdapter(items: List<BalanceStatusModel> = ArrayList()) : GenericRec
         holder.itemView.balance_recycler_cost.text = item.balance.toString()
     }
 
-    fun setList(list: List<BalanceStatusModel>) {
-        this.items = list
-        notifyDataSetChanged()
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return super.onCreateViewHolder(parent, R.layout.item_balance)
     }
