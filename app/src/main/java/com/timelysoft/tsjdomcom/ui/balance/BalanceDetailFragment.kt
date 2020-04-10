@@ -58,7 +58,7 @@ class BalanceDetailFragment : Fragment() {
         }
         MainActivity.alert.show()
         viewModel.services(id).observe(this, Observer { list ->
-            balanceAdapter.setList(list)
+            balanceAdapter.update(list)
             MainActivity.alert.hide()
         })
     }

@@ -31,7 +31,6 @@ class MessageDetailFragment : Fragment(), GeneralClickListener {
 
     private var downloadUrl = ""
     private var idMessage = 0
-
     private val STORAGE_PERMISION_CODE: Int = 1000
     private lateinit var viewModel: MessagesViewModel
     private lateinit var filesAdapter: FilesAdapter
