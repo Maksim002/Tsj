@@ -224,8 +224,7 @@ class HistoryFragment : Fragment() {
                 it.serviceName
             }
             listServices = services as ArrayList<ServicesModel>
-            val adapterServices =
-                ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
+            val adapterServices = ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
             adapterServices.notifyDataSetChanged()
             history_service.setAdapter(adapterServices)
             MainActivity.alert.hide()
@@ -282,8 +281,8 @@ class HistoryFragment : Fragment() {
             AdapterView.OnItemClickListener { parent, _, position, _ ->
                 history_operation.showDropDown()
                 parent.getItemAtPosition(position).toString()
-                operationsId = listOperations[position].operationId!!
-                operationName = listOperations[position].operationName!!
+                operationsId = listOperations[position].operationId
+                operationName = listOperations[position].operationName
                 history_operation.clearFocus()
             }
         history_operation.setOnClickListener {

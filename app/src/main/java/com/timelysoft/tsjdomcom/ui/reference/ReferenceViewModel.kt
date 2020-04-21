@@ -4,10 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.timelysoft.tsjdomcom.service.RetrofitService
-import com.timelysoft.tsjdomcom.service.model.AddressModel
-import com.timelysoft.tsjdomcom.service.model.MessagesPersonsModel
-import com.timelysoft.tsjdomcom.service.model.ReferenceLiteModel
-import com.timelysoft.tsjdomcom.service.model.ReferencesFullModel
+import com.timelysoft.tsjdomcom.service.model.*
 import com.timelysoft.tsjdomcom.service.request.CertificateRequest
 import retrofit2.Call
 import retrofit2.Callback
@@ -135,6 +132,40 @@ class ReferenceViewModel : ViewModel() {
             }
 
         })
+        return data
+    }
+
+
+    fun managers(id: Int): LiveData<List<ManagersModel>> {
+        val data = MutableLiveData<List<ManagersModel>>()
+        RetrofitService.apiService().managers(id).enqueue(object : Callback<List<ManagersModel>> {
+            override fun onFailure(call: Call<List<ManagersModel>>, t: Throwable) {
+            }
+
+            override fun onResponse(
+                call: Call<List<ManagersModel>>, response: Response<List<ManagersModel>>
+            ) {
+                data.value = response.body()
+            }
+        })
+        return data
+    }
+
+    fun managersDownload(helpId: Int, chairmanId: Int): LiveData<String> {
+        val data = MutableLiveData<String>()
+        RetrofitService.apiService().managersDownload(helpId, chairmanId)
+            .enqueue(object : Callback<String> {
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    println()
+                }
+
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    if (response.isSuccessful) {
+                        data.value = response.body()
+                    }
+                }
+
+            })
         return data
     }
 }
