@@ -230,6 +230,7 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
                             this.certificatesUrl = url
                             checkPermissions(url)
                             Toast.makeText(context, "загрузка началось", Toast.LENGTH_SHORT).show()
+                            dialog.dismiss()
                         }else{
                             Toast.makeText(context, "Ошибка проверьте данные на заполнение", Toast.LENGTH_SHORT).show()
                         }
@@ -237,7 +238,6 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
                     })
             }else{
                 layoutView.reference_dialog.error = "Поле не может быть пустым"
-                dialog.dismiss()
             }
 
         }
