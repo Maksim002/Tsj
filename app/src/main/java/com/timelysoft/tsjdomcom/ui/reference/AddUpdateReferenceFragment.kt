@@ -27,7 +27,6 @@ import com.timelysoft.tsjdomcom.MainActivity
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.adapters.families.FamilyAdapter
 import com.timelysoft.tsjdomcom.adapters.families.FamilyListener
-import com.timelysoft.tsjdomcom.service.model.ManagersModel
 import com.timelysoft.tsjdomcom.service.model.PersonModel
 import com.timelysoft.tsjdomcom.service.model.RelativeModel
 import com.timelysoft.tsjdomcom.service.request.CertificateRequest
@@ -49,7 +48,7 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
     private var chairmanId = 0
     private val STORAGE_PERMISION_CODE: Int = 1000
     private var certificatesUrl = ""
-    private lateinit var promptView: View
+    private lateinit var layoutView: View
 
     init {
         if (certificateRequest.person == null)
@@ -171,49 +170,49 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.send_download -> {
-                sendDownLoad()
+                overlayForDownLoad()
             }
         }
         return super.onOptionsItemSelected(item)
     }
 
-    private fun sendDownLoad() {
+    private fun overlayForDownLoad() {
         val builder = AlertDialog.Builder(context)
         builder.setTitle("Выберите председателя ТСЖ")
         val layoutInflater = LayoutInflater.from(context)
-        promptView = layoutInflater.inflate(R.layout.item_send_dowan_load, null)
-        builder.setView(promptView)
+        layoutView = layoutInflater.inflate(R.layout.item_send_dowan_load, null)
+        builder.setView(layoutView)
         MainActivity.alert.show()
 
         builder.setCancelable(false)
-        builder.setView(promptView)
+        builder.setView(layoutView)
         val dialog: AlertDialog = builder.create()
         MainActivity.alert.show()
         viewModel.managers(certificateRequest.placementId).observe(this, Observer { list ->
 
             val adapterAddress =
                 ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, list)
-            promptView.text_reference_dialog.setAdapter(adapterAddress)
+            layoutView.text_reference_dialog.setAdapter(adapterAddress)
             MainActivity.alert.hide()
 
-            promptView.text_reference_dialog.setOnItemClickListener { parent, view, position, id ->
-                chairmanId = (list[position] as ManagersModel).id!!
+            layoutView.text_reference_dialog.setOnItemClickListener { parent, view, position, id ->
+                chairmanId = (list[position]).id!!
             }
             MainActivity.alert.hide()
         })
 
-        promptView.text_reference_dialog.setOnClickListener {
-            promptView.text_reference_dialog.showDropDown()
+        layoutView.text_reference_dialog.setOnClickListener {
+            layoutView.text_reference_dialog.showDropDown()
         }
 
-        promptView.text_reference_dialog.onFocusChangeListener =
+        layoutView.text_reference_dialog.onFocusChangeListener =
             View.OnFocusChangeListener { view, hasFocus ->
                 try {
                     if (hasFocus) {
-                        promptView.text_reference_dialog.showDropDown()
+                        layoutView.text_reference_dialog.showDropDown()
                     }
-                    if (!hasFocus && promptView.text_reference_dialog.text!!.isNotEmpty()) {
-                        promptView.reference_dialog.defaultHintTextColor =
+                    if (!hasFocus && layoutView.text_reference_dialog.text!!.isNotEmpty()) {
+                        layoutView.reference_dialog.defaultHintTextColor =
                             ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
                         history_address_out.isErrorEnabled = false
                     }
@@ -222,25 +221,38 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
                 }
             }
 
-        promptView.text_save_reference.setOnClickListener {
-            if (validateDialog(dialog)) {
+        layoutView.text_save_reference.setOnClickListener {
+            MainActivity.alert.show()
+            if (isValid(dialog)) {
                 viewModel.managersDownload(certificateRequest.id, chairmanId)
                     .observe(this, Observer { url ->
                         this.certificatesUrl = url
-                        clickSaveUrl(url)
-                        Toast.makeText(context, "Скачать", Toast.LENGTH_SHORT).show()
+                        checkPermissions(url)
+                        Toast.makeText(context, "началось загрузка", Toast.LENGTH_SHORT).show()
                     })
                 MainActivity.alert.hide()
             }
         }
-        promptView.text_dismiss_reference.setOnClickListener {
+        layoutView.text_dismiss_reference.setOnClickListener {
             dialog.dismiss()
         }
 
         dialog.show()
     }
 
-    private fun clickSaveUrl(url: String) {
+    private fun isValid(dialog: AlertDialog): Boolean {
+        var valid = true
+        if (layoutView.text_reference_dialog.text.toString().isEmpty()) {
+            layoutView.reference_dialog.error = "Поле не может быть пустым"
+            valid = false
+        } else {
+            layoutView.reference_dialog.isErrorEnabled = false
+            dialog.dismiss()
+        }
+        return valid
+    }
+
+    private fun checkPermissions(url: String) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(
                     context!!,
@@ -300,18 +312,6 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
                 }
             }
         }
-    }
-
-    private fun validateDialog(dialog: AlertDialog): Boolean {
-        var valid = true
-        if (promptView.text_reference_dialog.text.toString().isEmpty()) {
-            promptView.reference_dialog.error = "Поле не может быть пустым"
-            valid = false
-        } else {
-            promptView.reference_dialog.isErrorEnabled = false
-            dialog.dismiss()
-        }
-        return valid
     }
 
     override fun onStart() {
