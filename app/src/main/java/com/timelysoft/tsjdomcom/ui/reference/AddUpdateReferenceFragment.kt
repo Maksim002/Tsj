@@ -174,7 +174,6 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
             }
         }
         return super.onOptionsItemSelected(item)
-    }
 
     private fun chooseManagerDialog() {
         val builder = AlertDialog.Builder(context)
