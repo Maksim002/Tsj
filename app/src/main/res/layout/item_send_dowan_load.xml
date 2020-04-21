@@ -10,7 +10,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:focusable="false"
             android:hint="Выберите председателя ТСЖ"
             android:padding="16dp">
 
@@ -20,6 +19,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
+                    android:focusable="false"
                     android:textStyle="bold"
                     android:drawableEnd="@drawable/ic_expend" />
 
