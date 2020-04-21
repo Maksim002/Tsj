@@ -38,7 +38,6 @@ import kotlinx.android.synthetic.main.item_choose_manager.view.*
 import java.util.*
 import kotlin.collections.ArrayList
 
-
 class AddUpdateReferenceFragment : Fragment(), FamilyListener {
     private lateinit var relativeAdapter: FamilyAdapter
     private lateinit var viewModel: ReferenceViewModel
@@ -220,7 +219,7 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
                 }
             }
 
-        layoutView.text_save_reference.setOnClickListener {
+        layoutView.save_reference_text.setOnClickListener {
             if (isValid(layoutView.reference_dialog_text.text.toString())){
                 MainActivity.alert.show()
                 viewModel.chooseManager(certificateRequest.id, chairmanId)
@@ -240,7 +239,7 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
             }
 
         }
-        layoutView.text_dismiss_reference.setOnClickListener {
+        layoutView.dismiss_reference_text.setOnClickListener {
             dialog.dismiss()
         }
 
