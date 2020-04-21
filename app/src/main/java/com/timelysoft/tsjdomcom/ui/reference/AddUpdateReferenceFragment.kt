@@ -34,7 +34,7 @@ import com.timelysoft.tsjdomcom.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_history.*
 import kotlinx.android.synthetic.main.fragment_new_reference.*
 import kotlinx.android.synthetic.main.fragment_new_reference.view.*
-import kotlinx.android.synthetic.main.item_send_dowan_load.view.*
+import kotlinx.android.synthetic.main.item_choose_manager.view.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -170,48 +170,47 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.send_download -> {
-                overlayForDownLoad()
+                choiseManagerDialog()
             }
         }
         return super.onOptionsItemSelected(item)
     }
 
-    private fun overlayForDownLoad() {
+    private fun choiseManagerDialog() {
         val builder = AlertDialog.Builder(context)
         builder.setTitle("Выберите председателя ТСЖ")
         val layoutInflater = LayoutInflater.from(context)
-        layoutView = layoutInflater.inflate(R.layout.item_send_dowan_load, null)
-        builder.setView(layoutView)
-        MainActivity.alert.show()
-
+        layoutView = layoutInflater.inflate(R.layout.item_choose_manager, null)
         builder.setCancelable(false)
         builder.setView(layoutView)
         val dialog: AlertDialog = builder.create()
         MainActivity.alert.show()
+
         viewModel.managers(certificateRequest.placementId).observe(this, Observer { list ->
 
             val adapterAddress =
                 ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, list)
-            layoutView.text_reference_dialog.setAdapter(adapterAddress)
+            layoutView.reference_dialog_text.setAdapter(adapterAddress)
             MainActivity.alert.hide()
 
-            layoutView.text_reference_dialog.setOnItemClickListener { parent, view, position, id ->
+            layoutView.reference_dialog_text.setOnItemClickListener { parent, view, position, id ->
                 chairmanId = (list[position]).id!!
+                layoutView.reference_dialog.error = null
             }
             MainActivity.alert.hide()
         })
 
-        layoutView.text_reference_dialog.setOnClickListener {
-            layoutView.text_reference_dialog.showDropDown()
+        layoutView.reference_dialog_text.setOnClickListener {
+            layoutView.reference_dialog_text.showDropDown()
         }
 
-        layoutView.text_reference_dialog.onFocusChangeListener =
+        layoutView.reference_dialog_text.onFocusChangeListener =
             View.OnFocusChangeListener { view, hasFocus ->
                 try {
                     if (hasFocus) {
-                        layoutView.text_reference_dialog.showDropDown()
+                        layoutView.reference_dialog_text.showDropDown()
                     }
-                    if (!hasFocus && layoutView.text_reference_dialog.text!!.isNotEmpty()) {
+                    if (!hasFocus && layoutView.reference_dialog_text.text!!.isNotEmpty()) {
                         layoutView.reference_dialog.defaultHintTextColor =
                             ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
                         history_address_out.isErrorEnabled = false
@@ -222,16 +221,23 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
             }
 
         layoutView.text_save_reference.setOnClickListener {
-            MainActivity.alert.show()
-            if (isValid(dialog)) {
+            if (isValid(layoutView.reference_dialog_text.text.toString())){
+                MainActivity.alert.show()
                 viewModel.managersDownload(certificateRequest.id, chairmanId)
                     .observe(this, Observer { url ->
-                        this.certificatesUrl = url
-                        checkPermissions(url)
-                        Toast.makeText(context, "началось загрузка", Toast.LENGTH_SHORT).show()
+                        if (url.isNotEmpty()){
+                            this.certificatesUrl = url
+                            checkPermissions(url)
+                            Toast.makeText(context, "загрузка началось", Toast.LENGTH_SHORT).show()
+                        }else{
+                            Toast.makeText(context, "Ошибка проверьте данные на заполнение", Toast.LENGTH_SHORT).show()
+                        }
+                        MainActivity.alert.hide()
                     })
-                MainActivity.alert.hide()
+            }else{
+                layoutView.reference_dialog.error = "Поле не может быть пустым"
             }
+
         }
         layoutView.text_dismiss_reference.setOnClickListener {
             dialog.dismiss()
@@ -240,14 +246,10 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
         dialog.show()
     }
 
-    private fun isValid(dialog: AlertDialog): Boolean {
+    private fun isValid(str: String): Boolean {
         var valid = true
-        if (layoutView.text_reference_dialog.text.toString().isEmpty()) {
-            layoutView.reference_dialog.error = "Поле не может быть пустым"
+        if (str.isEmpty()) {
             valid = false
-        } else {
-            layoutView.reference_dialog.isErrorEnabled = false
-            dialog.dismiss()
         }
         return valid
     }
@@ -270,17 +272,17 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
 
             } else {
                 //permission already granted
-                downloadFile(url)
+                downloadFile()
 
             }
         } else {
             //system OS is < Marshmallow
             //pickImageFromGallery()
-            downloadFile(url)
+            downloadFile()
         }
     }
 
-    private fun downloadFile(certificatesUrl: String) {
+    private fun downloadFile() {
         val reguest = DownloadManager.Request(Uri.parse(certificatesUrl))
         reguest.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
         reguest.setTitle(MyUtils.fileName(certificatesUrl))
@@ -305,7 +307,7 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
         when (requestCode) {
             STORAGE_PERMISION_CODE -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    downloadFile(certificatesUrl)
+                    downloadFile()
                 } else {
                     //permission from popup denied
                     Toast.makeText(context, "Нет разрешений", Toast.LENGTH_SHORT).show()

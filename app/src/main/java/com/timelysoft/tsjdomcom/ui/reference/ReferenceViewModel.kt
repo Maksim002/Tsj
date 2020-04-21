@@ -156,12 +156,14 @@ class ReferenceViewModel : ViewModel() {
         RetrofitService.apiService().managersDownload(helpId, chairmanId)
             .enqueue(object : Callback<String> {
                 override fun onFailure(call: Call<String>, t: Throwable) {
-                    println()
+                    data.value = ""
                 }
 
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     if (response.isSuccessful) {
                         data.value = response.body()
+                    }else{
+                        data.value = ""
                     }
                 }
 
