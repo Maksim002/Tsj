@@ -2,7 +2,7 @@ package com.timelysoft.tsjdomcom.service.model
 
 import com.google.gson.annotations.SerializedName
 
-class managersResponse(
+class ManagerResponse(
     @SerializedName("Id")
     var id: Int = 0,
 

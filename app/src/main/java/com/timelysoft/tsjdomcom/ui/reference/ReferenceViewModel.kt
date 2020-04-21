@@ -136,14 +136,14 @@ class ReferenceViewModel : ViewModel() {
     }
 
 
-    fun managers(id: Int): LiveData<List<managersResponse>> {
-        val data = MutableLiveData<List<managersResponse>>()
-        RetrofitService.apiService().managers(id).enqueue(object : Callback<List<managersResponse>> {
-            override fun onFailure(call: Call<List<managersResponse>>, t: Throwable) {
+    fun managers(id: Int): LiveData<List<ManagerResponse>> {
+        val data = MutableLiveData<List<ManagerResponse>>()
+        RetrofitService.apiService().managers(id).enqueue(object : Callback<List<ManagerResponse>> {
+            override fun onFailure(call: Call<List<ManagerResponse>>, t: Throwable) {
             }
 
             override fun onResponse(
-                call: Call<List<managersResponse>>, response: Response<List<managersResponse>>
+                call: Call<List<ManagerResponse>>, response: Response<List<ManagerResponse>>
             ) {
                 data.value = response.body()
             }
