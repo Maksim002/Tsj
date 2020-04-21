@@ -31,7 +31,6 @@ import com.timelysoft.tsjdomcom.service.model.PersonModel
 import com.timelysoft.tsjdomcom.service.model.RelativeModel
 import com.timelysoft.tsjdomcom.service.request.CertificateRequest
 import com.timelysoft.tsjdomcom.utils.MyUtils
-import kotlinx.android.synthetic.main.fragment_history.*
 import kotlinx.android.synthetic.main.fragment_new_reference.*
 import kotlinx.android.synthetic.main.fragment_new_reference.view.*
 import kotlinx.android.synthetic.main.item_choose_manager.view.*
@@ -47,7 +46,6 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
     private var chairmanId = 0
     private val STORAGE_PERMISION_CODE: Int = 1000
     private var certificatesUrl = ""
-    private lateinit var layoutView: View
 
     init {
         if (certificateRequest.person == null)
@@ -178,7 +176,7 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
         val builder = AlertDialog.Builder(context)
         builder.setTitle("Выберите председателя ТСЖ")
         val layoutInflater = LayoutInflater.from(context)
-        layoutView = layoutInflater.inflate(R.layout.item_choose_manager, null)
+        val layoutView = layoutInflater.inflate(R.layout.item_choose_manager, null)
         builder.setCancelable(false)
         builder.setView(layoutView)
         val dialog: AlertDialog = builder.create()
@@ -187,40 +185,38 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
         viewModel.managers(certificateRequest.placementId).observe(this, Observer { list ->
             val adapterAddress =
                 ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, list)
-            layoutView.reference_dialog_text.setAdapter(adapterAddress)
+            layoutView.choose_manager_dialog_text.setAdapter(adapterAddress)
             MainActivity.alert.hide()
 
-            layoutView.reference_dialog_text.setOnItemClickListener { parent, view, position, id ->
+            layoutView.choose_manager_dialog_text.setOnItemClickListener { parent, view, position, id ->
                 chairmanId = (list[position]).id
-                layoutView.reference_dialog.error = null
-                layoutView.reference_dialog.defaultHintTextColor =
-                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+                layoutView.choose_manager_dialog.error = null
+                layoutView.choose_manager_dialog.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
             }
-            MainActivity.alert.hide()
         })
 
-        layoutView.reference_dialog_text.setOnClickListener {
-            layoutView.reference_dialog_text.showDropDown()
+        layoutView.choose_manager_dialog_text.setOnClickListener {
+            layoutView.choose_manager_dialog_text.showDropDown()
         }
 
-        layoutView.reference_dialog_text.onFocusChangeListener =
+        layoutView.choose_manager_dialog_text.onFocusChangeListener =
             View.OnFocusChangeListener { view, hasFocus ->
                 try {
                     if (hasFocus) {
-                        layoutView.reference_dialog_text.showDropDown()
+                        layoutView.choose_manager_dialog_text.showDropDown()
                     }
-                    if (!hasFocus && layoutView.reference_dialog_text.text!!.isNotEmpty()) {
-                        layoutView.reference_dialog.defaultHintTextColor =
+                    if (!hasFocus && layoutView.choose_manager_dialog_text.text!!.isNotEmpty()) {
+                        layoutView.choose_manager_dialog.defaultHintTextColor =
                             ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
-                        history_address_out.isErrorEnabled = false
+                        layoutView.choose_manager_dialog.isErrorEnabled = false
                     }
 
                 } catch (e: Exception) {
-                }
-            }
+             }
+         }
 
-        layoutView.save_reference_text.setOnClickListener {
-            if (isValid(layoutView.reference_dialog_text.text.toString())){
+        layoutView.save_choose_manager_text.setOnClickListener {
+            if (isValid(layoutView.choose_manager_dialog_text.text.toString())){
                 MainActivity.alert.show()
                 viewModel.chooseManager(certificateRequest.id, chairmanId)
                     .observe(this, Observer { url ->
@@ -235,11 +231,11 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
                         MainActivity.alert.hide()
                     })
             }else{
-                layoutView.reference_dialog.error = "Поле не может быть пустым"
+                layoutView.choose_manager_dialog.error = "Поле не может быть пустым"
             }
 
         }
-        layoutView.dismiss_reference_text.setOnClickListener {
+        layoutView.closed_choose_manager_text.setOnClickListener {
             dialog.dismiss()
         }
 
