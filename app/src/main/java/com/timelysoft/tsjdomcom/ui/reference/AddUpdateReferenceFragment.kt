@@ -170,13 +170,13 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.send_download -> {
-                choiseManagerDialog()
+                chooseManagerDialog()
             }
         }
         return super.onOptionsItemSelected(item)
     }
 
-    private fun choiseManagerDialog() {
+    private fun chooseManagerDialog() {
         val builder = AlertDialog.Builder(context)
         builder.setTitle("Выберите председателя ТСЖ")
         val layoutInflater = LayoutInflater.from(context)
@@ -193,7 +193,7 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
             MainActivity.alert.hide()
 
             layoutView.reference_dialog_text.setOnItemClickListener { parent, view, position, id ->
-                chairmanId = (list[position]).id!!
+                chairmanId = (list[position]).id
                 layoutView.reference_dialog.error = null
                 layoutView.reference_dialog.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
@@ -224,7 +224,7 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
         layoutView.text_save_reference.setOnClickListener {
             if (isValid(layoutView.reference_dialog_text.text.toString())){
                 MainActivity.alert.show()
-                viewModel.managersDownload(certificateRequest.id, chairmanId)
+                viewModel.chooseManager(certificateRequest.id, chairmanId)
                     .observe(this, Observer { url ->
                         if (url.isNotEmpty()){
                             this.certificatesUrl = url

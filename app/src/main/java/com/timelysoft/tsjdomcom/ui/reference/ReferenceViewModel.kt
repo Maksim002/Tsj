@@ -136,14 +136,14 @@ class ReferenceViewModel : ViewModel() {
     }
 
 
-    fun managers(id: Int): LiveData<List<ManagersModel>> {
-        val data = MutableLiveData<List<ManagersModel>>()
-        RetrofitService.apiService().managers(id).enqueue(object : Callback<List<ManagersModel>> {
-            override fun onFailure(call: Call<List<ManagersModel>>, t: Throwable) {
+    fun managers(id: Int): LiveData<List<managersResponse>> {
+        val data = MutableLiveData<List<managersResponse>>()
+        RetrofitService.apiService().managers(id).enqueue(object : Callback<List<managersResponse>> {
+            override fun onFailure(call: Call<List<managersResponse>>, t: Throwable) {
             }
 
             override fun onResponse(
-                call: Call<List<ManagersModel>>, response: Response<List<ManagersModel>>
+                call: Call<List<managersResponse>>, response: Response<List<managersResponse>>
             ) {
                 data.value = response.body()
             }
@@ -151,9 +151,9 @@ class ReferenceViewModel : ViewModel() {
         return data
     }
 
-    fun managersDownload(helpId: Int, chairmanId: Int): LiveData<String> {
+    fun chooseManager(helpId: Int, chairmanId: Int): LiveData<String> {
         val data = MutableLiveData<String>()
-        RetrofitService.apiService().managersDownload(helpId, chairmanId)
+        RetrofitService.apiService().downloadCertificate(helpId, chairmanId)
             .enqueue(object : Callback<String> {
                 override fun onFailure(call: Call<String>, t: Throwable) {
                     data.value = ""

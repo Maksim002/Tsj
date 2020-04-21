@@ -182,10 +182,10 @@ interface ApiService {
     fun sendFirebaseToken(@Body model: FirebaseTokenModel): Call<Unit>
 
     @GET("Certificates/Managers/{id}")
-    fun managers(@Path("id") id: Int): Call<List<ManagersModel>>
+    fun managers(@Path("id") id: Int): Call<List<managersResponse>>
 
     @GET("Certificates/{helpId}/Managers/{chairmanId}/Download")
-    fun managersDownload(
+    fun downloadCertificate(
         @Path("helpId") helpId: Int,
         @Path("chairmanId") chairmanId: Int
     ): Call<String>
