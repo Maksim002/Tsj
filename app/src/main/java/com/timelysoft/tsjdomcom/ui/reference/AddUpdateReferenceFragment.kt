@@ -187,7 +187,6 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
         MainActivity.alert.show()
 
         viewModel.managers(certificateRequest.placementId).observe(this, Observer { list ->
-
             val adapterAddress =
                 ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, list)
             layoutView.reference_dialog_text.setAdapter(adapterAddress)
@@ -196,6 +195,8 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
             layoutView.reference_dialog_text.setOnItemClickListener { parent, view, position, id ->
                 chairmanId = (list[position]).id!!
                 layoutView.reference_dialog.error = null
+                layoutView.reference_dialog.defaultHintTextColor =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
             }
             MainActivity.alert.hide()
         })
