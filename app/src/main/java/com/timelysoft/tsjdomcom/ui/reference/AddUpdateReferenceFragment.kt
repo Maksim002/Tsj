@@ -237,6 +237,7 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
                     })
             }else{
                 layoutView.reference_dialog.error = "Поле не может быть пустым"
+                dialog.dismiss()
             }
 
         }
