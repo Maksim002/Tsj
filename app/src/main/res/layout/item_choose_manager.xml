@@ -33,7 +33,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/save_choose_manager_text"
+            android:id="@+id/choose_manager_save_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/orangeColor"
@@ -42,7 +42,7 @@
             android:text="Скачать"/>
 
         <TextView
-            android:id="@+id/closed_choose_manager_text"
+            android:id="@+id/choose_manager_closed_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/orangeColor"

@@ -140,8 +140,8 @@ class HistoryFragment : Fragment() {
     private fun getDate() {
         MainActivity.alert.show()
         viewmodel.periods().observe(this, Observer { periods ->
-            history_from_date.setText(MyUtils.toMyDate(periods.from!!))
-            history_to_date.setText(MyUtils.toMyDate(periods.to!!))
+            history_from_date.setText(MyUtils.toMyDate(periods.from))
+            history_to_date.setText(MyUtils.toMyDate(periods.to))
             // Ковертация и присваевание
             val (dayFrom, monthFrom, yearFrom) = MyUtils.dateConverting(periods.from.toString())
             dayStart = dayFrom
@@ -181,9 +181,9 @@ class HistoryFragment : Fragment() {
                 history_address_out.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
                 parent.getItemAtPosition(position).toString()
-                placementId = listAddress[position].placementId!!
-                licNumber = listAddress[position].licNumber!!
-                address = listAddress[position].address!!
+                placementId = listAddress[position].placementId
+                licNumber = listAddress[position].licNumber
+                address = listAddress[position].address
                 MainActivity.alert.show()
                 getAutoService()
                 history_service.setAdapter(null)
@@ -235,8 +235,8 @@ class HistoryFragment : Fragment() {
             AdapterView.OnItemClickListener { parent, _, position, _ ->
                 history_service.showDropDown()
                 parent.getItemAtPosition(position).toString()
-                servicesId = listServices[position].serviceId!!
-                serviceName = listServices[position].serviceName!!
+                servicesId = listServices[position].serviceId
+                serviceName = listServices[position].serviceName
                 history_service.clearFocus()
             }
         history_service.setOnClickListener {

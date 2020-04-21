@@ -215,7 +215,7 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
              }
          }
 
-        layoutView.save_choose_manager_text.setOnClickListener {
+        layoutView.choose_manager_save_text.setOnClickListener {
             if (isValid(layoutView.choose_manager_dialog_text.text.toString())){
                 MainActivity.alert.show()
                 viewModel.chooseManager(certificateRequest.id, chairmanId)
@@ -235,7 +235,7 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
             }
 
         }
-        layoutView.closed_choose_manager_text.setOnClickListener {
+        layoutView.choose_manager_closed_text.setOnClickListener {
             dialog.dismiss()
         }
 
