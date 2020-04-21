@@ -53,4 +53,31 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="OutLinedEditTextStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+
+        <item name="boxBackgroundMode">outline</item>
+        <item name="boxBackgroundColor">#001</item>
+
+        <item name="boxStrokeColor">#001</item>
+        <item name="boxStrokeErrorColor">#001</item>
+
+        <item name="errorTextColor">@color/itemIconTintF</item>
+        <item name="errorEnabled">true</item>
+
+        <item name="hintEnabled">true</item>
+        <item name="hintTextColor">@color/itemIconTintF</item>
+        <item name="android:textColorHint">#001</item>
+
+    </style>
+
+
+    <style name="OutLinedEditTextStyle.Spinner">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.MaterialComponents.AutoCompleteTextView.FilledBox</item>
+        <item name="endIconMode">custom</item>
+        <item name="endIconDrawable">@drawable/ic_save</item>
+        <item name="endIconContentDescription">Drop down</item>
+    </style>
+
 </resources>

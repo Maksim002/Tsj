@@ -1,15 +1,24 @@
 package com.timelysoft.tsjdomcom.ui.reference
 
 
+import android.Manifest
+import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.app.DownloadManager
+import android.content.Context
+import android.content.pm.PackageManager
 import android.content.res.ColorStateList
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.os.SystemClock
+import android.view.*
 import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -24,9 +33,9 @@ import com.timelysoft.tsjdomcom.service.request.CertificateRequest
 import com.timelysoft.tsjdomcom.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_new_reference.*
 import kotlinx.android.synthetic.main.fragment_new_reference.view.*
+import kotlinx.android.synthetic.main.item_choose_manager.view.*
 import java.util.*
 import kotlin.collections.ArrayList
-
 
 class AddUpdateReferenceFragment : Fragment(), FamilyListener {
     private lateinit var relativeAdapter: FamilyAdapter
@@ -34,6 +43,9 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
     private var update = false
     val certificateRequest = CertificateRequest()
     private var mLastClickTime: Long = 0
+    private var chairmanId = 0
+    private val STORAGE_PERMISION_CODE: Int = 1000
+    private var certificatesUrl = ""
 
     init {
         if (certificateRequest.person == null)
@@ -57,7 +69,7 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
 
         (activity as AppCompatActivity).supportActionBar!!.show()
         viewModel = ViewModelProviders.of(this).get(ReferenceViewModel::class.java)
-
+        setHasOptionsMenu(true)
         return root
     }
 
@@ -110,7 +122,8 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
             if (validate()) {
                 certificateRequest.relatives = relativesList
                 certificateRequest.person.fullName = reference_name.text.toString()
-                certificateRequest.person.dateOfBirth = MyUtils.toServerDate(reference_date.text.toString())
+                certificateRequest.person.dateOfBirth =
+                    MyUtils.toServerDate(reference_date.text.toString())
                 if (!update) {
                     MainActivity.alert.show()
                     viewModel.addReferences(certificateRequest).observe(this, Observer {
@@ -144,18 +157,174 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        if (update) {
+            inflater.inflate(R.menu.reference_bottom_senddownload, menu)
+            super.onCreateOptionsMenu(menu, inflater)
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.send_download -> {
+                chooseManagerDialog()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+    private fun chooseManagerDialog() {
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle("Выберите председателя ТСЖ")
+        val layoutInflater = LayoutInflater.from(context)
+        val layoutView = layoutInflater.inflate(R.layout.item_choose_manager, null)
+        builder.setCancelable(false)
+        builder.setView(layoutView)
+        val dialog: AlertDialog = builder.create()
+        MainActivity.alert.show()
+
+        viewModel.managers(certificateRequest.placementId).observe(this, Observer { list ->
+            val adapterAddress =
+                ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, list)
+            layoutView.choose_manager_dialog_text.setAdapter(adapterAddress)
+            MainActivity.alert.hide()
+
+            layoutView.choose_manager_dialog_text.setOnItemClickListener { parent, view, position, id ->
+                chairmanId = (list[position]).id
+                layoutView.choose_manager_dialog.error = null
+                layoutView.choose_manager_dialog.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+            }
+        })
+
+        layoutView.choose_manager_dialog_text.setOnClickListener {
+            layoutView.choose_manager_dialog_text.showDropDown()
+        }
+
+        layoutView.choose_manager_dialog_text.onFocusChangeListener =
+            View.OnFocusChangeListener { view, hasFocus ->
+                try {
+                    if (hasFocus) {
+                        layoutView.choose_manager_dialog_text.showDropDown()
+                    }
+                    if (!hasFocus && layoutView.choose_manager_dialog_text.text!!.isNotEmpty()) {
+                        layoutView.choose_manager_dialog.defaultHintTextColor =
+                            ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
+                        layoutView.choose_manager_dialog.isErrorEnabled = false
+                    }
+
+                } catch (e: Exception) {
+             }
+         }
+
+        layoutView.choose_manager_save_text.setOnClickListener {
+            if (isValid(layoutView.choose_manager_dialog_text.text.toString())){
+                MainActivity.alert.show()
+                viewModel.chooseManager(certificateRequest.id, chairmanId)
+                    .observe(this, Observer { url ->
+                        if (url.isNotEmpty()){
+                            this.certificatesUrl = url
+                            checkPermissions(url)
+                            Toast.makeText(context, "загрузка началось", Toast.LENGTH_SHORT).show()
+                            dialog.dismiss()
+                        }else{
+                            Toast.makeText(context, "Ошибка проверьте данные на заполнение", Toast.LENGTH_SHORT).show()
+                        }
+                        MainActivity.alert.hide()
+                    })
+            }else{
+                layoutView.choose_manager_dialog.error = "Поле не может быть пустым"
+            }
+
+        }
+        layoutView.choose_manager_closed_text.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+
+    private fun isValid(str: String): Boolean {
+        var valid = true
+        if (str.isEmpty()) {
+            valid = false
+        }
+        return valid
+    }
+
+    private fun checkPermissions(url: String) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(
+                    context!!,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ) == PackageManager.PERMISSION_DENIED
+            ) {
+                //permission denied
+                val permissions = arrayOf(
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                )
+                //show popup to request runtime permission
+                requestPermissions(permissions, STORAGE_PERMISION_CODE)
+
+
+            } else {
+                //permission already granted
+                downloadFile()
+
+            }
+        } else {
+            //system OS is < Marshmallow
+            //pickImageFromGallery()
+            downloadFile()
+        }
+    }
+
+    private fun downloadFile() {
+        val reguest = DownloadManager.Request(Uri.parse(certificatesUrl))
+        reguest.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
+        reguest.setTitle(MyUtils.fileName(certificatesUrl))
+        reguest.setDescription("Файл загружаеться.....")
+
+        reguest.allowScanningByMediaScanner()
+        reguest.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+        reguest.setDestinationInExternalPublicDir(
+            Environment.DIRECTORY_DOWNLOADS,
+            "${System.currentTimeMillis()}"
+        )
+
+        val manager = activity?.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+        manager.enqueue(reguest)
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when (requestCode) {
+            STORAGE_PERMISION_CODE -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    downloadFile()
+                } else {
+                    //permission from popup denied
+                    Toast.makeText(context, "Нет разрешений", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
     override fun onStart() {
         super.onStart()
+
 
         getEditReferenceS()
         if (update) {
             reference_save.text = "Обновить"
-            (activity as AppCompatActivity?)!!.supportActionBar?.title = "Обновленная справка"
+            (activity as AppCompatActivity?)!!.supportActionBar?.title = "Обновить справку"
         }
         if (certificateRequest.id != null && certificateRequest.id != 0 && !update) {
             update = true
             reference_save.text = "Обновить"
-            (activity as AppCompatActivity?)!!.supportActionBar?.title = "Обновленная справка"
+            (activity as AppCompatActivity?)!!.supportActionBar?.title = "Обновить справку"
             viewModel.reference(certificateRequest.id).observe(this, Observer {
                 certificateRequest.person.id = it.person.id
                 reference_name.setText(it.person.fullName)
@@ -169,6 +338,7 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
         }
         initHint()
     }
+
 
     private fun initArguments() {
         certificateRequest.placementId = try {
@@ -191,7 +361,7 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
             MyUtils.hideKeyboard(activity!!, view!!)
             if (hasFocus) {
                 // Педотврощает двоной клик на editText
-                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000){
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
                     return@setOnClickListener
                 }
                 mLastClickTime = SystemClock.elapsedRealtime()

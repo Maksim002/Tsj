@@ -4,10 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.timelysoft.tsjdomcom.service.RetrofitService
-import com.timelysoft.tsjdomcom.service.model.AddressModel
-import com.timelysoft.tsjdomcom.service.model.MessagesPersonsModel
-import com.timelysoft.tsjdomcom.service.model.ReferenceLiteModel
-import com.timelysoft.tsjdomcom.service.model.ReferencesFullModel
+import com.timelysoft.tsjdomcom.service.model.*
 import com.timelysoft.tsjdomcom.service.request.CertificateRequest
 import retrofit2.Call
 import retrofit2.Callback
@@ -135,6 +132,42 @@ class ReferenceViewModel : ViewModel() {
             }
 
         })
+        return data
+    }
+
+
+    fun managers(id: Int): LiveData<List<ManagerResponse>> {
+        val data = MutableLiveData<List<ManagerResponse>>()
+        RetrofitService.apiService().managers(id).enqueue(object : Callback<List<ManagerResponse>> {
+            override fun onFailure(call: Call<List<ManagerResponse>>, t: Throwable) {
+            }
+
+            override fun onResponse(
+                call: Call<List<ManagerResponse>>, response: Response<List<ManagerResponse>>
+            ) {
+                data.value = response.body()
+            }
+        })
+        return data
+    }
+
+    fun chooseManager(helpId: Int, chairmanId: Int): LiveData<String> {
+        val data = MutableLiveData<String>()
+        RetrofitService.apiService().downloadCertificate(helpId, chairmanId)
+            .enqueue(object : Callback<String> {
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    data.value = ""
+                }
+
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    if (response.isSuccessful) {
+                        data.value = response.body()
+                    }else{
+                        data.value = ""
+                    }
+                }
+
+            })
         return data
     }
 }
