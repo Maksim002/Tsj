@@ -23,7 +23,7 @@ class NetworkRepository {
                     }
                 }
                 else -> {
-                    emit(ResultStatus.error("Не найдено"))
+                    emit(ResultStatus.error("Не известная ошибка"))
                 }
             }
         } catch (e: Exception) {
@@ -43,7 +43,7 @@ class NetworkRepository {
                     }
                 }
                 else -> {
-                    emit(ResultStatus.error("Не извесная ошибка"))
+                    emit(ResultStatus.error("Не известная ошибка"))
                 }
             }
         } catch (e: Exception) {
@@ -59,11 +59,11 @@ class NetworkRepository {
                     if (response.body() != null) {
                         emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(ResultStatus.error("Ошибка при получение днных"))
+                        emit(ResultStatus.error("Ошибка при получение данных"))
                     }
                 }
                 else -> {
-                    emit(ResultStatus.error("Не извесная ошибка"))
+                    emit(ResultStatus.error("Не известная ошибка"))
                 }
             }
         } catch (e: Exception) {
@@ -79,11 +79,11 @@ class NetworkRepository {
                     if (response.body() != null) {
                         emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(ResultStatus.error("Ошибка при получение днных"))
+                        emit(ResultStatus.error("Ошибка при получение данных"))
                     }
                 }
                 else -> {
-                    emit(ResultStatus.error("Не извесная ошибка"))
+                    emit(ResultStatus.error("Не известная ошибка"))
                 }
             }
         } catch (e: Exception) {
@@ -115,11 +115,11 @@ class NetworkRepository {
                     if (response.body() != null) {
                         emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(ResultStatus.error("Ошибка при получение днных"))
+                        emit(ResultStatus.error("Ошибка при получение данных"))
                     }
                 }
                 else -> {
-                    emit(ResultStatus.error("Не извесная ошибка"))
+                    emit(ResultStatus.error("Не известная ошибка"))
                 }
             }
         } catch (e: Exception) {
