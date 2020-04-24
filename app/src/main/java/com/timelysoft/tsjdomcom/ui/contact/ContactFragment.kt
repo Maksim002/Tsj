@@ -105,8 +105,12 @@ class ContactFragment : Fragment(), AccountsListener {
                     }
                 }
                 if (!find) {
-                    contacts_test.text = it[0].licNumber.toString()
-                    contacts_address.text = it[0].address
+                    try {
+                        contacts_test.text = it[0].licNumber.toString()
+                        contacts_address.text = it[0].address
+                    } catch (e: Exception) {
+                    }
+
                 }
                 MainActivity.alert.hide()
             })

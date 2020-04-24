@@ -43,4 +43,8 @@ object RetrofitService {
         return retrofit().create(ApiService::class.java)
     }
 
+    fun apiServiceNew(): ApiServiceNew {
+        return retrofit().create(ApiServiceNew::class.java)
+    }
+
 }
