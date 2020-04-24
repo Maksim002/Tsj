@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -16,6 +17,7 @@ import com.timelysoft.tsjdomcom.adapters.message.MessageAdapter
 import com.timelysoft.tsjdomcom.adapters.message.MessageClicklItemListener
 import com.timelysoft.tsjdomcom.service.model.MessageItemModel
 import com.timelysoft.tsjdomcom.service.AppPreferences
+import com.timelysoft.tsjdomcom.service.Status
 import kotlinx.android.synthetic.main.fragment_messages.*
 
 class MessagesFragment(private val idMessage: Int) : Fragment(), MessageClicklItemListener {
@@ -46,20 +48,31 @@ class MessagesFragment(private val idMessage: Int) : Fragment(), MessageClicklIt
 
     private fun initRec() {
         if (AppPreferences.isLogined) {
-            viewModel.messages(idMessage).observe(this, Observer { list ->
-                messageAdapter = MessageAdapter(this, list)
-                recyclerview.apply { adapter = messageAdapter }
+            viewModel.messages(idMessage).observe(this, Observer { result ->
+                val msg = result.msg
+                val data = result.data
+                when(result.status){
+                    Status.SUCCESS ->{
+                        messageAdapter = MessageAdapter(this, data!!)
+                        recyclerview.apply { adapter = messageAdapter }
 
-                if (messageAdapter.itemCount == 0) {
-                    messages_empty_text.visibility = View.VISIBLE
-                    recyclerview.visibility = View.GONE
-                } else {
-                    messages_empty_text.visibility = View.GONE
-                    recyclerview.visibility = View.VISIBLE
+                        if (messageAdapter.itemCount == 0) {
+                            messages_empty_text.visibility = View.VISIBLE
+                            recyclerview.visibility = View.GONE
+                        } else {
+                            messages_empty_text.visibility = View.GONE
+                            recyclerview.visibility = View.VISIBLE
+                        }
+                    }
+                    Status.ERROR -> {
+                        Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                    }
+                    Status.NETWORK -> {
+                        Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                    }
                 }
             })
         }
-
     }
 
     override fun onClickMessage(item: MessageItemModel) {

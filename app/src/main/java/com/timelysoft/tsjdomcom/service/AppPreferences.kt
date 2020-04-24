@@ -54,7 +54,6 @@ object AppPreferences {
             it.putString("refresh_token", "")
             it.apply()
         }
-
     }
 
     var licNumber: Int?

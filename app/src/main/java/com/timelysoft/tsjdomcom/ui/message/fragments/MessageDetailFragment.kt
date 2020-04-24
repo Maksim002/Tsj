@@ -22,6 +22,7 @@ import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.adapters.files.FilesAdapter
 import com.timelysoft.tsjdomcom.adapters.files.FilesModel
 import com.timelysoft.tsjdomcom.adapters.files.GeneralClickListener
+import com.timelysoft.tsjdomcom.service.Status
 import com.timelysoft.tsjdomcom.ui.message.MessagesViewModel
 import com.timelysoft.tsjdomcom.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_message_detail.*
@@ -54,28 +55,39 @@ class MessageDetailFragment : Fragment(), GeneralClickListener {
 
     private fun initData() {
         MainActivity.alert.show()
-        viewModel.message(idMessage).observe(this, Observer {
-            MainActivity.alert.hide()
-            message_detail_date.text = "Дата: "+MyUtils.toMyDate(it.sendDate)
-            message_detail_sender.text = it.personNameHeader + ": " + it.personName
-            message_detail_title.text = it.title
-            message_detail_content.text = it.body
+        viewModel.message(idMessage).observe(viewLifecycleOwner, Observer { result ->
+            val msg = result.msg
+            val data = result.data
+            when(result.status){
+                Status.SUCCESS ->{
+                    message_detail_date.text = "Дата: "+MyUtils.toMyDate(data!!.sendDate)
+                    message_detail_sender.text = data.personNameHeader + ": " + data!!.personName
+                    message_detail_title.text = data.title
+                    message_detail_content.text = data.body
 
-            //в отправленных адресов нету, провераяю для входящих
-            if (it.address != null) {
-                message_detail_address.visibility = View.VISIBLE
-                message_detail_address.text ="Адрес: ${it.address}"
-            } else {
-                message_detail_address.visibility = View.GONE
+                    //в отправленных адресов нету, провераяю для входящих
+                    if (data.address != null) {
+                        message_detail_address.visibility = View.VISIBLE
+                        message_detail_address.text ="Адрес: ${data!!.address}"
+                    } else {
+                        message_detail_address.visibility = View.GONE
+                    }
+
+                    filesAdapter = FilesAdapter(this)
+                    val items = data!!.attachments!!.map { attachment ->
+                        FilesModel(attachment.fileName, attachment.filePath)
+                    }
+                    filesAdapter.update(items)
+                    message_files_rv.adapter = filesAdapter
+                    MainActivity.alert.hide()
+                }
+                Status.ERROR ->{
+                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                }
+                Status.NETWORK ->{
+                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                }
             }
-
-            filesAdapter = FilesAdapter(this)
-            val items = it.attachments!!.map { attachment ->
-                FilesModel(attachment.fileName, attachment.filePath)
-            }
-            filesAdapter.update(items)
-            message_files_rv.adapter = filesAdapter
-
         })
     }
 
@@ -112,12 +124,16 @@ class MessageDetailFragment : Fragment(), GeneralClickListener {
 
     private fun deleteMessage() {
         MainActivity.alert.show()
-        viewModel.deleteMessage(idMessage).observe(this, Observer {
-            if (it) {
-                findNavController().popBackStack()
-            }
-            MainActivity.alert.hide()
-        })
+       viewModel.deleteMessage(idMessage).observe(this, Observer { result ->
+           val msg = result.msg
+           when(result.status){
+               Status.SUCCESS ->{
+                       findNavController().popBackStack()
+                   MainActivity.alert.hide()
+               }
+           }
+           Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+       })
     }
 
     override fun onClickItem(position: Int, url: String,fileName:String) {

@@ -27,18 +27,23 @@ interface ApiService {
 
     @GET("News")
     fun news(): Call<List<NewsModel>>
+//
 
     @GET("Messages")
     fun messages(@Query("typeId") id: Int): Call<List<MessageItemModel>>
+//
 
     @GET("Messages/{id}")
     fun message(@Path("id") id: Int): Call<MessageModel>
+//
 
     @DELETE("Messages/{id}")
     fun deleteMessage(@Path("id") id: Int): Call<Unit>
+//
 
     @GET("Balance/Addresses")
     fun addresses(): Call<List<AddressModel>>
+//
 
     @GET("Balance/{id}/Services/Balance")
     fun status(@Path("id") id: Int): Call<List<BalanceStatusModel>>

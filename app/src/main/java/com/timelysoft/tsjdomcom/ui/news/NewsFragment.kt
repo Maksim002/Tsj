@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.timelysoft.tsjdomcom.R
@@ -14,10 +15,10 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.timelysoft.tsjdomcom.MainActivity
 import com.timelysoft.tsjdomcom.adapters.news.NewsOnItemClickListener
+import com.timelysoft.tsjdomcom.service.Status
 import com.timelysoft.tsjdomcom.service.model.news.NewsModel
 
 class NewsFragment : Fragment(), NewsOnItemClickListener {
-
 
     private lateinit var newsAdapter: NewsAdapter
     private lateinit var news_rv: RecyclerView
@@ -40,11 +41,24 @@ class NewsFragment : Fragment(), NewsOnItemClickListener {
 
     private fun getRecyclerView() {
         MainActivity.alert.show()
-        viewModel.news().observe(this, Observer { list ->
-            newsAdapter = NewsAdapter(list, this)
-            news_rv.apply {
-                adapter = newsAdapter
-                MainActivity.alert.hide() }
+        viewModel.news().observe(viewLifecycleOwner, Observer { result ->
+            val msg = result.msg
+            val data = result.data
+            when(result.status){
+                Status.SUCCESS ->{
+                    newsAdapter = NewsAdapter(data!!, this)
+                    news_rv.apply {
+                        adapter = newsAdapter
+                    }
+                }
+                Status.ERROR ->{
+                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                }
+                Status.NETWORK ->{
+                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                }
+            }
+            MainActivity.alert.hide()
         })
     }
 

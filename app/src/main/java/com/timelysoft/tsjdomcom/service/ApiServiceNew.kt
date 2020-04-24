@@ -20,12 +20,6 @@ interface ApiServiceNew {
     @POST("Token")
     suspend fun auth(@FieldMap params: Map<String, String>): Response<AuthModel>
 
-    @Headers("Content-Type: application/x-www-form-urlencoded")
-    @FormUrlEncoded
-    @POST("Token")
-    suspend fun refreshToken(@FieldMap params: Map<String, String>): Response<AuthModel>
-
-    // 1
     @GET("News")
     suspend fun news(): Response<List<NewsModel>>
 

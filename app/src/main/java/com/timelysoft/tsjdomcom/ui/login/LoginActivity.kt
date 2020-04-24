@@ -12,6 +12,7 @@ import com.google.firebase.iid.FirebaseInstanceId
 import com.timelysoft.tsjdomcom.MainActivity
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.service.AppPreferences
+import com.timelysoft.tsjdomcom.service.Status
 import com.timelysoft.tsjdomcom.service.request.FirebaseTokenModel
 import com.timelysoft.tsjdomcom.ui.login.forgot.ForgotActivity
 import com.timelysoft.tsjdomcom.utils.MyUtils
@@ -100,26 +101,30 @@ class LoginActivity : AppCompatActivity() {
                 map.put("password", text_pass.text.toString())
                 map.put("refresh_token", "")
 
-                viewModel.auth(map).observe(this, Observer {
-                    if (it) {
-                        startMainActivity()
-                        AppPreferences.email = text_email.text.toString()
-
-                        FirebaseInstanceId.getInstance().instanceId
-                            .addOnCompleteListener(OnCompleteListener { task ->
-                                if (!task.isSuccessful) {
-                                    return@OnCompleteListener
-                                }
-                                val token = task.result?.token
-                                if (token != null)
-                                    viewModel.sendToken(FirebaseTokenModel(token, 0))
-                            })
-
-                    } else {
-                        Toast.makeText(this, "Не правильный логин или пароль", Toast.LENGTH_LONG)
-                            .show()
+                viewModel.auth(map).observe(this, Observer { result ->
+                    val msg = result.msg
+                    val data = result.data
+                    when(result.status){
+                        Status.SUCCESS ->{
+                            viewModel.save(text_email.text.toString(), data!!.accessToken)
+                            startMainActivity()
+                            FirebaseInstanceId.getInstance().instanceId
+                                .addOnCompleteListener(OnCompleteListener { task ->
+                                    if (!task.isSuccessful) {
+                                        return@OnCompleteListener
+                                    }
+                                    val token = task.result?.token
+                                    if (token != null)
+                                        viewModel.sendToken(FirebaseTokenModel(token, 0))
+                                })
+                        }
+                        Status.ERROR ->{
+                            Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
+                        }
+                        Status.NETWORK ->{
+                            Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
+                        }
                     }
-
                 })
             }
         }

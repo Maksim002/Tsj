@@ -1,5 +1,6 @@
 package com.timelysoft.tsjdomcom.service
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import com.timelysoft.tsjdomcom.service.model.ChangePasswordModel
 import com.timelysoft.tsjdomcom.service.model.RequestForConnectModel
@@ -8,24 +9,6 @@ import kotlinx.coroutines.Dispatchers
 import okhttp3.MultipartBody
 
 class NetworkRepository {
-    // Оброзец
-    fun auth(map: HashMap<String, String>) = liveData(Dispatchers.IO) {
-        try {
-            val response = RetrofitService.apiServiceNew().auth(map)
-            when {
-                response.isSuccessful -> {
-                    emit(Resource.success(response.body()))
-                }
-                else -> {
-                    emit(Resource.error("Неверный логин или пароль", null))
-                }
-            }
-        } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
-        }
-    }
-
-    // Мая работа
 
     fun auth(params: Map<String, String>) = liveData(Dispatchers.IO) {
 
@@ -34,38 +17,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Не найдено"))
+                        emit(ResultStatus.error("Неверный логин или пароль"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не найдено"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
-        }
-    }
-
-    fun refreshToken(params: Map<String, String>) = liveData(Dispatchers.IO) {
-
-        try {
-            val response = RetrofitService.apiServiceNew().refreshToken(params)
-            when {
-                response.isSuccessful -> {
-                    if (response.body() != null) {
-                        emit(Resource.success(response.body()))
-                    } else {
-                        emit(Resource.error("Не найдено"))
-                    }
-                }
-                else -> {
-                    emit(Resource.error("Не найдено"))
-                }
-            }
-        } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -75,17 +37,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Неверный логин или пароль"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не извесная ошибка"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -95,17 +57,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Ошибка при получение днных"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не извесная ошибка"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -115,17 +77,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Ошибка при получение днных"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не извесная ошибка"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -134,18 +96,14 @@ class NetworkRepository {
             val response = RetrofitService.apiServiceNew().deleteMessage(id)
             when {
                 response.isSuccessful -> {
-                    if (response.body() != null) {
-                        emit(Resource.success(response.body()))
-                    } else {
-                        emit(Resource.error("Неверный логин или пароль"))
-                    }
+                    emit(ResultStatus.success(null, "Ваше собщение удалено"))
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Произошла ошибка при удалении"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -155,17 +113,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Ошибка при получение днных"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не извесная ошибка"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -175,17 +133,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Неверный логин или пароль"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не найдено"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -195,17 +153,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Неверный логин или пароль"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не найдено"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -215,17 +173,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Неверный логин или пароль"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не найдено"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -235,17 +193,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Неверный логин или пароль"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не найдено"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -255,17 +213,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Неверный логин или пароль"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не найдено"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -275,17 +233,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Неверный логин или пароль"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не найдено"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -295,17 +253,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Неверный логин или пароль"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не найдено"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -315,17 +273,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Неверный логин или пароль"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не найдено"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -335,17 +293,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Неверный логин или пароль"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не найдено"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -355,17 +313,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Неверный логин или пароль"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не найдено"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -375,17 +333,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Неверный логин или пароль"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не найдено"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -395,17 +353,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Неверный логин или пароль"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не найдено"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -415,17 +373,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Неверный логин или пароль"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не найдено"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -435,17 +393,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Неверный логин или пароль"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не найдено"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -455,17 +413,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Неверный логин или пароль"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не найдено"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -475,17 +433,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Неверный логин или пароль"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не найдено"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -495,17 +453,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Неверный логин или пароль"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не найдено"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -515,17 +473,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Неверный логин или пароль"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не найдено"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -535,17 +493,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Неверный логин или пароль"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не найдено"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -555,17 +513,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Неверный логин или пароль"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не найдено"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -575,17 +533,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Неверный логин или пароль"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не найдено"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -595,17 +553,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Неверный логин или пароль"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не найдено"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -615,17 +573,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Неверный логин или пароль"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не найдено"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -635,17 +593,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Неверный логин или пароль"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не найдено"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -655,17 +613,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Неверный логин или пароль"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не найдено"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -675,17 +633,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Неверный логин или пароль"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не найдено"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -695,17 +653,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Неверный логин или пароль"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не найдено"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -715,17 +673,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Неверный логин или пароль"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не найдено"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -735,17 +693,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Неверный логин или пароль"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не найдено"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -755,17 +713,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Неверный логин или пароль"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не найдено"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -775,17 +733,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Неверный логин или пароль"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не найдено"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -795,17 +753,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Неверный логин или пароль"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не найдено"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -815,17 +773,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Неверный логин или пароль"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не найдено"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -835,17 +793,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Неверный логин или пароль"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не найдено"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -855,17 +813,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Неверный логин или пароль"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не найдено"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -875,17 +833,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Неверный логин или пароль"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не найдено"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -895,17 +853,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Неверный логин или пароль"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не найдено"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -915,17 +873,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Неверный логин или пароль"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не найдено"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -935,17 +893,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Неверный логин или пароль"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не найдено"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -955,17 +913,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Неверный логин или пароль"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не найдено"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -975,17 +933,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Неверный логин или пароль"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не найдено"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 
@@ -995,17 +953,17 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(Resource.success(response.body()))
+                        emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(Resource.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Неверный логин или пароль"))
                     }
                 }
                 else -> {
-                    emit(Resource.error("Не найдено"))
+                    emit(ResultStatus.error("Не найдено"))
                 }
             }
         } catch (e: Exception) {
-            emit(Resource.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
 }
