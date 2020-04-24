@@ -50,7 +50,6 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.thoughtbot:expandablecheckrecyclerview:1.4'
 
-
     //viewpager2
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
 
