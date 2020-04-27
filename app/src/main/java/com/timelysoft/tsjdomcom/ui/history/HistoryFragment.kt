@@ -270,7 +270,7 @@ class HistoryFragment : Fragment() {
                 }
 
                 if (history_address.text.isEmpty()) {
-                    Toast.makeText(context, "Сначало выберте адрес", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, "Сначала выберите адрес", Toast.LENGTH_LONG).show()
                 }
 
             } catch (e: Exception) {

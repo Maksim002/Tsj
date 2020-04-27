@@ -27,7 +27,7 @@ class NetworkRepository {
                 }
             }
         } catch (e: Exception) {
-            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключением интернета", null))
         }
     }
 
@@ -39,7 +39,7 @@ class NetworkRepository {
                     if (response.body() != null) {
                         emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(ResultStatus.error("Ошибка при получение данных"))
+                        emit(ResultStatus.error("Ошибка при получении данных"))
                     }
                 }
                 else -> {
@@ -47,7 +47,7 @@ class NetworkRepository {
                 }
             }
         } catch (e: Exception) {
-            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключением интернета", null))
         }
     }
 
@@ -59,7 +59,7 @@ class NetworkRepository {
                     if (response.body() != null) {
                         emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(ResultStatus.error("Ошибка при получение данных"))
+                        emit(ResultStatus.error("Ошибка при получении данных"))
                     }
                 }
                 else -> {
@@ -67,7 +67,7 @@ class NetworkRepository {
                 }
             }
         } catch (e: Exception) {
-            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключением интернета", null))
         }
     }
 
@@ -79,7 +79,7 @@ class NetworkRepository {
                     if (response.body() != null) {
                         emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(ResultStatus.error("Ошибка при получение данных"))
+                        emit(ResultStatus.error("Ошибка при получении данных"))
                     }
                 }
                 else -> {
@@ -96,14 +96,14 @@ class NetworkRepository {
             val response = RetrofitService.apiServiceNew().deleteMessage(id)
             when {
                 response.isSuccessful -> {
-                    emit(ResultStatus.success(null, "Ваше собщение удалено"))
+                    emit(ResultStatus.success(null, "Ваше сообщение удалено"))
                 }
                 else -> {
                     emit(ResultStatus.error("Произошла ошибка при удалении"))
                 }
             }
         } catch (e: Exception) {
-            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключением интернета", null))
         }
     }
 
@@ -115,7 +115,7 @@ class NetworkRepository {
                     if (response.body() != null) {
                         emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(ResultStatus.error("Ошибка при получение данных"))
+                        emit(ResultStatus.error("Ошибка при получении данных"))
                     }
                 }
                 else -> {
@@ -123,7 +123,7 @@ class NetworkRepository {
                 }
             }
         } catch (e: Exception) {
-            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключением интернета", null))
         }
     }
 
@@ -135,7 +135,7 @@ class NetworkRepository {
                     if (response.body() != null) {
                         emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(ResultStatus.error("Ошибка при получение данных"))
+                        emit(ResultStatus.error("Ошибка при получении данных"))
                     }
                 }
                 else -> {
@@ -143,7 +143,7 @@ class NetworkRepository {
                 }
             }
         } catch (e: Exception) {
-            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключением интернета", null))
         }
     }
 
@@ -155,7 +155,7 @@ class NetworkRepository {
                     if (response.body() != null) {
                         emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(ResultStatus.error("Ошибка при получение данных"))
+                        emit(ResultStatus.error("Ошибка при получении данных"))
                     }
                 }
                 else -> {
@@ -163,7 +163,7 @@ class NetworkRepository {
                 }
             }
         } catch (e: Exception) {
-            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключением интернета", null))
         }
     }
 
@@ -175,7 +175,7 @@ class NetworkRepository {
                     if (response.body() != null) {
                         emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(ResultStatus.error("Ошибка при получение данных"))
+                        emit(ResultStatus.error("Ошибка при получении данных"))
                     }
                 }
                 else -> {
@@ -183,7 +183,7 @@ class NetworkRepository {
                 }
             }
         } catch (e: Exception) {
-            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключением интернета", null))
         }
     }
 
@@ -195,7 +195,7 @@ class NetworkRepository {
                     if (response.body() != null) {
                         emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(ResultStatus.error("Ошибка при получение данных"))
+                        emit(ResultStatus.error("Ошибка при получении данных"))
                     }
                 }
                 else -> {
@@ -203,7 +203,7 @@ class NetworkRepository {
                 }
             }
         } catch (e: Exception) {
-            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключением интернета", null))
         }
     }
 
@@ -222,7 +222,7 @@ class NetworkRepository {
                     if (response.body() != null) {
                         emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(ResultStatus.error("Ошибка при получение данных"))
+                        emit(ResultStatus.error("Ошибка при получении данных"))
                     }
                 }
                 else -> {
@@ -230,7 +230,7 @@ class NetworkRepository {
                 }
             }
         } catch (e: Exception) {
-            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключением интернета", null))
         }
     }
 
@@ -242,7 +242,7 @@ class NetworkRepository {
                     if (response.body() != null) {
                         emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(ResultStatus.error("Ошибка при получение данных"))
+                        emit(ResultStatus.error("Ошибка при получении данных"))
                     }
                 }
                 else -> {
@@ -250,7 +250,7 @@ class NetworkRepository {
                 }
             }
         } catch (e: Exception) {
-            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключением интернета", null))
         }
     }
 
@@ -262,7 +262,7 @@ class NetworkRepository {
                     if (response.body() != null) {
                         emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(ResultStatus.error("Ошибка при получение данных"))
+                        emit(ResultStatus.error("Ошибка при получении данных"))
                     }
                 }
                 else -> {
@@ -270,7 +270,7 @@ class NetworkRepository {
                 }
             }
         } catch (e: Exception) {
-            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключением интернета", null))
         }
     }
 
@@ -282,7 +282,7 @@ class NetworkRepository {
                     if (response.body() != null) {
                         emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(ResultStatus.error("Ошибка при получение данных"))
+                        emit(ResultStatus.error("Ошибка при получении данных"))
                     }
                 }
                 else -> {
@@ -290,7 +290,7 @@ class NetworkRepository {
                 }
             }
         } catch (e: Exception) {
-            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключением интернета", null))
         }
     }
 
@@ -302,7 +302,7 @@ class NetworkRepository {
                     if (response.body() != null) {
                         emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(ResultStatus.error("Ошибка при получение данных"))
+                        emit(ResultStatus.error("Ошибка при получении данных"))
                     }
                 }
                 else -> {
@@ -310,7 +310,7 @@ class NetworkRepository {
                 }
             }
         } catch (e: Exception) {
-            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключением интернета", null))
         }
     }
 
@@ -319,7 +319,7 @@ class NetworkRepository {
             val response = RetrofitService.apiServiceNew().requestAdd(body)
             when {
                 response.isSuccessful -> {
-                    emit(ResultStatus.success(null, "Заявка добавленна"))
+                    emit(ResultStatus.success(null, "Заявка добавлена"))
 
                 }
                 else -> {
@@ -327,7 +327,7 @@ class NetworkRepository {
                 }
             }
         } catch (e: Exception) {
-            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключением интернета", null))
         }
     }
 
@@ -340,7 +340,7 @@ class NetworkRepository {
                     if (response.body() != null) {
                         emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(ResultStatus.error("Ошибка при получение данных"))
+                        emit(ResultStatus.error("Ошибка при получении данных"))
                     }
                 }
                 else -> {
@@ -348,7 +348,7 @@ class NetworkRepository {
                 }
             }
         } catch (e: Exception) {
-            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключением интернета", null))
         }
     }
 
@@ -357,14 +357,14 @@ class NetworkRepository {
             val response = RetrofitService.apiServiceNew().requestDelete(id)
             when {
                 response.isSuccessful -> {
-                        emit(ResultStatus.success(null, "Ошибка при получение данных"))
+                        emit(ResultStatus.success(null, "Ошибка при получении данных"))
                     }
                     else -> {
                         emit(ResultStatus.error("Не известная ошибка"))
                     }
             }
         } catch (e: Exception) {
-            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключением интернета", null))
         }
     }
 
@@ -376,7 +376,7 @@ class NetworkRepository {
                     if (response.body() != null) {
                         emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(ResultStatus.error("Ошибка при получение данных"))
+                        emit(ResultStatus.error("Ошибка при получении данных"))
                     }
                 }
                 else -> {
@@ -384,7 +384,7 @@ class NetworkRepository {
                 }
             }
         } catch (e: Exception) {
-            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключением интернета", null))
         }
     }
 
@@ -402,7 +402,7 @@ class NetworkRepository {
                     }
                 }
             } catch (e: Exception) {
-                emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+                emit(ResultStatus.netwrok("Проблеммы с подключением интернета", null))
             }
         }
 
@@ -414,7 +414,7 @@ class NetworkRepository {
                     if (response.body() != null) {
                         emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(ResultStatus.error("Ошибка при получение данных"))
+                        emit(ResultStatus.error("Ошибка при получении данных"))
                     }
                 }
                 else -> {
@@ -422,7 +422,7 @@ class NetworkRepository {
                 }
             }
         } catch (e: Exception) {
-            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключением интернета", null))
         }
     }
 
@@ -434,7 +434,7 @@ class NetworkRepository {
                     if (response.body() != null) {
                         emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(ResultStatus.error("Ошибка при получение данных"))
+                        emit(ResultStatus.error("Ошибка при получении данных"))
                     }
                 }
                 else -> {
@@ -442,7 +442,7 @@ class NetworkRepository {
                 }
             }
         } catch (e: Exception) {
-            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключением интернета", null))
         }
     }
 
@@ -454,7 +454,7 @@ class NetworkRepository {
                     if (response.body() != null) {
                         emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(ResultStatus.error("Ошибка при получение данных"))
+                        emit(ResultStatus.error("Ошибка при получении данных"))
                     }
                 }
                 else -> {
@@ -462,7 +462,7 @@ class NetworkRepository {
                 }
             }
         } catch (e: Exception) {
-            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+            emit(ResultStatus.netwrok("Проблеммы с подключением интернета", null))
         }
     }
 
