@@ -76,6 +76,7 @@ class RequestFragment : Fragment(), RequestClickItemListener {
         val bundle = Bundle()
         bundle.putInt("id", item.id)
         bundle.putInt("requestsId", requestsId)
+        bundle.putString("date",item.dateArrival)
         bundle.putBoolean("isEditableAndCloseable", item.isEditableAndCloseable)
         Navigation.findNavController(Objects.requireNonNull<View>(view))
             .navigate(R.id.navigation_bid_detail, bundle)

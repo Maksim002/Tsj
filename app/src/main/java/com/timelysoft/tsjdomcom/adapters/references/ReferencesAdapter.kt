@@ -23,7 +23,6 @@ class ReferencesAdapter(items: ArrayList<ReferenceLiteModel>, val listener: Refe
         holder.itemView.setOnClickListener {
             listener.onClickItem(item)
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

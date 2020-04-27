@@ -34,11 +34,8 @@ class ChangePassword : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initHint()
-
         change_password_btn.setOnClickListener {
-
             if (validate()) {
-
                 val model = ChangePasswordModel()
                 model.oldPassword = change_password_old.text.toString()
                 model.newPassword = change_password_new.text.toString()
@@ -49,12 +46,12 @@ class ChangePassword : Fragment() {
                         Toast.makeText(context,"Пароль успешно изменен",Toast.LENGTH_LONG).show()
                         findNavController().popBackStack()
                     }else{
-                        Toast.makeText(context,"Произошла ошибка при изменении пароля",Toast.LENGTH_LONG).show()
+                        change_password_old_input.error = "Неверный старый пароль"
+                        Toast.makeText(context,"Неверный старый пароль",Toast.LENGTH_LONG).show()
                     }
                     MainActivity.alert.hide()
                 })
             }
-
         }
     }
 
@@ -84,9 +81,10 @@ class ChangePassword : Fragment() {
 
         if (change_password_new.text.toString() != change_password_accept.text.toString()) {
             valid = false
+            change_password_new_input.error = "Пароль не совпадает"
+            change_password_accept_input.error = "Пароль не совпадает"
             Toast.makeText(context, "Пароли не совпадают", Toast.LENGTH_LONG).show()
         }
-
         return valid
     }
 

@@ -153,11 +153,11 @@ class NewMessageMandgerFragment : Fragment(), GeneralClickListener {
                 val file = File(getPath(uri))
                 val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
                 val photo = MultipartBody.Part.createFormData("File", file.name, requestFile)
-
+                val filename = file.name
                 files.add(photo)
                 names.add(photo.toString().substring(0, 15))
                 val items = names.map {
-                    FilesModel(it)
+                    FilesModel(filename, "")
                 }
                 filesAdapter.update(items)
             }
