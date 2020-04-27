@@ -4,21 +4,23 @@ package com.timelysoft.tsjdomcom.ui.requests
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.timelysoft.tsjdomcom.MainActivity
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.service.model.RequestModel
-import kotlinx.android.synthetic.main.fragment_bid_detail.view.*
+import com.timelysoft.tsjdomcom.utils.MyUtils
+import kotlinx.android.synthetic.main.fragment_bid_detail.*
 
 class RequestDetailFragment : Fragment() {
 
     private lateinit var viewModel: RequestViewModel
     private var requestId = 0
     private var detailsId = 0
+    private var requestDate = ""
 
     companion object {
         var requestModel = RequestModel()
@@ -33,20 +35,31 @@ class RequestDetailFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(RequestViewModel::class.java)
         (activity as AppCompatActivity).supportActionBar?.show()
         initArguments()
-        initData(root)
+        initData()
         return root
     }
 
 
-    private fun initData(root: View) {
+    private fun initData() {
         MainActivity.alert.show()
         viewModel.getRequest(requestId).observe(this, Observer {
             requestModel = it
-            root.bid_adres_content.text = it.address
-            root.bid_flat_content.text = it.floor.toString()
-            root.bid_porch_content.text = it.entrance.toString()
-            root.bid_description_content.text = it.description
-            root.bid_title.text = it.requestTypeName
+            bid_adres_content.text = it.address
+            bid_flat_content.text = it.floor.toString()
+            bid_porch_content.text = it.entrance.toString()
+            bid_description_content.text = it.description
+            bid_title.text = it.requestTypeName
+            bid_detail_date.text = "от " + MyUtils.toMyDateTime(requestDate)
+
+            if (it.editableAndCloseable) {
+                bid_status_textview.text = "Создана"
+                bid_status_textview.setTextColor(resources.getColor(R.color.requestStatusGreen))
+                bid_status_view.setBackgroundColor(resources.getColor(R.color.requestStatusGreen))
+            } else {
+                bid_status_textview.text = "Отменена"
+                bid_status_textview.setTextColor(resources.getColor(R.color.requestStatusRed))
+                bid_status_view.setBackgroundColor(resources.getColor(R.color.requestStatusRed))
+            }
             MainActivity.alert.hide()
         })
     }
@@ -56,6 +69,12 @@ class RequestDetailFragment : Fragment() {
             arguments!!.getInt("id")
         } catch (e: Exception) {
             0
+        }
+
+        requestDate = try {
+            arguments!!.getString("date")!!
+        } catch (e: Exception) {
+            " "
         }
 
         detailsId = try {
@@ -71,7 +90,6 @@ class RequestDetailFragment : Fragment() {
 
         }
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.request_detail_menu, menu)

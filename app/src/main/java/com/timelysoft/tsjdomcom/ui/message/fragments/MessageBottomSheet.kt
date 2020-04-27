@@ -118,27 +118,30 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
                 }
             }
 
-            fasten_file_image_sheet_message.setOnClickListener {
-                MyUtils.hideKeyboard(activity!!, view)
+        }
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (ContextCompat.checkSelfPermission(
-                            context!!,
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE
-                        ) == PackageManager.PERMISSION_DENIED
-                    ) {
-                        val permissions = arrayOf(
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                            Manifest.permission.READ_EXTERNAL_STORAGE
-                        )
-                        requestPermissions(permissions, STORAGE_PERMISION_CODE)
+        fasten_file_image_sheet_message.setOnClickListener {
+            println("sd")
 
-                    } else {
-                        getMyFile()
-                    }
+            MyUtils.hideKeyboard(activity!!, view)
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (ContextCompat.checkSelfPermission(
+                        context!!,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    ) == PackageManager.PERMISSION_DENIED
+                ) {
+                    val permissions = arrayOf(
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE
+                    )
+                    requestPermissions(permissions, STORAGE_PERMISION_CODE)
+
                 } else {
                     getMyFile()
                 }
+            } else {
+                getMyFile()
             }
         }
     }
@@ -158,7 +161,6 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
         } else {
             edit_sms_sheet_message.isErrorEnabled = false
         }
-
         return valid
     }
 
@@ -187,7 +189,6 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
                 val file = File(getPath(uri))
                 val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
                 val photo = MultipartBody.Part.createFormData("File", file.name, requestFile)
-
                 files.add(photo)
                 names.add(photo.toString().substring(0, 15))
             }

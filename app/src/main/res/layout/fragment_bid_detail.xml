@@ -9,14 +9,24 @@
 
     <TextView
         android:id="@+id/bid_title"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/marginHorizontal"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:text="Заявка на ремонт"
         android:textColor="@color/blackTextColor"
         android:textSize="20sp"
         android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/bid_detail_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        tools:text="от 18.02.2020 16:16" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -28,19 +38,41 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/marginHorizontal"
             android:layout_marginBottom="23dp">
+
+            <View
+                android:id="@+id/bid_status_view"
+                android:layout_width="54dp"
+                android:layout_height="4dp"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:background="@android:color/holo_green_dark" />
+
+            <TextView
+                android:id="@+id/bid_status_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@id/bid_status_view"
+                app:layout_constraintStart_toStartOf="@id/bid_status_view"
+                app:layout_constraintTop_toBottomOf="@id/bid_status_view"
+                tools:text="Создана"
+                tools:textColor="@android:color/holo_green_dark" />
 
             <TextView
                 android:id="@+id/bid_adres_static"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/marginHorizontal"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
                 android:layout_marginEnd="@dimen/marginHorizontal"
                 android:text="Адрес"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/bid_status_textview" />
 
             <TextView
                 android:id="@+id/bid_adres_content"
@@ -49,11 +81,11 @@
                 android:layout_marginStart="@dimen/marginHorizontal"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="@dimen/marginHorizontal"
-                tools:text="7 небо, Токомбаева, д.53/2 кв 11"
                 android:textColor="@color/blackTextColor"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/bid_adres_static" />
+                app:layout_constraintTop_toBottomOf="@id/bid_adres_static"
+                tools:text="7 небо, Токомбаева, д.53/2 кв 11" />
 
             <TextView
                 android:id="@+id/bid_porch_static"
@@ -74,11 +106,11 @@
                 android:layout_marginStart="@dimen/marginHorizontal"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="@dimen/marginHorizontal"
-                tools:text="1"
                 android:textColor="@color/blackTextColor"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/bid_porch_static" />
+                app:layout_constraintTop_toBottomOf="@id/bid_porch_static"
+                tools:text="1" />
 
             <TextView
                 android:id="@+id/bid_flat_static"
@@ -94,11 +126,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                tools:text="3"
                 android:textColor="@color/blackTextColor"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@id/bid_flat_static"
-                app:layout_constraintTop_toBottomOf="@id/bid_flat_static" />
+                app:layout_constraintTop_toBottomOf="@id/bid_flat_static"
+                tools:text="3" />
 
             <View
                 android:id="@+id/bid_divider"
@@ -127,11 +159,11 @@
                 android:layout_marginStart="@dimen/marginHorizontal"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="@dimen/marginHorizontal"
-                tools:text="Тестовая заявка на ремонт"
                 android:textColor="@color/blackTextColor"
                 android:textSize="15sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/bid_description_static" />
+                app:layout_constraintTop_toBottomOf="@id/bid_description_static"
+                tools:text="Тестовая заявка на ремонт" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

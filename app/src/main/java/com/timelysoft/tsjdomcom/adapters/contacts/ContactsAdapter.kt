@@ -8,12 +8,18 @@ import com.timelysoft.tsjdomcom.common.ViewHolder
 import com.timelysoft.tsjdomcom.service.model.AddressModel
 import kotlinx.android.synthetic.main.item_contacts.view.*
 
-class ContactsAdapter(item: List<AddressModel>,private val listener: ContactListener) : GenericRecyclerAdapter<AddressModel>(item) {
+class ContactsAdapter(item: List<AddressModel>, private val listener: ContactListener) :
+    GenericRecyclerAdapter<AddressModel>(item) {
     override fun bind(item: AddressModel, holder: ViewHolder) {
         holder.itemView.contacts_title.text = item.address
         holder.itemView.contacts_content.text = item.licNumber.toString()
+
         holder.itemView.setOnClickListener {
             listener.onClickItem(item)
+        }
+
+        holder.itemView.contacts_copy_text.setOnClickListener {
+            listener.copyLicNumber(item.licNumber.toString())
         }
     }
 

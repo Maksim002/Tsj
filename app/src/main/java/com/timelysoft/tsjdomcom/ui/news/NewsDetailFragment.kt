@@ -64,7 +64,7 @@ class NewsDetailFragment : Fragment(), GeneralClickListener, CommentOnItemListen
             cardview.visibility = View.VISIBLE
             news_detail_send_btn.setOnClickListener { view ->
                 MyUtils.hideKeyboard(activity!!, view!!)
-                if (validate()){
+                if (validate()) {
                     val body = NewsCommentRequest(newsId, news_detail_edittext.text.toString())
                     MainActivity.alert.show()
                     viewModel.newsCommentPost(body).observe(this, Observer {
@@ -124,12 +124,8 @@ class NewsDetailFragment : Fragment(), GeneralClickListener, CommentOnItemListen
                 news_detail_files_rv.adapter = fileAdapter
             }
         })
-
         initComments()
     }
-
-
-
 
     private fun initComments() {
         MainActivity.alert.show()
@@ -137,8 +133,9 @@ class NewsDetailFragment : Fragment(), GeneralClickListener, CommentOnItemListen
             val commentAdapter = NewsCommentAdapter(item, this)
             if (commentAdapter.itemCount == 0) {
                 news_detail_comment.visibility = View.GONE
-                news_detail_comment_rv.visibility = View.GONE
+                news_detail_comment_rv.adapter = commentAdapter
             } else {
+                news_detail_comment.visibility = View.VISIBLE
                 news_detail_comment_rv.adapter = commentAdapter
             }
             MainActivity.alert.hide()
@@ -153,7 +150,7 @@ class NewsDetailFragment : Fragment(), GeneralClickListener, CommentOnItemListen
         }
     }
 
-    override fun onClickItem(position: Int, url: String,fileName:String) {
+    override fun onClickItem(position: Int, url: String, fileName: String) {
         filePath = url
         this.fileName = fileName
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -237,6 +234,7 @@ class NewsDetailFragment : Fragment(), GeneralClickListener, CommentOnItemListen
         }
         builder.show()
     }
+
     private fun validate(): Boolean {
         var valid = true
         if (news_detail_edittext.text.toString().isEmpty()) {
