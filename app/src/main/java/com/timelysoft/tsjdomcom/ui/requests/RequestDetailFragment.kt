@@ -134,6 +134,7 @@ class RequestDetailFragment : Fragment() {
             when(result.status){
                 Status.SUCCESS ->{
                     findNavController().popBackStack()
+                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
                 }
                 Status.ERROR, Status.NETWORK ->{
                     Toast.makeText(context, msg, Toast.LENGTH_LONG).show()

@@ -119,7 +119,7 @@ class RequestAddFragment : Fragment() {
                         MainActivity.alert.hide()
                         when(result.status) {
                             Status.SUCCESS -> {
-                                Toast.makeText(context, "ok", Toast.LENGTH_LONG).show()
+                                Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
                                 findNavController().popBackStack()
                             }
                             Status.ERROR, Status.NETWORK -> {
@@ -149,16 +149,6 @@ class RequestAddFragment : Fragment() {
                             }
                         }
                     })
-
-//                    viewModel.addRequest(body).observe(viewLifecycleOwner, Observer {
-//                        if (it) {
-//                            Toast.makeText(context, "ok", Toast.LENGTH_LONG).show()
-//                            findNavController().popBackStack()
-//                        } else {
-//                            Toast.makeText(context, "ошибка", Toast.LENGTH_LONG).show()
-//                        }
-//                        MainActivity.alert.hide()
-//                    })
                 }
             }
         }
@@ -269,17 +259,5 @@ class RequestAddFragment : Fragment() {
                 }
             }
         })
-
-
-//        viewModel.requestAddresses().observe(viewLifecycleOwner, Observer {
-//            //адреса
-//            val typeAdapter = ArrayAdapter<RequestAddressesModel>(
-//                context!!,
-//                R.layout.support_simple_spinner_dropdown_item,
-//                it
-//            )
-//            bid_add_adres.setAdapter(typeAdapter)
-//            MainActivity.alert.hide()
-//        })
     }
 }

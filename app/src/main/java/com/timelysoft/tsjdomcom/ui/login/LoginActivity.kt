@@ -118,10 +118,7 @@ class LoginActivity : AppCompatActivity() {
                                         viewModel.sendToken(FirebaseTokenModel(token, 0))
                                 })
                         }
-                        Status.ERROR ->{
-                            Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
-                        }
-                        Status.NETWORK ->{
+                        Status.ERROR, Status.NETWORK ->{
                             Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
                         }
                     }

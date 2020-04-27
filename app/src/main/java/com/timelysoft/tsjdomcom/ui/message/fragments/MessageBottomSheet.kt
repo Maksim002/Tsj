@@ -79,6 +79,7 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
                         when(result.status){
                             Status.SUCCESS ->{
                                     dismiss()
+                                Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
                                     findNavController().popBackStack()
                             }
                             Status.ERROR, Status.NETWORK ->{
