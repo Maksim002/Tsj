@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.timelysoft.tsjdomcom.MainActivity
 import com.timelysoft.tsjdomcom.R
+import com.timelysoft.tsjdomcom.service.Status
 import com.timelysoft.tsjdomcom.service.model.AddressModel
 import com.timelysoft.tsjdomcom.service.model.OperationsModel
 import com.timelysoft.tsjdomcom.service.model.ServicesModel
@@ -111,8 +112,8 @@ class HistoryFragment : Fragment() {
                 bundle.putString("address", address)
                 bundle.putInt("placementId", placementId)
 
-                bundle.putString("to", history_from_date.text.toString())
-                bundle.putString("from", history_to_date.text.toString())
+                bundle.putString("from", history_from_date.text.toString())
+                bundle.putString("to", history_to_date.text.toString())
                 Navigation.findNavController(it).navigate(R.id.navigation_personal, bundle)
             }
         }
@@ -139,20 +140,29 @@ class HistoryFragment : Fragment() {
 
     private fun getDate() {
         MainActivity.alert.show()
-        viewmodel.periods().observe(this, Observer { periods ->
-            history_from_date.setText(MyUtils.toMyDate(periods.from))
-            history_to_date.setText(MyUtils.toMyDate(periods.to))
-            // Ковертация и присваевание
-            val (dayFrom, monthFrom, yearFrom) = MyUtils.dateConverting(periods.from.toString())
-            dayStart = dayFrom
-            monthStart = monthFrom - 1
-            yearStart = yearFrom
+        viewmodel.periods().observe(this, Observer { result ->
+            val msg = result.msg
+            val data = result.data
+            when(result.status){
+                Status.SUCCESS ->{
+                    history_from_date.setText(MyUtils.toMyDate(data!!.from))
+                    history_to_date.setText(MyUtils.toMyDate(data.to))
+                    // Ковертация и присваевание
+                    val (dayFrom, monthFrom, yearFrom) = MyUtils.dateConverting(data.from.toString())
+                    dayStart = dayFrom
+                    monthStart = monthFrom - 1
+                    yearStart = yearFrom
 
-            val (dayTo, monthTo, yearTo) = MyUtils.dateConverting(periods.to.toString())
-            dayEnd = dayTo
-            monthEnd = monthTo - 1
-            yearEnd = yearTo
-            MainActivity.alert.hide()
+                    val (dayTo, monthTo, yearTo) = MyUtils.dateConverting(data.to.toString())
+                    dayEnd = dayTo
+                    monthEnd = monthTo - 1
+                    yearEnd = yearTo
+                    MainActivity.alert.hide()
+                }
+                Status.ERROR, Status.NETWORK ->{
+                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                }
+            }
         })
     }
 
@@ -218,18 +228,25 @@ class HistoryFragment : Fragment() {
     private fun getAutoService() {
         var listServices = ArrayList<ServicesModel>()
         MainActivity.alert.show()
-        viewmodel.services(placementId).observe(this, Observer { services ->
-
-            val list = services.map {
-                it.serviceName
+        viewmodel.services(placementId).observe(this, Observer { result ->
+            val msg = result.msg
+            val data = result.data
+            when(result.status){
+                Status.SUCCESS ->{
+                    val list = data!!.map {
+                        it.serviceName
+                    }
+                    listServices = data as ArrayList<ServicesModel>
+                    val adapterServices = ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
+                    adapterServices.notifyDataSetChanged()
+                    history_service.setAdapter(adapterServices)
+                    MainActivity.alert.hide()
+                }
+                Status.ERROR, Status.NETWORK ->{
+                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                }
             }
-            listServices = services as ArrayList<ServicesModel>
-            val adapterServices = ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
-            adapterServices.notifyDataSetChanged()
-            history_service.setAdapter(adapterServices)
-            MainActivity.alert.hide()
         })
-
 
         history_service.onItemClickListener =
             AdapterView.OnItemClickListener { parent, _, position, _ ->
@@ -265,16 +282,26 @@ class HistoryFragment : Fragment() {
     private fun getAutoOperation() {
         var listOperations = ArrayList<OperationsModel>()
         MainActivity.alert.show()
-        viewmodel.operations().observe(this, Observer { operations ->
-            val list = operations.map {
-                it.operationName
+        viewmodel.operations().observe(this, Observer { result->
+            val msg = result.msg
+            val data = result.data
+            when(result.status){
+                Status.SUCCESS ->{
+                    val list = data!!.map {
+                        it.operationName
+                    }
+                    listOperations = data as ArrayList<OperationsModel>
+                    val adapterOperations =
+                        ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
+                    history_operation.setAdapter(adapterOperations)
+                    MainActivity.alert.hide()
+                }
+                Status.ERROR, Status.NETWORK ->{
+                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                }
             }
-            listOperations = operations as ArrayList<OperationsModel>
-            val adapterOperations =
-                ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
-            history_operation.setAdapter(adapterOperations)
-            MainActivity.alert.hide()
         })
+
         history_operation.setKeyListener(null)
 
         history_operation.onItemClickListener =

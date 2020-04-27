@@ -29,6 +29,7 @@ import com.timelysoft.tsjdomcom.MainActivity
 import com.timelysoft.tsjdomcom.adapters.files.FilesAdapter
 import com.timelysoft.tsjdomcom.adapters.files.FilesModel
 import com.timelysoft.tsjdomcom.adapters.files.GeneralClickListener
+import com.timelysoft.tsjdomcom.service.Status
 import com.timelysoft.tsjdomcom.utils.MyUtils
 import kotlinx.android.synthetic.main.new_message_chairman.view.*
 import java.io.File
@@ -80,7 +81,7 @@ class NewMessageMandgerFragment : Fragment(), GeneralClickListener {
         return root
     }
 
-    override fun onClickItem(position: Int, url: String,fileName:String) {
+    override fun onClickItem(position: Int, url: String, fileName: String) {
         names.removeAt(position)
         files.removeAt(position)
         val items = names.map {
@@ -182,14 +183,18 @@ class NewMessageMandgerFragment : Fragment(), GeneralClickListener {
             val title = manager_message_ref.text.toString()
             val body = manager_message_content.text.toString()
             MainActivity.alert.show()
-            viewModel.sendMessageToManager(body, title, files).observe(this, Observer {
-                MainActivity.alert.hide()
-                if (it) {
-                    Toast.makeText(context, "Ваше сообщение отправлено!", Toast.LENGTH_LONG).show()
 
-                    findNavController().popBackStack()
-                } else {
-                    Toast.makeText(context, "Неудочно", Toast.LENGTH_LONG).show()
+            viewModel.sendMessageToManagerN(body, title, files).observe(this, Observer { result ->
+                val msg = result.msg
+                val data = result.data
+                MainActivity.alert.hide()
+                when(result.status){
+                    Status.SUCCESS ->{
+                        findNavController().popBackStack()
+                    }
+                    Status.ERROR, Status.NETWORK ->{
+                        Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                    }
                 }
             })
         }

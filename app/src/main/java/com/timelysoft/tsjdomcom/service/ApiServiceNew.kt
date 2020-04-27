@@ -52,8 +52,8 @@ interface ApiServiceNew {
         @Query("placementId") placementId: Int,
         @Query("serviceId") serviceId: Int,
         @Query("operationId") operationId: Int,
-        @Query("dateTo") dateTo: String,
-        @Query("dateFrom") dateFrom: String
+        @Query("dateFrom") dateFrom: String,
+        @Query("dateTo") dateTo: String
     ): Response<CurrentBalance>
 
     @GET("Requests")
@@ -69,7 +69,7 @@ interface ApiServiceNew {
     suspend fun requestUpdate(@Body body: UpdateRequest): Response<Unit>
 
     @POST("Requests")
-    suspend fun requestAdd(@Body body: AddRequest): Response<String>
+    suspend fun requestAdd(@Body body: AddRequest): Response<Unit>
 
     @GET("Requests/{id}")
     suspend fun requestGet(@Path("id") id: Int): Response<RequestModel>

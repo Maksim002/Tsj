@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.timelysoft.tsjdomcom.MainActivity
 import com.timelysoft.tsjdomcom.R
+import com.timelysoft.tsjdomcom.service.Status
 import com.timelysoft.tsjdomcom.service.model.RequestAddressesModel
 import com.timelysoft.tsjdomcom.service.model.RequestTypeModel
 import com.timelysoft.tsjdomcom.service.request.AddRequest
@@ -113,14 +114,18 @@ class RequestAddFragment : Fragment() {
                     body.entrance = root.bid_add_porch.text.toString().toInt()
                     body.requestTypeId = requestTypeId
 
-                    viewModel.updateRequest(body).observe(this, Observer {
-                        if (it) {
-                            Toast.makeText(context, "ok", Toast.LENGTH_LONG).show()
-                            findNavController().popBackStack()
-                        } else {
-                            Toast.makeText(context, "ошибка", Toast.LENGTH_LONG).show()
-                        }
+                    viewModel.updateRequest(body).observe(viewLifecycleOwner, Observer { result ->
+                        val msg = result.msg
                         MainActivity.alert.hide()
+                        when(result.status) {
+                            Status.SUCCESS -> {
+                                Toast.makeText(context, "ok", Toast.LENGTH_LONG).show()
+                                findNavController().popBackStack()
+                            }
+                            Status.ERROR, Status.NETWORK -> {
+                                Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                            }
+                        }
                     })
                 } else {
                     val body = AddRequest(
@@ -131,15 +136,29 @@ class RequestAddFragment : Fragment() {
                         root.request_description.text.toString()
                     )
 
-                    viewModel.addRequest(body).observe(this, Observer {
-                        if (it) {
-                            Toast.makeText(context, "ok", Toast.LENGTH_LONG).show()
-                            findNavController().popBackStack()
-                        } else {
-                            Toast.makeText(context, "ошибка", Toast.LENGTH_LONG).show()
+                    viewModel.addRequest(body).observe(viewLifecycleOwner, Observer { result ->
+                        val msg = result.msg
+                        when(result.status){
+                            Status.SUCCESS ->{
+                                Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                                findNavController().popBackStack()
+                            }
+                            Status.ERROR, Status.NETWORK ->{
+                                Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                            }
                         }
                         MainActivity.alert.hide()
                     })
+
+//                    viewModel.addRequest(body).observe(viewLifecycleOwner, Observer {
+//                        if (it) {
+//                            Toast.makeText(context, "ok", Toast.LENGTH_LONG).show()
+//                            findNavController().popBackStack()
+//                        } else {
+//                            Toast.makeText(context, "ошибка", Toast.LENGTH_LONG).show()
+//                        }
+//                        MainActivity.alert.hide()
+//                    })
                 }
             }
         }
@@ -205,35 +224,62 @@ class RequestAddFragment : Fragment() {
 
     private fun initData() {
         MainActivity.alert.show()
-        viewModel.requestTypes().observe(this, Observer {
-            //types
-            val typeAdapter = ArrayAdapter<RequestTypeModel>(
-                context!!,
-                R.layout.item_spinner_adapter,
-                it
-            )
-            typeAdapter.setDropDownViewResource(R.layout.item_spinner_dropdown)
-            bid_add_type.adapter = typeAdapter
-            if (RequestDetailFragment.requestModel.id != 0) {
-                it.forEachIndexed { index, model ->
-                    if (RequestDetailFragment.requestModel.requestTypeName == model.requestTypeName){
-                        bid_add_type.setSelection(index+1)
+        viewModel.requestTypes().observe(viewLifecycleOwner, Observer { result ->
+            val msg = result.msg
+            val data = result.data
+            when(result.status){
+                Status.SUCCESS ->{
+                    val typeAdapter = ArrayAdapter<RequestTypeModel>(
+                        context!!,
+                        R.layout.item_spinner_adapter,
+                        data!!
+                    )
+                    typeAdapter.setDropDownViewResource(R.layout.item_spinner_dropdown)
+                    bid_add_type.adapter = typeAdapter
+                    if (RequestDetailFragment.requestModel.id != 0) {
+                        data.forEachIndexed { index, model ->
+                            if (RequestDetailFragment.requestModel.requestTypeName == model.requestTypeName){
+                                bid_add_type.setSelection(index+1)
+                            }
+                        }
                     }
+                    MainActivity.alert.hide()
+                }
+                Status.ERROR, Status.NETWORK ->{
+                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
                 }
             }
-            MainActivity.alert.hide()
-
         })
 
-        viewModel.requestAddresses().observe(this, Observer {
-            //адреса
-            val typeAdapter = ArrayAdapter<RequestAddressesModel>(
-                context!!,
-                R.layout.support_simple_spinner_dropdown_item,
-                it
-            )
-            bid_add_adres.setAdapter(typeAdapter)
-            MainActivity.alert.hide()
+        viewModel.requestAddresses().observe(viewLifecycleOwner, Observer { result ->
+            val msg = result.msg
+            val data = result.data
+            when(result.status){
+                Status.SUCCESS ->{
+                    val typeAdapter = ArrayAdapter<RequestAddressesModel>(
+                        context!!,
+                        R.layout.support_simple_spinner_dropdown_item,
+                        data!!
+                    )
+                    bid_add_adres.setAdapter(typeAdapter)
+                    MainActivity.alert.hide()
+                }
+                Status.ERROR, Status.NETWORK ->{
+                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                }
+            }
         })
+
+
+//        viewModel.requestAddresses().observe(viewLifecycleOwner, Observer {
+//            //адреса
+//            val typeAdapter = ArrayAdapter<RequestAddressesModel>(
+//                context!!,
+//                R.layout.support_simple_spinner_dropdown_item,
+//                it
+//            )
+//            bid_add_adres.setAdapter(typeAdapter)
+//            MainActivity.alert.hide()
+//        })
     }
 }

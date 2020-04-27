@@ -1,6 +1,6 @@
 package com.timelysoft.tsjdomcom.service
 
-import androidx.lifecycle.MutableLiveData
+
 import androidx.lifecycle.liveData
 import com.timelysoft.tsjdomcom.service.model.ChangePasswordModel
 import com.timelysoft.tsjdomcom.service.model.RequestForConnectModel
@@ -39,7 +39,7 @@ class NetworkRepository {
                     if (response.body() != null) {
                         emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(ResultStatus.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Ошибка при получение данных"))
                     }
                 }
                 else -> {
@@ -135,11 +135,11 @@ class NetworkRepository {
                     if (response.body() != null) {
                         emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(ResultStatus.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Ошибка при получение данных"))
                     }
                 }
                 else -> {
-                    emit(ResultStatus.error("Не найдено"))
+                    emit(ResultStatus.error("Не известная ошибка"))
                 }
             }
         } catch (e: Exception) {
@@ -155,11 +155,11 @@ class NetworkRepository {
                     if (response.body() != null) {
                         emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(ResultStatus.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Ошибка при получение данных"))
                     }
                 }
                 else -> {
-                    emit(ResultStatus.error("Не найдено"))
+                    emit(ResultStatus.error("Не известная ошибка"))
                 }
             }
         } catch (e: Exception) {
@@ -175,11 +175,11 @@ class NetworkRepository {
                     if (response.body() != null) {
                         emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(ResultStatus.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Ошибка при получение данных"))
                     }
                 }
                 else -> {
-                    emit(ResultStatus.error("Не найдено"))
+                    emit(ResultStatus.error("Не известная ошибка"))
                 }
             }
         } catch (e: Exception) {
@@ -195,11 +195,11 @@ class NetworkRepository {
                     if (response.body() != null) {
                         emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(ResultStatus.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Ошибка при получение данных"))
                     }
                 }
                 else -> {
-                    emit(ResultStatus.error("Не найдено"))
+                    emit(ResultStatus.error("Поля пусты"))
                 }
             }
         } catch (e: Exception) {
@@ -207,19 +207,26 @@ class NetworkRepository {
         }
     }
 
-    fun invoices(placementId: Int, serviceId: Int, operationId: Int, dateTo: String, dateFrom: String) = liveData(Dispatchers.IO) {
+    fun invoices(
+        placementId: Int,
+        serviceId: Int,
+        operationId: Int,
+        dateFrom: String,
+        dateTo: String
+    ) = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().invoices(placementId, serviceId, operationId, dateTo, dateFrom)
+            val response = RetrofitService.apiServiceNew()
+                .invoices(placementId, serviceId, operationId, dateFrom, dateTo)
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
                         emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(ResultStatus.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Ошибка при получение данных"))
                     }
                 }
                 else -> {
-                    emit(ResultStatus.error("Не найдено"))
+                    emit(ResultStatus.error("Не известная ошибка"))
                 }
             }
         } catch (e: Exception) {
@@ -235,11 +242,11 @@ class NetworkRepository {
                     if (response.body() != null) {
                         emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(ResultStatus.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Ошибка при получение данных"))
                     }
                 }
                 else -> {
-                    emit(ResultStatus.error("Не найдено"))
+                    emit(ResultStatus.error("Не известная ошибка"))
                 }
             }
         } catch (e: Exception) {
@@ -255,11 +262,11 @@ class NetworkRepository {
                     if (response.body() != null) {
                         emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(ResultStatus.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Ошибка при получение данных"))
                     }
                 }
                 else -> {
-                    emit(ResultStatus.error("Не найдено"))
+                    emit(ResultStatus.error("Не известная ошибка"))
                 }
             }
         } catch (e: Exception) {
@@ -275,11 +282,11 @@ class NetworkRepository {
                     if (response.body() != null) {
                         emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(ResultStatus.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Ошибка при получение данных"))
                     }
                 }
                 else -> {
-                    emit(ResultStatus.error("Не найдено"))
+                    emit(ResultStatus.error("Не известная ошибка"))
                 }
             }
         } catch (e: Exception) {
@@ -295,11 +302,11 @@ class NetworkRepository {
                     if (response.body() != null) {
                         emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(ResultStatus.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Ошибка при получение данных"))
                     }
                 }
                 else -> {
-                    emit(ResultStatus.error("Не найдено"))
+                    emit(ResultStatus.error("Не известная ошибка"))
                 }
             }
         } catch (e: Exception) {
@@ -312,20 +319,19 @@ class NetworkRepository {
             val response = RetrofitService.apiServiceNew().requestAdd(body)
             when {
                 response.isSuccessful -> {
-                    if (response.body() != null) {
-                        emit(ResultStatus.success(response.body()))
-                    } else {
-                        emit(ResultStatus.error("Неверный логин или пароль"))
-                    }
+
+                    emit(ResultStatus.success(null, "Заявка добавленна"))
+
                 }
                 else -> {
-                    emit(ResultStatus.error("Не найдено"))
+                    emit(ResultStatus.error("Не известная ошибка"))
                 }
             }
         } catch (e: Exception) {
             emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
+
 
     fun requestGet(id: Int) = liveData(Dispatchers.IO) {
         try {
@@ -335,11 +341,11 @@ class NetworkRepository {
                     if (response.body() != null) {
                         emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(ResultStatus.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Ошибка при получение данных"))
                     }
                 }
                 else -> {
-                    emit(ResultStatus.error("Не найдено"))
+                    emit(ResultStatus.error("Не известная ошибка"))
                 }
             }
         } catch (e: Exception) {
@@ -352,15 +358,11 @@ class NetworkRepository {
             val response = RetrofitService.apiServiceNew().requestDelete(id)
             when {
                 response.isSuccessful -> {
-                    if (response.body() != null) {
-                        emit(ResultStatus.success(response.body()))
-                    } else {
-                        emit(ResultStatus.error("Неверный логин или пароль"))
+                        emit(ResultStatus.success(null, "Ошибка при получение данных"))
                     }
-                }
-                else -> {
-                    emit(ResultStatus.error("Не найдено"))
-                }
+                    else -> {
+                        emit(ResultStatus.error("Не известная ошибка"))
+                    }
             }
         } catch (e: Exception) {
             emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
@@ -375,11 +377,11 @@ class NetworkRepository {
                     if (response.body() != null) {
                         emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(ResultStatus.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Ошибка при получение данных"))
                     }
                 }
                 else -> {
-                    emit(ResultStatus.error("Не найдено"))
+                    emit(ResultStatus.error("Не известная ошибка"))
                 }
             }
         } catch (e: Exception) {
@@ -387,25 +389,23 @@ class NetworkRepository {
         }
     }
 
-    fun sendMessageToManager(body: String, title: String, file: List<MultipartBody.Part>) = liveData(Dispatchers.IO) {
-        try {
-            val response = RetrofitService.apiServiceNew().sendMessageToManager(body, title, file)
-            when {
-                response.isSuccessful -> {
-                    if (response.body() != null) {
-                        emit(ResultStatus.success(response.body()))
-                    } else {
-                        emit(ResultStatus.error("Неверный логин или пароль"))
+    fun sendMessageToManager(body: String, title: String, file: List<MultipartBody.Part>) =
+        liveData(Dispatchers.IO) {
+            try {
+                val response =
+                    RetrofitService.apiServiceNew().sendMessageToManager(body, title, file)
+                when {
+                    response.isSuccessful -> {
+                        emit(ResultStatus.success(null, "Ваше сообщение отправлено!"))
+                    }
+                    else -> {
+                        emit(ResultStatus.error("Не известная ошибка"))
                     }
                 }
-                else -> {
-                    emit(ResultStatus.error("Не найдено"))
-                }
+            } catch (e: Exception) {
+                emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
             }
-        } catch (e: Exception) {
-            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
-    }
 
     fun houses() = liveData(Dispatchers.IO) {
         try {
@@ -415,11 +415,11 @@ class NetworkRepository {
                     if (response.body() != null) {
                         emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(ResultStatus.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Ошибка при получение данных"))
                     }
                 }
                 else -> {
-                    emit(ResultStatus.error("Не найдено"))
+                    emit(ResultStatus.error("Не известная ошибка"))
                 }
             }
         } catch (e: Exception) {
@@ -435,11 +435,11 @@ class NetworkRepository {
                     if (response.body() != null) {
                         emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(ResultStatus.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Ошибка при получение данных"))
                     }
                 }
                 else -> {
-                    emit(ResultStatus.error("Не найдено"))
+                    emit(ResultStatus.error("Не известная ошибка"))
                 }
             }
         } catch (e: Exception) {
@@ -455,11 +455,11 @@ class NetworkRepository {
                     if (response.body() != null) {
                         emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(ResultStatus.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Ошибка при получение данных"))
                     }
                 }
                 else -> {
-                    emit(ResultStatus.error("Не найдено"))
+                    emit(ResultStatus.error("Не известная ошибка"))
                 }
             }
         } catch (e: Exception) {
@@ -487,9 +487,15 @@ class NetworkRepository {
         }
     }
 
-    fun messageToPerson(personId: Int, body: String, title: String, file: List<MultipartBody.Part>) = liveData(Dispatchers.IO) {
+    fun messageToPerson(
+        personId: Int,
+        body: String,
+        title: String,
+        file: List<MultipartBody.Part>
+    ) = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().messageToPerson(personId, body, title, file)
+            val response =
+                RetrofitService.apiServiceNew().messageToPerson(personId, body, title, file)
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {

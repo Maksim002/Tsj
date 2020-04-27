@@ -21,6 +21,7 @@ import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.adapters.invoice.InvoiceAdapter
 import com.timelysoft.tsjdomcom.adapters.payments.PaymentsAdapter
 import com.timelysoft.tsjdomcom.adapters.invoice.InvoiceListener
+import com.timelysoft.tsjdomcom.service.Status
 import com.timelysoft.tsjdomcom.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_history_detail.*
 import java.lang.Exception
@@ -127,54 +128,65 @@ class HistoryDetailFragment : Fragment(),
     override fun onStart() {
         super.onStart()
         MainActivity.alert.show()
-        viewModel.invoices(
-            servicesId,
-            operationsId,
-            placementId,
-            MyUtils.toServerDate(from!!),
-            MyUtils.toServerDate(to!!)
-        )
-            .observe(this, Observer {
-                if (it.paymentsHistory.size != 0) {
-                    paymentsAdapter.update(it.paymentsHistory)
-                    history_detail_recycler_invoice.visibility = View.VISIBLE
-                    history_detail_payments.visibility = View.VISIBLE
-                } else {
-                    invoiceAdapter.update(it.invoicesHistory)
-                    history_detail_recycler_payments.visibility = View.VISIBLE
-                    history_detail_accounts.visibility = View.VISIBLE
-                }
-                MainActivity.alert.hide()
 
-            })
+        viewModel.invoices(placementId, servicesId, operationsId, MyUtils.toServerDate(from!!), MyUtils.toServerDate(to!!)).observe(this, Observer { result->
+            val msg = result.msg
+            val data = result.data
+            when(result.status){
+                Status.SUCCESS ->{
+                    if (data!!.paymentsHistory.size != 0) {
+                        paymentsAdapter.update(data.paymentsHistory)
+                        history_detail_recycler_invoice.visibility = View.VISIBLE
+                        history_detail_payments.visibility = View.VISIBLE
+                    } else {
+                        invoiceAdapter.update(data.invoicesHistory)
+                        history_detail_recycler_payments.visibility = View.VISIBLE
+                        history_detail_accounts.visibility = View.VISIBLE
+                    }
+                    MainActivity.alert.hide()
+                }
+                Status.ERROR, Status.NETWORK ->{
+                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                }
+            }
+        })
     }
 
     override fun onClickDownload(id: Int?) {
         MainActivity.alert.show()
-        viewModel.download(id).observe(this, Observer { url ->
-            MainActivity.alert.hide()
-            this.downloadUrl = url
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (checkSelfPermission(
-                        context!!,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE
-                    ) == PackageManager.PERMISSION_DENIED
-                ) {
-                    //permission denied
-                    val permissions = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE)
-                    //show popup to request runtime permission
-                    requestPermissions(permissions, STORAGE_PERMISION_CODE)
+        viewModel.downloadN(id!!).observe(this, Observer { result ->
+            val msg = result.msg
+            val data = result.data
+            when(result.status){
+                Status.SUCCESS ->{
+                    MainActivity.alert.hide()
+                    this.downloadUrl = data!!
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        if (checkSelfPermission(
+                                context!!,
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE
+                            ) == PackageManager.PERMISSION_DENIED
+                        ) {
+                            //permission denied
+                            val permissions = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE)
+                            //show popup to request runtime permission
+                            requestPermissions(permissions, STORAGE_PERMISION_CODE)
 
 
-                } else {
-                    //permission already granted
-                    downloadFile(url)
+                        } else {
+                            //permission already granted
+                            downloadFile(data)
 
+                        }
+                    } else {
+                        //system OS is < Marshmallow
+                        //pickImageFromGallery()
+                        downloadFile(data)
+                    }
                 }
-            } else {
-                //system OS is < Marshmallow
-                //pickImageFromGallery()
-                downloadFile(url)
+                Status.ERROR, Status.NETWORK ->{
+                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                }
             }
         })
     }

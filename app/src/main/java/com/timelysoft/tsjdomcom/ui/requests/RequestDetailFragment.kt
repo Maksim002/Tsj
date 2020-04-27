@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.timelysoft.tsjdomcom.MainActivity
 import com.timelysoft.tsjdomcom.R
+import com.timelysoft.tsjdomcom.service.Status
 import com.timelysoft.tsjdomcom.service.model.RequestModel
 import kotlinx.android.synthetic.main.fragment_bid_detail.view.*
 
@@ -40,14 +41,23 @@ class RequestDetailFragment : Fragment() {
 
     private fun initData(root: View) {
         MainActivity.alert.show()
-        viewModel.getRequest(requestId).observe(this, Observer {
-            requestModel = it
-            root.bid_adres_content.text = it.address
-            root.bid_flat_content.text = it.floor.toString()
-            root.bid_porch_content.text = it.entrance.toString()
-            root.bid_description_content.text = it.description
-            root.bid_title.text = it.requestTypeName
-            MainActivity.alert.hide()
+        viewModel.getRequest(requestId).observe(viewLifecycleOwner, Observer { result ->
+            val msg = result.msg
+            val data = result.data
+            when(result.status){
+                Status.SUCCESS ->{
+                    requestModel = data!!
+                    root.bid_adres_content.text = data.address
+                    root.bid_flat_content.text = data.floor.toString()
+                    root.bid_porch_content.text = data.entrance.toString()
+                    root.bid_description_content.text = data.description
+                    root.bid_title.text = data.requestTypeName
+                    MainActivity.alert.hide()
+                }
+                Status.ERROR, Status.NETWORK ->{
+                   Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                }
+            }
         })
     }
 
@@ -96,16 +106,16 @@ class RequestDetailFragment : Fragment() {
 
     private fun deleteRequest() {
         MainActivity.alert.show()
-        viewModel.deleteRequest(requestId).observe(this, Observer {
-            setHasOptionsMenu(false)
-            if (it) {
-                Toast.makeText(context, "ok", Toast.LENGTH_LONG).show()
-                findNavController().popBackStack()
-            } else {
-                Toast.makeText(context, "ошибка", Toast.LENGTH_LONG).show()
+        viewModel.deleteRequest(requestId).observe(this, Observer { result ->
+            val msg = result.msg
+            when(result.status){
+                Status.SUCCESS ->{
+                    findNavController().popBackStack()
+                }
+                Status.ERROR, Status.NETWORK ->{
+                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                }
             }
-            MainActivity.alert.hide()
         })
     }
-
 }

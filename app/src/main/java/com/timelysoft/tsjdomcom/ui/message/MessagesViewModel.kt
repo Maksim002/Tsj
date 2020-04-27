@@ -32,89 +32,21 @@ class   MessagesViewModel : ViewModel() {
         return repository.deleteMessage(idMessage)
     }
 
-    fun sendMessageToManager(
-        body: String,
-        title: String,
-        file: ArrayList<MultipartBody.Part>
-    ): LiveData<Boolean> {
-        val data = MutableLiveData<Boolean>()
+    fun sendMessageToManagerN(body: String, title: String, file: ArrayList<MultipartBody.Part>): LiveData<ResultStatus<Nothing>>{
         if (file.isEmpty()) file.add(addEmptyFile())
-        RetrofitService.apiService().sendMessageToManager(body, title, file)
-            .enqueue(object : Callback<Unit> {
-                override fun onFailure(call: Call<Unit>, t: Throwable) {
-                    data.value = false
-                }
-
-                override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
-                    data.value = response.isSuccessful
-                }
-
-            })
-
-        return data
+        return repository.sendMessageToManager(body, title, file)
     }
 
-    fun houses(): LiveData<List<MessagesHousesModel>> {
-        val data = MutableLiveData<List<MessagesHousesModel>>()
-
-        RetrofitService.apiService().houses()
-            .enqueue(object : Callback<List<MessagesHousesModel>> {
-                override fun onFailure(call: Call<List<MessagesHousesModel>>, t: Throwable) {
-                    println("failure")
-                }
-
-                override fun onResponse(
-                    call: Call<List<MessagesHousesModel>>,
-                    response: Response<List<MessagesHousesModel>>
-                ) {
-                    if (response.isSuccessful) {
-                        data.value = response.body()
-                    }
-                }
-            })
-        return data
+    fun houses(): LiveData<ResultStatus<List<MessagesHousesModel>>>{
+        return repository.houses()
     }
 
-    fun placements(id: Int): LiveData<List<MessagesPlacementsModel>> {
-        val data = MutableLiveData<List<MessagesPlacementsModel>>()
-
-        RetrofitService.apiService().placements(id)
-            .enqueue(object : Callback<List<MessagesPlacementsModel>> {
-                override fun onFailure(call: Call<List<MessagesPlacementsModel>>, t: Throwable) {
-                    println("failure")
-                }
-
-                override fun onResponse(
-                    call: Call<List<MessagesPlacementsModel>>,
-                    response: Response<List<MessagesPlacementsModel>>
-                ) {
-                    if (response.isSuccessful) {
-                        data.value = response.body()
-                    }
-                }
-            })
-        return data
+    fun placements(id: Int): LiveData<ResultStatus<List<MessagesPlacementsModel>>>{
+        return repository.placements(id)
     }
 
-    fun persons(id: Int): LiveData<List<MessagesPersonsModel>> {
-        val data = MutableLiveData<List<MessagesPersonsModel>>()
-
-        RetrofitService.apiService().persons(id)
-            .enqueue(object : Callback<List<MessagesPersonsModel>> {
-                override fun onFailure(call: Call<List<MessagesPersonsModel>>, t: Throwable) {
-                    println("failure")
-                }
-
-                override fun onResponse(
-                    call: Call<List<MessagesPersonsModel>>,
-                    response: Response<List<MessagesPersonsModel>>
-                ) {
-                    if (response.isSuccessful) {
-                        data.value = response.body()
-                    }
-                }
-            })
-        return data
+    fun persons(id: Int): LiveData<ResultStatus<List<MessagesPersonsModel>>>{
+        return repository.persons(id)
     }
 
     fun messageToPerson(

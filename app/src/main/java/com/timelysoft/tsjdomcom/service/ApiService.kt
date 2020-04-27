@@ -47,15 +47,20 @@ interface ApiService {
 
     @GET("Balance/{id}/Services/Balance")
     fun status(@Path("id") id: Int): Call<List<BalanceStatusModel>>
+//
 
     @GET("Balance/Operations")
     fun operations(): Call<List<OperationsModel>>
 
+//
+
     @GET("Balance/Periods")
     fun periods(): Call<PeriodsModel>
+//
 
     @GET("Balance/{id}/Services")
     fun services(@Path("id") id: Int): Call<List<ServicesModel>>
+//
 
     @GET("Balance/CurrentBalance")
     fun invoices(
@@ -65,30 +70,39 @@ interface ApiService {
         @Query("dateTo") dateTo: String,
         @Query("dateFrom") dateFrom: String
     ): Call<CurrentBalance>
+//
 
     @GET("Requests")
     fun requests(): Call<List<RequestsModel>>
+//
 
     @GET("Requests/Types")
     fun requestTypes(): Call<List<RequestTypeModel>>
+//
 
     @GET("Requests/Addresses")
     fun requestAddresses(): Call<List<RequestAddressesModel>>
+//
 
     @PUT("Requests")
     fun requestUpdate(@Body body: UpdateRequest): Call<Unit>
+//
 
     @POST("Requests")
     fun requestAdd(@Body body: AddRequest): Call<String>
+//
 
     @GET("Requests/{id}")
     fun requestGet(@Path("id") id: Int): Call<RequestModel>
+//
 
     @DELETE("Requests/{id}")
     fun requestDelete(@Path("id") id: Int): Call<String>
+//
 
     @GET("Balance/Invoices/{id}/Download")
     fun downloadLink(@Path("id") id: Int): Call<String>
+//
 
     @Multipart
     @POST("Messages/ToManager")
@@ -97,15 +111,19 @@ interface ApiService {
         @Query("model.title") title: String,
         @Part file: List<MultipartBody.Part>
     ): Call<Unit>
+//
 
     @GET("Messages/Houses")
     fun houses(): Call<List<MessagesHousesModel>>
+//
 
     @GET("Messages/Houses/{id}/Placements")
     fun placements(@Path("id") id: Int): Call<List<MessagesPlacementsModel>>
+//
 
     @GET("Messages/Houses/Placements/{id}/Persons")
     fun persons(@Path("id") id: Int): Call<List<MessagesPersonsModel>>
+//
 
     @GET("Messages/Types")
     fun messageTypes(): Call<List<MessagesPersonsModel>>
@@ -133,6 +151,7 @@ interface ApiService {
 
     @GET("Certificates/Relatives")
     fun relatives(): Call<List<MessagesPersonsModel>>
+    //    ////   ////
 
     @POST("ForgotPassword")
     fun forgotPassword(@Query("email") email: String): Call<String>
