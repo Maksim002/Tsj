@@ -72,6 +72,7 @@ class BalanceFragment : Fragment() {
         viewModel.addresses().observe(this, Observer { result ->
             val msg = result.msg
             val data = result.data
+            MainActivity.alert.hide()
             when(result.status){
                 Status.SUCCESS ->{
                     listAddress = data!!
@@ -81,7 +82,6 @@ class BalanceFragment : Fragment() {
                 }
             }
             Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
-            MainActivity.alert.hide()
         })
     }
 

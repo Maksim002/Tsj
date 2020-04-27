@@ -58,6 +58,7 @@ class MessageDetailFragment : Fragment(), GeneralClickListener {
         viewModel.message(idMessage).observe(viewLifecycleOwner, Observer { result ->
             val msg = result.msg
             val data = result.data
+            MainActivity.alert.hide()
             when(result.status){
                 Status.SUCCESS ->{
                     message_detail_date.text = "Дата: "+MyUtils.toMyDate(data!!.sendDate)
@@ -79,12 +80,8 @@ class MessageDetailFragment : Fragment(), GeneralClickListener {
                     }
                     filesAdapter.update(items)
                     message_files_rv.adapter = filesAdapter
-                    MainActivity.alert.hide()
                 }
-                Status.ERROR ->{
-                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
-                }
-                Status.NETWORK ->{
+                Status.ERROR, Status.NETWORK ->{
                     Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
                 }
             }
@@ -126,10 +123,10 @@ class MessageDetailFragment : Fragment(), GeneralClickListener {
         MainActivity.alert.show()
        viewModel.deleteMessage(idMessage).observe(this, Observer { result ->
            val msg = result.msg
+           MainActivity.alert.hide()
            when(result.status){
                Status.SUCCESS ->{
                        findNavController().popBackStack()
-                   MainActivity.alert.hide()
                }
            }
            Toast.makeText(context, msg, Toast.LENGTH_LONG).show()

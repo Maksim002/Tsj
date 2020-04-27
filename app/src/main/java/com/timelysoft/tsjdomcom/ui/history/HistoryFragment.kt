@@ -143,6 +143,7 @@ class HistoryFragment : Fragment() {
         viewmodel.periods().observe(this, Observer { result ->
             val msg = result.msg
             val data = result.data
+            MainActivity.alert.hide()
             when(result.status){
                 Status.SUCCESS ->{
                     history_from_date.setText(MyUtils.toMyDate(data!!.from))
@@ -157,7 +158,6 @@ class HistoryFragment : Fragment() {
                     dayEnd = dayTo
                     monthEnd = monthTo - 1
                     yearEnd = yearTo
-                    MainActivity.alert.hide()
                 }
                 Status.ERROR, Status.NETWORK ->{
                     Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
@@ -231,6 +231,7 @@ class HistoryFragment : Fragment() {
         viewmodel.services(placementId).observe(this, Observer { result ->
             val msg = result.msg
             val data = result.data
+            MainActivity.alert.hide()
             when(result.status){
                 Status.SUCCESS ->{
                     val list = data!!.map {
@@ -240,7 +241,6 @@ class HistoryFragment : Fragment() {
                     val adapterServices = ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
                     adapterServices.notifyDataSetChanged()
                     history_service.setAdapter(adapterServices)
-                    MainActivity.alert.hide()
                 }
                 Status.ERROR, Status.NETWORK ->{
                     Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
@@ -285,6 +285,7 @@ class HistoryFragment : Fragment() {
         viewmodel.operations().observe(this, Observer { result->
             val msg = result.msg
             val data = result.data
+            MainActivity.alert.hide()
             when(result.status){
                 Status.SUCCESS ->{
                     val list = data!!.map {
@@ -294,7 +295,6 @@ class HistoryFragment : Fragment() {
                     val adapterOperations =
                         ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
                     history_operation.setAdapter(adapterOperations)
-                    MainActivity.alert.hide()
                 }
                 Status.ERROR, Status.NETWORK ->{
                     Toast.makeText(context, msg, Toast.LENGTH_LONG).show()

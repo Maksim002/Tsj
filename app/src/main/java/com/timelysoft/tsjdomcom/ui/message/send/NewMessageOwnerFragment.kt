@@ -278,9 +278,9 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
         viewModel.houses().observe(this, Observer { result ->
             val msg = result.msg
             val data = result.data
+            MainActivity.alert.hide()
             when(result.status){
                 Status.SUCCESS ->{
-                    MainActivity.alert.hide()
                     val list = data!!.map {
                         it.address
                     }
@@ -344,9 +344,9 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
         viewModel.placements(houseId).observe(this, Observer { result ->
             val msg = result.msg
             val data = result.data
+            MainActivity.alert.hide()
             when(result.status){
                 Status.SUCCESS ->{
-                    MainActivity.alert.hide()
                     val list = data!!.map {
                         it.number
                     }
@@ -402,9 +402,9 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
         viewModel.persons(placementId).observe(this, Observer { result ->
             val msg = result.msg
             val data = result.data
+            MainActivity.alert.hide()
             when(result.status){
                 Status.SUCCESS ->{
-                    MainActivity.alert.hide()
                     val list = data!!.map {
                         it.name
                     }

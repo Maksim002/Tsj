@@ -319,7 +319,6 @@ class NetworkRepository {
             val response = RetrofitService.apiServiceNew().requestAdd(body)
             when {
                 response.isSuccessful -> {
-
                     emit(ResultStatus.success(null, "Заявка добавленна"))
 
                 }

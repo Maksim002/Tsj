@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="@dimen/marginHorizontal"
     android:orientation="vertical"
     tools:context=".ui.feedback.SendFeedbackFragment">
@@ -17,8 +17,8 @@
             android:id="@+id/new_house_owner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:focusableInTouchMode="true"
-            android:layout_weight="0.3">
+            android:layout_weight="0.3"
+            android:focusableInTouchMode="true">
 
             <AutoCompleteTextView
                 android:id="@+id/new_message_house"
@@ -37,8 +37,8 @@
             android:id="@+id/new_apartment_owner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:focusableInTouchMode="true"
-            android:layout_weight="0.7">
+            android:layout_weight="0.7"
+            android:focusableInTouchMode="true">
 
             <AutoCompleteTextView
                 android:id="@+id/new_message_apartment"
@@ -61,9 +61,9 @@
             android:id="@+id/new_message_who"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:focusableInTouchMode="true"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:drawableEnd="@drawable/ic_expend"
+            android:focusableInTouchMode="true"
             android:hint="@string/user"
             android:paddingEnd="8dp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -71,8 +71,8 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/new_message_referent_error_owner"
         android:layout_width="match_parent"
-        android:focusableInTouchMode="true"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/new_message_referent"
@@ -87,8 +87,8 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/new_message_content_error_owner"
         android:layout_width="match_parent"
-        android:focusableInTouchMode="true"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/new_message_content"
@@ -102,15 +102,15 @@
 
     <include
         android:id="@+id/_history_goneL_owner"
-        android:visibility="gone"
-        layout="@layout/item_focus" />
+        layout="@layout/item_focus"
+        android:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginTop="10dp"
         android:id="@+id/recycler_owner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        android:layout_marginTop="10dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 
 </LinearLayout>

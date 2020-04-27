@@ -96,6 +96,7 @@ interface ApiServiceNew {
 
     @GET("Messages/Houses/Placements/{id}/Persons")
     suspend fun persons(@Path("id") id: Int): Response<List<MessagesPersonsModel>>
+//
 
     @GET("Messages/Types")
     suspend fun messageTypes(): Response<List<MessagesPersonsModel>>

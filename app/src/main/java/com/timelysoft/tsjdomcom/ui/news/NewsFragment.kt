@@ -44,6 +44,7 @@ class NewsFragment : Fragment(), NewsOnItemClickListener {
         viewModel.news().observe(viewLifecycleOwner, Observer { result ->
             val msg = result.msg
             val data = result.data
+            MainActivity.alert.hide()
             when(result.status){
                 Status.SUCCESS ->{
                     newsAdapter = NewsAdapter(data!!, this)
@@ -51,14 +52,10 @@ class NewsFragment : Fragment(), NewsOnItemClickListener {
                         adapter = newsAdapter
                     }
                 }
-                Status.ERROR ->{
-                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
-                }
-                Status.NETWORK ->{
+                Status.ERROR, Status.NETWORK ->{
                     Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
                 }
             }
-            MainActivity.alert.hide()
         })
     }
 

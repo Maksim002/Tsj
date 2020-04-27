@@ -1,11 +1,16 @@
 package com.timelysoft.tsjdomcom.utils
 
+import android.R.attr.label
 import android.app.Activity
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import java.lang.Exception
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import java.util.regex.Pattern
+
 
 object MyUtils {
     fun toMyDate(date: String): String {
@@ -87,10 +92,16 @@ object MyUtils {
 
 
     fun fileName(url: String): String {
-            return try {
-                url.substring(url.lastIndexOf("/")+1)
-            }catch (e:Exception){
-                url
-            }
+        return try {
+            url.substring(url.lastIndexOf("/") + 1)
+        } catch (e: Exception) {
+            url
+        }
+    }
+
+    fun copyText(text: String, context : Context) {
+        var clipboard = getSystemService(context, ClipboardManager::class.java)
+        var clip = ClipData.newPlainText("label", text)
+        clipboard!!.setPrimaryClip(clip)
     }
 }

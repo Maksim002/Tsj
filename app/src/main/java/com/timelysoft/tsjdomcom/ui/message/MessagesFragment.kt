@@ -64,10 +64,7 @@ class MessagesFragment(private val idMessage: Int) : Fragment(), MessageClicklIt
                             recyclerview.visibility = View.VISIBLE
                         }
                     }
-                    Status.ERROR -> {
-                        Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
-                    }
-                    Status.NETWORK -> {
+                    Status.ERROR, Status.NETWORK -> {
                         Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
                     }
                 }

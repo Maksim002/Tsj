@@ -46,6 +46,7 @@ class RequestFragment : Fragment(), RequestClickItemListener {
         viewModel.requests().observe(viewLifecycleOwner, Observer { result ->
             val msg = result.msg
             val data = result.data
+            MainActivity.alert.hide()
             when(result.status){
                 Status.SUCCESS ->{
                     AdapterView.OnItemClickListener{ _, _, position, _ ->
@@ -60,8 +61,6 @@ class RequestFragment : Fragment(), RequestClickItemListener {
                         bid_is_empty_textview.visibility = View.VISIBLE
                         bid_recyclerview.visibility = View.GONE
                     }
-
-                    MainActivity.alert.hide()
                 }
                 Status.ERROR, Status.NETWORK ->{
                     Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
@@ -85,6 +84,7 @@ class RequestFragment : Fragment(), RequestClickItemListener {
         val bundle = Bundle()
         bundle.putInt("id", item.id)
         bundle.putInt("requestsId", requestsId)
+        bundle.putString("date", item.dateArrival)
         bundle.putBoolean("isEditableAndCloseable", item.isEditableAndCloseable)
         Navigation.findNavController(Objects.requireNonNull<View>(view))
             .navigate(R.id.navigation_bid_detail, bundle)

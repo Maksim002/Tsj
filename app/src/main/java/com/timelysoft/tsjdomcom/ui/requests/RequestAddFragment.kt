@@ -138,6 +138,7 @@ class RequestAddFragment : Fragment() {
 
                     viewModel.addRequest(body).observe(viewLifecycleOwner, Observer { result ->
                         val msg = result.msg
+                        MainActivity.alert.hide()
                         when(result.status){
                             Status.SUCCESS ->{
                                 Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
@@ -147,7 +148,6 @@ class RequestAddFragment : Fragment() {
                                 Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
                             }
                         }
-                        MainActivity.alert.hide()
                     })
 
 //                    viewModel.addRequest(body).observe(viewLifecycleOwner, Observer {
@@ -227,6 +227,7 @@ class RequestAddFragment : Fragment() {
         viewModel.requestTypes().observe(viewLifecycleOwner, Observer { result ->
             val msg = result.msg
             val data = result.data
+            MainActivity.alert.hide()
             when(result.status){
                 Status.SUCCESS ->{
                     val typeAdapter = ArrayAdapter<RequestTypeModel>(
@@ -243,7 +244,6 @@ class RequestAddFragment : Fragment() {
                             }
                         }
                     }
-                    MainActivity.alert.hide()
                 }
                 Status.ERROR, Status.NETWORK ->{
                     Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
@@ -254,6 +254,7 @@ class RequestAddFragment : Fragment() {
         viewModel.requestAddresses().observe(viewLifecycleOwner, Observer { result ->
             val msg = result.msg
             val data = result.data
+            MainActivity.alert.hide()
             when(result.status){
                 Status.SUCCESS ->{
                     val typeAdapter = ArrayAdapter<RequestAddressesModel>(
@@ -262,7 +263,6 @@ class RequestAddFragment : Fragment() {
                         data!!
                     )
                     bid_add_adres.setAdapter(typeAdapter)
-                    MainActivity.alert.hide()
                 }
                 Status.ERROR, Status.NETWORK ->{
                     Toast.makeText(context, msg, Toast.LENGTH_LONG).show()

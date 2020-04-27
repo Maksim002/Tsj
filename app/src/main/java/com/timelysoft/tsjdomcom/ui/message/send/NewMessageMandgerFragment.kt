@@ -154,11 +154,11 @@ class NewMessageMandgerFragment : Fragment(), GeneralClickListener {
                 val file = File(getPath(uri))
                 val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
                 val photo = MultipartBody.Part.createFormData("File", file.name, requestFile)
-
+                val filename = file.name
                 files.add(photo)
                 names.add(photo.toString().substring(0, 15))
                 val items = names.map {
-                    FilesModel(it)
+                    FilesModel(filename, "")
                 }
                 filesAdapter.update(items)
             }
@@ -186,7 +186,6 @@ class NewMessageMandgerFragment : Fragment(), GeneralClickListener {
 
             viewModel.sendMessageToManagerN(body, title, files).observe(this, Observer { result ->
                 val msg = result.msg
-                val data = result.data
                 MainActivity.alert.hide()
                 when(result.status){
                     Status.SUCCESS ->{

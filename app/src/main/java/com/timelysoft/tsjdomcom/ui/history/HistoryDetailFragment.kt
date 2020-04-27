@@ -132,6 +132,7 @@ class HistoryDetailFragment : Fragment(),
         viewModel.invoices(placementId, servicesId, operationsId, MyUtils.toServerDate(from!!), MyUtils.toServerDate(to!!)).observe(this, Observer { result->
             val msg = result.msg
             val data = result.data
+            MainActivity.alert.hide()
             when(result.status){
                 Status.SUCCESS ->{
                     if (data!!.paymentsHistory.size != 0) {
@@ -143,7 +144,6 @@ class HistoryDetailFragment : Fragment(),
                         history_detail_recycler_payments.visibility = View.VISIBLE
                         history_detail_accounts.visibility = View.VISIBLE
                     }
-                    MainActivity.alert.hide()
                 }
                 Status.ERROR, Status.NETWORK ->{
                     Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
@@ -157,9 +157,9 @@ class HistoryDetailFragment : Fragment(),
         viewModel.downloadN(id!!).observe(this, Observer { result ->
             val msg = result.msg
             val data = result.data
+            MainActivity.alert.hide()
             when(result.status){
                 Status.SUCCESS ->{
-                    MainActivity.alert.hide()
                     this.downloadUrl = data!!
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         if (checkSelfPermission(
