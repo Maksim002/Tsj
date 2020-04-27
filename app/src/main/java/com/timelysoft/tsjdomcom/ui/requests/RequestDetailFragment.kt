@@ -4,8 +4,8 @@ package com.timelysoft.tsjdomcom.ui.requests
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
@@ -14,9 +14,6 @@ import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.service.model.RequestModel
 import com.timelysoft.tsjdomcom.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_bid_detail.*
-import kotlinx.android.synthetic.main.fragment_bid_detail.bid_title
-import kotlinx.android.synthetic.main.fragment_bid_detail.view.*
-import kotlinx.android.synthetic.main.item_bid.*
 
 class RequestDetailFragment : Fragment() {
 

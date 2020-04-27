@@ -20,7 +20,6 @@ import com.timelysoft.tsjdomcom.service.model.RequestsModel
 import kotlinx.android.synthetic.main.fragment_bid.*
 import kotlinx.android.synthetic.main.fragment_bid.view.*
 import java.util.*
-import kotlin.collections.ArrayList
 
 class RequestFragment : Fragment(), RequestClickItemListener {
     private lateinit var viewModel: RequestViewModel
@@ -42,9 +41,9 @@ class RequestFragment : Fragment(), RequestClickItemListener {
 
     private fun initData() {
         MainActivity.alert.show()
-        viewModel.requests().observe(this, Observer {address ->
+        viewModel.requests().observe(this, Observer { address ->
 
-            AdapterView.OnItemClickListener{ _, _, position, _ ->
+            AdapterView.OnItemClickListener { _, _, position, _ ->
                 requestsId = address[position].id
             }
 
@@ -76,7 +75,7 @@ class RequestFragment : Fragment(), RequestClickItemListener {
         val bundle = Bundle()
         bundle.putInt("id", item.id)
         bundle.putInt("requestsId", requestsId)
-        bundle.putString("date",item.dateArrival)
+        bundle.putString("date", item.dateArrival)
         bundle.putBoolean("isEditableAndCloseable", item.isEditableAndCloseable)
         Navigation.findNavController(Objects.requireNonNull<View>(view))
             .navigate(R.id.navigation_bid_detail, bundle)

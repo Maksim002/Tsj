@@ -118,7 +118,7 @@ interface ApiService {
     fun references(@Query("id") id: Int): Call<List<ReferenceLiteModel>>
 
     @POST("Certificates")
-    fun addReferences(@Body certificateRequest: CertificateRequest): Call<Unit>
+    fun addReferences(@Body certificateRequest: CertificateRequest): Call<Nothing>
 
     @PUT("Certificates")
     fun updateReferences(@Body certificateRequest: CertificateRequest): Call<Unit>
@@ -128,7 +128,6 @@ interface ApiService {
 
     @GET("Certificates/Relatives")
     fun relatives(): Call<List<MessagesPersonsModel>>
-
     @POST("ForgotPassword")
     fun forgotPassword(@Query("email") email: String): Call<String>
 
