@@ -63,20 +63,7 @@ class   MessagesViewModel : ViewModel() {
         return MultipartBody.Part.createFormData("empty", "", empty)
     }
 
-    fun reply(idMessage: Int): LiveData<ReplyModel> {
-        val data = MutableLiveData<ReplyModel>()
-
-        RetrofitService.apiService().reply(idMessage).enqueue(object : Callback<ReplyModel> {
-                override fun onFailure(call: Call<ReplyModel>, t: Throwable) {
-                    println("failure")
-                }
-
-                override fun onResponse(call: Call<ReplyModel>, response: Response<ReplyModel>) {
-                    if (response.isSuccessful) {
-                        data.value = response.body()
-                    }
-                }
-            })
-        return data
+    fun replyN(idMessage: Int): LiveData<ResultStatus<ReplyModel>>{
+        return repository.reply(idMessage)
     }
 }

@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.timelysoft.tsjdomcom.MainActivity
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.adapters.vote.VoteDetailAdapter
+import com.timelysoft.tsjdomcom.service.Status
 import com.timelysoft.tsjdomcom.service.request.VotingRequest
 import kotlinx.android.synthetic.main.fragment_vote_detail.*
 import java.lang.Exception
@@ -47,15 +48,25 @@ class VoteDetailFragment : Fragment() {
     private fun initVariants() {
         if (isCanVote) {
             MainActivity.alert.show()
-            viewModel.voteVariants(questionId).observe(this, Observer {
-                for (element in it) {
-                    val radioButton = RadioButton(context)
-                    radioButton.id = element.id
-                    radioButton.text = element.name
-                    vote_detail_radiogroup.addView(radioButton)
-                }
 
-                MainActivity.alert.hide()
+            viewModel.voteVariantsN(questionId).observe(viewLifecycleOwner, Observer { result ->
+                val msg = result.msg
+                val data = result.data
+                when(result.status){
+                    Status.SUCCESS ->{
+                        for (element in data!!) {
+                            val radioButton = RadioButton(context)
+                            radioButton.id = element.id
+                            radioButton.text = element.name
+                            vote_detail_radiogroup.addView(radioButton)
+                        }
+
+                        MainActivity.alert.hide()
+                    }
+                    Status.ERROR, Status.NETWORK ->{
+                        Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                    }
+                }
             })
         } else {
             vote_detail_radiogroup.visibility = View.GONE
@@ -74,17 +85,22 @@ class VoteDetailFragment : Fragment() {
             if (variantId != -1) {
                 val body = VotingRequest(questionId, variantId, placementId)
                 MainActivity.alert.show()
-                viewModel.votingPost(body).observe(this, Observer {
+
+                viewModel.votingPostN(body).observe(viewLifecycleOwner, Observer { result ->
+                    val msg = result.msg
                     MainActivity.alert.hide()
-                    if (it) {
-                        vote_detail_radiogroup.visibility = View.GONE
-                        vote_detail_rv.visibility = View.VISIBLE
-                        vote_detail_accept_btn.visibility = View.VISIBLE
-                        getVotedVariants()
-                        Toast.makeText(context, "Ваш голос принят!", Toast.LENGTH_LONG).show()
-                        vote_detail_accept_btn.visibility = View.GONE
-                    } else {
-                        Toast.makeText(context, "Вы уже проголосовали", Toast.LENGTH_LONG).show()
+                    when(result.status){
+                        Status.SUCCESS ->{
+                                vote_detail_radiogroup.visibility = View.GONE
+                                vote_detail_rv.visibility = View.VISIBLE
+                                vote_detail_accept_btn.visibility = View.VISIBLE
+                                getVotedVariants()
+                                Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                                vote_detail_accept_btn.visibility = View.GONE
+                        }
+                        Status.ERROR, Status.NETWORK ->{
+                            Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                        }
                     }
                 })
             } else {
@@ -95,16 +111,25 @@ class VoteDetailFragment : Fragment() {
 
     private fun getVotedVariants() {
         MainActivity.alert.show()
-        viewModel.voteDetail(questionId).observe(this, Observer {
-            val adapter = VoteDetailAdapter(it.variants)
-            vote_detail_rv.adapter = adapter
-            MainActivity.alert.hide()
-            var count = 0
-            it.variants.forEach {
-                count += it.count
-            }
-            vote_count.text = "$count голосов"
 
+        viewModel.voteDetailN(questionId).observe(viewLifecycleOwner, Observer { result ->
+            val msg = result.msg
+            val data = result.data
+            when(result.status){
+                Status.SUCCESS ->{
+                    val adapter = VoteDetailAdapter(data!!.variants)
+                    vote_detail_rv.adapter = adapter
+                    MainActivity.alert.hide()
+                    var count = 0
+                    data.variants.forEach {
+                        count += it.count
+                    }
+                    vote_count.text = "$count голосов"
+                }
+                Status.ERROR, Status.NETWORK ->{
+                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                }
+            }
         })
     }
 

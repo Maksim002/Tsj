@@ -172,33 +172,43 @@ interface ApiService {
 
     @GET("Voting/Addresses")
     fun votingAddress(): Call<List<AddressModel>>
+//
 
     @GET("Messages/{id}/Reply")
     fun reply(@Path("id") id: Int): Call<ReplyModel>
+//
 
     @GET("Voting/Types")
     fun votingType(): Call<List<MessagesPersonsModel>>
+//
 
     @GET("Voting/{id}/Variants")
     fun votingVariants(@Path("id") id: Int): Call<List<MessagesPersonsModel>>
+//
 
     @POST("Voting")
     fun votingPost(@Body body: VotingRequest): Call<String>
+//
 
     @GET("Voting/{id}")
     fun votingDetail(@Path("id") id: Int): Call<VotingDetailModel>
+//
 
     @POST("RequestForConnection")
     fun requestForConnect(@Body body: RequestForConnectModel): Call<String>
+//
 
     @GET("News/{id}")
     fun newsDetail(@Path("id") id: Int): Call<NewsDetailModel>
+//
 
     @GET("News/{id}/Comments")
     fun newsComment(@Path("id") id: Int): Call<List<NewsCommentsModel>>
+//
 
     @POST("News/Comments")
     fun newsCommentPost(@Body body: NewsCommentRequest): Call<String>
+//
 
     @DELETE("News/Comments/{id}")
     fun newsCommentDelete(@Path("id") id: Int): Call<String>

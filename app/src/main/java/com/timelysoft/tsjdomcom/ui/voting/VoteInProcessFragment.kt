@@ -39,7 +39,7 @@ class VoteInProcessFragment(private val placementId: Int, private val typeId: In
     private fun initData() {
         MainActivity.alert.show()
 
-        viewModel.votesN(typeId, placementId).observe(viewLifecycleOwner, Observer { result ->
+        viewModel.votes(typeId, placementId).observe(viewLifecycleOwner, Observer { result ->
            val msg = result.msg
            val data = result.data
             MainActivity.alert.hide()

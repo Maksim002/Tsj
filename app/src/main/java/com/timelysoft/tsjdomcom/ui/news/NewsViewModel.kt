@@ -21,58 +21,17 @@ class NewsViewModel : ViewModel() {
         return repository.news()
     }
 
-    fun newsDetail(id: Int): LiveData<NewsDetailModel> {
-        val data = MutableLiveData<NewsDetailModel>()
-        RetrofitService.apiService().newsDetail(id).enqueue(object : Callback<NewsDetailModel> {
-            override fun onFailure(call: Call<NewsDetailModel>, t: Throwable) {
-                println()
-            }
-
-            override fun onResponse(
-                call: Call<NewsDetailModel>, response: Response<NewsDetailModel>
-            ) {
-                data.value = response.body()
-            }
-        })
-        return data
+    fun newsDetailN(id: Int): LiveData<ResultStatus<NewsDetailModel>>{
+        return repository.newsDetail(id)
     }
 
-    fun newsComment(id: Int): LiveData<List<NewsCommentsModel>> {
-        val data = MutableLiveData<List<NewsCommentsModel>>()
-
-        RetrofitService.apiService().newsComment(id)
-            .enqueue(object : Callback<List<NewsCommentsModel>> {
-                override fun onFailure(call: Call<List<NewsCommentsModel>>, t: Throwable) {
-                    println()
-                }
-
-                override fun onResponse(
-                    call: Call<List<NewsCommentsModel>>,
-                    response: Response<List<NewsCommentsModel>>
-                ) {
-                    data.value = response.body()
-                }
-            })
-        return data
+    fun newsCommentN(id: Int): LiveData<ResultStatus<List<NewsCommentsModel>>>{
+        return repository.newsComment(id)
     }
 
-    fun newsCommentPost(body: NewsCommentRequest): LiveData<Boolean> {
-        val data = MutableLiveData<Boolean>()
-        RetrofitService.apiService().newsCommentPost(body)
-            .enqueue(object : Callback<String> {
-                override fun onFailure(call: Call<String>, t: Throwable) {
-                    data.value = false
-                }
-
-                override fun onResponse(call: Call<String>, response: Response<String>) {
-                    data.value = response.isSuccessful
-                }
-
-            })
-
-        return data
+    fun newsCommentPostN(body: NewsCommentRequest): LiveData<ResultStatus<Nothing>>{
+        return repository.newsCommentPost(body)
     }
-
 
     fun newsCommentDelete(id: Int): LiveData<Boolean> {
         val data = MutableLiveData<Boolean>()

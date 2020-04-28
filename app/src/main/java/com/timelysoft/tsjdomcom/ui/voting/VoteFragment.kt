@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -15,6 +16,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.timelysoft.tsjdomcom.MainActivity
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.adapters.message.ViewPagerAdapter
+import com.timelysoft.tsjdomcom.service.Status
 import com.timelysoft.tsjdomcom.service.model.AddressModel
 import com.timelysoft.tsjdomcom.service.model.MessagesPersonsModel
 import kotlinx.android.synthetic.main.fragment_vote.*
@@ -59,19 +61,39 @@ class VoteFragment : Fragment() {
     private fun getVoteAddress() {
         MainActivity.alert.show()
         //запрос на typeId для tabLayout
-        viewModel.voteTypes().observe(this, Observer {
-            votingTypes = it
+
+        viewModel.voteTypes().observe(viewLifecycleOwner, Observer { result ->
+            val msg = result.msg
+            val data = result.data
+            when(result.status){
+                Status.SUCCESS ->{
+                    votingTypes = data!!
+                }
+                Status.ERROR, Status.NETWORK ->{
+                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                }
+            }
         })
 
         //запрос на список адреса для autoComplate
-        viewModel.voteAddress().observe(this, Observer {
-            MainActivity.alert.hide()
-            val addressAdapter = ArrayAdapter<AddressModel>(
-                context!!,
-                android.R.layout.simple_dropdown_item_1line,
-                it
-            )
-            vote_address.setAdapter(addressAdapter)
+
+        viewModel.voteAddress().observe(viewLifecycleOwner, Observer { result->
+            val msg = result.msg
+            val data = result.data
+            when(result.status){
+                Status.SUCCESS ->{
+                    MainActivity.alert.hide()
+                    val addressAdapter = ArrayAdapter<AddressModel>(
+                        context!!,
+                        android.R.layout.simple_dropdown_item_1line,
+                        data!!
+                    )
+                    vote_address.setAdapter(addressAdapter)
+                }
+                Status.ERROR, Status.NETWORK ->{
+                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                }
+            }
         })
 
         vote_address.onItemClickListener =
