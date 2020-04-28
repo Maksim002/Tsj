@@ -27,6 +27,7 @@ import com.timelysoft.tsjdomcom.MainActivity
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.adapters.families.FamilyAdapter
 import com.timelysoft.tsjdomcom.adapters.families.FamilyListener
+import com.timelysoft.tsjdomcom.service.Status
 import com.timelysoft.tsjdomcom.service.model.PersonModel
 import com.timelysoft.tsjdomcom.service.model.RelativeModel
 import com.timelysoft.tsjdomcom.service.request.CertificateRequest
@@ -126,31 +127,35 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
                     MyUtils.toServerDate(reference_date.text.toString())
                 if (!update) {
                     MainActivity.alert.show()
-                    viewModel.addReferences(certificateRequest).observe(viewLifecycleOwner, Observer {
-                        if (it) {
-                            findNavController().popBackStack()
-                        } else {
-                            Toast.makeText(
-                                context,
-                                "Ошибка при отправке данных",
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
+
+                    viewModel.addReferences(certificateRequest).observe(viewLifecycleOwner, Observer { result->
+                        val msg = result.msg
                         MainActivity.alert.hide()
+                        when(result.status){
+                            Status.SUCCESS ->{
+                                findNavController().popBackStack()
+                                Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                            }
+                            Status.ERROR, Status.NETWORK ->{
+                                Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                            }
+                        }
                     })
                 } else {
                     MainActivity.alert.show()
-                    viewModel.updateReference(certificateRequest).observe(this, Observer {
-                        if (it) {
-                            findNavController().popBackStack()
-                        } else {
-                            Toast.makeText(
-                                context,
-                                "Ошибка при отправке данных",
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
+
+                    viewModel.updateReference(certificateRequest).observe(viewLifecycleOwner, Observer { result->
+                        val msg = result.msg
                         MainActivity.alert.hide()
+                        when(result.status){
+                            Status.SUCCESS ->{
+                                findNavController().popBackStack()
+                                Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                            }
+                            Status.ERROR, Status.NETWORK ->{
+                                Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                            }
+                        }
                     })
                 }
             }
@@ -325,15 +330,25 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
             update = true
             reference_save.text = "Обновить"
             (activity as AppCompatActivity?)!!.supportActionBar?.title = "Обновить справку"
-            viewModel.reference(certificateRequest.id).observe(this, Observer {
-                certificateRequest.person.id = it.person.id
-                reference_name.setText(it.person.fullName)
-                reference_date.setText(MyUtils.toMyDate(it.person.dateOfBirth))
-                it.relatives?.forEach { item ->
-                    relativesList.add(item)
+
+            viewModel.reference(certificateRequest.id).observe(viewLifecycleOwner, Observer { result ->
+                val msg = result.msg
+                val data = result.data
+                when(result.status){
+                    Status.SUCCESS ->{
+                        certificateRequest.person.id = data!!.person.id
+                        reference_name.setText(data.person.fullName)
+                        reference_date.setText(MyUtils.toMyDate(data.person.dateOfBirth))
+                        data.relatives?.forEach { item ->
+                            relativesList.add(item)
+                        }
+                        relativeAdapter.update(relativesList)
+                        initHint()
+                    }
+                    Status.ERROR, Status.NETWORK ->{
+                        Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                    }
                 }
-                relativeAdapter.update(relativesList)
-                initHint()
             })
         }
         initHint()

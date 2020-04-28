@@ -28,21 +28,8 @@ class LoginViewModel : ViewModel() {
         AppPreferences.isLogined = true
     }
 
-
-    fun forgotPassword(email: String): LiveData<Boolean> {
-        val data = MutableLiveData<Boolean>()
-
-        RetrofitService.apiService().forgotPassword(email).enqueue(object : Callback<String> {
-            override fun onFailure(call: Call<String>, t: Throwable) {
-                data.value = false
-            }
-
-            override fun onResponse(call: Call<String>, response: Response<String>) {
-                data.value = response.isSuccessful
-            }
-
-        })
-        return data
+    fun forgotPassword(email: String): LiveData<ResultStatus<Nothing>>{
+        return repository.forgotPassword(email)
     }
 
     fun sendToken(firebaseTokenModel: FirebaseTokenModel) {

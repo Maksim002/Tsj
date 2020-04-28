@@ -181,13 +181,18 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
                 new_message_who.text.toString()
                 //проверка на пустоту edit text
                 MainActivity.alert.show()
-                viewModel.messageToPerson(personId, body, title, files).observe(this, Observer {
+
+                viewModel.messageToPerson(personId, body, title, files).observe(viewLifecycleOwner, Observer { result ->
+                    val msg = result.msg
                     MainActivity.alert.hide()
-                    if (it) {
-                        Toast.makeText(context, "Ваше сообщение отправлено!", Toast.LENGTH_LONG).show()
-                        findNavController().popBackStack()
-                    } else {
-                        Toast.makeText(context, "Неудочно", Toast.LENGTH_LONG).show()
+                    when(result.status){
+                        Status.SUCCESS ->{
+                            Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                            findNavController().popBackStack()
+                        }
+                        Status.ERROR, Status.NETWORK ->{
+                            Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                        }
                     }
                 })
             }

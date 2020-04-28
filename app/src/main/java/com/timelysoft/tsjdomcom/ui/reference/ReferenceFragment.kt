@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -15,6 +16,7 @@ import com.timelysoft.tsjdomcom.MainActivity
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.adapters.references.ReferencesAdapter
 import com.timelysoft.tsjdomcom.adapters.references.ReferencesListener
+import com.timelysoft.tsjdomcom.service.Status
 import com.timelysoft.tsjdomcom.service.model.AddressModel
 import com.timelysoft.tsjdomcom.service.model.ReferenceLiteModel
 import kotlinx.android.synthetic.main.fragment_reference.*
@@ -89,23 +91,41 @@ class ReferenceFragment : Fragment(),ReferencesListener {
         root.reference_address.setOnItemClickListener { parent, _, position, _ ->
             placementId = (parent.getItemAtPosition(position) as AddressModel).placementId
             MainActivity.alert.show()
-            viewModel.references(placementId).observe(this, Observer {
-                referencesAdapter.update(it)
+
+            viewModel.references(placementId).observe(viewLifecycleOwner, Observer { result ->
+                val msg = result.msg
+                val data = result.data
                 MainActivity.alert.hide()
+                when(result.status){
+                    Status.SUCCESS ->{
+                        referencesAdapter.update(data!!)
+                    }
+                    Status.ERROR, Status.NETWORK ->{
+                        Toast.makeText(context,msg, Toast.LENGTH_LONG).show()
+                    }
+                }
             })
             root.reference_add.visibility = View.VISIBLE
         }
 
         if (placementId != 0) {
             MainActivity.alert.show()
-            viewModel.references(placementId).observe(this, Observer {
-                referencesAdapter.update(it)
+
+            viewModel.references(placementId).observe(viewLifecycleOwner, Observer { result ->
+                val msg = result.msg
+                val data = result.data
                 MainActivity.alert.hide()
+                when(result.status){
+                    Status.SUCCESS ->{
+                        referencesAdapter.update(data!!)
+                    }
+                    Status.ERROR, Status.NETWORK ->{
+                        Toast.makeText(context,msg, Toast.LENGTH_LONG).show()
+                    }
+                }
             })
             root.reference_add.visibility = View.VISIBLE
         }
-
-
     }
 
     override fun onClickItem(item: ReferenceLiteModel) {

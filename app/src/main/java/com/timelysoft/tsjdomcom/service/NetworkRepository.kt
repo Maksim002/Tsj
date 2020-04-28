@@ -299,11 +299,7 @@ class NetworkRepository {
             val response = RetrofitService.apiServiceNew().requestUpdate(body)
             when {
                 response.isSuccessful -> {
-                    if (response.body() != null) {
-                        emit(ResultStatus.success(response.body()))
-                    } else {
-                        emit(ResultStatus.error("Ошибка при получении данных"))
-                    }
+                        emit(ResultStatus.success(null, "Заявка обновлена"))
                 }
                 else -> {
                     emit(ResultStatus.error("Не известная ошибка"))
@@ -474,11 +470,11 @@ class NetworkRepository {
                     if (response.body() != null) {
                         emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(ResultStatus.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Ошибка при получении данных"))
                     }
                 }
                 else -> {
-                    emit(ResultStatus.error("Не найдено"))
+                    emit(ResultStatus.error("Не известная ошибка"))
                 }
             }
         } catch (e: Exception) {
@@ -497,14 +493,10 @@ class NetworkRepository {
                 RetrofitService.apiServiceNew().messageToPerson(personId, body, title, file)
             when {
                 response.isSuccessful -> {
-                    if (response.body() != null) {
-                        emit(ResultStatus.success(response.body()))
-                    } else {
-                        emit(ResultStatus.error("Неверный логин или пароль"))
-                    }
+                        emit(ResultStatus.success(null, "Ваше сообщение отправлено!"))
                 }
                 else -> {
-                    emit(ResultStatus.error("Не найдено"))
+                    emit(ResultStatus.error("Не известная ошибка"))
                 }
             }
         } catch (e: Exception) {
@@ -520,11 +512,11 @@ class NetworkRepository {
                     if (response.body() != null) {
                         emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(ResultStatus.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Ошибка при получении данных"))
                     }
                 }
                 else -> {
-                    emit(ResultStatus.error("Не найдено"))
+                    emit(ResultStatus.error("Не известная ошибка"))
                 }
             }
         } catch (e: Exception) {
@@ -537,14 +529,10 @@ class NetworkRepository {
             val response = RetrofitService.apiServiceNew().addReferences(certificateRequest)
             when {
                 response.isSuccessful -> {
-                    if (response.body() != null) {
-                        emit(ResultStatus.success(response.body()))
-                    } else {
-                        emit(ResultStatus.error("Неверный логин или пароль"))
-                    }
+                        emit(ResultStatus.success(null, "Данные отправлены"))
                 }
                 else -> {
-                    emit(ResultStatus.error("Не найдено"))
+                    emit(ResultStatus.error("Не известная ошибка"))
                 }
             }
         } catch (e: Exception) {
@@ -557,14 +545,10 @@ class NetworkRepository {
             val response = RetrofitService.apiServiceNew().updateReferences(certificateRequest)
             when {
                 response.isSuccessful -> {
-                    if (response.body() != null) {
-                        emit(ResultStatus.success(response.body()))
-                    } else {
-                        emit(ResultStatus.error("Неверный логин или пароль"))
-                    }
+                    emit(ResultStatus.success(null, "Данные обновлены"))
                 }
                 else -> {
-                    emit(ResultStatus.error("Не найдено"))
+                    emit(ResultStatus.error("Не известная ошибка"))
                 }
             }
         } catch (e: Exception) {
@@ -580,11 +564,11 @@ class NetworkRepository {
                     if (response.body() != null) {
                         emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(ResultStatus.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Ошибка при получении данных"))
                     }
                 }
                 else -> {
-                    emit(ResultStatus.error("Не найдено"))
+                    emit(ResultStatus.error("Не известная ошибка"))
                 }
             }
         } catch (e: Exception) {
@@ -617,14 +601,10 @@ class NetworkRepository {
             val response = RetrofitService.apiServiceNew().forgotPassword(email)
             when {
                 response.isSuccessful -> {
-                    if (response.body() != null) {
-                        emit(ResultStatus.success(response.body()))
-                    } else {
-                        emit(ResultStatus.error("Неверный логин или пароль"))
-                    }
+                        emit(ResultStatus.success(null, "На ваш email отправлено пиьсмо!"))
                 }
                 else -> {
-                    emit(ResultStatus.error("Не найдено"))
+                    emit(ResultStatus.error("Такого email не существует"))
                 }
             }
         } catch (e: Exception) {

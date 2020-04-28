@@ -184,7 +184,7 @@ class NewMessageMandgerFragment : Fragment(), GeneralClickListener {
             val body = manager_message_content.text.toString()
             MainActivity.alert.show()
 
-            viewModel.sendMessageToManagerN(body, title, files).observe(this, Observer { result ->
+            viewModel.sendMessageToManager(body, title, files).observe(this, Observer { result ->
                 val msg = result.msg
                 MainActivity.alert.hide()
                 when(result.status){

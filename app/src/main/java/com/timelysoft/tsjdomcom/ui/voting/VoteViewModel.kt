@@ -3,6 +3,8 @@ package com.timelysoft.tsjdomcom.ui.voting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.timelysoft.tsjdomcom.service.NetworkRepository
+import com.timelysoft.tsjdomcom.service.ResultStatus
 import com.timelysoft.tsjdomcom.service.model.VoteModel
 import com.timelysoft.tsjdomcom.service.RetrofitService
 import com.timelysoft.tsjdomcom.service.model.AddressModel
@@ -14,23 +16,10 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class VoteViewModel : ViewModel() {
-    fun votes(typeId: Int, id: Int): LiveData<List<VoteModel>> {
-        val data = MutableLiveData<List<VoteModel>>()
-        RetrofitService.apiService().votes(typeId, id)
-            .enqueue(object : Callback<List<VoteModel>> {
-                override fun onFailure(call: Call<List<VoteModel>>, t: Throwable) {
-                }
+    private val repository = NetworkRepository()
 
-                override fun onResponse(
-                    call: Call<List<VoteModel>>,
-                    response: Response<List<VoteModel>>
-                ) {
-                    if (response.isSuccessful)
-                        data.value = response.body()
-                }
-
-            })
-        return data
+    fun votesN(typeId: Int, id: Int): LiveData<ResultStatus<List<VoteModel>>>{
+        return repository.votes(typeId, id)
     }
 
     fun voteAddress(): LiveData<List<AddressModel>> {

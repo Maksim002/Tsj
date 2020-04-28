@@ -35,7 +35,7 @@ class RequestViewModel : ViewModel() {
         return repository.requestAdd(body)
     }
 
-    fun updateRequest(body: UpdateRequest): LiveData<ResultStatus<Unit>>{
+    fun updateRequest(body: UpdateRequest): LiveData<ResultStatus<Nothing>>{
         return repository.requestUpdate(body)
     }
 

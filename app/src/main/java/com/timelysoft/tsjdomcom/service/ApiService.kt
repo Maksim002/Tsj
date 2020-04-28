@@ -127,6 +127,7 @@ interface ApiService {
 
     @GET("Messages/Types")
     fun messageTypes(): Call<List<MessagesPersonsModel>>
+//
 
     @Multipart
     @POST("Messages")
@@ -136,18 +137,23 @@ interface ApiService {
         @Query("model.title") title: String,
         @Part file: List<MultipartBody.Part>
     ): Call<Unit>
+//
 
     @GET("Certificates")
     fun references(@Query("id") id: Int): Call<List<ReferenceLiteModel>>
+//
 
     @POST("Certificates")
     fun addReferences(@Body certificateRequest: CertificateRequest): Call<Unit>
+//
 
     @PUT("Certificates")
     fun updateReferences(@Body certificateRequest: CertificateRequest): Call<Unit>
+//
 
     @GET("Certificates/{id}")
     fun reference(@Path("id") id: Int): Call<ReferencesFullModel>
+//
 
     @GET("Certificates/Relatives")
     fun relatives(): Call<List<MessagesPersonsModel>>
@@ -155,12 +161,14 @@ interface ApiService {
 
     @POST("ForgotPassword")
     fun forgotPassword(@Query("email") email: String): Call<String>
+//
 
     @GET("Voting")
     fun votes(
         @Query("typeId") typeId: Int,
         @Query("id") id: Int
     ): Call<List<VoteModel>>
+//
 
     @GET("Voting/Addresses")
     fun votingAddress(): Call<List<AddressModel>>

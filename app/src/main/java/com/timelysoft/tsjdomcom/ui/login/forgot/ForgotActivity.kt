@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.timelysoft.tsjdomcom.MainActivity
 import com.timelysoft.tsjdomcom.R
+import com.timelysoft.tsjdomcom.service.Status
 import com.timelysoft.tsjdomcom.ui.login.LoginViewModel
 import kotlinx.android.synthetic.main.activity_forgot.*
 import java.util.regex.Pattern
@@ -54,14 +55,18 @@ class ForgotActivity : AppCompatActivity() {
 
         val email = text_email_forgot.text.toString()
         MainActivity.alert.show()
-        viewModel.forgotPassword(email).observe(this, Observer {
-            if (it){
-                Toast.makeText(applicationContext, "На ваш email отправлено пиьсмо!", Toast.LENGTH_SHORT).show()
-            }else{
-                Toast.makeText(applicationContext, "Такого email не существует", Toast.LENGTH_SHORT).show()
-            }
-            MainActivity.alert.hide()
-        })
 
+        viewModel.forgotPassword(email).observe(this, Observer { result ->
+            val msg = result.msg
+            MainActivity.alert.hide()
+            when(result.status){
+                Status.SUCCESS ->{
+                    Toast.makeText(applicationContext, msg, Toast.LENGTH_SHORT).show()
+                }
+                Status.ERROR, Status.NETWORK ->{
+                    Toast.makeText(applicationContext, msg, Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
     }
 }

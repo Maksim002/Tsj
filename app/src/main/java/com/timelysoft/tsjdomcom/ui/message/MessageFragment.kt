@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -15,6 +16,7 @@ import com.timelysoft.tsjdomcom.MainActivity
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.adapters.message.ViewPagerAdapter
 import com.timelysoft.tsjdomcom.service.AppPreferences
+import com.timelysoft.tsjdomcom.service.Status
 import com.timelysoft.tsjdomcom.ui.login.LoginActivity
 import kotlinx.android.synthetic.main.alert_for_who.*
 import kotlinx.android.synthetic.main.fragment_message.*
@@ -62,16 +64,25 @@ class MessageFragment : Fragment() {
     }
 
     private fun initTabLayout() {
-        viewModel.messageTypes().observe(this, Observer {
+        viewModel.messageTypes().observe(viewLifecycleOwner, Observer { result ->
+            val msg = result.msg
+            val data = result.data
             MainActivity.alert.hide()
-            val pagerAdapter = ViewPagerAdapter(childFragmentManager)
-            it.forEach { item ->
-                pagerAdapter.addFragment(
-                    MessagesFragment(item.id), item.name
-                )
+            when(result.status){
+                Status.SUCCESS ->{
+                    val pagerAdapter = ViewPagerAdapter(childFragmentManager)
+                    data!!.forEach { item ->
+                        pagerAdapter.addFragment(
+                            MessagesFragment(item.id), item.name
+                        )
+                    }
+                    message_viewpager.adapter = pagerAdapter
+                    message_tab_layout.setupWithViewPager(message_viewpager)
+                }
+                Status.ERROR, Status.NETWORK ->{
+                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                }
             }
-            message_viewpager.adapter = pagerAdapter
-            message_tab_layout.setupWithViewPager(message_viewpager)
         })
     }
 

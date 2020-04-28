@@ -73,7 +73,7 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
                 if (reply.isToManager) {
                     MainActivity.alert.show()
 
-                    viewModel.sendMessageToManagerN(edit_sms.text.toString(), edit_title.text.toString(), files).observe(viewLifecycleOwner, Observer { result ->
+                    viewModel.sendMessageToManager(edit_sms.text.toString(), edit_title.text.toString(), files).observe(viewLifecycleOwner, Observer { result ->
                         val msg = result.msg
                         MainActivity.alert.hide()
                         when(result.status){
@@ -89,31 +89,21 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
                     })
                 } else {
                     MainActivity.alert.show()
-                    viewModel.messageToPerson(
-                        reply.personId,
-                        edit_sms.text.toString(),
-                        edit_title.text.toString(),
-                        files
-                    ).observe(viewLifecycleOwner,
-                        Observer {
-                            MainActivity.alert.hide()
-                            if (it) {
-                                dismiss()
-                                Toast.makeText(
-                                    context,
-                                    "Ваше сообщение отправлено!",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                                findNavController().popBackStack()
-                            } else {
-                                Toast.makeText(
-                                    context,
-                                    "Ошибка при отпровлении данных",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            }
-                        })
 
+                    viewModel.messageToPerson(reply.personId, edit_sms.text.toString(), edit_title.text.toString(), files).observe(viewLifecycleOwner, Observer { result ->
+                        val msg = result.msg
+                        MainActivity.alert.hide()
+                        when(result.status){
+                            Status.SUCCESS ->{
+                                dismiss()
+                                Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                                findNavController().popBackStack()
+                            }
+                            Status.ERROR, Status.NETWORK ->{
+                                Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                            }
+                        }
+                    })
                 }
             }
 
