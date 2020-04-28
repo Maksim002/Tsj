@@ -316,7 +316,6 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     emit(ResultStatus.success(null, "Заявка добавлена"))
-
                 }
                 else -> {
                     emit(ResultStatus.error("Не известная ошибка"))
@@ -821,14 +820,10 @@ class NetworkRepository {
             val response = RetrofitService.apiServiceNew().newsCommentDelete(id)
             when {
                 response.isSuccessful -> {
-                    if (response.body() != null) {
-                        emit(ResultStatus.success(response.body()))
-                    } else {
-                        emit(ResultStatus.error("Неверный логин или пароль"))
-                    }
+                        emit(ResultStatus.success(null, "Удалено!"))
                 }
                 else -> {
-                    emit(ResultStatus.error("Не найдено"))
+                    emit(ResultStatus.error("Вы уже удалили"))
                 }
             }
         } catch (e: Exception) {
@@ -841,14 +836,10 @@ class NetworkRepository {
             val response = RetrofitService.apiServiceNew().changePassword(model)
             when {
                 response.isSuccessful -> {
-                    if (response.body() != null) {
-                        emit(ResultStatus.success(response.body()))
-                    } else {
-                        emit(ResultStatus.error("Неверный логин или пароль"))
-                    }
+                        emit(ResultStatus.success(null, "Пароль успешно изменен"))
                 }
                 else -> {
-                    emit(ResultStatus.error("Не найдено"))
+                    emit(ResultStatus.error("Неверный старый пароль"))
                 }
             }
         } catch (e: Exception) {
@@ -861,14 +852,10 @@ class NetworkRepository {
             val response = RetrofitService.apiServiceNew().sendFeedback(model)
             when {
                 response.isSuccessful -> {
-                    if (response.body() != null) {
-                        emit(ResultStatus.success(response.body()))
-                    } else {
-                        emit(ResultStatus.error("Неверный логин или пароль"))
-                    }
+                        emit(ResultStatus.success(null, "Ваше письмо отправлено!"))
                 }
                 else -> {
-                    emit(ResultStatus.error("Не найдено"))
+                    emit(ResultStatus.error("Произошла ошибка при отправлении!"))
                 }
             }
         } catch (e: Exception) {
@@ -881,14 +868,10 @@ class NetworkRepository {
             val response = RetrofitService.apiServiceNew().sendFirebaseToken(model)
             when {
                 response.isSuccessful -> {
-                    if (response.body() != null) {
-                        emit(ResultStatus.success(response.body()))
-                    } else {
-                        emit(ResultStatus.error("Неверный логин или пароль"))
-                    }
+                        emit(ResultStatus.success(null))
                 }
                 else -> {
-                    emit(ResultStatus.error("Не найдено"))
+                    emit(ResultStatus.error("Не известная token"))
                 }
             }
         } catch (e: Exception) {
@@ -904,11 +887,11 @@ class NetworkRepository {
                     if (response.body() != null) {
                         emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(ResultStatus.error("Неверный логин или пароль"))
+                        emit(ResultStatus.error("Ошибка при получении данных"))
                     }
                 }
                 else -> {
-                    emit(ResultStatus.error("Не найдено"))
+                    emit(ResultStatus.error("Не известная ошибка"))
                 }
             }
         } catch (e: Exception) {
@@ -922,13 +905,11 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
-                        emit(ResultStatus.success(response.body()))
-                    } else {
-                        emit(ResultStatus.error("Неверный логин или пароль"))
+                        emit(ResultStatus.success(response.body(), "загрузка началось"))
                     }
                 }
                 else -> {
-                    emit(ResultStatus.error("Не найдено"))
+                    emit(ResultStatus.error("Ошибка проверьте данные на заполнение"))
                 }
             }
         } catch (e: Exception) {

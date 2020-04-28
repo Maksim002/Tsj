@@ -69,7 +69,7 @@ class NewsDetailFragment : Fragment(), GeneralClickListener, CommentOnItemListen
                     val body = NewsCommentRequest(newsId, news_detail_edittext.text.toString())
                     MainActivity.alert.show()
 
-                    viewModel.newsCommentPostN(body).observe(viewLifecycleOwner, Observer { result ->
+                    viewModel.newsCommentPost(body).observe(viewLifecycleOwner, Observer { result ->
                         val msg = result.msg
                         val data = result.data
                         MainActivity.alert.hide()
@@ -96,7 +96,7 @@ class NewsDetailFragment : Fragment(), GeneralClickListener, CommentOnItemListen
     private fun initViews() {
         MainActivity.alert.show()
 
-        viewModel.newsDetailN(newsId).observe(viewLifecycleOwner, Observer { result ->
+        viewModel.newsDetail(newsId).observe(viewLifecycleOwner, Observer { result ->
             val msg = result.msg
             val data = result.data
             when(result.status){
@@ -141,7 +141,7 @@ class NewsDetailFragment : Fragment(), GeneralClickListener, CommentOnItemListen
     private fun initComments() {
         MainActivity.alert.show()
 
-        viewModel.newsCommentN(newsId).observe(viewLifecycleOwner, Observer { result ->
+        viewModel.newsComment(newsId).observe(viewLifecycleOwner, Observer { result ->
             val msg = result.msg
             val data = result.data
             MainActivity.alert.hide()
@@ -241,13 +241,18 @@ class NewsDetailFragment : Fragment(), GeneralClickListener, CommentOnItemListen
 
         builder.setPositiveButton(getString(R.string.yesDelete)) { d: DialogInterface, i: Int ->
             MainActivity.alert.show()
-            viewModel.newsCommentDelete(model.id).observe(this, Observer {
-                if (it) {
-                    Toast.makeText(context, "Удалено!", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(context, "Вы уже удалили", Toast.LENGTH_SHORT).show()
-                }
+
+            viewModel.newsCommentDelete(model.id).observe(this, Observer { result ->
+                val msg = result.msg
                 MainActivity.alert.hide()
+                when(result.status){
+                    Status.SUCCESS ->{
+                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                    }
+                    Status.ERROR, Status.NETWORK ->{
+                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                    }
+                }
             })
             initComments()
         }

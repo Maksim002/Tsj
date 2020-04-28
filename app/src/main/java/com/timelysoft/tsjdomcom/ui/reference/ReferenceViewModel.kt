@@ -57,38 +57,11 @@ class ReferenceViewModel : ViewModel() {
         return repository.updateReferences(item)
     }
 
-    fun managers(id: Int): LiveData<List<ManagerResponse>> {
-        val data = MutableLiveData<List<ManagerResponse>>()
-        RetrofitService.apiService().managers(id).enqueue(object : Callback<List<ManagerResponse>> {
-            override fun onFailure(call: Call<List<ManagerResponse>>, t: Throwable) {
-            }
-
-            override fun onResponse(
-                call: Call<List<ManagerResponse>>, response: Response<List<ManagerResponse>>
-            ) {
-                data.value = response.body()
-            }
-        })
-        return data
+    fun managers(id: Int): LiveData<ResultStatus<List<ManagerResponse>>>{
+        return repository.managers(id)
     }
 
-    fun chooseManager(helpId: Int, chairmanId: Int): LiveData<String> {
-        val data = MutableLiveData<String>()
-        RetrofitService.apiService().downloadCertificate(helpId, chairmanId)
-            .enqueue(object : Callback<String> {
-                override fun onFailure(call: Call<String>, t: Throwable) {
-                    data.value = ""
-                }
-
-                override fun onResponse(call: Call<String>, response: Response<String>) {
-                    if (response.isSuccessful) {
-                        data.value = response.body()
-                    }else{
-                        data.value = ""
-                    }
-                }
-
-            })
-        return data
+    fun chooseManagerN(helpId: Int, chairmanId: Int): LiveData<ResultStatus<String>>{
+        return repository.downloadCertificate(helpId, chairmanId)
     }
 }

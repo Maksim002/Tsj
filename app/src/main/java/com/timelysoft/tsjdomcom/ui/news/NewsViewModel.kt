@@ -21,31 +21,20 @@ class NewsViewModel : ViewModel() {
         return repository.news()
     }
 
-    fun newsDetailN(id: Int): LiveData<ResultStatus<NewsDetailModel>>{
+    fun newsDetail(id: Int): LiveData<ResultStatus<NewsDetailModel>>{
         return repository.newsDetail(id)
     }
 
-    fun newsCommentN(id: Int): LiveData<ResultStatus<List<NewsCommentsModel>>>{
+    fun newsComment(id: Int): LiveData<ResultStatus<List<NewsCommentsModel>>>{
         return repository.newsComment(id)
     }
 
-    fun newsCommentPostN(body: NewsCommentRequest): LiveData<ResultStatus<Nothing>>{
+    fun newsCommentPost(body: NewsCommentRequest): LiveData<ResultStatus<Nothing>>{
         return repository.newsCommentPost(body)
     }
 
-    fun newsCommentDelete(id: Int): LiveData<Boolean> {
-        val data = MutableLiveData<Boolean>()
-
-        RetrofitService.apiService().newsCommentDelete(id).enqueue(object : Callback<String> {
-            override fun onFailure(call: Call<String>, t: Throwable) {
-                data.value = false
-            }
-
-            override fun onResponse(call: Call<String>, response: Response<String>) {
-                data.value = response.isSuccessful
-            }
-        })
-        return data
+    fun newsCommentDelete(id: Int): LiveData<ResultStatus<Nothing>>{
+        return repository.newsCommentDelete(id)
     }
 
 }

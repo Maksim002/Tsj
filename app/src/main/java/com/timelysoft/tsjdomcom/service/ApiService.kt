@@ -212,24 +212,29 @@ interface ApiService {
 
     @DELETE("News/Comments/{id}")
     fun newsCommentDelete(@Path("id") id: Int): Call<String>
+//
 
     @POST("ChangePassword")
     fun changePassword(@Body model: ChangePasswordModel): Call<Unit>
+//
 
     @POST("Contact/Feedback")
     fun sendFeedback(@Body model: FeedbackRequest): Call<String>
-
+//
 
     @PUT("FirebaseTokens")
     fun sendFirebaseToken(@Body model: FirebaseTokenModel): Call<Unit>
+//
 
     @GET("Certificates/Managers/{id}")
     fun managers(@Path("id") id: Int): Call<List<ManagerResponse>>
+//
 
     @GET("Certificates/{helpId}/Managers/{chairmanId}/Download")
     fun downloadCertificate(
         @Path("helpId") helpId: Int,
         @Path("chairmanId") chairmanId: Int
     ): Call<String>
+//
 }
 
