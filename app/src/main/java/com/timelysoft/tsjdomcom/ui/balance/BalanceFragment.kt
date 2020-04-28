@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.timelysoft.tsjdomcom.MainActivity
 import com.timelysoft.tsjdomcom.R
+import com.timelysoft.tsjdomcom.service.Status
 import com.timelysoft.tsjdomcom.service.model.AddressModel
 import kotlinx.android.synthetic.main.fragment_balance.*
 import kotlinx.android.synthetic.main.fragment_balance.view.*
@@ -68,12 +69,19 @@ class BalanceFragment : Fragment() {
 
     private fun initData() {
         MainActivity.alert.show()
-        viewModel.addresses().observe(this, Observer { address ->
-            listAddress = address
-            val addressAdapter =
-                ArrayAdapter<AddressModel>(context!!, android.R.layout.simple_dropdown_item_1line, listAddress)
-            addressesAutoComplete.setAdapter(addressAdapter)
+        viewModel.addresses().observe(this, Observer { result ->
+            val msg = result.msg
+            val data = result.data
             MainActivity.alert.hide()
+            when(result.status){
+                Status.SUCCESS ->{
+                    listAddress = data!!
+                    val addressAdapter =
+                        ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, listAddress)
+                    addressesAutoComplete.setAdapter(addressAdapter)
+                }
+            }
+            Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
         })
     }
 

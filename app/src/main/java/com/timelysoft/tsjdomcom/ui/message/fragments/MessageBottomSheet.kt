@@ -23,6 +23,7 @@ import com.timelysoft.tsjdomcom.service.model.ReplyModel
 import com.timelysoft.tsjdomcom.ui.message.MessagesViewModel
 import com.timelysoft.tsjdomcom.utils.MyUtils
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.timelysoft.tsjdomcom.service.Status
 import kotlinx.android.synthetic.main.fragment_message_bottom_sheet.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -71,21 +72,19 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
             if (validate()) {
                 if (reply.isToManager) {
                     MainActivity.alert.show()
-                    viewModel.sendMessageToManager(
-                        edit_sms.text.toString(),
-                        edit_title.text.toString(),
-                        files
-                    ).observe(this, Observer {
+
+                    viewModel.sendMessageToManagerN(edit_sms.text.toString(), edit_title.text.toString(), files).observe(viewLifecycleOwner, Observer { result ->
+                        val msg = result.msg
                         MainActivity.alert.hide()
-                        if (it) {
-                            dismiss()
-                            findNavController().popBackStack()
-                        } else {
-                            Toast.makeText(
-                                context,
-                                "Ошибка при отпровлении данных",
-                                Toast.LENGTH_LONG
-                            ).show()
+                        when(result.status){
+                            Status.SUCCESS ->{
+                                    dismiss()
+                                Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                                    findNavController().popBackStack()
+                            }
+                            Status.ERROR, Status.NETWORK ->{
+                                Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                            }
                         }
                     })
                 } else {
@@ -95,7 +94,7 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
                         edit_sms.text.toString(),
                         edit_title.text.toString(),
                         files
-                    ).observe(this,
+                    ).observe(viewLifecycleOwner,
                         Observer {
                             MainActivity.alert.hide()
                             if (it) {

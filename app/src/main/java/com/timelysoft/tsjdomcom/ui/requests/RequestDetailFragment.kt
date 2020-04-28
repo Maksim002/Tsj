@@ -4,13 +4,14 @@ package com.timelysoft.tsjdomcom.ui.requests
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.timelysoft.tsjdomcom.MainActivity
 import com.timelysoft.tsjdomcom.R
+import com.timelysoft.tsjdomcom.service.Status
 import com.timelysoft.tsjdomcom.service.model.RequestModel
 import com.timelysoft.tsjdomcom.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_bid_detail.*
@@ -35,32 +36,44 @@ class RequestDetailFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(RequestViewModel::class.java)
         (activity as AppCompatActivity).supportActionBar?.show()
         initArguments()
-        initData()
         return root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initData()
+    }
 
     private fun initData() {
         MainActivity.alert.show()
-        viewModel.getRequest(requestId).observe(this, Observer {
-            requestModel = it
-            bid_adres_content.text = it.address
-            bid_flat_content.text = it.floor.toString()
-            bid_porch_content.text = it.entrance.toString()
-            bid_description_content.text = it.description
-            bid_title.text = it.requestTypeName
-            bid_detail_date.text = "от " + MyUtils.toMyDateTime(requestDate)
-
-            if (it.editableAndCloseable) {
-                bid_status_textview.text = "Создана"
-                bid_status_textview.setTextColor(resources.getColor(R.color.requestStatusGreen))
-                bid_status_view.setBackgroundColor(resources.getColor(R.color.requestStatusGreen))
-            } else {
-                bid_status_textview.text = "Отменена"
-                bid_status_textview.setTextColor(resources.getColor(R.color.requestStatusRed))
-                bid_status_view.setBackgroundColor(resources.getColor(R.color.requestStatusRed))
-            }
+        viewModel.getRequest(requestId).observe(viewLifecycleOwner, Observer { result ->
+            val msg = result.msg
+            val data = result.data
             MainActivity.alert.hide()
+            when(result.status){
+                Status.SUCCESS ->{
+                    requestModel = data!!
+                    bid_adres_content.text = data.address
+                    bid_flat_content.text = data.floor.toString()
+                    bid_porch_content.text = data.entrance.toString()
+                    bid_description_content.text = data.description
+                    bid_title.text = data.requestTypeName
+                    bid_detail_date.text = "от " + MyUtils.toMyDateTime(requestDate)
+
+                    if (data.editableAndCloseable) {
+                        bid_status_textview.text = "Создана"
+                        bid_status_textview.setTextColor(resources.getColor(R.color.requestStatusGreen))
+                        bid_status_view.setBackgroundColor(resources.getColor(R.color.requestStatusGreen))
+                    } else {
+                        bid_status_textview.text = "Отменена"
+                        bid_status_textview.setTextColor(resources.getColor(R.color.requestStatusRed))
+                        bid_status_view.setBackgroundColor(resources.getColor(R.color.requestStatusRed))
+                    }
+                }
+                Status.ERROR, Status.NETWORK ->{
+                   Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                }
+            }
         })
     }
 
@@ -91,6 +104,7 @@ class RequestDetailFragment : Fragment() {
         }
     }
 
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.request_detail_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
@@ -114,16 +128,18 @@ class RequestDetailFragment : Fragment() {
 
     private fun deleteRequest() {
         MainActivity.alert.show()
-        viewModel.deleteRequest(requestId).observe(this, Observer {
-            setHasOptionsMenu(false)
-            if (it) {
-                Toast.makeText(context, "ok", Toast.LENGTH_LONG).show()
-                findNavController().popBackStack()
-            } else {
-                Toast.makeText(context, "ошибка", Toast.LENGTH_LONG).show()
-            }
+        viewModel.deleteRequest(requestId).observe(this, Observer { result ->
+            val msg = result.msg
             MainActivity.alert.hide()
+            when(result.status){
+                Status.SUCCESS ->{
+                    findNavController().popBackStack()
+                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                }
+                Status.ERROR, Status.NETWORK ->{
+                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                }
+            }
         })
     }
-
 }

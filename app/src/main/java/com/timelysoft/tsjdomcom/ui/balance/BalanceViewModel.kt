@@ -3,6 +3,8 @@ package com.timelysoft.tsjdomcom.ui.balance
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.timelysoft.tsjdomcom.service.NetworkRepository
+import com.timelysoft.tsjdomcom.service.ResultStatus
 import com.timelysoft.tsjdomcom.service.RetrofitService
 import com.timelysoft.tsjdomcom.service.model.AddressModel
 import com.timelysoft.tsjdomcom.service.model.BalanceStatusModel
@@ -12,25 +14,10 @@ import retrofit2.Response
 
 class BalanceViewModel : ViewModel() {
 
-    fun addresses(): LiveData<List<AddressModel>> {
-        val data = MutableLiveData<List<AddressModel>>()
+    private val repository = NetworkRepository()
 
-        RetrofitService.apiService().addresses().enqueue(object : Callback<List<AddressModel>> {
-            override fun onResponse(
-                call: Call<List<AddressModel>>,
-                response: Response<List<AddressModel>>
-            ) {
-                if (response.isSuccessful) {
-                    data.value = response.body()
-                }
-            }
-
-            override fun onFailure(call: Call<List<AddressModel>>, t: Throwable) {
-
-            }
-        })
-
-        return data
+    fun addresses(): LiveData<ResultStatus<List<AddressModel>>>{
+        return  repository.addresses()
     }
 
 

@@ -126,7 +126,7 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
                     MyUtils.toServerDate(reference_date.text.toString())
                 if (!update) {
                     MainActivity.alert.show()
-                    viewModel.addReferences(certificateRequest).observe(this, Observer {
+                    viewModel.addReferences(certificateRequest).observe(viewLifecycleOwner, Observer {
                         if (it) {
                             findNavController().popBackStack()
                         } else {

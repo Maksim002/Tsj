@@ -26,6 +26,7 @@ import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.adapters.files.FilesAdapter
 import com.timelysoft.tsjdomcom.adapters.files.FilesModel
 import com.timelysoft.tsjdomcom.adapters.files.GeneralClickListener
+import com.timelysoft.tsjdomcom.service.Status
 import com.timelysoft.tsjdomcom.service.model.MessagesHousesModel
 import com.timelysoft.tsjdomcom.service.model.MessagesPersonsModel
 import com.timelysoft.tsjdomcom.service.model.MessagesPlacementsModel
@@ -273,19 +274,27 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
     private fun getNewMsgHouse() {
         var listHouses = ArrayList<MessagesHousesModel>()
         MainActivity.alert.show()
-        viewModel.houses().observe(this, Observer { services ->
+
+        viewModel.houses().observe(this, Observer { result ->
+            val msg = result.msg
+            val data = result.data
             MainActivity.alert.hide()
-            val list = services.map {
-                it.address
+            when(result.status){
+                Status.SUCCESS ->{
+                    val list = data!!.map {
+                        it.address
+                    }
+                    listHouses = data as ArrayList<MessagesHousesModel>
+                    val adapterServices =
+                        ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
+                    adapterServices.notifyDataSetChanged()
+                    new_message_house.setAdapter(adapterServices)
+                }
+                Status.ERROR, Status.NETWORK ->{
+                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                }
             }
-            listHouses = services as ArrayList<MessagesHousesModel>
-            val adapterServices =
-                ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
-            adapterServices.notifyDataSetChanged()
-            new_message_house.setAdapter(adapterServices)
-
         })
-
 
         new_message_house.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
@@ -331,18 +340,27 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
     private fun getMessagesPlacements() {
         var listPlacements = ArrayList<MessagesPlacementsModel>()
         MainActivity.alert.show()
-        viewModel.placements(houseId).observe(this, Observer { services ->
-            MainActivity.alert.hide()
-            val list = services.map {
-                it.number
-            }
-            listPlacements = services as ArrayList<MessagesPlacementsModel>
-            val adapterServices =
-                ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
-            adapterServices.notifyDataSetChanged()
-            new_message_apartment.setAdapter(adapterServices)
-        })
 
+        viewModel.placements(houseId).observe(this, Observer { result ->
+            val msg = result.msg
+            val data = result.data
+            MainActivity.alert.hide()
+            when(result.status){
+                Status.SUCCESS ->{
+                    val list = data!!.map {
+                        it.number
+                    }
+                    listPlacements = data as ArrayList<MessagesPlacementsModel>
+                    val adapterServices =
+                        ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
+                    adapterServices.notifyDataSetChanged()
+                    new_message_apartment.setAdapter(adapterServices)
+                }
+                Status.ERROR, Status.NETWORK ->{
+                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                }
+            }
+        })
 
         new_message_apartment.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
@@ -380,16 +398,26 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
     private fun getMessagesPersons() {
         var listPersons = ArrayList<MessagesPersonsModel>()
         MainActivity.alert.show()
-        viewModel.persons(placementId).observe(this, Observer { services ->
+
+        viewModel.persons(placementId).observe(this, Observer { result ->
+            val msg = result.msg
+            val data = result.data
             MainActivity.alert.hide()
-            val list = services.map {
-                it.name
+            when(result.status){
+                Status.SUCCESS ->{
+                    val list = data!!.map {
+                        it.name
+                    }
+                    listPersons = data as ArrayList<MessagesPersonsModel>
+                    val adapterServices =
+                        ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
+                    adapterServices.notifyDataSetChanged()
+                    new_message_who.setAdapter(adapterServices)
+                }
+                Status.ERROR, Status.NETWORK ->{
+                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                }
             }
-            listPersons = services as ArrayList<MessagesPersonsModel>
-            val adapterServices =
-                ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
-            adapterServices.notifyDataSetChanged()
-            new_message_who.setAdapter(adapterServices)
         })
 
         new_message_who.onItemClickListener =

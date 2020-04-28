@@ -3,6 +3,8 @@ package com.timelysoft.tsjdomcom.ui.news
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.timelysoft.tsjdomcom.service.NetworkRepository
+import com.timelysoft.tsjdomcom.service.ResultStatus
 import com.timelysoft.tsjdomcom.service.RetrofitService
 import com.timelysoft.tsjdomcom.service.model.news.NewsCommentsModel
 import com.timelysoft.tsjdomcom.service.model.news.NewsDetailModel
@@ -13,26 +15,10 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class NewsViewModel : ViewModel() {
+    private val repository = NetworkRepository()
 
-    fun news(): LiveData<List<NewsModel>> {
-        val data = MutableLiveData<List<NewsModel>>()
-
-        RetrofitService.apiService().news().enqueue(object : Callback<List<NewsModel>> {
-            override fun onResponse(
-                call: Call<List<NewsModel>>,
-                response: Response<List<NewsModel>>
-            ) {
-                if (response.isSuccessful)
-                    data.value = response.body()
-            }
-
-            override fun onFailure(call: Call<List<NewsModel>>, t: Throwable) {
-
-            }
-        })
-
-
-        return data
+    fun news(): LiveData<ResultStatus<List<NewsModel>>>{
+        return repository.news()
     }
 
     fun newsDetail(id: Int): LiveData<NewsDetailModel> {
