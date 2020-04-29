@@ -18,45 +18,21 @@ class LoginViewModel : ViewModel() {
 
     private val repository = NetworkRepository()
 
-    fun auth(map: HashMap<String, String>): LiveData<ResultStatus<AuthModel>>{
+    fun auth(map: HashMap<String, String>): LiveData<ResultStatus<AuthModel>> {
         return repository.auth(map)
     }
 
-    fun save(email: String, token: String){
+    fun save(email: String, token: String) {
         AppPreferences.email = email
         AppPreferences.token = token
         AppPreferences.isLogined = true
     }
 
-
-    fun forgotPassword(email: String): LiveData<Boolean> {
-        val data = MutableLiveData<Boolean>()
-
-        RetrofitService.apiService().forgotPassword(email).enqueue(object : Callback<String> {
-            override fun onFailure(call: Call<String>, t: Throwable) {
-                data.value = false
-            }
-
-            override fun onResponse(call: Call<String>, response: Response<String>) {
-                data.value = response.isSuccessful
-            }
-
-        })
-        return data
+    fun forgotPassword(email: String): LiveData<ResultStatus<Nothing>> {
+        return repository.forgotPassword(email)
     }
 
-    fun sendToken(firebaseTokenModel: FirebaseTokenModel) {
-        RetrofitService.apiService().sendFirebaseToken(firebaseTokenModel)
-            .enqueue(object : Callback<Unit> {
-                override fun onFailure(call: Call<Unit>, t: Throwable) {
-                    println()
-                }
-
-                override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
-                    println()
-                }
-
-            })
+    fun sendToken(firebaseTokenModel: FirebaseTokenModel): LiveData<ResultStatus<Nothing>> {
+        return repository.sendFirebaseToken(firebaseTokenModel)
     }
-
 }

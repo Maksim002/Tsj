@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.timelysoft.tsjdomcom.MainActivity
 import com.timelysoft.tsjdomcom.R
+import com.timelysoft.tsjdomcom.service.Status
 import com.timelysoft.tsjdomcom.service.model.ChangePasswordModel
 import kotlinx.android.synthetic.main.fragment_change_password.*
 
@@ -41,15 +42,20 @@ class ChangePassword : Fragment() {
                 model.newPassword = change_password_new.text.toString()
                 model.confirmPassword = change_password_accept.text.toString()
                 MainActivity.alert.show()
-                viewModel.changePassword(model).observe(this, Observer {
-                    if (it){
-                        Toast.makeText(context,"Пароль успешно изменен",Toast.LENGTH_LONG).show()
-                        findNavController().popBackStack()
-                    }else{
-                        change_password_old_input.error = "Неверный старый пароль"
-                        Toast.makeText(context,"Неверный старый пароль",Toast.LENGTH_LONG).show()
-                    }
+
+                viewModel.changePasswordN(model).observe(viewLifecycleOwner, Observer { result ->
+                    val msg = result.msg
                     MainActivity.alert.hide()
+                    when(result.status){
+                        Status.SUCCESS ->{
+                            Toast.makeText(context,msg,Toast.LENGTH_LONG).show()
+                            findNavController().popBackStack()
+                        }
+                        Status.ERROR, Status.NETWORK ->{
+                            Toast.makeText(context,msg,Toast.LENGTH_LONG).show()
+                            change_password_old_input.error = "Неверный старый пароль"
+                        }
+                    }
                 })
             }
         }

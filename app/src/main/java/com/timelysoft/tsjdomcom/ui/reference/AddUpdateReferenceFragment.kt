@@ -27,6 +27,7 @@ import com.timelysoft.tsjdomcom.MainActivity
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.adapters.families.FamilyAdapter
 import com.timelysoft.tsjdomcom.adapters.families.FamilyListener
+import com.timelysoft.tsjdomcom.service.Status
 import com.timelysoft.tsjdomcom.service.model.PersonModel
 import com.timelysoft.tsjdomcom.service.model.RelativeModel
 import com.timelysoft.tsjdomcom.service.request.CertificateRequest
@@ -126,32 +127,38 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
                     MyUtils.toServerDate(reference_date.text.toString())
                 if (!update) {
                     MainActivity.alert.show()
-                    viewModel.addReferences(certificateRequest).observe(viewLifecycleOwner, Observer {
-                        if (it) {
-                            findNavController().popBackStack()
-                        } else {
-                            Toast.makeText(
-                                context,
-                                "Ошибка при отправке данных",
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
-                        MainActivity.alert.hide()
-                    })
+
+                    viewModel.addReferences(certificateRequest)
+                        .observe(viewLifecycleOwner, Observer { result ->
+                            val msg = result.msg
+                            MainActivity.alert.hide()
+                            when (result.status) {
+                                Status.SUCCESS -> {
+                                    findNavController().popBackStack()
+                                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                                }
+                                Status.ERROR, Status.NETWORK -> {
+                                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                                }
+                            }
+                        })
                 } else {
                     MainActivity.alert.show()
-                    viewModel.updateReference(certificateRequest).observe(this, Observer {
-                        if (it) {
-                            findNavController().popBackStack()
-                        } else {
-                            Toast.makeText(
-                                context,
-                                "Ошибка при отправке данных",
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
-                        MainActivity.alert.hide()
-                    })
+
+                    viewModel.updateReference(certificateRequest)
+                        .observe(viewLifecycleOwner, Observer { result ->
+                            val msg = result.msg
+                            MainActivity.alert.hide()
+                            when (result.status) {
+                                Status.SUCCESS -> {
+                                    findNavController().popBackStack()
+                                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                                }
+                                Status.ERROR, Status.NETWORK -> {
+                                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                                }
+                            }
+                        })
                 }
             }
         }
@@ -172,6 +179,7 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
         }
         return super.onOptionsItemSelected(item)
     }
+
     private fun chooseManagerDialog() {
         val builder = AlertDialog.Builder(context)
         builder.setTitle("Выберите председателя ТСЖ")
@@ -182,16 +190,26 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
         val dialog: AlertDialog = builder.create()
         MainActivity.alert.show()
 
-        viewModel.managers(certificateRequest.placementId).observe(this, Observer { list ->
-            val adapterAddress =
-                ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, list)
-            layoutView.choose_manager_dialog_text.setAdapter(adapterAddress)
-            MainActivity.alert.hide()
+        viewModel.managers(certificateRequest.placementId).observe(this, Observer { result ->
+            val msg = result.msg
+            val data = result.data
+            when (result.status) {
+                Status.SUCCESS -> {
+                    val adapterAddress =
+                        ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, data!!)
+                    layoutView.choose_manager_dialog_text.setAdapter(adapterAddress)
+                    MainActivity.alert.hide()
 
-            layoutView.choose_manager_dialog_text.setOnItemClickListener { parent, view, position, id ->
-                chairmanId = (list[position]).id
-                layoutView.choose_manager_dialog.error = null
-                layoutView.choose_manager_dialog.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+                    layoutView.choose_manager_dialog_text.setOnItemClickListener { parent, view, position, id ->
+                        chairmanId = (data[position]).id
+                        layoutView.choose_manager_dialog.error = null
+                        layoutView.choose_manager_dialog.defaultHintTextColor =
+                            ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+                    }
+                }
+                Status.ERROR, Status.NETWORK -> {
+                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                }
             }
         })
 
@@ -212,25 +230,31 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
                     }
 
                 } catch (e: Exception) {
-             }
-         }
+                }
+            }
 
         layoutView.choose_manager_save_text.setOnClickListener {
-            if (isValid(layoutView.choose_manager_dialog_text.text.toString())){
+            if (isValid(layoutView.choose_manager_dialog_text.text.toString())) {
                 MainActivity.alert.show()
-                viewModel.chooseManager(certificateRequest.id, chairmanId)
-                    .observe(this, Observer { url ->
-                        if (url.isNotEmpty()){
-                            this.certificatesUrl = url
-                            checkPermissions(url)
-                            Toast.makeText(context, "загрузка началось", Toast.LENGTH_SHORT).show()
-                            dialog.dismiss()
-                        }else{
-                            Toast.makeText(context, "Ошибка проверьте данные на заполнение", Toast.LENGTH_SHORT).show()
-                        }
+
+                viewModel.chooseManagerN(certificateRequest.id, chairmanId)
+                    .observe(this, Observer { result ->
+                        val msg = result.msg
+                        val data = result.data
                         MainActivity.alert.hide()
+                        when (result.status) {
+                            Status.SUCCESS -> {
+                                this.certificatesUrl = data!!
+                                checkPermissions(data)
+                                Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                                dialog.dismiss()
+                            }
+                            Status.ERROR, Status.NETWORK -> {
+                                Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                            }
+                        }
                     })
-            }else{
+            } else {
                 layoutView.choose_manager_dialog.error = "Поле не может быть пустым"
             }
 
@@ -325,16 +349,27 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
             update = true
             reference_save.text = "Обновить"
             (activity as AppCompatActivity?)!!.supportActionBar?.title = "Обновить справку"
-            viewModel.reference(certificateRequest.id).observe(this, Observer {
-                certificateRequest.person.id = it.person.id
-                reference_name.setText(it.person.fullName)
-                reference_date.setText(MyUtils.toMyDate(it.person.dateOfBirth))
-                it.relatives?.forEach { item ->
-                    relativesList.add(item)
-                }
-                relativeAdapter.update(relativesList)
-                initHint()
-            })
+
+            viewModel.reference(certificateRequest.id)
+                .observe(viewLifecycleOwner, Observer { result ->
+                    val msg = result.msg
+                    val data = result.data
+                    when (result.status) {
+                        Status.SUCCESS -> {
+                            certificateRequest.person.id = data!!.person.id
+                            reference_name.setText(data.person.fullName)
+                            reference_date.setText(MyUtils.toMyDate(data.person.dateOfBirth))
+                            data.relatives?.forEach { item ->
+                                relativesList.add(item)
+                            }
+                            relativeAdapter.update(relativesList)
+                            initHint()
+                        }
+                        Status.ERROR, Status.NETWORK -> {
+                            Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                        }
+                    }
+                })
         }
         initHint()
     }

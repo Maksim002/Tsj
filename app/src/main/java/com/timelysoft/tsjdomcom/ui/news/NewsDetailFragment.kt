@@ -27,6 +27,7 @@ import com.timelysoft.tsjdomcom.adapters.news.NewsCommentAdapter
 import com.timelysoft.tsjdomcom.adapters.news.NewsFilesAdapter
 import com.timelysoft.tsjdomcom.adapters.news.NewsVPAdapter
 import com.timelysoft.tsjdomcom.service.AppPreferences
+import com.timelysoft.tsjdomcom.service.Status
 import com.timelysoft.tsjdomcom.service.model.news.NewsAttachments
 import com.timelysoft.tsjdomcom.service.model.news.NewsCommentsModel
 import com.timelysoft.tsjdomcom.service.request.NewsCommentRequest
@@ -67,23 +68,23 @@ class NewsDetailFragment : Fragment(), GeneralClickListener, CommentOnItemListen
                 if (validate()) {
                     val body = NewsCommentRequest(newsId, news_detail_edittext.text.toString())
                     MainActivity.alert.show()
-                    viewModel.newsCommentPost(body).observe(this, Observer {
-                        if (it) {
-                            Toast.makeText(
-                                context,
-                                "Ваши коментарии отправлены!",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            news_detail_edittext.setText("")
-                            news_detail_edittext.clearFocus()
-                            MyUtils.hideKeyboard(activity!!, view)
-                            initComments()
 
-                        } else {
-                            Toast.makeText(context, "Что-то пошло не так", Toast.LENGTH_SHORT)
-                                .show()
-                        }
+                    viewModel.newsCommentPost(body).observe(viewLifecycleOwner, Observer { result ->
+                        val msg = result.msg
+                        val data = result.data
                         MainActivity.alert.hide()
+                        when(result.status){
+                            Status.SUCCESS ->{
+                                    Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                                    news_detail_edittext.setText("")
+                                    news_detail_edittext.clearFocus()
+                                    MyUtils.hideKeyboard(activity!!, view)
+                                    initComments()
+                            }
+                            Status.ERROR, Status.NETWORK ->{
+                                Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                            }
+                        }
                     })
                 }
             }
@@ -94,34 +95,44 @@ class NewsDetailFragment : Fragment(), GeneralClickListener, CommentOnItemListen
 
     private fun initViews() {
         MainActivity.alert.show()
-        viewModel.newsDetail(newsId).observe(this, Observer { item ->
-            news_detail_sender.text = item.personName + " • " + MyUtils.toMyDateTime(item.postDate)
-            news_detail_title.text = item.title
-            news_detail_content.text = item.content
-            val imageUrls = ArrayList<String>()
-            val filesList = ArrayList<NewsAttachments>()
 
-            for (i in item.attachments) {
-                if (MyUtils.isImage(i.fileName)) {
-                    imageUrls.add(i.filePath)
-                } else {
-                    filesList.add(i)
+        viewModel.newsDetail(newsId).observe(viewLifecycleOwner, Observer { result ->
+            val msg = result.msg
+            val data = result.data
+            when(result.status){
+                Status.SUCCESS ->{
+                    news_detail_sender.text = data!!.personName + " • " + MyUtils.toMyDateTime(data.postDate)
+                    news_detail_title.text = data.title
+                    news_detail_content.text = data.content
+                    val imageUrls = ArrayList<String>()
+                    val filesList = ArrayList<NewsAttachments>()
+
+                    for (i in data.attachments) {
+                        if (MyUtils.isImage(i.fileName)) {
+                            imageUrls.add(i.filePath)
+                        } else {
+                            filesList.add(i)
+                        }
+                    }
+
+                    if (imageUrls.isNotEmpty()) {
+                        news_detail_viewpager.adapter = NewsVPAdapter(requireContext(), imageUrls)
+                    } else {
+                        news_detail_viewpager.visibility = View.GONE
+                    }
+
+                    val fileAdapter = NewsFilesAdapter(filesList, this)
+
+                    if (fileAdapter.itemCount == 0) {
+                        news_detail_fasten_files.visibility = View.GONE
+                        news_detail_files_rv.visibility = View.GONE
+                    } else {
+                        news_detail_files_rv.adapter = fileAdapter
+                    }
                 }
-            }
-
-            if (imageUrls.isNotEmpty()) {
-                news_detail_viewpager.adapter = NewsVPAdapter(requireContext(), imageUrls)
-            } else {
-                news_detail_viewpager.visibility = View.GONE
-            }
-
-            val fileAdapter = NewsFilesAdapter(filesList, this)
-
-            if (fileAdapter.itemCount == 0) {
-                news_detail_fasten_files.visibility = View.GONE
-                news_detail_files_rv.visibility = View.GONE
-            } else {
-                news_detail_files_rv.adapter = fileAdapter
+                Status.ERROR, Status.NETWORK ->{
+                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                }
             }
         })
         initComments()
@@ -129,16 +140,26 @@ class NewsDetailFragment : Fragment(), GeneralClickListener, CommentOnItemListen
 
     private fun initComments() {
         MainActivity.alert.show()
-        viewModel.newsComment(newsId).observe(this, Observer { item ->
-            val commentAdapter = NewsCommentAdapter(item, this)
-            if (commentAdapter.itemCount == 0) {
-                news_detail_comment.visibility = View.GONE
-                news_detail_comment_rv.adapter = commentAdapter
-            } else {
-                news_detail_comment.visibility = View.VISIBLE
-                news_detail_comment_rv.adapter = commentAdapter
-            }
+
+        viewModel.newsComment(newsId).observe(viewLifecycleOwner, Observer { result ->
+            val msg = result.msg
+            val data = result.data
             MainActivity.alert.hide()
+            when(result.status){
+                Status.SUCCESS ->{
+                    val commentAdapter = NewsCommentAdapter(data!!, this)
+                    if (commentAdapter.itemCount == 0) {
+                        news_detail_comment.visibility = View.GONE
+                        news_detail_comment_rv.adapter = commentAdapter
+                    } else {
+                        news_detail_comment.visibility = View.VISIBLE
+                        news_detail_comment_rv.adapter = commentAdapter
+                    }
+                }
+                Status.ERROR, Status.NETWORK ->{
+                   Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                }
+            }
         })
     }
 
@@ -220,13 +241,18 @@ class NewsDetailFragment : Fragment(), GeneralClickListener, CommentOnItemListen
 
         builder.setPositiveButton(getString(R.string.yesDelete)) { d: DialogInterface, i: Int ->
             MainActivity.alert.show()
-            viewModel.newsCommentDelete(model.id).observe(this, Observer {
-                if (it) {
-                    Toast.makeText(context, "Удалено!", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(context, "Вы уже удалили", Toast.LENGTH_SHORT).show()
-                }
+
+            viewModel.newsCommentDelete(model.id).observe(this, Observer { result ->
+                val msg = result.msg
                 MainActivity.alert.hide()
+                when(result.status){
+                    Status.SUCCESS ->{
+                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                    }
+                    Status.ERROR, Status.NETWORK ->{
+                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                    }
+                }
             })
             initComments()
         }

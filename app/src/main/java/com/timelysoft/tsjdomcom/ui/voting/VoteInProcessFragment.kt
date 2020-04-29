@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -12,6 +13,7 @@ import com.timelysoft.tsjdomcom.MainActivity
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.adapters.vote.VoteAdapter
 import com.timelysoft.tsjdomcom.adapters.vote.VoteItemClickListener
+import com.timelysoft.tsjdomcom.service.Status
 import com.timelysoft.tsjdomcom.service.model.VoteModel
 import com.timelysoft.tsjdomcom.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_vote_in_process.*
@@ -36,16 +38,26 @@ class VoteInProcessFragment(private val placementId: Int, private val typeId: In
 
     private fun initData() {
         MainActivity.alert.show()
-        viewModel.votes(typeId, placementId).observe(this, Observer {
+
+        viewModel.votes(typeId, placementId).observe(viewLifecycleOwner, Observer { result ->
+           val msg = result.msg
+           val data = result.data
             MainActivity.alert.hide()
-            val voteAdapter = VoteAdapter(this, it)
-            vote_inprocess_rv.adapter = voteAdapter
-            if (voteAdapter.itemCount == 0) {
-                vote_inprocess_rv.visibility = View.GONE
-                vote_inprocess_empty.visibility = View.VISIBLE
-            } else {
-                vote_inprocess_rv.visibility = View.VISIBLE
-                vote_inprocess_empty.visibility = View.GONE
+            when(result.status){
+                Status.SUCCESS ->{
+                    val voteAdapter = VoteAdapter(this, data!!)
+                    vote_inprocess_rv.adapter = voteAdapter
+                    if (voteAdapter.itemCount == 0) {
+                        vote_inprocess_rv.visibility = View.GONE
+                        vote_inprocess_empty.visibility = View.VISIBLE
+                    } else {
+                        vote_inprocess_rv.visibility = View.VISIBLE
+                        vote_inprocess_empty.visibility = View.GONE
+                    }
+                }
+                Status.ERROR, Status.NETWORK ->{
+                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                }
             }
         })
     }

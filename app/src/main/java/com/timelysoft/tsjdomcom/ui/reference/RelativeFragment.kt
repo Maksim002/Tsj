@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.timelysoft.tsjdomcom.MainActivity
 import com.timelysoft.tsjdomcom.R
+import com.timelysoft.tsjdomcom.service.Status
 import com.timelysoft.tsjdomcom.service.model.MessagesPersonsModel
 import com.timelysoft.tsjdomcom.service.model.RelativeModel
 import com.timelysoft.tsjdomcom.utils.MyUtils
@@ -103,21 +104,29 @@ class RelativeFragment : Fragment() {
 
     private fun initData(root: View) {
         MainActivity.alert.show()
-        viewModel.relatives().observe(this, Observer {
-            MainActivity.alert.hide()
-            val adapterRelative =
-                ArrayAdapter<MessagesPersonsModel>(context!!, R.layout.item_spinner_adapter, it)
-            adapterRelative.setDropDownViewResource(R.layout.item_spinner_dropdown)
-            root.relative_relative.adapter = adapterRelative
-            if (position != -1) {
-                val id = AddUpdateReferenceFragment.relativesList[position].relativeId
-                it.forEachIndexed { index, model ->
-                    if (model.id == id) {
-                        root.relative_relative.setSelection(index + 1)
+
+        viewModel.relatives().observe(viewLifecycleOwner, Observer { result ->
+            val msg = result.msg
+            val data = result.data
+            when(result.status){
+                Status.SUCCESS ->{
+                    MainActivity.alert.hide()
+                    val adapterRelative =
+                        ArrayAdapter<MessagesPersonsModel>(context!!, R.layout.item_spinner_adapter, data!!)
+                    adapterRelative.setDropDownViewResource(R.layout.item_spinner_dropdown)
+                    root.relative_relative.adapter = adapterRelative
+                    if (position != -1) {
+                        val id = AddUpdateReferenceFragment.relativesList[position].relativeId
+                        data.forEachIndexed { index, model ->
+                            if (model.id == id) {
+                                root.relative_relative.setSelection(index + 1)
+                            }
+                        }
                     }
                 }
-
-
+                Status.ERROR, Status.NETWORK ->{
+                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                }
             }
         })
     }

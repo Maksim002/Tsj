@@ -127,6 +127,7 @@ interface ApiService {
 
     @GET("Messages/Types")
     fun messageTypes(): Call<List<MessagesPersonsModel>>
+//
 
     @Multipart
     @POST("Messages")
@@ -136,18 +137,23 @@ interface ApiService {
         @Query("model.title") title: String,
         @Part file: List<MultipartBody.Part>
     ): Call<Unit>
+//
 
     @GET("Certificates")
     fun references(@Query("id") id: Int): Call<List<ReferenceLiteModel>>
+//
 
     @POST("Certificates")
     fun addReferences(@Body certificateRequest: CertificateRequest): Call<Unit>
+//
 
     @PUT("Certificates")
     fun updateReferences(@Body certificateRequest: CertificateRequest): Call<Unit>
+//
 
     @GET("Certificates/{id}")
     fun reference(@Path("id") id: Int): Call<ReferencesFullModel>
+//
 
     @GET("Certificates/Relatives")
     fun relatives(): Call<List<MessagesPersonsModel>>
@@ -155,63 +161,80 @@ interface ApiService {
 
     @POST("ForgotPassword")
     fun forgotPassword(@Query("email") email: String): Call<String>
+//
 
     @GET("Voting")
     fun votes(
         @Query("typeId") typeId: Int,
         @Query("id") id: Int
     ): Call<List<VoteModel>>
+//
 
     @GET("Voting/Addresses")
     fun votingAddress(): Call<List<AddressModel>>
+//
 
     @GET("Messages/{id}/Reply")
     fun reply(@Path("id") id: Int): Call<ReplyModel>
+//
 
     @GET("Voting/Types")
     fun votingType(): Call<List<MessagesPersonsModel>>
+//
 
     @GET("Voting/{id}/Variants")
     fun votingVariants(@Path("id") id: Int): Call<List<MessagesPersonsModel>>
+//
 
     @POST("Voting")
     fun votingPost(@Body body: VotingRequest): Call<String>
+//
 
     @GET("Voting/{id}")
     fun votingDetail(@Path("id") id: Int): Call<VotingDetailModel>
+//
 
     @POST("RequestForConnection")
     fun requestForConnect(@Body body: RequestForConnectModel): Call<String>
+//
 
     @GET("News/{id}")
     fun newsDetail(@Path("id") id: Int): Call<NewsDetailModel>
+//
 
     @GET("News/{id}/Comments")
     fun newsComment(@Path("id") id: Int): Call<List<NewsCommentsModel>>
+//
 
     @POST("News/Comments")
     fun newsCommentPost(@Body body: NewsCommentRequest): Call<String>
+//
 
     @DELETE("News/Comments/{id}")
     fun newsCommentDelete(@Path("id") id: Int): Call<String>
+//
 
     @POST("ChangePassword")
     fun changePassword(@Body model: ChangePasswordModel): Call<Unit>
+//
 
     @POST("Contact/Feedback")
     fun sendFeedback(@Body model: FeedbackRequest): Call<String>
-
+//
 
     @PUT("FirebaseTokens")
     fun sendFirebaseToken(@Body model: FirebaseTokenModel): Call<Unit>
+//
 
     @GET("Certificates/Managers/{id}")
     fun managers(@Path("id") id: Int): Call<List<ManagerResponse>>
+//
 
     @GET("Certificates/{helpId}/Managers/{chairmanId}/Download")
     fun downloadCertificate(
         @Path("helpId") helpId: Int,
         @Path("chairmanId") chairmanId: Int
     ): Call<String>
+//
 }
 

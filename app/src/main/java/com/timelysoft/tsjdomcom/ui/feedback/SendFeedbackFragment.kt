@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.timelysoft.tsjdomcom.MainActivity
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.service.AppPreferences
+import com.timelysoft.tsjdomcom.service.Status
 import com.timelysoft.tsjdomcom.service.request.FeedbackRequest
 import com.timelysoft.tsjdomcom.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_send_feedback.*
@@ -63,17 +64,21 @@ class SendFeedbackFragment : Fragment() {
             val body = FeedbackRequest(
                 feedbact_name.text.toString(),  feedback_email.text.toString(), feedback_message.text.toString()
             )
-            viewModel.sendFeedback(body).observe(this, Observer {
-                if (it) {
-                    Toast.makeText(context, "Ваше письмо отправлено!", Toast.LENGTH_SHORT).show()
-                    findNavController().popBackStack()
-                } else {
-                    Toast.makeText(context, "Произошла ошибка при отправлении!", Toast.LENGTH_SHORT).show()
-                }
+
+            viewModel.sendFeedbackN(body).observe(this, Observer { result ->
+                val msg = result.msg
                 MainActivity.alert.hide()
+                when(result.status){
+                    Status.SUCCESS ->{
+                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                        findNavController().popBackStack()
+                    }
+                    Status.ERROR, Status.NETWORK ->{
+                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                    }
+                }
             })
         }
-
     }
 
     private fun isValid(): Boolean {
