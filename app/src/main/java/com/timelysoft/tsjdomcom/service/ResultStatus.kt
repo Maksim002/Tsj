@@ -14,9 +14,6 @@ data class ResultStatus<out T>(val status: Status, val data: T?, val msg: String
         fun <T> netwrok(msg: String = "", data: T? = null): ResultStatus<T> {
             return ResultStatus(Status.NETWORK, data, msg)
         }
-
-
-
     }
 }
 

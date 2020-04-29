@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -16,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import com.timelysoft.tsjdomcom.MainActivity
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.service.AppPreferences
+import com.timelysoft.tsjdomcom.service.Status
 import com.timelysoft.tsjdomcom.service.model.AddressModel
 import com.timelysoft.tsjdomcom.ui.contact.fragments.AccountsBottomSheet
 import com.timelysoft.tsjdomcom.ui.contact.fragments.AccountsListener
@@ -92,28 +94,61 @@ class ContactFragment : Fragment(), AccountsListener {
         }
         if (AppPreferences.isLogined) {
             MainActivity.alert.show()
-            viewModel.addresses().observe(this, Observer {
-                bottomSheet = AccountsBottomSheet(this, it)
-                var find = false
 
-                for (i in it) {
-
-                    if (AppPreferences.licNumber == i.licNumber) {
-                        contacts_test.text = i.licNumber.toString()
-                        contacts_address.text = i.address
-                        find = true
-                    }
-                }
-                if (!find) {
-                    try {
-                        contacts_test.text = it[0].licNumber.toString()
-                        contacts_address.text = it[0].address
-                    } catch (e: Exception) {
-                    }
-
-                }
+            viewModel.addressesN().observe(viewLifecycleOwner, Observer { result ->
+                val msg = result.msg
+                val data = result.data
                 MainActivity.alert.hide()
+                when(result.status){
+                    Status.SUCCESS ->{
+                        bottomSheet = AccountsBottomSheet(this, data!!)
+                        var find = false
+
+                        for (i in data) {
+
+                            if (AppPreferences.licNumber == i.licNumber) {
+                                contacts_test.text = i.licNumber.toString()
+                                contacts_address.text = i.address
+                                find = true
+                            }
+                        }
+                        if (!find) {
+                            try {
+                                contacts_test.text = data[0].licNumber.toString()
+                                contacts_address.text = data[0].address
+                            } catch (e: Exception) {
+                            }
+
+                        }
+                    }
+                    Status.ERROR, Status.NETWORK ->{
+                        Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                    }
+                }
             })
+
+//            viewModel.addresses().observe(this, Observer {
+//                bottomSheet = AccountsBottomSheet(this, it)
+//                var find = false
+//
+//                for (i in it) {
+//
+//                    if (AppPreferences.licNumber == i.licNumber) {
+//                        contacts_test.text = i.licNumber.toString()
+//                        contacts_address.text = i.address
+//                        find = true
+//                    }
+//                }
+//                if (!find) {
+//                    try {
+//                        contacts_test.text = it[0].licNumber.toString()
+//                        contacts_address.text = it[0].address
+//                    } catch (e: Exception) {
+//                    }
+//
+//                }
+//                MainActivity.alert.hide()
+//            })
         }
 
         root.contacts_profile.setOnClickListener {

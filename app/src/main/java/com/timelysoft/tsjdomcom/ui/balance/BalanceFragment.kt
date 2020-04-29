@@ -80,8 +80,10 @@ class BalanceFragment : Fragment() {
                         ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, listAddress)
                     addressesAutoComplete.setAdapter(addressAdapter)
                 }
+                Status.ERROR, Status.NETWORK ->{
+                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                }
             }
-            Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
         })
     }
 

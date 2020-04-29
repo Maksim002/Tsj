@@ -30,15 +30,15 @@ class VoteViewModel : ViewModel() {
         return repository.votingType()
     }
 
-    fun voteVariantsN(id: Int): LiveData<ResultStatus<List<MessagesPersonsModel>>>{
+    fun voteVariants(id: Int): LiveData<ResultStatus<List<MessagesPersonsModel>>>{
         return repository.votingVariants(id)
     }
 
-    fun votingPostN(body: VotingRequest): LiveData<ResultStatus<Nothing>>{
+    fun votingPost(body: VotingRequest): LiveData<ResultStatus<Nothing>>{
         return repository.votingPost(body)
     }
 
-    fun voteDetailN(id: Int): LiveData<ResultStatus<VotingDetailModel>>{
+    fun voteDetail(id: Int): LiveData<ResultStatus<VotingDetailModel>>{
         return repository.votingDetail(id)
     }
 }

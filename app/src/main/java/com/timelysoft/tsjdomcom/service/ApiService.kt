@@ -9,7 +9,7 @@ import com.timelysoft.tsjdomcom.service.model.news.NewsModel
 import com.timelysoft.tsjdomcom.service.model.vote.VotingDetailModel
 import com.timelysoft.tsjdomcom.service.request.*
 import okhttp3.MultipartBody
-import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.*
 
 
@@ -18,223 +18,172 @@ interface ApiService {
     @Headers("Content-Type: application/x-www-form-urlencoded")
     @FormUrlEncoded
     @POST("Token")
-    fun auth(@FieldMap params: Map<String, String>): Call<AuthModel>
-
-    @Headers("Content-Type: application/x-www-form-urlencoded")
-    @FormUrlEncoded
-    @POST("Token")
-    fun refreshToken(@FieldMap params: Map<String, String>): Call<AuthModel>
+    suspend fun auth(@FieldMap params: Map<String, String>): Response<AuthModel>
 
     @GET("News")
-    fun news(): Call<List<NewsModel>>
-//
+    suspend fun news(): Response<List<NewsModel>>
 
     @GET("Messages")
-    fun messages(@Query("typeId") id: Int): Call<List<MessageItemModel>>
-//
+    suspend fun messages(@Query("typeId") id: Int): Response<List<MessageItemModel>>
 
     @GET("Messages/{id}")
-    fun message(@Path("id") id: Int): Call<MessageModel>
-//
+    suspend fun message(@Path("id") id: Int): Response<MessageModel>
 
     @DELETE("Messages/{id}")
-    fun deleteMessage(@Path("id") id: Int): Call<Unit>
-//
+    suspend fun deleteMessage(@Path("id") id: Int): Response<Unit>
 
     @GET("Balance/Addresses")
-    fun addresses(): Call<List<AddressModel>>
-//
+    suspend fun addresses(): Response<List<AddressModel>>
 
     @GET("Balance/{id}/Services/Balance")
-    fun status(@Path("id") id: Int): Call<List<BalanceStatusModel>>
-//
+    suspend fun status(@Path("id") id: Int): Response<List<BalanceStatusModel>>
 
     @GET("Balance/Operations")
-    fun operations(): Call<List<OperationsModel>>
-
-//
+    suspend fun operations(): Response<List<OperationsModel>>
 
     @GET("Balance/Periods")
-    fun periods(): Call<PeriodsModel>
-//
+    suspend fun periods(): Response<PeriodsModel>
 
     @GET("Balance/{id}/Services")
-    fun services(@Path("id") id: Int): Call<List<ServicesModel>>
-//
+    suspend fun services(@Path("id") id: Int): Response<List<ServicesModel>>
 
     @GET("Balance/CurrentBalance")
-    fun invoices(
+    suspend fun invoices(
         @Query("placementId") placementId: Int,
         @Query("serviceId") serviceId: Int,
         @Query("operationId") operationId: Int,
-        @Query("dateTo") dateTo: String,
-        @Query("dateFrom") dateFrom: String
-    ): Call<CurrentBalance>
-//
+        @Query("dateFrom") dateFrom: String,
+        @Query("dateTo") dateTo: String
+    ): Response<CurrentBalance>
 
     @GET("Requests")
-    fun requests(): Call<List<RequestsModel>>
-//
+    suspend fun requests(): Response<List<RequestsModel>>
 
     @GET("Requests/Types")
-    fun requestTypes(): Call<List<RequestTypeModel>>
-//
+    suspend fun requestTypes(): Response<List<RequestTypeModel>>
 
     @GET("Requests/Addresses")
-    fun requestAddresses(): Call<List<RequestAddressesModel>>
-//
+    suspend fun requestAddresses(): Response<List<RequestAddressesModel>>
 
     @PUT("Requests")
-    fun requestUpdate(@Body body: UpdateRequest): Call<Unit>
-//
+    suspend fun requestUpdate(@Body body: UpdateRequest): Response<Unit>
 
     @POST("Requests")
-    fun requestAdd(@Body body: AddRequest): Call<String>
-//
+    suspend fun requestAdd(@Body body: AddRequest): Response<Unit>
 
     @GET("Requests/{id}")
-    fun requestGet(@Path("id") id: Int): Call<RequestModel>
-//
+    suspend fun requestGet(@Path("id") id: Int): Response<RequestModel>
 
     @DELETE("Requests/{id}")
-    fun requestDelete(@Path("id") id: Int): Call<String>
-//
+    suspend fun requestDelete(@Path("id") id: Int): Response<String>
 
     @GET("Balance/Invoices/{id}/Download")
-    fun downloadLink(@Path("id") id: Int): Call<String>
-//
+    suspend fun downloadLink(@Path("id") id: Int): Response<String>
 
     @Multipart
     @POST("Messages/ToManager")
-    fun sendMessageToManager(
+    suspend fun sendMessageToManager(
         @Query("model.body") body: String,
         @Query("model.title") title: String,
         @Part file: List<MultipartBody.Part>
-    ): Call<Unit>
-//
+    ): Response<Unit>
 
     @GET("Messages/Houses")
-    fun houses(): Call<List<MessagesHousesModel>>
-//
+    suspend fun houses(): Response<List<MessagesHousesModel>>
 
     @GET("Messages/Houses/{id}/Placements")
-    fun placements(@Path("id") id: Int): Call<List<MessagesPlacementsModel>>
-//
+    suspend fun placements(@Path("id") id: Int): Response<List<MessagesPlacementsModel>>
 
     @GET("Messages/Houses/Placements/{id}/Persons")
-    fun persons(@Path("id") id: Int): Call<List<MessagesPersonsModel>>
+    suspend fun persons(@Path("id") id: Int): Response<List<MessagesPersonsModel>>
 //
 
     @GET("Messages/Types")
-    fun messageTypes(): Call<List<MessagesPersonsModel>>
-//
+    suspend fun messageTypes(): Response<List<MessagesPersonsModel>>
 
     @Multipart
     @POST("Messages")
-    fun messageToPerson(
+    suspend fun messageToPerson(
         @Query("model.personId") personId: Int,
         @Query("model.body") body: String,
         @Query("model.title") title: String,
         @Part file: List<MultipartBody.Part>
-    ): Call<Unit>
-//
+    ): Response<Unit>
 
     @GET("Certificates")
-    fun references(@Query("id") id: Int): Call<List<ReferenceLiteModel>>
-//
+    suspend fun references(@Query("id") id: Int): Response<List<ReferenceLiteModel>>
 
     @POST("Certificates")
-    fun addReferences(@Body certificateRequest: CertificateRequest): Call<Unit>
-//
+    suspend fun addReferences(@Body certificateRequest: CertificateRequest): Response<Unit>
 
     @PUT("Certificates")
-    fun updateReferences(@Body certificateRequest: CertificateRequest): Call<Unit>
-//
+    suspend fun updateReferences(@Body certificateRequest: CertificateRequest): Response<Unit>
 
     @GET("Certificates/{id}")
-    fun reference(@Path("id") id: Int): Call<ReferencesFullModel>
-//
+    suspend fun reference(@Path("id") id: Int): Response<ReferencesFullModel>
 
     @GET("Certificates/Relatives")
-    fun relatives(): Call<List<MessagesPersonsModel>>
-    //    ////   ////
+    suspend fun relatives(): Response<List<MessagesPersonsModel>>
 
     @POST("ForgotPassword")
-    fun forgotPassword(@Query("email") email: String): Call<String>
-//
+    suspend fun forgotPassword(@Query("email") email: String): Response<String>
 
     @GET("Voting")
-    fun votes(
+    suspend fun votes(
         @Query("typeId") typeId: Int,
         @Query("id") id: Int
-    ): Call<List<VoteModel>>
-//
+    ): Response<List<VoteModel>>
 
     @GET("Voting/Addresses")
-    fun votingAddress(): Call<List<AddressModel>>
-//
+    suspend fun votingAddress(): Response<List<AddressModel>>
 
     @GET("Messages/{id}/Reply")
-    fun reply(@Path("id") id: Int): Call<ReplyModel>
-//
+    suspend fun reply(@Path("id") id: Int): Response<ReplyModel>
 
     @GET("Voting/Types")
-    fun votingType(): Call<List<MessagesPersonsModel>>
-//
+    suspend fun votingType(): Response<List<MessagesPersonsModel>>
 
     @GET("Voting/{id}/Variants")
-    fun votingVariants(@Path("id") id: Int): Call<List<MessagesPersonsModel>>
-//
+    suspend fun votingVariants(@Path("id") id: Int): Response<List<MessagesPersonsModel>>
 
     @POST("Voting")
-    fun votingPost(@Body body: VotingRequest): Call<String>
-//
+    suspend fun votingPost(@Body body: VotingRequest): Response<String>
 
     @GET("Voting/{id}")
-    fun votingDetail(@Path("id") id: Int): Call<VotingDetailModel>
-//
+    suspend fun votingDetail(@Path("id") id: Int): Response<VotingDetailModel>
 
     @POST("RequestForConnection")
-    fun requestForConnect(@Body body: RequestForConnectModel): Call<String>
-//
+    suspend fun requestForConnect(@Body body: RequestForConnectModel): Response<String>
 
     @GET("News/{id}")
-    fun newsDetail(@Path("id") id: Int): Call<NewsDetailModel>
-//
+    suspend fun newsDetail(@Path("id") id: Int): Response<NewsDetailModel>
 
     @GET("News/{id}/Comments")
-    fun newsComment(@Path("id") id: Int): Call<List<NewsCommentsModel>>
-//
+    suspend fun newsComment(@Path("id") id: Int): Response<List<NewsCommentsModel>>
 
     @POST("News/Comments")
-    fun newsCommentPost(@Body body: NewsCommentRequest): Call<String>
-//
+    suspend fun newsCommentPost(@Body body: NewsCommentRequest): Response<String>
 
     @DELETE("News/Comments/{id}")
-    fun newsCommentDelete(@Path("id") id: Int): Call<String>
-//
+    suspend fun newsCommentDelete(@Path("id") id: Int): Response<String>
 
     @POST("ChangePassword")
-    fun changePassword(@Body model: ChangePasswordModel): Call<Unit>
-//
+    suspend fun changePassword(@Body model: ChangePasswordModel): Response<Unit>
 
     @POST("Contact/Feedback")
-    fun sendFeedback(@Body model: FeedbackRequest): Call<String>
-//
+    suspend fun sendFeedback(@Body model: FeedbackRequest): Response<String>
+
 
     @PUT("FirebaseTokens")
-    fun sendFirebaseToken(@Body model: FirebaseTokenModel): Call<Unit>
-//
+    suspend fun sendFirebaseToken(@Body model: FirebaseTokenModel): Response<Unit>
 
     @GET("Certificates/Managers/{id}")
-    fun managers(@Path("id") id: Int): Call<List<ManagerResponse>>
-//
+    suspend fun managers(@Path("id") id: Int): Response<List<ManagerResponse>>
 
     @GET("Certificates/{helpId}/Managers/{chairmanId}/Download")
-    fun downloadCertificate(
+    suspend fun downloadCertificate(
         @Path("helpId") helpId: Int,
         @Path("chairmanId") chairmanId: Int
-    ): Call<String>
-//
+    ): Response<String>
 }
 

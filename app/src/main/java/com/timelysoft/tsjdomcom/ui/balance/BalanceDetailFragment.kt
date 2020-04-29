@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.timelysoft.tsjdomcom.MainActivity
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.adapters.balance.BalanceAdapter
+import com.timelysoft.tsjdomcom.service.Status
 import kotlinx.android.synthetic.main.fragment_balance_detail.*
 
 class BalanceDetailFragment : Fragment() {
@@ -57,9 +59,19 @@ class BalanceDetailFragment : Fragment() {
             ""
         }
         MainActivity.alert.show()
-        viewModel.services(id).observe(this, Observer { list ->
-            balanceAdapter.update(list)
+
+        viewModel.services(id).observe(this, Observer { result ->
+            val msg = result.msg
+            val data = result.data
             MainActivity.alert.hide()
+            when(result.status){
+                Status.SUCCESS ->{
+                    balanceAdapter.update(data!!)
+                }
+                Status.ERROR, Status.NETWORK ->{
+                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                }
+            }
         })
     }
 }

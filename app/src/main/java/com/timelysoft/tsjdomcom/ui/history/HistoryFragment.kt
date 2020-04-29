@@ -26,6 +26,7 @@ import com.timelysoft.tsjdomcom.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_history.*
 import kotlin.collections.ArrayList
 
+@Suppress("CAST_NEVER_SUCCEEDS")
 class HistoryFragment : Fragment() {
     private lateinit var viewmodel: HistoryViewModel
     private var mLastClickTime: Long = 0
@@ -93,11 +94,6 @@ class HistoryFragment : Fragment() {
         getAutoDatesTo()
         getDate()
         hintText()
-        if (history_address != null) {
-            getAutoService()
-        } else {
-            getAutoAddress()
-        }
 
         history_show.setOnClickListener {
             if (validate()) {
@@ -169,17 +165,36 @@ class HistoryFragment : Fragment() {
     private fun getAutoAddress() {
         var listAddress = ArrayList<AddressModel>()
         MainActivity.alert.show()
-        viewmodel.addresses().observe(this, Observer { address ->
-            val list = address.map {
-                it.address
-            }
-            listAddress = address as ArrayList<AddressModel>
 
-            val adapterAddress =
-                ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
-            history_address.setAdapter(adapterAddress)
+        viewmodel.addresses().observe(this, Observer { result ->
+            val msg = result.msg
+            val data = result.data
             MainActivity.alert.hide()
+            when(result.status){
+                Status.SUCCESS ->{
+
+                    listAddress = data as ArrayList<AddressModel>
+                    val adapterAddress =
+                        ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, data)
+                    history_address.setAdapter(adapterAddress)
+                }
+                Status.ERROR, Status.NETWORK ->{
+                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                }
+            }
         })
+
+//        viewmodel.addressesN().observe(this, Observer { address ->
+//            val list = address.map {
+//                it.address
+//            }
+//            listAddress = address as ArrayList<AddressModel>
+//
+//            val adapterAddress =
+//                ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
+//            history_address.setAdapter(adapterAddress)
+//            MainActivity.alert.hide()
+//        })
         history_address.keyListener = null
         history_from_out.defaultHintTextColor =
             ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
@@ -234,11 +249,8 @@ class HistoryFragment : Fragment() {
             MainActivity.alert.hide()
             when(result.status){
                 Status.SUCCESS ->{
-                    val list = data!!.map {
-                        it.serviceName
-                    }
                     listServices = data as ArrayList<ServicesModel>
-                    val adapterServices = ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
+                    val adapterServices = ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, data)
                     adapterServices.notifyDataSetChanged()
                     history_service.setAdapter(adapterServices)
                 }
