@@ -63,7 +63,7 @@ class   MessagesViewModel : ViewModel() {
         return MultipartBody.Part.createFormData("empty", "", empty)
     }
 
-    fun replyN(idMessage: Int): LiveData<ResultStatus<ReplyModel>>{
+    fun reply(idMessage: Int): LiveData<ResultStatus<ReplyModel>>{
         return repository.reply(idMessage)
     }
 }

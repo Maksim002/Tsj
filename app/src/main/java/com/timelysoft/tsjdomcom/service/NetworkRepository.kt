@@ -199,7 +199,7 @@ class NetworkRepository {
                     }
                 }
                 else -> {
-                    emit(ResultStatus.error("Поля пусты"))
+                    emit(ResultStatus.error("Не известная ошибка"))
                 }
             }
         } catch (e: Exception) {

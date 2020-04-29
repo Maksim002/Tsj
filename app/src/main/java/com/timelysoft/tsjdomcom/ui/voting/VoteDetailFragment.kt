@@ -49,7 +49,7 @@ class VoteDetailFragment : Fragment() {
         if (isCanVote) {
             MainActivity.alert.show()
 
-            viewModel.voteVariantsN(questionId).observe(viewLifecycleOwner, Observer { result ->
+            viewModel.voteVariants(questionId).observe(viewLifecycleOwner, Observer { result ->
                 val msg = result.msg
                 val data = result.data
                 when(result.status){
@@ -86,7 +86,7 @@ class VoteDetailFragment : Fragment() {
                 val body = VotingRequest(questionId, variantId, placementId)
                 MainActivity.alert.show()
 
-                viewModel.votingPostN(body).observe(viewLifecycleOwner, Observer { result ->
+                viewModel.votingPost(body).observe(viewLifecycleOwner, Observer { result ->
                     val msg = result.msg
                     MainActivity.alert.hide()
                     when(result.status){
@@ -112,7 +112,7 @@ class VoteDetailFragment : Fragment() {
     private fun getVotedVariants() {
         MainActivity.alert.show()
 
-        viewModel.voteDetailN(questionId).observe(viewLifecycleOwner, Observer { result ->
+        viewModel.voteDetail(questionId).observe(viewLifecycleOwner, Observer { result ->
             val msg = result.msg
             val data = result.data
             when(result.status){

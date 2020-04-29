@@ -54,17 +54,25 @@ class ReferenceFragment : Fragment(),ReferencesListener {
 
     private fun initData(root: View) {
         MainActivity.alert.show()
-        viewModel.addresses().observe(this, Observer {
-            val addressAdapter = ArrayAdapter<AddressModel>(
-                context!!,
-                R.layout.support_simple_spinner_dropdown_item,
-                it
-            )
-            root.reference_address.setAdapter(addressAdapter)
+
+        viewModel.addresses().observe(viewLifecycleOwner, Observer { result ->
+            val msg = result.msg
+            val data = result.data
             MainActivity.alert.hide()
+            when(result.status){
+                Status.SUCCESS ->{
+                    val addressAdapter = ArrayAdapter<AddressModel>(
+                        context!!,
+                        R.layout.support_simple_spinner_dropdown_item,
+                        data!!
+                    )
+                    root.reference_address.setAdapter(addressAdapter)
+                }
+                Status.ERROR, Status.NETWORK ->{
+                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                }
+            }
         })
-
-
     }
 
     private fun initViews(root: View) {

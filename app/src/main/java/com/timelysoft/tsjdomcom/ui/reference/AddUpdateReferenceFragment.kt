@@ -237,7 +237,7 @@ class AddUpdateReferenceFragment : Fragment(), FamilyListener {
             if (isValid(layoutView.choose_manager_dialog_text.text.toString())) {
                 MainActivity.alert.show()
 
-                viewModel.chooseManagerN(certificateRequest.id, chairmanId)
+                viewModel.chooseManager(certificateRequest.id, chairmanId)
                     .observe(this, Observer { result ->
                         val msg = result.msg
                         val data = result.data

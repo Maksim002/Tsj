@@ -14,20 +14,8 @@ import retrofit2.Response
 class HistoryViewModel : ViewModel() {
     private val repository = NetworkRepository()
 
-    fun addresses(): LiveData<List<AddressModel>> {
-        val data = MutableLiveData<List<AddressModel>>()
-
-        RetrofitService.apiService().addresses().enqueue(object : Callback<List<AddressModel>> {
-            override fun onResponse(call: Call<List<AddressModel>>, response: Response<List<AddressModel>>){
-                if (response.isSuccessful){
-                    data.value = response.body()
-                }
-            }
-            override fun onFailure(call: Call<List<AddressModel>>, t: Throwable) {
-            }
-        })
-
-        return data
+    fun addresses(): LiveData<ResultStatus<List<AddressModel>>>{
+        return  repository.addresses()
     }
 
     fun operations(): LiveData<ResultStatus<List<OperationsModel>>> {
@@ -46,7 +34,7 @@ class HistoryViewModel : ViewModel() {
         return repository.invoices(placementId, serviceId, operationId, dateFrom, dateTo)
     }
 
-    fun downloadN(id: Int): LiveData<ResultStatus<String>>{
+    fun download(id: Int): LiveData<ResultStatus<String>>{
         return repository.downloadLink(id)
     }
 }

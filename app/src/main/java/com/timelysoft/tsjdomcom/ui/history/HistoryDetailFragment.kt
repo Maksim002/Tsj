@@ -154,7 +154,7 @@ class HistoryDetailFragment : Fragment(),
 
     override fun onClickDownload(id: Int?) {
         MainActivity.alert.show()
-        viewModel.downloadN(id!!).observe(this, Observer { result ->
+        viewModel.download(id!!).observe(this, Observer { result ->
             val msg = result.msg
             val data = result.data
             MainActivity.alert.hide()

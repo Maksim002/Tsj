@@ -10,5 +10,7 @@ class ServicesModel {
     @SerializedName("ServiceName")
     @Expose
     var serviceName: String = ""
-
+    override fun toString(): String {
+        return serviceName.toString()
+    }
 }

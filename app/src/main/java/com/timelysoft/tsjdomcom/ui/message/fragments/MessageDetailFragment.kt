@@ -128,8 +128,10 @@ class MessageDetailFragment : Fragment(), GeneralClickListener {
                Status.SUCCESS ->{
                        findNavController().popBackStack()
                }
+               Status.ERROR, Status.NETWORK ->{
+                   Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+               }
            }
-           Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
        })
     }
 

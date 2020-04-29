@@ -20,25 +20,7 @@ class BalanceViewModel : ViewModel() {
         return  repository.addresses()
     }
 
-
-    fun services(placementId: Int): LiveData<List<BalanceStatusModel>> {
-        val data = MutableLiveData<List<BalanceStatusModel>>()
-
-        RetrofitService.apiService().status(placementId)
-            .enqueue(object : Callback<List<BalanceStatusModel>> {
-                override fun onResponse(
-                    call: Call<List<BalanceStatusModel>>,
-                    response: Response<List<BalanceStatusModel>>
-                ) {
-                    if (response.isSuccessful)
-                        data.value = response.body()
-                }
-
-                override fun onFailure(call: Call<List<BalanceStatusModel>>, t: Throwable) {
-                }
-            })
-
-
-        return data
+    fun services(placementId: Int): LiveData<ResultStatus<List<BalanceStatusModel>>>{
+        return repository.status(placementId)
     }
 }

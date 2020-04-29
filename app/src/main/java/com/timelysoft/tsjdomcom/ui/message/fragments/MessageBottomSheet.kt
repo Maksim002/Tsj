@@ -199,7 +199,7 @@ class MessageBottomSheet(private val idMessage: Int) : BottomSheetDialogFragment
     override fun onStart() {
         super.onStart()
 
-        viewModel.replyN(idMessage).observe(this, Observer { result ->
+        viewModel.reply(idMessage).observe(this, Observer { result ->
             val msg = result.msg
             val data = result.data
             when(result.status){
