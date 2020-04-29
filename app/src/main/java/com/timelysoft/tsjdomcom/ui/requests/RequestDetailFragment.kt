@@ -21,7 +21,6 @@ class RequestDetailFragment : Fragment() {
     private lateinit var viewModel: RequestViewModel
     private var requestId = 0
     private var detailsId = 0
-    private var requestDate = ""
 
     companion object {
         var requestModel = RequestModel()
@@ -58,17 +57,10 @@ class RequestDetailFragment : Fragment() {
                     bid_porch_content.text = data.entrance.toString()
                     bid_description_content.text = data.description
                     bid_title.text = data.requestTypeName
-                    bid_detail_date.text = "от " + MyUtils.toMyDateTime(requestDate)
+                    bid_detail_date_creat.text = "Дата создания " + MyUtils.toMyDateTime(data.createdDate)
+                    bid_detail_date_сhange.text = "Дата изменения " + MyUtils.toMyDateTime(data.statusDate)
+                    bid_status_text_view.text = data.statusName
 
-                    if (data.editableAndCloseable) {
-                        bid_status_textview.text = "Создана"
-                        bid_status_textview.setTextColor(resources.getColor(R.color.requestStatusGreen))
-                        bid_status_view.setBackgroundColor(resources.getColor(R.color.requestStatusGreen))
-                    } else {
-                        bid_status_textview.text = "Отменена"
-                        bid_status_textview.setTextColor(resources.getColor(R.color.requestStatusRed))
-                        bid_status_view.setBackgroundColor(resources.getColor(R.color.requestStatusRed))
-                    }
                 }
                 Status.ERROR, Status.NETWORK ->{
                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
@@ -82,12 +74,6 @@ class RequestDetailFragment : Fragment() {
             arguments!!.getInt("id")
         } catch (e: Exception) {
             0
-        }
-
-        requestDate = try {
-            arguments!!.getString("date")!!
-        } catch (e: Exception) {
-            " "
         }
 
         detailsId = try {

@@ -20,7 +20,16 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/bid_detail_date"
+        android:id="@+id/bid_detail_date_creat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        tools:text="от 18.02.2020 16:16" />
+
+    <TextView
+        android:id="@+id/bid_detail_date_сhange"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
@@ -40,26 +49,17 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="23dp">
 
-            <View
-                android:id="@+id/bid_status_view"
-                android:layout_width="54dp"
-                android:layout_height="4dp"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:background="@android:color/holo_green_dark" />
-
             <TextView
-                android:id="@+id/bid_status_textview"
+                android:id="@+id/bid_status_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:layout_marginLeft="10dp"
                 android:textStyle="bold"
                 android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="@id/bid_status_view"
-                app:layout_constraintStart_toStartOf="@id/bid_status_view"
-                app:layout_constraintTop_toBottomOf="@id/bid_status_view"
                 tools:text="Создана"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
                 tools:textColor="@android:color/holo_green_dark" />
 
             <TextView
@@ -72,7 +72,7 @@
                 android:text="Адрес"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/bid_status_textview" />
+                app:layout_constraintTop_toBottomOf="@id/bid_status_text_view" />
 
             <TextView
                 android:id="@+id/bid_adres_content"
