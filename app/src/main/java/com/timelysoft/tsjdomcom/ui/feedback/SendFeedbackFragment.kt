@@ -65,7 +65,7 @@ class SendFeedbackFragment : Fragment() {
                 feedbact_name.text.toString(),  feedback_email.text.toString(), feedback_message.text.toString()
             )
 
-            viewModel.sendFeedbackN(body).observe(this, Observer { result ->
+            viewModel.sendFeedback(body).observe(this, Observer { result ->
                 val msg = result.msg
                 MainActivity.alert.hide()
                 when(result.status){

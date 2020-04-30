@@ -95,7 +95,7 @@ class ContactFragment : Fragment(), AccountsListener {
         if (AppPreferences.isLogined) {
             MainActivity.alert.show()
 
-            viewModel.addressesN().observe(viewLifecycleOwner, Observer { result ->
+            viewModel.addresses().observe(viewLifecycleOwner, Observer { result ->
                 val msg = result.msg
                 val data = result.data
                 MainActivity.alert.hide()
@@ -126,29 +126,6 @@ class ContactFragment : Fragment(), AccountsListener {
                     }
                 }
             })
-
-//            viewModel.addresses().observe(this, Observer {
-//                bottomSheet = AccountsBottomSheet(this, it)
-//                var find = false
-//
-//                for (i in it) {
-//
-//                    if (AppPreferences.licNumber == i.licNumber) {
-//                        contacts_test.text = i.licNumber.toString()
-//                        contacts_address.text = i.address
-//                        find = true
-//                    }
-//                }
-//                if (!find) {
-//                    try {
-//                        contacts_test.text = it[0].licNumber.toString()
-//                        contacts_address.text = it[0].address
-//                    } catch (e: Exception) {
-//                    }
-//
-//                }
-//                MainActivity.alert.hide()
-//            })
         }
 
         root.contacts_profile.setOnClickListener {

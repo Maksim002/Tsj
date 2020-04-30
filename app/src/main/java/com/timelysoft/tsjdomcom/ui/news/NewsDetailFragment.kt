@@ -10,6 +10,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -103,9 +104,15 @@ class NewsDetailFragment : Fragment(), GeneralClickListener, CommentOnItemListen
                 Status.SUCCESS ->{
                     news_detail_sender.text = data!!.personName + " • " + MyUtils.toMyDateTime(data.postDate)
                     news_detail_title.text = data.title
-                    news_detail_content.text = data.content
+
                     val imageUrls = ArrayList<String>()
                     val filesList = ArrayList<NewsAttachments>()
+
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                        news_detail_content.setText(Html.fromHtml(data.content,Html.FROM_HTML_MODE_LEGACY));
+                    } else {
+                        news_detail_content.setText(Html.fromHtml(data.content));
+                    }
 
                     for (i in data.attachments) {
                         if (MyUtils.isImage(i.fileName)) {

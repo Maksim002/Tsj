@@ -15,7 +15,7 @@ import retrofit2.Response
 class FeedbackViewModel : ViewModel() {
     private val repository = NetworkRepository()
 
-    fun sendFeedbackN(body: FeedbackRequest): LiveData<ResultStatus<Nothing>>{
+    fun sendFeedback(body: FeedbackRequest): LiveData<ResultStatus<Nothing>>{
         return repository.sendFeedback(body)
     }
 }

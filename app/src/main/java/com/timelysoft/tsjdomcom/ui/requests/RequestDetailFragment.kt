@@ -60,7 +60,6 @@ class RequestDetailFragment : Fragment() {
                     bid_detail_date_creat.text = "Дата создания " + MyUtils.toMyDateTime(data.createdDate)
                     bid_detail_date_сhange.text = "Дата изменения " + MyUtils.toMyDateTime(data.statusDate)
                     bid_status_text_view.text = data.statusName
-
                 }
                 Status.ERROR, Status.NETWORK ->{
                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
@@ -86,10 +85,8 @@ class RequestDetailFragment : Fragment() {
             if (arguments!!.getBoolean("isEditableAndCloseable"))
                 setHasOptionsMenu(true)
         } catch (e: Exception) {
-
-        }
+      }
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.request_detail_menu, menu)

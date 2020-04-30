@@ -33,9 +33,9 @@
                 android:drawableStart="@drawable/ic_profile"
                 android:drawablePadding="10dp"
                 android:gravity="center"
-                android:singleLine="true"
                 android:textSize="13sp"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/news_detail_viewpager"
                 tools:text="Администрация сайта • 17.01.2020 7:41 AM" />
 

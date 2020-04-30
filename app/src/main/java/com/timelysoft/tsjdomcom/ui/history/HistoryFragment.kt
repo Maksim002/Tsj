@@ -57,6 +57,7 @@ class HistoryFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_history, container, false)
         viewmodel = ViewModelProviders.of(this).get(HistoryViewModel::class.java)
         (activity as AppCompatActivity).supportActionBar?.show()
+
         return root
     }
 
@@ -91,6 +92,7 @@ class HistoryFragment : Fragment() {
         getAutoOperation()
         getAutoAddress()
         getAutoDatesFrom()
+        getAutoService()
         getAutoDatesTo()
         getDate()
         hintText()
@@ -183,18 +185,6 @@ class HistoryFragment : Fragment() {
                 }
             }
         })
-
-//        viewmodel.addressesN().observe(this, Observer { address ->
-//            val list = address.map {
-//                it.address
-//            }
-//            listAddress = address as ArrayList<AddressModel>
-//
-//            val adapterAddress =
-//                ArrayAdapter<String>(context!!, android.R.layout.simple_dropdown_item_1line, list)
-//            history_address.setAdapter(adapterAddress)
-//            MainActivity.alert.hide()
-//        })
         history_address.keyListener = null
         history_from_out.defaultHintTextColor =
             ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
@@ -241,54 +231,60 @@ class HistoryFragment : Fragment() {
     }
 
     private fun getAutoService() {
-        var listServices = ArrayList<ServicesModel>()
-        MainActivity.alert.show()
-        viewmodel.services(placementId).observe(this, Observer { result ->
-            val msg = result.msg
-            val data = result.data
-            MainActivity.alert.hide()
-            when(result.status){
-                Status.SUCCESS ->{
-                    listServices = data as ArrayList<ServicesModel>
-                    val adapterServices = ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, data)
-                    adapterServices.notifyDataSetChanged()
-                    history_service.setAdapter(adapterServices)
+        if (placementId != 0) {
+            var listServices = ArrayList<ServicesModel>()
+            MainActivity.alert.show()
+            viewmodel.services(placementId).observe(this, Observer { result ->
+                val msg = result.msg
+                val data = result.data
+                MainActivity.alert.hide()
+                when (result.status) {
+                    Status.SUCCESS -> {
+                        listServices = data as ArrayList<ServicesModel>
+                        val adapterServices = ArrayAdapter(
+                            context!!,
+                            android.R.layout.simple_dropdown_item_1line,
+                            data
+                        )
+                        adapterServices.notifyDataSetChanged()
+                        history_service.setAdapter(adapterServices)
+                    }
+                    Status.ERROR, Status.NETWORK -> {
+                        Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                    }
                 }
-                Status.ERROR, Status.NETWORK ->{
-                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
-                }
-            }
-        })
+            })
 
-        history_service.onItemClickListener =
-            AdapterView.OnItemClickListener { parent, _, position, _ ->
+            history_service.onItemClickListener =
+                AdapterView.OnItemClickListener { parent, _, position, _ ->
+                    history_service.showDropDown()
+                    parent.getItemAtPosition(position).toString()
+                    servicesId = listServices[position].serviceId
+                    serviceName = listServices[position].serviceName
+                    history_service.clearFocus()
+                }
+            history_service.setOnClickListener {
                 history_service.showDropDown()
-                parent.getItemAtPosition(position).toString()
-                servicesId = listServices[position].serviceId
-                serviceName = listServices[position].serviceName
-                history_service.clearFocus()
             }
-        history_service.setOnClickListener {
-            history_service.showDropDown()
-        }
 
-        history_service.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
-            try {
-                history_service.showDropDown()
-                if (!hasFocus && history_address.text.isNotEmpty()) {
-                    history_service_out.defaultHintTextColor =
-                        ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                    history_service_out.isErrorEnabled = false
+            history_service.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
+                try {
+                    history_service.showDropDown()
+                    if (!hasFocus && history_address.text.isNotEmpty()) {
+                        history_service_out.defaultHintTextColor =
+                            ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+                        history_service_out.isErrorEnabled = false
+                    }
+
+                    if (history_address.text.isEmpty()) {
+                        Toast.makeText(context, "Сначала выберите адрес", Toast.LENGTH_LONG).show()
+                    }
+
+                } catch (e: Exception) {
                 }
-
-                if (history_address.text.isEmpty()) {
-                    Toast.makeText(context, "Сначала выберите адрес", Toast.LENGTH_LONG).show()
-                }
-
-            } catch (e: Exception) {
             }
+            history_service.clearFocus()
         }
-        history_service.clearFocus()
     }
 
     private fun getAutoOperation() {
