@@ -1,17 +1,17 @@
-package com.timelysoft.tsjdomcom
+package com.timelysoft.tsjdomcom.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.adapters.home.AtHomeAdapter
 import com.timelysoft.tsjdomcom.adapters.home.AtHomeModel
 import kotlinx.android.synthetic.main.fragment_navigation_at_home.*
-import java.util.*
 import kotlin.collections.ArrayList
 
-class navigation_at_home : Fragment() {
+class AtHome : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,8 +23,6 @@ class navigation_at_home : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
-
-
 
     }
     fun initRecyclerView(){
