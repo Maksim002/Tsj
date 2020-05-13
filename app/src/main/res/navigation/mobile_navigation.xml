@@ -100,6 +100,7 @@
         android:name="com.timelysoft.tsjdomcom.ui.portal.PortalFragment"
         android:label="@string/about_portal"
         tools:layout="@layout/fragment_portal_tsj" />
+
     <fragment
         android:id="@+id/navigation_new_message_owner"
         android:name="com.timelysoft.tsjdomcom.ui.message.send.NewMessageOwnerFragment"
@@ -117,24 +118,29 @@
         android:name="com.timelysoft.tsjdomcom.ui.message.fragments.MessageDetailFragment"
         android:label="@string/detail_msg"
         tools:layout="@layout/fragment_message_detail" />
+
     <fragment
         android:id="@+id/messageBottomSheet"
         android:name="com.timelysoft.tsjdomcom.ui.message.fragments.MessageBottomSheet"
         android:label="fragment_message_bottom_sheet"
         tools:layout="@layout/fragment_message_bottom_sheet" />
+
     <fragment
         android:id="@+id/inboxFragment"
         android:name="com.timelysoft.tsjdomcom.ui.message.MessagesFragment"
         android:label="navigation_inbox"
         tools:layout="@layout/fragment_messages" />
+
     <navigation
         android:id="@+id/navigation"
         app:startDestination="@id/inboxFragment" />
+
     <fragment
         android:id="@+id/navigation_profile"
         android:name="com.timelysoft.tsjdomcom.ui.profile.ProfileFragment"
         android:label="@string/profile"
         tools:layout="@layout/fragment_profile" />
+
     <fragment
         android:id="@+id/navigation_change_password"
         android:name="com.timelysoft.tsjdomcom.ui.profile.ChangePassword"
@@ -146,6 +152,7 @@
         android:name="com.timelysoft.tsjdomcom.ui.voting.VoteFragment"
         android:label="@string/voting"
         tools:layout="@layout/fragment_vote" />
+
     <fragment
         android:id="@+id/voteInProcess"
         android:name="com.timelysoft.tsjdomcom.ui.voting.VoteInProcessFragment"
@@ -157,15 +164,23 @@
         android:name="com.timelysoft.tsjdomcom.ui.voting.VoteDetailFragment"
         android:label="@string/voting"
         tools:layout="@layout/fragment_vote_detail" />
+
     <fragment
         android:id="@+id/navigation_request_for_connect"
         android:name="com.timelysoft.tsjdomcom.ui.requestForConnect.RequestForConnectFragment"
         android:label="fragment_connect"
         tools:layout="@layout/fragment_connect" />
+
     <fragment
         android:id="@+id/navigation_news_detail"
         android:name="com.timelysoft.tsjdomcom.ui.news.NewsDetailFragment"
         android:label="@string/news"
         tools:layout="@layout/fragment_news_detail" />
+
+    <fragment
+        android:id="@+id/navigation_at_home"
+        android:name="com.timelysoft.tsjdomcom.navigation_at_home"
+        android:label="Собственники"
+        tools:layout="@layout/fragment_navigation_at_home" />
 
 </navigation>

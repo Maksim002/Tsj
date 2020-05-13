@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
             setOf(
                 R.id.navigation_news,
                 R.id.navigation_message,
+                R.id.navigation_at_home,
                 R.id.navigation_contacts
             )
         )
