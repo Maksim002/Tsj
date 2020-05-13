@@ -19,11 +19,9 @@ class AtHome : Fragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_navigation_at_home, container, false)
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
-
     }
     fun initRecyclerView(){
         val list: ArrayList<AtHomeModel> = ArrayList()
