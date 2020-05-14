@@ -1,6 +1,6 @@
-package com.timelysoft.tsjdomcom.adapters.home
+package com.timelysoft.tsjdomcom.adapters.owners
 
-class AtHomeModel (
+class OwnersModel (
    var title: String,
    var name: String,
    var address: String,

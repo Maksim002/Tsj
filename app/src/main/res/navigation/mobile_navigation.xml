@@ -179,8 +179,20 @@
 
     <fragment
         android:id="@+id/navigation_at_home"
-        android:name="com.timelysoft.tsjdomcom.ui.home.AtHome"
-        android:label="Собственники"
+        android:name="com.timelysoft.tsjdomcom.ui.home.AtHomeFragment"
+        android:label="Управление ТСЖ"
         tools:layout="@layout/fragment_navigation_at_home" />
+
+    <fragment
+        android:id="@+id/navigation_at_dialog"
+        android:name="com.timelysoft.tsjdomcom.ui.home.AtBottomSheetDialogFragment"
+        android:label="fragment_at_dialog"
+        tools:layout="@layout/fragment_at_dialog" />
+
+    <fragment
+        android:id="@+id/navigation_owners"
+        android:name="com.timelysoft.tsjdomcom.ui.home.owners.OwnersFragment"
+        android:label="Собственники"
+        tools:layout="@layout/fragment_owners" />
 
 </navigation>

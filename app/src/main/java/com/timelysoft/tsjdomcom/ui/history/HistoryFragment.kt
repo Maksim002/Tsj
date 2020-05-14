@@ -63,11 +63,11 @@ class HistoryFragment : Fragment() {
 
     private fun validate(): Boolean {
         var valid = true
-        if (history_address.text.toString().isEmpty()) {
-            history_address_out.error = "Выберите адрес"
+        if (at_home_address.text.toString().isEmpty()) {
+            at_home_address_text.error = "Выберите адрес"
             valid = false
         } else {
-            history_address_out.isErrorEnabled = false
+            at_home_address_text.isErrorEnabled = false
         }
 
         if (history_service.text.toString().isEmpty()) {
@@ -118,8 +118,8 @@ class HistoryFragment : Fragment() {
     }
 
     private fun hintText() {
-        if (history_address.text.isNotEmpty()) {
-            history_address_out.defaultHintTextColor =
+        if (at_home_address.text.isNotEmpty()) {
+            at_home_address_text.defaultHintTextColor =
                 ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
         }
 
@@ -178,22 +178,22 @@ class HistoryFragment : Fragment() {
                     listAddress = data as ArrayList<AddressModel>
                     val adapterAddress =
                         ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, data)
-                    history_address.setAdapter(adapterAddress)
+                    at_home_address.setAdapter(adapterAddress)
                 }
                 Status.ERROR, Status.NETWORK ->{
                     Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
                 }
             }
         })
-        history_address.keyListener = null
+        at_home_address.keyListener = null
         history_from_out.defaultHintTextColor =
             ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
         history_do_out.defaultHintTextColor =
             ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-        history_address.onItemClickListener =
+        at_home_address.onItemClickListener =
             AdapterView.OnItemClickListener { parent, _, position, _ ->
-                history_address.showDropDown()
-                history_address_out.defaultHintTextColor =
+                at_home_address.showDropDown()
+                at_home_address_text.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
                 parent.getItemAtPosition(position).toString()
                 placementId = listAddress[position].placementId
@@ -203,31 +203,31 @@ class HistoryFragment : Fragment() {
                 getAutoService()
                 history_service.setAdapter(null)
                 history_service.setText("")
-                history_address.clearFocus()
+                at_home_address.clearFocus()
 
             }
-        history_address.setOnClickListener {
-            history_address.showDropDown()
+        at_home_address.setOnClickListener {
+            at_home_address.showDropDown()
         }
 
-        history_address.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
+        at_home_address.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
             try {
                 if (hasFocus) {
-                    history_address.showDropDown()
+                    at_home_address.showDropDown()
                 }
 
-                if (!hasFocus && history_address.text!!.isNotEmpty()) {
+                if (!hasFocus && at_home_address.text!!.isNotEmpty()) {
                     history_service_out.defaultHintTextColor =
                         ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
 
-                    history_address_out.isErrorEnabled = false
+                    at_home_address_text.isErrorEnabled = false
                 }
 
             } catch (e: Exception) {
             }
         }
 
-        history_address.clearFocus()
+        at_home_address.clearFocus()
     }
 
     private fun getAutoService() {
@@ -270,13 +270,13 @@ class HistoryFragment : Fragment() {
             history_service.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
                 try {
                     history_service.showDropDown()
-                    if (!hasFocus && history_address.text.isNotEmpty()) {
+                    if (!hasFocus && at_home_address.text.isNotEmpty()) {
                         history_service_out.defaultHintTextColor =
                             ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
                         history_service_out.isErrorEnabled = false
                     }
 
-                    if (history_address.text.isEmpty()) {
+                    if (at_home_address.text.isEmpty()) {
                         Toast.makeText(context, "Сначала выберите адрес", Toast.LENGTH_LONG).show()
                     }
 
