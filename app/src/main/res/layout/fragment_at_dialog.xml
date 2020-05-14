@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context=".ui.home.AtBottomSheetDialogFragment">
+    tools:context=".ui.home.main.BottomSheetDialogFragment">
 
     <TextView
         android:layout_width="match_parent"
@@ -16,6 +16,7 @@
         android:text="Регистрация собственника"/>
 
     <TextView
+        android:id="@+id/at_bottom_new"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"

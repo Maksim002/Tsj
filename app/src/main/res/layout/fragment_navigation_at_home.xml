@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.home.AtHomeFragment">
+    tools:context=".ui.home.main.HomeFragment">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_margin="13dp"
+        android:layout_margin="12dp"
         app:cardCornerRadius="8dp"
         android:layout_height="wrap_content">
 
@@ -113,6 +113,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:id="@+id/at_home_owners"
                     android:layout_width="70dp"
                     android:layout_height="100dp"
                     android:layout_margin="12dp"

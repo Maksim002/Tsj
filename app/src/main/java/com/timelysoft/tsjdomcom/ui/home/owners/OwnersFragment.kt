@@ -8,9 +8,7 @@ import android.view.ViewGroup
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.adapters.owners.OwnersAdapter
 import com.timelysoft.tsjdomcom.adapters.owners.OwnersModel
-import com.timelysoft.tsjdomcom.ui.home.AtBottomSheetDialogFragment
-import kotlinx.android.synthetic.main.fragment_navigation_at_home.*
-import kotlinx.android.synthetic.main.fragment_owners.*
+import com.timelysoft.tsjdomcom.ui.home.main.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.fragment_owners.at_home_recycler_view
 import kotlinx.android.synthetic.main.fragment_owners.floatingActionButton
 
@@ -44,7 +42,8 @@ class OwnersFragment : Fragment() {
 
     private fun initViews() {
         floatingActionButton.setOnClickListener {
-            val atBottomSheetDialog = AtBottomSheetDialogFragment()
+            val atBottomSheetDialog =
+                BottomSheetDialogFragment()
             atBottomSheetDialog.show(fragmentManager!!, "AtBottomSheetDialog")
         }
     }

@@ -1,4 +1,4 @@
-package com.timelysoft.tsjdomcom.ui.home
+package com.timelysoft.tsjdomcom.ui.home.main
 
 import android.content.res.ColorStateList
 import android.os.Bundle
@@ -8,11 +8,14 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
-import com.timelysoft.tsjdomcom.MainActivity
+import androidx.navigation.fragment.findNavController
 import com.timelysoft.tsjdomcom.R
 import kotlinx.android.synthetic.main.fragment_history.*
+import kotlinx.android.synthetic.main.fragment_history.at_home_address
+import kotlinx.android.synthetic.main.fragment_history.at_home_address_text
+import kotlinx.android.synthetic.main.fragment_navigation_at_home.*
 
-class AtHomeFragment : Fragment() {
+class HomeFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,9 +27,9 @@ class AtHomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         getAutoAddress()
 
-//        wefefe.setOnClickListener {
-//            findNavController().navigate(R.id.navigation_owners)
-//        }
+        at_home_owners.setOnClickListener {
+            findNavController().navigate(R.id.navigation_owners)
+        }
     }
 
     private fun getAutoAddress() {

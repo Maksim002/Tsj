@@ -1,14 +1,16 @@
-package com.timelysoft.tsjdomcom.ui.home
+package com.timelysoft.tsjdomcom.ui.home.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.timelysoft.tsjdomcom.R
+import kotlinx.android.synthetic.main.fragment_at_dialog.*
 
-class AtBottomSheetDialogFragment : BottomSheetDialogFragment() {
+class BottomSheetDialogFragment : BottomSheetDialogFragment() {
 
     override fun getTheme(): Int = R.style.BottomSheetDialogTheme
 
@@ -21,5 +23,10 @@ class AtBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        at_bottom_new.setOnClickListener {
+            findNavController().navigate(R.id.navigation_registration)
+            dialog!!.dismiss()
+        }
     }
 }
