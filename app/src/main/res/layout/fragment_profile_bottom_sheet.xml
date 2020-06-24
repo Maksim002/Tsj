@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/marginHorizontal"
             android:text="@string/listofbalance"
-            android:textColor="@color/blackTextColor"
+            android:textColor="@color/darkTextColor"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"

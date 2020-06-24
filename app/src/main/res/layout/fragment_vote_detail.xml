@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/marginHorizontal"
-            android:textColor="@color/blackTextColor"
+            android:textColor="@color/darkTextColor"
             android:textSize="22sp"
             tools:text="Где хранить информацию о наличии либо отсутствии ТСЖ в нашем доме?" />
 

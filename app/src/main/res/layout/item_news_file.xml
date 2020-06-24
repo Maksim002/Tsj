@@ -16,7 +16,7 @@
         android:drawablePadding="8dp"
         android:gravity="center_vertical"
         android:singleLine="true"
-        android:textColor="@color/blackTextColor"
+        android:textColor="@color/darkTextColor"
         android:textSize="14sp"
         app:layout_constraintEnd_toStartOf="@id/news_file_download"
         app:layout_constraintStart_toStartOf="parent"

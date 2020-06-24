@@ -47,7 +47,7 @@
             android:maxLines="3"
             android:ellipsize="end"
             android:layout_marginEnd="@dimen/marginHorizontal"
-            android:textColor="@color/blackTextColor"
+            android:textColor="@color/darkTextColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/vote_imageview"
             app:layout_constraintTop_toBottomOf="@id/vote_title"

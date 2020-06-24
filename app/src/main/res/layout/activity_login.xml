@@ -39,7 +39,7 @@
             android:layout_marginTop="70dp"
             android:maxLines="1"
             android:text="@string/welcome"
-            android:textColor="@color/blackTextColor"
+            android:textColor="@color/darkTextColor"
             android:textSize="24sp"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -50,7 +50,7 @@
             android:layout_marginHorizontal="@dimen/marginHorizontal"
             android:layout_marginTop="4dp"
             android:text="@string/auth_to_contiune"
-            android:textColor="@color/blackTextColor"
+            android:textColor="@color/darkTextColor"
             android:textSize="16sp" />
 
         <com.google.android.material.textfield.TextInputLayout

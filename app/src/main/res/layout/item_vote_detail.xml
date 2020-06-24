@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="50%"
-            android:textColor="@color/blackTextColor"
+            android:textColor="@color/darkTextColor"
             android:textSize="16sp"
             android:maxLines="1"
             android:textStyle="bold" />
@@ -43,7 +43,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         tools:text="В выписке из ЕГРЮЛ"
-        android:textColor="@color/blackTextColor"
+        android:textColor="@color/darkTextColor"
         android:textSize="16sp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@id/vote_detail_precent" />

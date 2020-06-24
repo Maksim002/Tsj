@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:text="@string/requestForConn"
-                android:textColor="@color/blackTextColor"
+                android:textColor="@color/darkTextColor"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 

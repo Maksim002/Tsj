@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="Состояние  баланса"
-            android:textColor="@color/blackTextColor"
+            android:textColor="@color/darkTextColor"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -53,7 +53,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="7 небо, Токомбаева, д.53/2 кв 11"
-                    android:textColor="@color/blackTextColor"
+                    android:textColor="@color/darkTextColor"
                     android:textSize="15sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -84,7 +84,7 @@
                     android:layout_marginStart="@dimen/marginHorizontal"
                     android:layout_marginEnd="@dimen/marginHorizontal"
                     android:text="Услуга"
-                    android:textColor="@color/blackTextColor"
+                    android:textColor="@color/darkTextColor"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -97,7 +97,7 @@
                     android:layout_marginEnd="@dimen/marginHorizontal"
                     android:gravity="right"
                     android:text="Переплата/ \n Задолженность"
-                    android:textColor="@color/blackTextColor"
+                    android:textColor="@color/darkTextColor"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

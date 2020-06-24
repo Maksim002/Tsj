@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/marginHorizontal"
             android:layout_marginTop="@dimen/marginHorizontal"
-            android:textColor="@color/blackTextColor"
+            android:textColor="@color/darkTextColor"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -29,7 +29,7 @@
             android:layout_marginTop="@dimen/marginHorizontal"
             android:layout_marginEnd="@dimen/marginHorizontal"
             android:text="123.2"
-            android:textColor="@color/blackTextColor"
+            android:textColor="@color/darkTextColor"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

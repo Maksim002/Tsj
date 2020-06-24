@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.timelysoft.tsjdomcom.R
@@ -25,11 +26,19 @@ class HomeFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as AppCompatActivity).supportActionBar?.hide()
         getAutoAddress()
 
-        at_home_owners.setOnClickListener {
-            findNavController().navigate(R.id.navigation_owners)
-        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        initColor()
+    }
+
+    private fun initColor() {
+        at_home_address_text.defaultHintTextColor =
+            ColorStateList.valueOf(resources.getColor(R.color.whiteColor))
     }
 
     private fun getAutoAddress() {
@@ -42,11 +51,8 @@ class HomeFragment : Fragment() {
 
         at_home_address.keyListener = null
 
-        at_home_address.onItemClickListener =
-            AdapterView.OnItemClickListener { parent, _, position, _ ->
+        at_home_address.onItemClickListener = AdapterView.OnItemClickListener { parent, _, position, _ ->
                 at_home_address.showDropDown()
-                at_home_address_text.defaultHintTextColor =
-                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
                 parent.getItemAtPosition(position).toString()
             }
         at_home_address.setOnClickListener {
@@ -58,8 +64,8 @@ class HomeFragment : Fragment() {
                     at_home_address.showDropDown()
                 }
                 if (!hasFocus && at_home_address.text!!.isNotEmpty()) {
-                    history_service_out.defaultHintTextColor =
-                        ColorStateList.valueOf(resources.getColor(R.color.itemIconTintF))
+                    at_home_address_text.defaultHintTextColor =
+                        ColorStateList.valueOf(resources.getColor(R.color.whiteColor))
                     at_home_address_text.isErrorEnabled = false
                 }
             } catch (e: Exception) {

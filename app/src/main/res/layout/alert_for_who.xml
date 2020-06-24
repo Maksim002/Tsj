@@ -27,7 +27,7 @@
             android:layout_marginTop="@dimen/marginHorizontal"
             android:padding="@dimen/marginHorizontal"
             android:text="Председателю"
-            android:textColor="@color/blackTextColor"
+            android:textColor="@color/darkTextColor"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -38,7 +38,7 @@
             android:layout_marginTop="@dimen/marginHorizontal"
             android:padding="@dimen/marginHorizontal"
             android:text="Собственнику"
-            android:textColor="@color/blackTextColor"
+            android:textColor="@color/darkTextColor"
             android:textSize="18sp"
             android:textStyle="bold" />
     </LinearLayout>
