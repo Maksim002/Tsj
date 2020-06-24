@@ -1,4 +1,4 @@
-package com.timelysoft.tsjdomcom.ui.home.main
+package com.timelysoft.tsjdomcom.ui.home
 
 import android.content.res.ColorStateList
 import android.os.Bundle
