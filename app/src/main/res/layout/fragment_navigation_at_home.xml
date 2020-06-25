@@ -140,7 +140,6 @@
                             android:layout_marginRight="13dp"
                             android:src="@drawable/ic_user" />
 
-
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -446,7 +445,6 @@
                             android:layout_gravity="center"
                             android:layout_marginRight="13dp"
                             android:src="@drawable/ic_expenses_receipts" />
-
 
                         <LinearLayout
                             android:layout_width="match_parent"
