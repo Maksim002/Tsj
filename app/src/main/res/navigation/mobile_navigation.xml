@@ -183,4 +183,10 @@
         android:name="com.timelysoft.tsjdomcom.ui.home.HomeFragment"
         android:label="ТСЖ Председатель"
         tools:layout="@layout/fragment_navigation_at_home" />
+
+    <fragment
+        android:id="@+id/navigation_user"
+        android:name="com.timelysoft.tsjdomcom.UserFragment"
+        android:label="Пользователи"
+        tools:layout="@layout/fragment_user" />
 </navigation>

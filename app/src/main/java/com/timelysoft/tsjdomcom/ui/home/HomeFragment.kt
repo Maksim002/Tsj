@@ -28,7 +28,14 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).supportActionBar?.hide()
         getAutoAddress()
+        initClick()
 
+    }
+
+    private fun initClick() {
+        home_user.setOnClickListener {
+            findNavController().navigate(R.id.navigation_user)
+        }
     }
 
     override fun onStart() {
