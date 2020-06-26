@@ -1,4 +1,4 @@
-package com.timelysoft.tsjdomcom.adapters.bid
+package com.timelysoft.tsjdomcom.adapters.user
 
 class UserModel (
     var satatus: String,

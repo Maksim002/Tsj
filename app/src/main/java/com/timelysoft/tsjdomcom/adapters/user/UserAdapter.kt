@@ -4,9 +4,9 @@ package com.timelysoft.tsjdomcom.adapters.user
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.timelysoft.tsjdomcom.R
-import com.timelysoft.tsjdomcom.adapters.bid.UserModel
 import com.timelysoft.tsjdomcom.common.GenericRecyclerAdapter
 import com.timelysoft.tsjdomcom.common.ViewHolder
+import kotlinx.android.synthetic.main.item_user.view.*
 
 class UserAdapter(item: ArrayList<UserModel> = arrayListOf()): GenericRecyclerAdapter<UserModel>(item){
 
@@ -15,6 +15,6 @@ class UserAdapter(item: ArrayList<UserModel> = arrayListOf()): GenericRecyclerAd
     }
 
     override fun bind(item: UserModel, holder: ViewHolder) {
-
+        holder.itemView.user_name.text = item.user
     }
 }
