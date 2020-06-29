@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import com.timelysoft.tsjdomcom.MainActivity
+import com.timelysoft.tsjdomcom.ui.main.MainActivity
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.adapters.references.ReferencesAdapter
 import com.timelysoft.tsjdomcom.adapters.references.ReferencesListener

@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="16dp"
+    android:orientation="vertical"
+    tools:context=".ui.providers.CreateSupplierFragment">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Информация о поставщике"
+            android:textColor="#8A000000"
+            android:textSize="14sp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/create_supplier_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginHorizontal">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/create_supplier_name_out"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Наименование"
+                android:background="@null"
+                android:inputType="text"
+                android:textSize="15sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <include layout="@layout/item_divider_model" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/create_supplier_organization"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginHorizontal">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/create_supplier_organization_out"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Тип организации"
+                android:background="@null"
+                android:inputType="text"
+                android:textSize="15sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <include layout="@layout/item_divider_model" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/create_supplier_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginHorizontal">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/create_supplier_address_out"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Адрес"
+                android:background="@null"
+                android:inputType="text"
+                android:textSize="15sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <include layout="@layout/item_divider_model" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/create_supplier_inn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginHorizontal">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/create_supplier_inn_out"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="ИНН"
+                android:background="@null"
+                android:inputType="text"
+                android:textSize="15sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <include layout="@layout/item_divider_model" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/create_supplier_okpo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginHorizontal">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/create_supplier_okpo_out"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Код ОКПО"
+                android:background="@null"
+                android:inputType="text"
+                android:textSize="15sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <include layout="@layout/item_divider_model" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/create_supplier_bik"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginHorizontal">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/create_supplier_bik_out"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="БИК"
+                android:background="@null"
+                android:inputType="text"
+                android:textSize="15sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <include layout="@layout/item_divider_model" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/create_supplier_account"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginHorizontal">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/create_supplier_account_out"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Расчётный счёт"
+                android:background="@null"
+                android:inputType="text"
+                android:textSize="15sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <include layout="@layout/item_divider_model" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/create_supplier_telephone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginHorizontal">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/create_supplier_telephone_out"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Телефон"
+                android:background="@null"
+                android:inputType="number"
+                android:textSize="15sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <include layout="@layout/item_divider_model" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/create_supplier_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginHorizontal">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/create_supplier_email_out"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email"
+                android:background="@null"
+                android:inputType="textEmailAddress"
+                android:textSize="15sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <include layout="@layout/item_divider_model" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/owner_save"
+            style="@style/RoundedOrangeBackground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginBottom="5dp"
+            android:text="Сохранить"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

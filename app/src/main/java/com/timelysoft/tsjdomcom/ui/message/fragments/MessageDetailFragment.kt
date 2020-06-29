@@ -17,7 +17,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import com.timelysoft.tsjdomcom.MainActivity
+import com.timelysoft.tsjdomcom.ui.main.MainActivity
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.adapters.files.FilesAdapter
 import com.timelysoft.tsjdomcom.adapters.files.FilesModel

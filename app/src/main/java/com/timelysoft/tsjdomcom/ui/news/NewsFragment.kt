@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import com.timelysoft.tsjdomcom.MainActivity
+import com.timelysoft.tsjdomcom.ui.main.MainActivity
 import com.timelysoft.tsjdomcom.adapters.news.NewsOnItemClickListener
 import com.timelysoft.tsjdomcom.service.Status
 import com.timelysoft.tsjdomcom.service.model.news.NewsModel

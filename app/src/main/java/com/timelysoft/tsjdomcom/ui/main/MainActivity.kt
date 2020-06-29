@@ -1,4 +1,4 @@
-package com.timelysoft.tsjdomcom
+package com.timelysoft.tsjdomcom.ui.main
 
 
 import android.os.Bundle
@@ -9,6 +9,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.utils.LoadingAlert
 
 class MainActivity : AppCompatActivity() {

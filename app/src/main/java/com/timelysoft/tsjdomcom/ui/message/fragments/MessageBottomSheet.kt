@@ -17,7 +17,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.loader.content.CursorLoader
 import androidx.navigation.fragment.findNavController
-import com.timelysoft.tsjdomcom.MainActivity
+import com.timelysoft.tsjdomcom.ui.main.MainActivity
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.service.model.ReplyModel
 import com.timelysoft.tsjdomcom.ui.message.MessagesViewModel

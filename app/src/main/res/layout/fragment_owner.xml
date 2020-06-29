@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.user.OwnerFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:text="Информация о ТСЖ"
+        android:textSize="14sp"
+        android:textColor="#8A000000"/>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/owner_name_tsj"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginHorizontal">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/owner_name_tsj_out"
+            android:layout_width="match_parent"
+            android:textSize="15sp"
+            android:background="@null"
+            android:layout_height="wrap_content"
+            android:hint="Наименование ТСЖ"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <include layout="@layout/item_divider_model"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/owner_address_home"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginHorizontal">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/owner_address_home_out"
+            android:layout_width="match_parent"
+            android:textSize="15sp"
+            android:background="@null"
+            android:layout_height="wrap_content"
+            android:hint="Адрес дома"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <include layout="@layout/item_divider_model"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/owner_flat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginHorizontal">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/owner_flat_out"
+            android:layout_width="match_parent"
+            android:textSize="15sp"
+            android:background="@null"
+            android:layout_height="wrap_content"
+            android:hint="Квартира"
+            android:inputType="number" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <include layout="@layout/item_divider_model"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:layout_marginTop="11dp"
+        android:text="Информация о собственнике"
+        android:textSize="14sp"
+        android:textColor="#8A000000"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/owner_surname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginHorizontal">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/owner_surname_out"
+            android:layout_width="match_parent"
+            android:textSize="15sp"
+            android:background="@null"
+            android:layout_height="wrap_content"
+            android:hint="Фамилия"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <include layout="@layout/item_divider_model"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/owner_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginHorizontal">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/owner_name_out"
+            android:layout_width="match_parent"
+            android:textSize="15sp"
+            android:background="@null"
+            android:layout_height="wrap_content"
+            android:hint="Имя"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <include layout="@layout/item_divider_model"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/owner_patronymic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginHorizontal">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/owner_patronymic_out"
+            android:layout_width="match_parent"
+            android:textSize="15sp"
+            android:background="@null"
+            android:layout_height="wrap_content"
+            android:hint="Отчество"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <include layout="@layout/item_divider_model"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/owner_registration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginHorizontal">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/owner_registration_out"
+            android:layout_width="match_parent"
+            android:textSize="15sp"
+            android:background="@null"
+            android:layout_height="wrap_content"
+            android:hint="Адрес прописки"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <include layout="@layout/item_divider_model"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/owner_proprietor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginHorizontal">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/owner_proprietor_out"
+            android:layout_width="match_parent"
+            android:textSize="15sp"
+            android:background="@null"
+            android:layout_height="wrap_content"
+            android:hint="Собственник"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <include layout="@layout/item_divider_model"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/owner_percent_proprietor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginHorizontal">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/owner_percent_proprietor_out"
+            android:layout_width="match_parent"
+            android:textSize="15sp"
+            android:background="@null"
+            android:layout_height="wrap_content"
+            android:hint="Процент собственности (%)"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <include layout="@layout/item_divider_model"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:text="Член ТСЖ" />
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:theme="@style/SCBSwitch" />
+        </LinearLayout>
+
+        <include layout="@layout/item_divider_model" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/owner_date_proprietor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginHorizontal">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/owner_date_proprietor_out"
+                android:layout_width="match_parent"
+                android:textSize="15sp"
+                android:background="@null"
+                android:layout_height="wrap_content"
+                android:hint="Дата вступления прав собственности"
+                android:inputType="text" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <include layout="@layout/item_divider_model"/>
+
+        <Button
+            android:id="@+id/owner_save"
+            style="@style/RoundedOrangeBackground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="Сохранить"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

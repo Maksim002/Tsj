@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_margin="16dp"
+    android:layout_height="match_parent"
+    tools:context=".ui.user.EditFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:gravity="right"
+        android:textColor="#8A000000"
+        android:textSize="14sp"
+        android:layout_height="wrap_content"
+        android:text="Данные пользователя"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edit_surname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginHorizontal">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_surname_out"
+            android:layout_width="match_parent"
+            android:textSize="15sp"
+            android:layout_height="wrap_content"
+            android:hint="Фамилия"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <include layout="@layout/item_divider_model"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edit_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginHorizontal">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_name_out"
+            android:layout_width="match_parent"
+            android:textSize="15sp"
+            android:layout_height="wrap_content"
+            android:hint="Имя"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <include layout="@layout/item_divider_model"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edit_patronymic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginHorizontal">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_patronymic_out"
+            android:layout_width="match_parent"
+            android:textSize="15sp"
+            android:layout_height="wrap_content"
+            android:hint="Отчество"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <include layout="@layout/item_divider_model"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edit_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginHorizontal">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_email_out"
+            android:layout_width="match_parent"
+            android:textSize="15sp"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            android:inputType="textEmailAddress" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <include layout="@layout/item_divider_model"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edit_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginHorizontal">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_password_out"
+            android:layout_width="match_parent"
+            android:textSize="15sp"
+            android:layout_height="wrap_content"
+            android:hint="Пароль"
+            android:inputType="number" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <include layout="@layout/item_divider_model"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edit_repeat_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginHorizontal">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_repeat_password_out"
+            android:layout_width="match_parent"
+            android:textSize="15sp"
+            android:layout_height="wrap_content"
+            android:hint="Повторите пароль"
+            android:inputType="number" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <include layout="@layout/item_divider_model"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/edit_save"
+            style="@style/RoundedOrangeBackground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:text="Сохранить"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

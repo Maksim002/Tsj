@@ -25,7 +25,7 @@ import androidx.lifecycle.Observer
 import androidx.loader.content.CursorLoader
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.timelysoft.tsjdomcom.MainActivity
+import com.timelysoft.tsjdomcom.ui.main.MainActivity
 import com.timelysoft.tsjdomcom.adapters.files.FilesAdapter
 import com.timelysoft.tsjdomcom.adapters.files.FilesModel
 import com.timelysoft.tsjdomcom.adapters.files.GeneralClickListener

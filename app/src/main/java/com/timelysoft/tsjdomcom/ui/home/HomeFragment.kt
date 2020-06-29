@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.timelysoft.tsjdomcom.R
-import kotlinx.android.synthetic.main.fragment_history.*
 import kotlinx.android.synthetic.main.fragment_history.at_home_address
 import kotlinx.android.synthetic.main.fragment_history.at_home_address_text
 import kotlinx.android.synthetic.main.fragment_navigation_at_home.*
@@ -35,6 +34,10 @@ class HomeFragment : Fragment() {
     private fun initClick() {
         home_user.setOnClickListener {
             findNavController().navigate(R.id.navigation_user)
+        }
+
+        home_providers.setOnClickListener {
+            findNavController().navigate(R.id.navigation_provider)
         }
     }
 
