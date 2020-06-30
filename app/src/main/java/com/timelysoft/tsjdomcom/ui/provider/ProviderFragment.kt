@@ -1,4 +1,4 @@
-package com.timelysoft.tsjdomcom.ui.providers
+package com.timelysoft.tsjdomcom.ui.provider
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,14 +9,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.adapters.provider.ProviderAdapter
+import com.timelysoft.tsjdomcom.adapters.provider.ProviderListener
 import com.timelysoft.tsjdomcom.adapters.provider.ProviderModel
-import com.timelysoft.tsjdomcom.adapters.user.UserModel
 import kotlinx.android.synthetic.main.fragment_provider.*
-import java.lang.Exception
+import java.text.FieldPosition
 
-class ProviderFragment : Fragment() {
+class ProviderFragment : Fragment(), ProviderListener {
 
-    private var myAdapter = ProviderAdapter()
+    private var myAdapter = ProviderAdapter(this)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,6 +24,10 @@ class ProviderFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_provider, container, false)
+    }
+
+    companion object{
+        val counterList = ArrayList<ProviderModel>()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,18 +39,18 @@ class ProviderFragment : Fragment() {
 
     private fun initClick() {
         provider_new_provider.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putBoolean("false", false)
-            findNavController().navigate(R.id.navigation_create_supplier, bundle)
+            findNavController().navigate(R.id.navigation_create_supplier)
         }
     }
 
     private fun initRecyclerView() {
-
-        val list: ArrayList<ProviderModel> = arrayListOf()
-        list.add(ProviderModel("ОсОО “Чистый Дом”", "", "", "", "", "false", "", ""))
-
-        myAdapter.update(list)
         provider_recycler.adapter = myAdapter
+        myAdapter.update(counterList)
+    }
+
+    override fun editClick(position: Int) {
+        val bundle = Bundle()
+        bundle.putInt("position", position)
+        findNavController().navigate(R.id.navigation_create_supplier, bundle)
     }
 }

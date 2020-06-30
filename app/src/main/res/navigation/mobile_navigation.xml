@@ -204,13 +204,13 @@ app:startDestination="@+id/navigation_at_home">
 
 <fragment
     android:id="@+id/navigation_provider"
-    android:name="com.timelysoft.tsjdomcom.ui.providers.ProviderFragment"
+    android:name="com.timelysoft.tsjdomcom.ui.provider.ProviderFragment"
     android:label="Поставщики"
     tools:layout="@layout/fragment_provider" />
 
 <fragment
     android:id="@+id/navigation_create_supplier"
-    android:name="com.timelysoft.tsjdomcom.ui.providers.CreateSupplierFragment"
+    android:name="com.timelysoft.tsjdomcom.ui.provider.CreateSupplierFragment"
     android:label="Создать поставщика"
     tools:layout="@layout/fragment_create_supplier" />
 </navigation>
