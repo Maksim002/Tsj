@@ -25,10 +25,10 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_surname_out"
             android:layout_width="match_parent"
-            android:textSize="15sp"
             android:layout_height="wrap_content"
             android:hint="Фамилия"
-            android:inputType="text" />
+            android:inputType="text"
+            android:textSize="15sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

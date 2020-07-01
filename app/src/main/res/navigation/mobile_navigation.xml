@@ -1,216 +1,240 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:id="@+id/mobile_navigation"
-app:startDestination="@+id/navigation_at_home">
-<!--    app:startDestination="@+id/navigation_news">-->
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_at_home">
+    <!--    app:startDestination="@+id/navigation_news">-->
 
-<fragment
-    android:id="@+id/navigation_news"
-    android:name="com.timelysoft.tsjdomcom.ui.news.NewsFragment"
-    android:label="@string/title_news"
-    tools:layout="@layout/fragment_news" />
+    <fragment
+        android:id="@+id/navigation_news"
+        android:name="com.timelysoft.tsjdomcom.ui.news.NewsFragment"
+        android:label="@string/title_news"
+        tools:layout="@layout/fragment_news" />
 
-<fragment
-    android:id="@+id/navigation_message"
-    android:name="com.timelysoft.tsjdomcom.ui.message.MessageFragment"
-    android:label="@string/title_message"
-    tools:layout="@layout/fragment_message" />
+    <fragment
+        android:id="@+id/navigation_message"
+        android:name="com.timelysoft.tsjdomcom.ui.message.MessageFragment"
+        android:label="@string/title_message"
+        tools:layout="@layout/fragment_message" />
 
-<fragment
-    android:id="@+id/navigation_contacts"
-    android:name="com.timelysoft.tsjdomcom.ui.contact.ContactFragment"
-    android:label="@string/title_notifications"
-    tools:layout="@layout/fragment_contacts" />
+    <fragment
+        android:id="@+id/navigation_contacts"
+        android:name="com.timelysoft.tsjdomcom.ui.contact.ContactFragment"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_contacts" />
 
-<fragment
-    android:id="@+id/navigation_history"
-    android:name="com.timelysoft.tsjdomcom.ui.history.HistoryFragment"
-    android:label="@string/history"
-    tools:layout="@layout/fragment_history" />
+    <fragment
+        android:id="@+id/navigation_history"
+        android:name="com.timelysoft.tsjdomcom.ui.history.HistoryFragment"
+        android:label="@string/history"
+        tools:layout="@layout/fragment_history" />
 
-<fragment
-    android:id="@+id/navigation_balance"
-    android:name="com.timelysoft.tsjdomcom.ui.balance.BalanceFragment"
-    android:label="@string/title_balance"
-    tools:layout="@layout/fragment_balance" />
+    <fragment
+        android:id="@+id/navigation_balance"
+        android:name="com.timelysoft.tsjdomcom.ui.balance.BalanceFragment"
+        android:label="@string/title_balance"
+        tools:layout="@layout/fragment_balance" />
 
-<fragment
-    android:id="@+id/navigation_bid"
-    android:name="com.timelysoft.tsjdomcom.ui.requests.RequestFragment"
-    android:label="@string/title_bid"
-    tools:layout="@layout/fragment_bid" />
+    <fragment
+        android:id="@+id/navigation_bid"
+        android:name="com.timelysoft.tsjdomcom.ui.requests.RequestFragment"
+        android:label="@string/title_bid"
+        tools:layout="@layout/fragment_bid" />
 
-<fragment
-    android:id="@+id/navigation_personal"
-    android:name="com.timelysoft.tsjdomcom.ui.history.HistoryDetailFragment"
-    android:label="@string/history"
-    tools:layout="@layout/fragment_history_detail" />
+    <fragment
+        android:id="@+id/navigation_personal"
+        android:name="com.timelysoft.tsjdomcom.ui.history.HistoryDetailFragment"
+        android:label="@string/history"
+        tools:layout="@layout/fragment_history_detail" />
 
-<fragment
-    android:id="@+id/navigation_balance_detail"
-    android:name="com.timelysoft.tsjdomcom.ui.balance.BalanceDetailFragment"
-    android:label="@string/title_balance"
-    tools:layout="@layout/fragment_balance_detail" />
+    <fragment
+        android:id="@+id/navigation_balance_detail"
+        android:name="com.timelysoft.tsjdomcom.ui.balance.BalanceDetailFragment"
+        android:label="@string/title_balance"
+        tools:layout="@layout/fragment_balance_detail" />
 
-<fragment
-    android:id="@+id/navigation_new_reference"
-    android:name="com.timelysoft.tsjdomcom.ui.reference.AddUpdateReferenceFragment"
-    android:label="@string/new_reference"
-    tools:layout="@layout/fragment_new_reference" />
+    <fragment
+        android:id="@+id/navigation_new_reference"
+        android:name="com.timelysoft.tsjdomcom.ui.reference.AddUpdateReferenceFragment"
+        android:label="@string/new_reference"
+        tools:layout="@layout/fragment_new_reference" />
 
-<fragment
-    android:id="@+id/navigation_reference"
-    android:name="com.timelysoft.tsjdomcom.ui.reference.ReferenceFragment"
-    android:label="@string/references"
-    tools:layout="@layout/fragment_reference" />
+    <fragment
+        android:id="@+id/navigation_reference"
+        android:name="com.timelysoft.tsjdomcom.ui.reference.ReferenceFragment"
+        android:label="@string/references"
+        tools:layout="@layout/fragment_reference" />
 
-<fragment
-    android:id="@+id/navigation_families"
-    android:name="com.timelysoft.tsjdomcom.ui.reference.RelativeFragment"
-    android:label="@string/families"
-    tools:layout="@layout/fragment_relative" />
+    <fragment
+        android:id="@+id/navigation_families"
+        android:name="com.timelysoft.tsjdomcom.ui.reference.RelativeFragment"
+        android:label="@string/families"
+        tools:layout="@layout/fragment_relative" />
 
-<fragment
-    android:id="@+id/navigation_bid_add"
-    android:name="com.timelysoft.tsjdomcom.ui.requests.RequestAddFragment"
-    android:label="@string/new_bid"
-    tools:layout="@layout/fragment_bid_add" />
+    <fragment
+        android:id="@+id/navigation_bid_add"
+        android:name="com.timelysoft.tsjdomcom.ui.requests.RequestAddFragment"
+        android:label="@string/new_bid"
+        tools:layout="@layout/fragment_bid_add" />
 
-<fragment
-    android:id="@+id/navigation_bid_detail"
-    android:name="com.timelysoft.tsjdomcom.ui.requests.RequestDetailFragment"
-    android:label="@string/bid"
-    tools:layout="@layout/fragment_bid_detail" />
+    <fragment
+        android:id="@+id/navigation_bid_detail"
+        android:name="com.timelysoft.tsjdomcom.ui.requests.RequestDetailFragment"
+        android:label="@string/bid"
+        tools:layout="@layout/fragment_bid_detail" />
 
-<fragment
-    android:id="@+id/navigation_feedback"
-    android:name="com.timelysoft.tsjdomcom.ui.feedback.FeedbackFragment"
-    android:label="@string/contacts"
-    tools:layout="@layout/fragment_feedback" />
+    <fragment
+        android:id="@+id/navigation_feedback"
+        android:name="com.timelysoft.tsjdomcom.ui.feedback.FeedbackFragment"
+        android:label="@string/contacts"
+        tools:layout="@layout/fragment_feedback" />
 
-<fragment
-    android:id="@+id/navigation_send_feedback"
-    android:name="com.timelysoft.tsjdomcom.ui.feedback.SendFeedbackFragment"
-    android:label="@string/new_msg"
-    tools:layout="@layout/fragment_send_feedback" />
+    <fragment
+        android:id="@+id/navigation_send_feedback"
+        android:name="com.timelysoft.tsjdomcom.ui.feedback.SendFeedbackFragment"
+        android:label="@string/new_msg"
+        tools:layout="@layout/fragment_send_feedback" />
 
-<fragment
-    android:id="@+id/navigation_portalTSJ"
-    android:name="com.timelysoft.tsjdomcom.ui.portal.PortalFragment"
-    android:label="@string/about_portal"
-    tools:layout="@layout/fragment_portal_tsj" />
+    <fragment
+        android:id="@+id/navigation_portalTSJ"
+        android:name="com.timelysoft.tsjdomcom.ui.portal.PortalFragment"
+        android:label="@string/about_portal"
+        tools:layout="@layout/fragment_portal_tsj" />
 
-<fragment
-    android:id="@+id/navigation_new_message_owner"
-    android:name="com.timelysoft.tsjdomcom.ui.message.send.NewMessageOwnerFragment"
-    android:label="@string/msgForOwner"
-    tools:layout="@layout/new_message_owner" />
+    <fragment
+        android:id="@+id/navigation_new_message_owner"
+        android:name="com.timelysoft.tsjdomcom.ui.message.send.NewMessageOwnerFragment"
+        android:label="@string/msgForOwner"
+        tools:layout="@layout/new_message_owner" />
 
-<fragment
-    android:id="@+id/navigation_new_message_chairman"
-    android:name="com.timelysoft.tsjdomcom.ui.message.send.NewMessageMandgerFragment"
-    android:label="@string/msgForChairman"
-    tools:layout="@layout/new_message_chairman" />
+    <fragment
+        android:id="@+id/navigation_new_message_chairman"
+        android:name="com.timelysoft.tsjdomcom.ui.message.send.NewMessageMandgerFragment"
+        android:label="@string/msgForChairman"
+        tools:layout="@layout/new_message_chairman" />
 
-<fragment
-    android:id="@+id/navigation_message_detail"
-    android:name="com.timelysoft.tsjdomcom.ui.message.fragments.MessageDetailFragment"
-    android:label="@string/detail_msg"
-    tools:layout="@layout/fragment_message_detail" />
+    <fragment
+        android:id="@+id/navigation_message_detail"
+        android:name="com.timelysoft.tsjdomcom.ui.message.fragments.MessageDetailFragment"
+        android:label="@string/detail_msg"
+        tools:layout="@layout/fragment_message_detail" />
 
-<fragment
-    android:id="@+id/messageBottomSheet"
-    android:name="com.timelysoft.tsjdomcom.ui.message.fragments.MessageBottomSheet"
-    android:label="fragment_message_bottom_sheet"
-    tools:layout="@layout/fragment_message_bottom_sheet" />
+    <fragment
+        android:id="@+id/messageBottomSheet"
+        android:name="com.timelysoft.tsjdomcom.ui.message.fragments.MessageBottomSheet"
+        android:label="fragment_message_bottom_sheet"
+        tools:layout="@layout/fragment_message_bottom_sheet" />
 
-<fragment
-    android:id="@+id/inboxFragment"
-    android:name="com.timelysoft.tsjdomcom.ui.message.MessagesFragment"
-    android:label="navigation_inbox"
-    tools:layout="@layout/fragment_messages" />
+    <fragment
+        android:id="@+id/inboxFragment"
+        android:name="com.timelysoft.tsjdomcom.ui.message.MessagesFragment"
+        android:label="navigation_inbox"
+        tools:layout="@layout/fragment_messages" />
 
-<navigation
-    android:id="@+id/navigation"
-    app:startDestination="@id/inboxFragment" />
+    <navigation
+        android:id="@+id/navigation"
+        app:startDestination="@id/inboxFragment" />
 
-<fragment
-    android:id="@+id/navigation_profile"
-    android:name="com.timelysoft.tsjdomcom.ui.profile.ProfileFragment"
-    android:label="@string/profile"
-    tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.timelysoft.tsjdomcom.ui.profile.ProfileFragment"
+        android:label="@string/profile"
+        tools:layout="@layout/fragment_profile" />
 
-<fragment
-    android:id="@+id/navigation_change_password"
-    android:name="com.timelysoft.tsjdomcom.ui.profile.ChangePassword"
-    android:label="@string/changePassword"
-    tools:layout="@layout/fragment_change_password"/>
+    <fragment
+        android:id="@+id/navigation_change_password"
+        android:name="com.timelysoft.tsjdomcom.ui.profile.ChangePassword"
+        android:label="@string/changePassword"
+        tools:layout="@layout/fragment_change_password" />
 
-<fragment
-    android:id="@+id/navigation_vote"
-    android:name="com.timelysoft.tsjdomcom.ui.voting.VoteFragment"
-    android:label="@string/voting"
-    tools:layout="@layout/fragment_vote" />
+    <fragment
+        android:id="@+id/navigation_vote"
+        android:name="com.timelysoft.tsjdomcom.ui.voting.VoteFragment"
+        android:label="@string/voting"
+        tools:layout="@layout/fragment_vote" />
 
-<fragment
-    android:id="@+id/voteInProcess"
-    android:name="com.timelysoft.tsjdomcom.ui.voting.VoteInProcessFragment"
-    android:label="fragment_vote_in_process"
-    tools:layout="@layout/fragment_vote_in_process" />
+    <fragment
+        android:id="@+id/voteInProcess"
+        android:name="com.timelysoft.tsjdomcom.ui.voting.VoteInProcessFragment"
+        android:label="fragment_vote_in_process"
+        tools:layout="@layout/fragment_vote_in_process" />
 
-<fragment
-    android:id="@+id/navigation_vote_detail"
-    android:name="com.timelysoft.tsjdomcom.ui.voting.VoteDetailFragment"
-    android:label="@string/voting"
-    tools:layout="@layout/fragment_vote_detail" />
+    <fragment
+        android:id="@+id/navigation_vote_detail"
+        android:name="com.timelysoft.tsjdomcom.ui.voting.VoteDetailFragment"
+        android:label="@string/voting"
+        tools:layout="@layout/fragment_vote_detail" />
 
-<fragment
-    android:id="@+id/navigation_request_for_connect"
-    android:name="com.timelysoft.tsjdomcom.ui.requestForConnect.RequestForConnectFragment"
-    android:label="fragment_connect"
-    tools:layout="@layout/fragment_connect" />
+    <fragment
+        android:id="@+id/navigation_request_for_connect"
+        android:name="com.timelysoft.tsjdomcom.ui.requestForConnect.RequestForConnectFragment"
+        android:label="fragment_connect"
+        tools:layout="@layout/fragment_connect" />
 
-<fragment
-    android:id="@+id/navigation_news_detail"
-    android:name="com.timelysoft.tsjdomcom.ui.news.NewsDetailFragment"
-    android:label="@string/news"
-    tools:layout="@layout/fragment_news_detail" />
+    <fragment
+        android:id="@+id/navigation_news_detail"
+        android:name="com.timelysoft.tsjdomcom.ui.news.NewsDetailFragment"
+        android:label="@string/news"
+        tools:layout="@layout/fragment_news_detail" />
 
-<fragment
-    android:id="@+id/navigation_at_home"
-    android:name="com.timelysoft.tsjdomcom.ui.home.HomeFragment"
-    android:label="ТСЖ Председатель"
-    tools:layout="@layout/fragment_navigation_at_home" />
+    <fragment
+        android:id="@+id/navigation_at_home"
+        android:name="com.timelysoft.tsjdomcom.ui.home.HomeFragment"
+        android:label="ТСЖ Председатель"
+        tools:layout="@layout/fragment_navigation_at_home" />
 
-<fragment
-    android:id="@+id/navigation_user"
-    android:name="com.timelysoft.tsjdomcom.ui.user.UserFragment"
-    android:label="Пользователи"
-    tools:layout="@layout/fragment_user" />
+    <fragment
+        android:id="@+id/navigation_user"
+        android:name="com.timelysoft.tsjdomcom.ui.user.UserFragment"
+        android:label="Пользователи"
+        tools:layout="@layout/fragment_user" />
 
-<fragment
-    android:id="@+id/navigation_edit"
-    android:name="com.timelysoft.tsjdomcom.ui.user.EditFragment"
-    android:label="Редактировать"
-    tools:layout="@layout/fragment_edit" />
+    <fragment
+        android:id="@+id/navigation_edit"
+        android:name="com.timelysoft.tsjdomcom.ui.user.EditFragment"
+        android:label="Редактировать"
+        tools:layout="@layout/fragment_edit" />
 
-<fragment
-    android:id="@+id/navigation_owner"
-    android:name="com.timelysoft.tsjdomcom.ui.user.OwnerFragment"
-    android:label="Добавить"
-    tools:layout="@layout/fragment_owner" />
+    <fragment
+        android:id="@+id/navigation_owner"
+        android:name="com.timelysoft.tsjdomcom.ui.user.OwnerFragment"
+        android:label="Добавить"
+        tools:layout="@layout/fragment_owner" />
 
-<fragment
-    android:id="@+id/navigation_provider"
-    android:name="com.timelysoft.tsjdomcom.ui.provider.ProviderFragment"
-    android:label="Поставщики"
-    tools:layout="@layout/fragment_provider" />
+    <fragment
+        android:id="@+id/navigation_provider"
+        android:name="com.timelysoft.tsjdomcom.ui.provider.ProviderFragment"
+        android:label="Поставщики"
+        tools:layout="@layout/fragment_provider" />
 
-<fragment
-    android:id="@+id/navigation_create_supplier"
-    android:name="com.timelysoft.tsjdomcom.ui.provider.CreateSupplierFragment"
-    android:label="Создать поставщика"
-    tools:layout="@layout/fragment_create_supplier" />
+    <fragment
+        android:id="@+id/navigation_create_supplier"
+        android:name="com.timelysoft.tsjdomcom.ui.provider.CreateSupplierFragment"
+        android:label="Создать поставщика"
+        tools:layout="@layout/fragment_create_supplier" />
+
+    <fragment
+        android:id="@+id/navigation_user_request"
+        android:name="com.timelysoft.tsjdomcom.ui.request.UserRequestFragment"
+        android:label="Запрос пользователя"
+        tools:layout="@layout/fragment_user_request" />
+
+    <fragment
+        android:id="@+id/navigation_service"
+        android:name="com.timelysoft.tsjdomcom.ui.servise.ServiceFragment"
+        android:label="Услуги"
+        tools:layout="@layout/fragment_service" />
+
+    <fragment
+        android:id="@+id/navigation_registration_service"
+        android:name="com.timelysoft.tsjdomcom.ui.servise.RegistrationServiceFragment"
+        android:label="Регистрация услуги"
+        tools:layout="@layout/fragment_registration_service" />
+
+    <fragment
+        android:id="@+id/navigation_towards_house"
+        android:name="com.timelysoft.tsjdomcom.TowardsHouseFragment"
+        android:label="К дому"
+        tools:layout="@layout/fragment_towards_house" />
 </navigation>

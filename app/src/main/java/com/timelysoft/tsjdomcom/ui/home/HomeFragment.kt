@@ -39,6 +39,14 @@ class HomeFragment : Fragment() {
         home_providers.setOnClickListener {
             findNavController().navigate(R.id.navigation_provider)
         }
+
+        home_user_request.setOnClickListener {
+            findNavController().navigate(R.id.navigation_user_request)
+        }
+
+        home_service.setOnClickListener {
+            findNavController().navigate(R.id.navigation_service)
+        }
     }
 
     override fun onStart() {

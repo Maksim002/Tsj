@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_margin="16dp"
+    android:layout_height="match_parent"
+    tools:context=".ui.servise.RegistrationServiceFragment">
+
+    <Button
+        android:id="@+id/service_registration_service"
+        style="@style/RoundedOrangeBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="РЕГИСТРАЦИЯ УСЛУГ К ДОМУ"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/service_create_type"
+        style="@style/RoundedOrangeBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="РЕГИСТРАЦИЯ УСЛУГ К КВАРТИРЕ"
+        android:layout_marginTop="8dp"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/registration_service_home"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginHorizontal">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/registration_service_home_out"
+            android:layout_width="match_parent"
+            android:textSize="15sp"
+            android:background="@null"
+            android:layout_height="wrap_content"
+            android:hint="Дом"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <include layout="@layout/item_divider_model"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/registration_service_flat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginHorizontal">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/registration_service_flat_out"
+            android:layout_width="match_parent"
+            android:textSize="15sp"
+            android:background="@null"
+            android:layout_height="wrap_content"
+            android:hint="Квартира"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <include layout="@layout/item_divider_model"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/registration_service_recycler"
+        android:layout_width="match_parent"
+        android:layout_marginTop="16dp"
+        android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+</LinearLayout>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="16dp"
+    tools:context=".TowardsHouseFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Регистрация услуги к дому"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/towards_house_service"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginHorizontal">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/towards_house_service_out"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Выберите услугу"
+            android:inputType="text"
+            android:textSize="15sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <include layout="@layout/item_divider_model"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/towards_house_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginHorizontal">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/towards_house_date_out"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Дата последней оплаты"
+            android:inputType="text"
+            android:textSize="15sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <include layout="@layout/item_divider_model"/>
+
+</LinearLayout>
