@@ -29,7 +29,7 @@ class TowardsHouseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).supportActionBar?.show()
-        getAutoAddress()
+        getTowardsHouseService()
         initArguments()
     }
 
@@ -45,11 +45,11 @@ class TowardsHouseFragment : Fragment() {
         towards_house_recycler.adapter = myAdapter
     }
 
-    private fun getAutoAddress() {
+    private fun getTowardsHouseService() {
         val list = arrayOf("зайчик", "вышел", "погулять","вода")
 
-        val adapterAddress = ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, list)
-        towards_house_service_out.setAdapter(adapterAddress)
+        val adapterTowardsHouseService = ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, list)
+        towards_house_service_out.setAdapter(adapterTowardsHouseService)
 
         towards_house_service_out.keyListener = null
             ColorStateList.valueOf(resources.getColor(R.color.colorAccent))

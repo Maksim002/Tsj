@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.counter.CounterFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/counters_add_apartments"
+            style="@style/RoundedOrangeBackground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ДОБАВИТЬ СЧОТЧИК КО ВСЕМ КВАРТИРАМ"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/counters_indications"
+            style="@style/RoundedOrangeBackground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="ПОКАЗАНИЯ"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/counters_total_debt"
+            style="@style/RoundedOrangeBackground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="ОБЩАЯ ЗАДОЛЖНАСТЬ"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/counter_home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:focusableInTouchMode="true"
+            android:hint="Дом">
+
+            <AutoCompleteTextView
+                android:id="@+id/counter_home_out"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:drawableEnd="@drawable/ic_expend" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <include layout="@layout/item_divider_model"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/counter_apartment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:focusableInTouchMode="true"
+            android:hint="Квартира">
+
+            <AutoCompleteTextView
+                android:id="@+id/counter_apartment_counter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:drawableEnd="@drawable/ic_expend" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <include layout="@layout/item_divider_model"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/counter_service"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:focusableInTouchMode="true"
+            android:hint="Услуга">
+
+            <AutoCompleteTextView
+                android:id="@+id/counter_service_out"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:drawableEnd="@drawable/ic_expend" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <include layout="@layout/item_divider_model"/>
+
+        <Button
+            android:id="@+id/counters_add_apartment"
+            style="@style/RoundedOrangeBackground"
+            android:layout_width="match_parent"
+            android:layout_marginTop="14dp"
+            android:layout_marginBottom="4dp"
+            android:layout_height="wrap_content"
+            android:text="ДОБАВИТЬ СЧОТЧИК К КВАРТИРЕ"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Список счётчиков"
+            android:textStyle="bold" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/counter_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:nestedScrollingEnabled="true"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

@@ -246,7 +246,25 @@
 
     <fragment
         android:id="@+id/navigation_create_service"
-        android:name="com.timelysoft.tsjdomcom.CreateServiceFragment"
+        android:name="com.timelysoft.tsjdomcom.ui.servise.CreateServiceFragment"
         android:label="Новый тип услуги"
         tools:layout="@layout/fragment_create_service" />
+
+    <fragment
+        android:id="@+id/navigation_counters"
+        android:name="com.timelysoft.tsjdomcom.ui.counter.CounterFragment"
+        android:label="Счётчики"
+        tools:layout="@layout/fragment_counter" />
+
+    <fragment
+        android:id="@+id/navigation_add_counter_all"
+        android:name="com.timelysoft.tsjdomcom.AddCounterAllFragment"
+        android:label="К дому"
+        tools:layout="@layout/fragment_add_counter_all" />
+
+    <fragment
+        android:id="@+id/navigation_add_counter_current"
+        android:name="com.timelysoft.tsjdomcom.AddCounterCurrentFragment"
+        android:label="К квартире"
+        tools:layout="@layout/fragment_add_counter_current" />
 </navigation>
