@@ -12,7 +12,7 @@ import com.timelysoft.tsjdomcom.adapters.service.RegistrationServiceAdapter
 import com.timelysoft.tsjdomcom.adapters.service.RegistrationServiceModel
 import kotlinx.android.synthetic.main.fragment_registration_service.*
 
-class RegistrationServiceFragment : Fragment() {
+class  RegistrationServiceFragment : Fragment() {
     private var myAdapter =  RegistrationServiceAdapter()
 
     override fun onCreateView(

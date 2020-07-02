@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_margin="16dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".TowardsHouseFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="16dp">
 
     <TextView
         android:layout_width="match_parent"
@@ -16,15 +21,18 @@
         android:id="@+id/towards_house_service"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/marginHorizontal">
+        android:layout_marginTop="15dp"
+        android:textColorHint="#121212"
+        android:focusableInTouchMode="true"
+        android:hint="Адрес">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <AutoCompleteTextView
             android:id="@+id/towards_house_service_out"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Выберите услугу"
-            android:inputType="text"
-            android:textSize="15sp" />
+            android:background="@null"
+            android:textSize="15sp"
+            android:drawableEnd="@drawable/ic_expend" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -34,6 +42,7 @@
         android:id="@+id/towards_house_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColorHint="#121212"
         android:layout_marginTop="@dimen/marginHorizontal">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -41,6 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Дата последней оплаты"
+            android:background="@null"
             android:inputType="text"
             android:textSize="15sp" />
 
@@ -48,4 +58,63 @@
 
     <include layout="@layout/item_divider_model"/>
 
-</LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Данные для услуги" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="КВАРТИРА"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.6"
+            android:gravity="center"
+            android:text="ПЕРВОНОЧАЛЬНЫЙ БАЛАНС"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="ОБЪЁМ"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/towards_house_recycler"
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:nestedScrollingEnabled="true"
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+    <Button
+        android:id="@+id/towards_house_save"
+        style="@style/RoundedOrangeBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:text="Сохранить"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
