@@ -1,4 +1,4 @@
-package com.timelysoft.tsjdomcom
+package com.timelysoft.tsjdomcom.ui.servise
 
 import android.content.res.ColorStateList
 import android.os.Bundle
@@ -8,14 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.adapters.house.TowardsHouseAdapter
 import com.timelysoft.tsjdomcom.adapters.house.TowardsHouseModel
-import com.timelysoft.tsjdomcom.service.Status
-import com.timelysoft.tsjdomcom.service.model.AddressModel
-import com.timelysoft.tsjdomcom.ui.main.MainActivity
-import kotlinx.android.synthetic.main.fragment_history.*
 import kotlinx.android.synthetic.main.fragment_towards_house.*
 
 class TowardsHouseFragment : Fragment() {

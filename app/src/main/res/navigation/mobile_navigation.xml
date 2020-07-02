@@ -234,7 +234,19 @@
 
     <fragment
         android:id="@+id/navigation_towards_house"
-        android:name="com.timelysoft.tsjdomcom.TowardsHouseFragment"
+        android:name="com.timelysoft.tsjdomcom.ui.servise.TowardsHouseFragment"
         android:label="К дому"
         tools:layout="@layout/fragment_towards_house" />
+
+    <fragment
+        android:id="@+id/navigation_service_apartment"
+        android:name="com.timelysoft.tsjdomcom.ui.servise.ServiceApartmentFragment"
+        android:label="К квартире"
+        tools:layout="@layout/fragment_service_apartment" />
+
+    <fragment
+        android:id="@+id/navigation_create_service"
+        android:name="com.timelysoft.tsjdomcom.CreateServiceFragment"
+        android:label="Новый тип услуги"
+        tools:layout="@layout/fragment_create_service" />
 </navigation>

@@ -32,8 +32,8 @@ class CreateSupplierFragment : Fragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initArguments()
         (activity as AppCompatActivity).supportActionBar?.show()
+        initArguments()
         initClick(view)
     }
 

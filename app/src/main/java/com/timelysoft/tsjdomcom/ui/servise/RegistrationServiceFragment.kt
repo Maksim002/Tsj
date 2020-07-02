@@ -34,6 +34,9 @@ class  RegistrationServiceFragment : Fragment() {
         service_registration_service.setOnClickListener {
             findNavController().navigate(R.id.navigation_towards_house)
         }
+        service_create_type.setOnClickListener {
+            findNavController().navigate(R.id.navigation_service_apartment)
+        }
     }
 
     private fun initRecycler() {

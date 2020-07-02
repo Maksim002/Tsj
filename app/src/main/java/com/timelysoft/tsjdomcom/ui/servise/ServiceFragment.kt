@@ -29,12 +29,16 @@ class ServiceFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).supportActionBar?.show()
         initRecycler(view)
-        initClick()
+        initRegistration()
     }
 
-    private fun initClick() {
+    private fun initRegistration() {
         service_registration_service.setOnClickListener {
             findNavController().navigate(R.id.navigation_registration_service)
+        }
+
+        service_create_type.setOnClickListener {
+            findNavController().navigate(R.id.navigation_create_service)
         }
     }
 

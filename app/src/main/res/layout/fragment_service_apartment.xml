@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="16dp"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".ui.servise.ServiceApartmentFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:text="Регистрация услуги к квартире"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/apartment_selected"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginHorizontal">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/apartment_selected_out"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Выберите услугу"
+            android:background="@null"
+            android:inputType="text"
+            android:textSize="15sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <include layout="@layout/item_divider_model"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/apartment_date_payment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginHorizontal">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/apartment_date_payment_out"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Дата последней оплаты"
+            android:background="@null"
+            android:inputType="text"
+            android:textSize="15sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <include layout="@layout/item_divider_model"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/apartment_balance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginHorizontal">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/apartment_balance_out"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Баланс"
+            android:background="@null"
+            android:inputType="text"
+            android:textSize="15sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <include layout="@layout/item_divider_model"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/apartment_service_multiplier"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginHorizontal">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/apartment_service_multiplier_out"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Множитель услуги"
+            android:background="@null"
+            android:inputType="text"
+            android:textSize="15sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <include layout="@layout/item_divider_model"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/apartment_type_of_service"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginHorizontal">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/apartment_type_of_service_out"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Тип услуги"
+            android:background="@null"
+            android:inputType="text"
+            android:textSize="15sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <include layout="@layout/item_divider_model"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/apartment_save"
+            style="@style/RoundedOrangeBackground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:text="Сохранить"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
