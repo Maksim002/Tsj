@@ -258,13 +258,31 @@
 
     <fragment
         android:id="@+id/navigation_add_counter_all"
-        android:name="com.timelysoft.tsjdomcom.AddCounterAllFragment"
+        android:name="com.timelysoft.tsjdomcom.ui.counter.AddCounterAllFragment"
         android:label="К дому"
         tools:layout="@layout/fragment_add_counter_all" />
 
     <fragment
         android:id="@+id/navigation_add_counter_current"
-        android:name="com.timelysoft.tsjdomcom.AddCounterCurrentFragment"
+        android:name="com.timelysoft.tsjdomcom.ui.counter.AddCounterCurrentFragment"
         android:label="К квартире"
         tools:layout="@layout/fragment_add_counter_current" />
+
+    <fragment
+        android:id="@+id/navigation_counters_indications"
+        android:name="com.timelysoft.tsjdomcom.ui.counter.CounterIndicationsFragment"
+        android:label="Показания"
+        tools:layout="@layout/fragment_counter_indications" />
+
+    <fragment
+        android:id="@+id/navigation_add_testimony"
+        android:name="com.timelysoft.tsjdomcom.ui.counter.AddTestimonyFragment"
+        android:label="Добавить показания"
+        tools:layout="@layout/fragment_add_testimony" />
+
+    <fragment
+        android:id="@+id/navigation_changing_reading"
+        android:name="com.timelysoft.tsjdomcom.ui.counter.ChangingReadingFragment"
+        android:label="Подтверждение"
+        tools:layout="@layout/fragment_changing_reading" />
 </navigation>

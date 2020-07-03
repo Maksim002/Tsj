@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:layout_margin="16dp"
     android:layout_height="match_parent"
-    tools:context=".AddCounterAllFragment">
+    tools:context=".ui.counter.AddCounterAllFragment">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/add_counter_all_home"
