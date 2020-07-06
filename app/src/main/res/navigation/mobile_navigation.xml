@@ -168,7 +168,7 @@
 
     <fragment
         android:id="@+id/navigation_request_for_connect"
-        android:name="com.timelysoft.tsjdomcom.ui.requestForConnect.RequestForConnectFragment"
+        android:name="com.timelysoft.tsjdomcom.ui.application.RequestForConnectFragment"
         android:label="fragment_connect"
         tools:layout="@layout/fragment_connect" />
 
@@ -300,31 +300,31 @@
 
     <fragment
         android:id="@+id/navigation_payments_invoices"
-        android:name="com.timelysoft.tsjdomcom.ui.payments.PaymentsInvoicesFragment"
+        android:name="com.timelysoft.tsjdomcom.ui.payment.PaymentsInvoicesFragment"
         android:label="Платежи и счета"
         tools:layout="@layout/fragment_payments_invoices" />
 
     <fragment
         android:id="@+id/navigation_payment"
-        android:name="com.timelysoft.tsjdomcom.ui.payments.PaymentFragment"
+        android:name="com.timelysoft.tsjdomcom.ui.payment.PaymentFragment"
         android:label="Платежи и счета"
         tools:layout="@layout/fragment_payment" />
 
     <fragment
         android:id="@+id/navigation_show_payment"
-        android:name="com.timelysoft.tsjdomcom.ui.payments.ShowPaymentFragment"
+        android:name="com.timelysoft.tsjdomcom.ui.payment.ShowPaymentFragment"
         android:label="Платежи"
         tools:layout="@layout/fragment_show_payment" />
 
     <fragment
         android:id="@+id/navigation_unpaid"
-        android:name="com.timelysoft.tsjdomcom.ui.payments.UnpaidFragment"
+        android:name="com.timelysoft.tsjdomcom.ui.payment.UnpaidFragment"
         android:label="Неоплаченные"
         tools:layout="@layout/fragment_unpaid" />
 
     <fragment
         android:id="@+id/navigation_payment_history"
-        android:name="com.timelysoft.tsjdomcom.PaymentHistoryFragment"
+        android:name="com.timelysoft.tsjdomcom.ui.payment.PaymentHistoryFragment"
         android:label="История платежей"
         tools:layout="@layout/fragment_payment_history" />
 </navigation>

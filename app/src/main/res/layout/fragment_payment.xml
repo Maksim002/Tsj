@@ -6,7 +6,7 @@
     android:padding="16dp"
     android:background="#FFFFFF"
     android:layout_height="match_parent"
-    tools:context=".ui.payments.PaymentFragment">
+    tools:context=".ui.payment.PaymentFragment">
 
     <TextView
         android:layout_width="match_parent"

@@ -1,4 +1,4 @@
-package com.timelysoft.tsjdomcom.ui.requestForConnect
+package com.timelysoft.tsjdomcom.ui.application
 
 
 import android.content.res.ColorStateList

@@ -1,4 +1,4 @@
-package com.timelysoft.tsjdomcom.ui.payments
+package com.timelysoft.tsjdomcom.ui.payment
 
 import android.content.res.ColorStateList
 import android.os.Bundle

@@ -6,7 +6,7 @@
     android:layout_margin="16dp"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context=".ui.payments.UnpaidFragment">
+    tools:context=".ui.payment.UnpaidFragment">
 
     <TextView
         android:layout_width="match_parent"

@@ -7,7 +7,7 @@
     android:padding="16dp"
     android:orientation="vertical"
     android:background="#FFFFFF"
-    tools:context=".ui.payments.ShowPaymentFragment">
+    tools:context=".ui.payment.ShowPaymentFragment">
 
     <LinearLayout
         android:id="@+id/show_payment_history"
