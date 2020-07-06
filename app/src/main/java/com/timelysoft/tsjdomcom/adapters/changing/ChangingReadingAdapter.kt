@@ -5,7 +5,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.common.GenericRecyclerAdapter
 import com.timelysoft.tsjdomcom.common.ViewHolder
-import kotlinx.android.synthetic.main.item_changing_reading.view.*
 
 class ChangingReadingAdapter (item: ArrayList<ChangingReadingModel> = arrayListOf()): GenericRecyclerAdapter<ChangingReadingModel>(item){
 

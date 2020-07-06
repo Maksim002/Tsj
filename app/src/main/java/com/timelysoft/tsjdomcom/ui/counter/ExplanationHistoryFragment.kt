@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.adapters.explanation.ExplanationHistoryAdapter
 import com.timelysoft.tsjdomcom.adapters.explanation.ExplanationHistoryModel
@@ -32,6 +33,7 @@ class ExplanationHistoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as AppCompatActivity).supportActionBar?.show()
         initRecyclerView()
         getAutoDatesFrom()
         getAutoDatesTo()

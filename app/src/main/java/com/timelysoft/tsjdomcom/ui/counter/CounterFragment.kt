@@ -32,7 +32,7 @@ class CounterFragment : Fragment() {
         (activity as AppCompatActivity).supportActionBar?.show()
         getCounterHome()
         getApartmentCounter()
-        getService()
+        getCounterService()
         initRecycler()
         initArgument()
     }
@@ -133,11 +133,11 @@ class CounterFragment : Fragment() {
         counter_apartment_counter.clearFocus()
     }
 
-    private fun getService() {
+    private fun getCounterService() {
         val list = arrayOf("зайчик", "вышел", "погулять","вода")
 
-        val adapterService = ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, list)
-        counter_service_out.setAdapter(adapterService)
+        val adapterCounterService = ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, list)
+        counter_service_out.setAdapter(adapterCounterService)
 
         counter_service_out.keyListener = null
         ColorStateList.valueOf(resources.getColor(R.color.colorAccent))

@@ -294,7 +294,37 @@
 
     <fragment
         android:id="@+id/navigation_debts"
-        android:name="com.timelysoft.tsjdomcom.DebtsFragment"
+        android:name="com.timelysoft.tsjdomcom.ui.counter.DebtsFragment"
         android:label="Задолженности"
         tools:layout="@layout/fragment_debts" />
+
+    <fragment
+        android:id="@+id/navigation_payments_invoices"
+        android:name="com.timelysoft.tsjdomcom.ui.payments.PaymentsInvoicesFragment"
+        android:label="Платежи и счета"
+        tools:layout="@layout/fragment_payments_invoices" />
+
+    <fragment
+        android:id="@+id/navigation_payment"
+        android:name="com.timelysoft.tsjdomcom.ui.payments.PaymentFragment"
+        android:label="Платежи и счета"
+        tools:layout="@layout/fragment_payment" />
+
+    <fragment
+        android:id="@+id/navigation_show_payment"
+        android:name="com.timelysoft.tsjdomcom.ui.payments.ShowPaymentFragment"
+        android:label="Платежи"
+        tools:layout="@layout/fragment_show_payment" />
+
+    <fragment
+        android:id="@+id/navigation_unpaid"
+        android:name="com.timelysoft.tsjdomcom.ui.payments.UnpaidFragment"
+        android:label="Неоплаченные"
+        tools:layout="@layout/fragment_unpaid" />
+
+    <fragment
+        android:id="@+id/navigation_payment_history"
+        android:name="com.timelysoft.tsjdomcom.PaymentHistoryFragment"
+        android:label="История платежей"
+        tools:layout="@layout/fragment_payment_history" />
 </navigation>

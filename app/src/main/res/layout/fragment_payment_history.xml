@@ -6,19 +6,18 @@
     android:layout_margin="16dp"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context=".ui.counter.DebtsFragment">
+    tools:context=".PaymentHistoryFragment">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Список задолженностей"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:text="Платежи"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/debts_recycler"
+        android:id="@+id/payment_history_recycler"
         android:layout_width="match_parent"
         android:layout_marginTop="8dp"
         android:layout_height="wrap_content"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
-
 </LinearLayout>

@@ -6,16 +6,18 @@
     android:layout_margin="16dp"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context=".ui.counter.DebtsFragment">
+    tools:context=".ui.payments.UnpaidFragment">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Список задолженностей"
+        android:text="Платежи"
+        android:layout_marginTop="8dp"
+        android:textSize="14sp"
         android:textStyle="bold"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/debts_recycler"
+        android:id="@+id/unpaid_recycler"
         android:layout_width="match_parent"
         android:layout_marginTop="8dp"
         android:layout_height="wrap_content"
