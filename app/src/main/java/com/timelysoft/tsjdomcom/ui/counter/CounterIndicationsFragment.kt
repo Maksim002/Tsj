@@ -44,8 +44,12 @@ class CounterIndicationsFragment : Fragment() {
             findNavController().navigate(R.id.navigation_add_testimony)
         }
 
-        counter_indication_changes.setOnClickListener {
+        counters_confirmation_indications.setOnClickListener {
             findNavController().navigate(R.id.navigation_changing_reading)
+        }
+
+        counter_indication_changes.setOnClickListener {
+            findNavController().navigate(R.id.navigation_explanation_history)
         }
     }
 

@@ -49,6 +49,10 @@ class CounterFragment : Fragment() {
         counters_indications.setOnClickListener {
             findNavController().navigate(R.id.navigation_counters_indications)
         }
+
+        counters_total_debt.setOnClickListener {
+            findNavController().navigate(R.id.navigation_debts)
+        }
     }
 
     private fun initRecycler() {

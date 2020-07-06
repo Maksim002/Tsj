@@ -285,4 +285,16 @@
         android:name="com.timelysoft.tsjdomcom.ui.counter.ChangingReadingFragment"
         android:label="Подтверждение"
         tools:layout="@layout/fragment_changing_reading" />
+
+    <fragment
+        android:id="@+id/navigation_explanation_history"
+        android:name="com.timelysoft.tsjdomcom.ui.counter.ExplanationHistoryFragment"
+        android:label="История изменнений"
+        tools:layout="@layout/fragment_explanation_history" />
+
+    <fragment
+        android:id="@+id/navigation_debts"
+        android:name="com.timelysoft.tsjdomcom.DebtsFragment"
+        android:label="Задолженности"
+        tools:layout="@layout/fragment_debts" />
 </navigation>
