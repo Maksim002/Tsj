@@ -410,6 +410,7 @@
 
 
                         <LinearLayout
+                            android:id="@+id/home_estimates"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"

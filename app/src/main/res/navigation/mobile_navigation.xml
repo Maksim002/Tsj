@@ -351,4 +351,22 @@
         android:name="com.timelysoft.tsjdomcom.ui.payment.InvoicesIssuedFragment"
         android:label="Выставленные счета"
         tools:layout="@layout/fragment_invoices_issued" />
+
+    <fragment
+        android:id="@+id/navigation_estimate"
+        android:name="com.timelysoft.tsjdomcom.ui.estimate.EstimateFragment"
+        android:label="Сметы"
+        tools:layout="@layout/fragment_estimate" />
+
+    <fragment
+        android:id="@+id/navigation_detail_estimate"
+        android:name="com.timelysoft.tsjdomcom.ui.estimate.DetailsEstimateFragment"
+        android:label="Детали сметы"
+        tools:layout="@layout/fragment_detail_estimate" />
+
+    <fragment
+        android:id="@+id/navigation_edit_estimate"
+        android:name="com.timelysoft.tsjdomcom.ui.estimate.EditEstimateFragment"
+        android:label="Редактировать"
+        tools:layout="@layout/fragment_edit_estimate" />
 </navigation>
