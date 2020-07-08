@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import com.timelysoft.tsjdomcom.R
 import kotlinx.android.synthetic.main.fragment_payments_invoices.*
+import kotlinx.android.synthetic.main.fragment_payments_invoices.payments_invoices_payment
 
 class PaymentsInvoicesFragment : Fragment() {
 
@@ -29,6 +30,15 @@ class PaymentsInvoicesFragment : Fragment() {
     private fun iniArguments() {
         payments_invoices_payment.setOnClickListener {
             findNavController().navigate(R.id.navigation_payment)
+        }
+        payment_invoices_report.setOnClickListener {
+            findNavController().navigate(R.id.navigation_payment_report)
+        }
+        payment_invoices_templates.setOnClickListener {
+            findNavController().navigate(R.id.navigation_templates)
+        }
+        payments_invoices_issued.setOnClickListener {
+            findNavController().navigate(R.id.navigation_invoices_issued)
         }
     }
 }

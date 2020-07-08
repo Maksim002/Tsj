@@ -327,4 +327,28 @@
         android:name="com.timelysoft.tsjdomcom.ui.payment.PaymentHistoryFragment"
         android:label="История платежей"
         tools:layout="@layout/fragment_payment_history" />
+
+    <fragment
+        android:id="@+id/navigation_receipt"
+        android:name="com.timelysoft.tsjdomcom.ui.payment.ReceiptFragment"
+        android:label="Квитанция"
+        tools:layout="@layout/fragment_receipt" />
+
+    <fragment
+        android:id="@+id/navigation_payment_report"
+        android:name="com.timelysoft.tsjdomcom.ui.payment.PaymentReportFragment"
+        android:label="Отчёт по платежам"
+        tools:layout="@layout/fragment_payment_report" />
+
+    <fragment
+        android:id="@+id/navigation_templates"
+        android:name="com.timelysoft.tsjdomcom.ui.payment.TemplateFragment"
+        android:label="Шаблоны"
+        tools:layout="@layout/fragment_template" />
+
+    <fragment
+        android:id="@+id/navigation_invoices_issued"
+        android:name="com.timelysoft.tsjdomcom.ui.payment.InvoicesIssuedFragment"
+        android:label="Выставленные счета"
+        tools:layout="@layout/fragment_invoices_issued" />
 </navigation>

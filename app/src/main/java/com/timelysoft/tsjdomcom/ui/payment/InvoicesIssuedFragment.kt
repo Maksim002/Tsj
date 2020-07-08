@@ -1,4 +1,4 @@
-package com.timelysoft.tsjdomcom.ui.request
+package com.timelysoft.tsjdomcom.ui.payment
 
 import android.app.DatePickerDialog
 import android.content.res.ColorStateList
@@ -10,24 +10,25 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import com.timelysoft.tsjdomcom.R
-import com.timelysoft.tsjdomcom.adapters.request.UserRequestAdapter
-import com.timelysoft.tsjdomcom.adapters.request.UserRequestModel
+import com.timelysoft.tsjdomcom.adapters.lssued.InvoicesIssuedAdapter
+import com.timelysoft.tsjdomcom.adapters.lssued.InvoicesLssuedModel
 import com.timelysoft.tsjdomcom.utils.MyUtils
-import kotlinx.android.synthetic.main.fragment_user_request.*
+import kotlinx.android.synthetic.main.fragment_invoices_issued.*
 import java.util.*
 import kotlin.collections.ArrayList
 
-class UserRequestFragment : Fragment() {
-    private var mLastClickTime: Long = 0
+class InvoicesIssuedFragment : Fragment() {
 
-    private var myAdapter =  UserRequestAdapter()
+    private var myAdapter = InvoicesIssuedAdapter()
+
+    private var mLastClickTime: Long = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user_request, container, false)
+        return inflater.inflate(R.layout.fragment_invoices_issued, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,18 +36,18 @@ class UserRequestFragment : Fragment() {
         (activity as AppCompatActivity).supportActionBar?.show()
         getAutoDatesFrom()
         getAutoDatesTo()
-        initRecycler()
+        initRecyclerView()
     }
 
-    private fun initRecycler() {
-        val list: ArrayList<UserRequestModel> = arrayListOf()
-        list.add(UserRequestModel(""))
-        list.add(UserRequestModel(""))
-        list.add(UserRequestModel(""))
-        list.add(UserRequestModel(""))
+    private fun initRecyclerView() {
+        val list:  ArrayList<InvoicesLssuedModel> = arrayListOf()
+        list.add(InvoicesLssuedModel(""))
+        list.add(InvoicesLssuedModel(""))
+        list.add(InvoicesLssuedModel(""))
+        list.add(InvoicesLssuedModel(""))
 
         myAdapter.update(list)
-        user_request_recycler.adapter = myAdapter
+        invoices_issued_recycler.adapter = myAdapter
     }
 
     private fun getAutoDatesFrom() {
@@ -54,22 +55,22 @@ class UserRequestFragment : Fragment() {
         val year = myCalendar.get(Calendar.YEAR)
         val month = myCalendar.get(Calendar.MARCH)
         val day = myCalendar.get(Calendar.DAY_OF_MONTH)
-        user_request_date_from_out.keyListener = null;
-        user_request_date_from_out.setOnFocusChangeListener setOnClickListener@{ _, hasFocus ->
+        invoices_issued_date_from_out.keyListener = null;
+        invoices_issued_date_from_out.setOnFocusChangeListener setOnClickListener@{ _, hasFocus ->
             if (hasFocus) {
                 if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
                     return@setOnClickListener
                 }
                 mLastClickTime = SystemClock.elapsedRealtime();
-                user_request_date_from.defaultHintTextColor =
+                invoices_issued_date_from.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
                 val picker =
                     DatePickerDialog(activity!!,
                         R.style.DatePicker, { _, year1, monthOfYear, dayOfMonth ->
-                        user_request_date_from_out.setText(MyUtils.convertDate(dayOfMonth, monthOfYear + 1, year1))
-                    }, year, month, day)
+                            invoices_issued_date_from_out.setText(MyUtils.convertDate(dayOfMonth, monthOfYear + 1, year1))
+                        }, year, month, day)
                 picker.show()
-                user_request_date_from_out.clearFocus()
+                invoices_issued_date_from_out.clearFocus()
             }
         }
     }
@@ -78,8 +79,8 @@ class UserRequestFragment : Fragment() {
         val year = myCalendar.get(Calendar.YEAR)
         val month = myCalendar.get(Calendar.MARCH)
         val day = myCalendar.get(Calendar.DAY_OF_MONTH)
-        user_request_date_before_out.keyListener = null;
-        user_request_date_before_out.setOnFocusChangeListener setOnClickListener@{ _, hasFocus ->
+        invoices_issued_date_to_out.keyListener = null;
+        invoices_issued_date_to_out.setOnFocusChangeListener setOnClickListener@{ _, hasFocus ->
             if (hasFocus) {
                 if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
                     return@setOnClickListener
@@ -87,16 +88,16 @@ class UserRequestFragment : Fragment() {
                 mLastClickTime = SystemClock.elapsedRealtime();
                 val col =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                user_request_date_before.defaultHintTextColor = col
+                invoices_issued_date_to.defaultHintTextColor = col
 
                 val picker =
                     DatePickerDialog(activity!!,
                         R.style.DatePicker, { _, year1, monthOfYear, dayOfMonth ->
-                        user_request_date_before_out.setText(MyUtils.convertDate(dayOfMonth, monthOfYear + 1, year1))
+                            invoices_issued_date_to_out.setText(MyUtils.convertDate(dayOfMonth, monthOfYear + 1, year1))
                         }, year, month, day
                     )
                 picker.show()
-                user_request_date_before_out.clearFocus()
+                invoices_issued_date_to_out.clearFocus()
             }
         }
     }

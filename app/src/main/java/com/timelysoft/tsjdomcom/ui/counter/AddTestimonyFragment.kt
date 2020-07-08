@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.appcompat.app.AppCompatActivity
 import com.timelysoft.tsjdomcom.R
 import kotlinx.android.synthetic.main.fragment_add_testimony.*
 
@@ -23,6 +24,7 @@ class AddTestimonyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as AppCompatActivity).supportActionBar?.show()
         getAddTestimonyHome()
     }
 
