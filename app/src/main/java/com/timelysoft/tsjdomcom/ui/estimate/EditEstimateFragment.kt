@@ -13,6 +13,7 @@ import com.timelysoft.tsjdomcom.adapters.edit.EstimateComponentModel
 import kotlinx.android.synthetic.main.fragment_edit_estimate.*
 
 class EditEstimateFragment : Fragment() {
+
     private var myAdapter = EditEstimateAdapter()
 
     override fun onCreateView(
