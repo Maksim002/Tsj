@@ -11,7 +11,7 @@ abstract class GenericRecyclerAdapter<T>(var items: List<T>) : RecyclerView.Adap
 
     fun update(items: List<T>) {
         this.items = items
-        notifyDataSetChanged()
+        notifyItemRangeChanged(items.size ,items.size)
     }
 
     override fun getItemCount(): Int = items.count()
