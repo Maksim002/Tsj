@@ -1,14 +1,15 @@
 package com.timelysoft.tsjdomcom.ui.main
 
 
+import android.content.Context
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.utils.LoadingAlert
 
@@ -43,6 +44,4 @@ class MainActivity : AppCompatActivity() {
         onBackPressed()
         return true
     }
-
-
 }

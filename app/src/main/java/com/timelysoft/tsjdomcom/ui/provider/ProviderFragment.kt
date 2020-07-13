@@ -12,7 +12,6 @@ import com.timelysoft.tsjdomcom.adapters.provider.ProviderAdapter
 import com.timelysoft.tsjdomcom.adapters.provider.ProviderListener
 import com.timelysoft.tsjdomcom.adapters.provider.ProviderModel
 import kotlinx.android.synthetic.main.fragment_provider.*
-import java.text.FieldPosition
 
 class ProviderFragment : Fragment(), ProviderListener {
 

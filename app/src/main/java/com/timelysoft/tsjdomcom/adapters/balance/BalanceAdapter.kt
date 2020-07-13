@@ -8,7 +8,8 @@ import com.timelysoft.tsjdomcom.common.ViewHolder
 import com.timelysoft.tsjdomcom.service.model.BalanceStatusModel
 import kotlinx.android.synthetic.main.item_balance.view.*
 
-class BalanceAdapter(items: List<BalanceStatusModel> = ArrayList()) : GenericRecyclerAdapter<BalanceStatusModel>(items) {
+class BalanceAdapter(date: ArrayList<BalanceStatusModel> = ArrayList()) : GenericRecyclerAdapter<BalanceStatusModel>(
+    date) {
 
     override fun bind(item: BalanceStatusModel, holder: ViewHolder) {
         holder.itemView.balance_recycler_title.text = item.serviceName

@@ -5,11 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class GenericRecyclerAdapter<T>(var items: List<T>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+abstract class GenericRecyclerAdapter<T>(var items: ArrayList<T>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     abstract fun bind(item: T, holder: ViewHolder)
 
-    fun update(items: List<T>) {
+    fun update(items: ArrayList<T>) {
         this.items = items
         notifyItemRangeChanged(items.size ,items.size)
     }

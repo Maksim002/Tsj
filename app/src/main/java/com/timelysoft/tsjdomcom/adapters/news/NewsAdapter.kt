@@ -9,7 +9,7 @@ import com.timelysoft.tsjdomcom.service.model.news.NewsModel
 import com.timelysoft.tsjdomcom.utils.MyUtils
 import kotlinx.android.synthetic.main.item_file.view.*
 
-class NewsAdapter(item: List<NewsModel>, listener: NewsOnItemClickListener) :
+class NewsAdapter(item: ArrayList<NewsModel>, listener: NewsOnItemClickListener) :
     GenericRecyclerAdapter<NewsModel>(item) {
     private val listener: NewsOnItemClickListener = listener
     override fun bind(item: NewsModel, holder: ViewHolder) {

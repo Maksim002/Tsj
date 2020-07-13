@@ -15,6 +15,7 @@ import com.timelysoft.tsjdomcom.ui.main.MainActivity
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.adapters.balance.BalanceAdapter
 import com.timelysoft.tsjdomcom.service.Status
+import com.timelysoft.tsjdomcom.service.model.BalanceStatusModel
 import kotlinx.android.synthetic.main.fragment_balance_detail.*
 
 class BalanceDetailFragment : Fragment() {
@@ -66,7 +67,7 @@ class BalanceDetailFragment : Fragment() {
             MainActivity.alert.hide()
             when(result.status){
                 Status.SUCCESS ->{
-                    balanceAdapter.update(data!!)
+                    balanceAdapter.update(data!! as ArrayList<BalanceStatusModel>)
                 }
                 Status.ERROR, Status.NETWORK ->{
                     Toast.makeText(context, msg, Toast.LENGTH_LONG).show()

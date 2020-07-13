@@ -153,7 +153,7 @@ class NewsDetailFragment : Fragment(), GeneralClickListener, CommentOnItemListen
             MainActivity.alert.hide()
             when(result.status){
                 Status.SUCCESS ->{
-                    val commentAdapter = NewsCommentAdapter(data!!, this)
+                    val commentAdapter = NewsCommentAdapter(data!! as ArrayList<NewsCommentsModel>, this)
                     if (commentAdapter.itemCount == 0) {
                         news_detail_comment.visibility = View.GONE
                         news_detail_comment_rv.adapter = commentAdapter

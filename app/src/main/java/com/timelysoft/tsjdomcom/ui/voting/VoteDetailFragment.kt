@@ -15,6 +15,7 @@ import com.timelysoft.tsjdomcom.ui.main.MainActivity
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.adapters.vote.VoteDetailAdapter
 import com.timelysoft.tsjdomcom.service.Status
+import com.timelysoft.tsjdomcom.service.model.vote.VotingVariantsModel
 import com.timelysoft.tsjdomcom.service.request.VotingRequest
 import kotlinx.android.synthetic.main.fragment_vote_detail.*
 import java.lang.Exception
@@ -117,7 +118,7 @@ class VoteDetailFragment : Fragment() {
             val data = result.data
             when(result.status){
                 Status.SUCCESS ->{
-                    val adapter = VoteDetailAdapter(data!!.variants)
+                    val adapter = VoteDetailAdapter(data!!.variants as ArrayList<VotingVariantsModel>)
                     vote_detail_rv.adapter = adapter
                     MainActivity.alert.hide()
                     var count = 0

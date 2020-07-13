@@ -78,7 +78,7 @@ class MessageDetailFragment : Fragment(), GeneralClickListener {
                     val items = data!!.attachments!!.map { attachment ->
                         FilesModel(attachment.fileName, attachment.filePath)
                     }
-                    filesAdapter.update(items)
+                    filesAdapter.update(items as ArrayList<FilesModel>)
                     message_files_rv.adapter = filesAdapter
                 }
                 Status.ERROR, Status.NETWORK ->{

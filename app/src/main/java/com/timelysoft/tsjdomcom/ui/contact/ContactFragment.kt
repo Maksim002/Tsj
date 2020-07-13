@@ -101,7 +101,7 @@ class ContactFragment : Fragment(), AccountsListener {
                 MainActivity.alert.hide()
                 when(result.status){
                     Status.SUCCESS ->{
-                        bottomSheet = AccountsBottomSheet(this, data!!)
+                        bottomSheet = AccountsBottomSheet(this, data!! as ArrayList<AddressModel>)
                         var find = false
 
                         for (i in data) {

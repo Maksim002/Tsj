@@ -87,7 +87,7 @@ class NewMessageMandgerFragment : Fragment(), GeneralClickListener {
         val items = names.map {
             FilesModel(it)
         }
-        filesAdapter.update(items)
+        filesAdapter.update(items as ArrayList<FilesModel>)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -160,7 +160,7 @@ class NewMessageMandgerFragment : Fragment(), GeneralClickListener {
                 val items = names.map {
                     FilesModel(filename, "")
                 }
-                filesAdapter.update(items)
+                filesAdapter.update(items as ArrayList<FilesModel>)
             }
         }
     }

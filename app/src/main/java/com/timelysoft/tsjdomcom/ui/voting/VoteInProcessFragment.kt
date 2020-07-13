@@ -45,7 +45,7 @@ class VoteInProcessFragment(private val placementId: Int, private val typeId: In
             MainActivity.alert.hide()
             when(result.status){
                 Status.SUCCESS ->{
-                    val voteAdapter = VoteAdapter(this, data!!)
+                    val voteAdapter = VoteAdapter(this, data!! as ArrayList<VoteModel>)
                     vote_inprocess_rv.adapter = voteAdapter
                     if (voteAdapter.itemCount == 0) {
                         vote_inprocess_rv.visibility = View.GONE

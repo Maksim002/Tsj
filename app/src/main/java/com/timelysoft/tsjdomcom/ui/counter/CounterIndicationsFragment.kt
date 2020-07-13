@@ -13,7 +13,6 @@ import androidx.navigation.fragment.findNavController
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.adapters.indication.CounterIndicationAdapter
 import com.timelysoft.tsjdomcom.adapters.indication.CounterIndicationModel
-import kotlinx.android.synthetic.main.fragment_add_counter_current.*
 import kotlinx.android.synthetic.main.fragment_counter_indications.*
 
 class CounterIndicationsFragment : Fragment() {

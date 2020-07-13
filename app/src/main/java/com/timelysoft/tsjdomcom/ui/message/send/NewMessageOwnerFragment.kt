@@ -91,7 +91,7 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
         val items = name.map {
             FilesModel(it)
         }
-        adapterOwner.update(items)
+        adapterOwner.update(items as ArrayList<FilesModel>)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -155,7 +155,7 @@ class NewMessageOwnerFragment : Fragment(), GeneralClickListener {
                 val items = name.map {
                     FilesModel(it)
                 }
-                adapterOwner.update(items)
+                adapterOwner.update(items as ArrayList<FilesModel>)
             }
         }
     }

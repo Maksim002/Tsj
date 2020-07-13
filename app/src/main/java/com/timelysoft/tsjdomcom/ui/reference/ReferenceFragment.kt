@@ -106,7 +106,7 @@ class ReferenceFragment : Fragment(),ReferencesListener {
                 MainActivity.alert.hide()
                 when(result.status){
                     Status.SUCCESS ->{
-                        referencesAdapter.update(data!!)
+                        referencesAdapter.update(data!! as ArrayList<ReferenceLiteModel>)
                     }
                     Status.ERROR, Status.NETWORK ->{
                         Toast.makeText(context,msg, Toast.LENGTH_LONG).show()
@@ -125,7 +125,7 @@ class ReferenceFragment : Fragment(),ReferencesListener {
                 MainActivity.alert.hide()
                 when(result.status){
                     Status.SUCCESS ->{
-                        referencesAdapter.update(data!!)
+                        referencesAdapter.update(data!! as ArrayList<ReferenceLiteModel>)
                     }
                     Status.ERROR, Status.NETWORK ->{
                         Toast.makeText(context,msg, Toast.LENGTH_LONG).show()

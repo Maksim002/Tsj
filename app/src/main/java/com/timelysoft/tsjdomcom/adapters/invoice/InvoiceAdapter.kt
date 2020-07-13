@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.item_invoice.view.number
 import kotlinx.android.synthetic.main.item_invoice.view.scrip
 import kotlinx.android.synthetic.main.item_invoice.view.*
 
-class InvoiceAdapter(private val listener: InvoiceListener, item: List<InvoicesAccounts> = ArrayList()): GenericRecyclerAdapter<InvoicesAccounts>(item){
+class InvoiceAdapter(private val listener: InvoiceListener, item: ArrayList<InvoicesAccounts> = ArrayList()): GenericRecyclerAdapter<InvoicesAccounts>(item){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return super.onCreateViewHolder(parent, R.layout.item_invoice)

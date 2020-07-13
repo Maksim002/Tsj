@@ -10,7 +10,7 @@ import com.timelysoft.tsjdomcom.service.model.news.NewsCommentsModel
 import com.timelysoft.tsjdomcom.utils.MyUtils
 import kotlinx.android.synthetic.main.item_news_comment.view.*
 
-class NewsCommentAdapter(item: List<NewsCommentsModel>, private val listener: CommentOnItemListener) :
+class NewsCommentAdapter(item: ArrayList<NewsCommentsModel>, private val listener: CommentOnItemListener) :
     GenericRecyclerAdapter<NewsCommentsModel>(item) {
 
     override fun bind(item: NewsCommentsModel, holder: ViewHolder) {

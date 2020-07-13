@@ -9,7 +9,7 @@ import com.timelysoft.tsjdomcom.service.model.vote.VotingVariantsModel
 import kotlinx.android.synthetic.main.item_vote_detail.view.*
 
 
-class VoteDetailAdapter(item: List<VotingVariantsModel>) :
+class VoteDetailAdapter(item: ArrayList<VotingVariantsModel>) :
 
     GenericRecyclerAdapter<VotingVariantsModel>(item) {
 

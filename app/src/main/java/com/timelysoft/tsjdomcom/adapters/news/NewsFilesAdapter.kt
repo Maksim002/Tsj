@@ -9,7 +9,7 @@ import com.timelysoft.tsjdomcom.common.ViewHolder
 import com.timelysoft.tsjdomcom.service.model.news.NewsAttachments
 import kotlinx.android.synthetic.main.item_news_file.view.*
 
-class NewsFilesAdapter(item: List<NewsAttachments>, private val fileListener: GeneralClickListener) :
+class NewsFilesAdapter(item: ArrayList<NewsAttachments>, private val fileListener: GeneralClickListener) :
     GenericRecyclerAdapter<NewsAttachments>(item) {
 
     override fun bind(item: NewsAttachments, holder: ViewHolder) {

@@ -22,6 +22,8 @@ import com.timelysoft.tsjdomcom.adapters.invoice.InvoiceAdapter
 import com.timelysoft.tsjdomcom.adapters.payments.PaymentsAdapter
 import com.timelysoft.tsjdomcom.adapters.invoice.InvoiceListener
 import com.timelysoft.tsjdomcom.service.Status
+import com.timelysoft.tsjdomcom.service.model.InvoicesAccounts
+import com.timelysoft.tsjdomcom.service.model.PaymentHistory
 import com.timelysoft.tsjdomcom.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_history_detail.*
 import java.lang.Exception
@@ -136,11 +138,11 @@ class HistoryDetailFragment : Fragment(),
             when(result.status){
                 Status.SUCCESS ->{
                     if (data!!.paymentsHistory.size != 0) {
-                        paymentsAdapter.update(data.paymentsHistory)
+                        paymentsAdapter.update(data.paymentsHistory as ArrayList<PaymentHistory>)
                         history_detail_recycler_invoice.visibility = View.VISIBLE
                         history_detail_payments.visibility = View.VISIBLE
                     } else {
-                        invoiceAdapter.update(data.invoicesHistory)
+                        invoiceAdapter.update(data.invoicesHistory as ArrayList<InvoicesAccounts>)
                         history_detail_recycler_payments.visibility = View.VISIBLE
                         history_detail_accounts.visibility = View.VISIBLE
                     }

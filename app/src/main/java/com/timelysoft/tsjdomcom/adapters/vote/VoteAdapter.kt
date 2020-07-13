@@ -9,7 +9,7 @@ import com.timelysoft.tsjdomcom.common.ViewHolder
 import com.timelysoft.tsjdomcom.service.model.VoteModel
 import kotlinx.android.synthetic.main.item_vote.view.*
 
-class VoteAdapter(private val listener: VoteItemClickListener, item: List<VoteModel>) :
+class VoteAdapter(private val listener: VoteItemClickListener, item: ArrayList<VoteModel>) :
     GenericRecyclerAdapter<VoteModel>(item) {
     override fun bind(item: VoteModel, holder: ViewHolder) {
         holder.itemView.vote_content.text = item.question

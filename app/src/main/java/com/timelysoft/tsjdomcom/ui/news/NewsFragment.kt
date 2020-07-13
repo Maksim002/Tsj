@@ -47,7 +47,7 @@ class NewsFragment : Fragment(), NewsOnItemClickListener {
             MainActivity.alert.hide()
             when(result.status){
                 Status.SUCCESS ->{
-                    newsAdapter = NewsAdapter(data!!, this)
+                    newsAdapter = NewsAdapter(data!! as ArrayList<NewsModel>, this)
                     news_rv.apply {
                         adapter = newsAdapter
                     }

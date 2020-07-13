@@ -53,7 +53,7 @@ class MessagesFragment(private val idMessage: Int) : Fragment(), MessageClicklIt
                 val data = result.data
                 when(result.status){
                     Status.SUCCESS ->{
-                        messageAdapter = MessageAdapter(this, data!!)
+                        messageAdapter = MessageAdapter(this, data!! as ArrayList<MessageItemModel>)
                         recyclerview.apply { adapter = messageAdapter }
 
                         if (messageAdapter.itemCount == 0) {

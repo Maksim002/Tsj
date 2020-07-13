@@ -22,6 +22,7 @@ import com.timelysoft.tsjdomcom.service.model.RequestsModel
 import kotlinx.android.synthetic.main.fragment_bid.*
 import kotlinx.android.synthetic.main.fragment_bid.view.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 class RequestFragment : Fragment(), RequestClickItemListener {
     private lateinit var viewModel: RequestViewModel
@@ -54,7 +55,7 @@ class RequestFragment : Fragment(), RequestClickItemListener {
                     }
 
                     if (data!!.isNotEmpty()) {
-                        requestAdapter.update(data)
+                        requestAdapter.update(data as ArrayList<RequestsModel>)
                         bid_is_empty_textview.visibility = View.GONE
                         bid_recyclerview.visibility = View.VISIBLE
                     } else {

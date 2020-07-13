@@ -9,7 +9,7 @@ import com.timelysoft.tsjdomcom.service.model.PaymentHistory
 import com.timelysoft.tsjdomcom.utils.MyUtils
 import kotlinx.android.synthetic.main.item_payments.view.*
 
-class PaymentsAdapter(item: List<PaymentHistory> = ArrayList() ): GenericRecyclerAdapter<PaymentHistory>(item){
+class PaymentsAdapter(item: ArrayList<PaymentHistory> = ArrayList() ): GenericRecyclerAdapter<PaymentHistory>(item){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return super.onCreateViewHolder(parent, R.layout.item_payments)
