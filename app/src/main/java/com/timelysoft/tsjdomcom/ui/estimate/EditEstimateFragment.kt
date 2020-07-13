@@ -7,15 +7,14 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.timelysoft.tsjdomcom.R
-import com.timelysoft.tsjdomcom.adapters.edit.EditEstimateTemplatesAdapter
-import com.timelysoft.tsjdomcom.adapters.edit.EditEstimateTemplatesModel
+import com.timelysoft.tsjdomcom.adapters.edit.EditEstimateAdapter
+import com.timelysoft.tsjdomcom.adapters.edit.EditEstimateModel
 import kotlinx.android.synthetic.main.fragment_edit_estimate.*
-import kotlinx.android.synthetic.main.fragment_edit_estimate.edit_estimate_recycler
 
 class EditEstimateFragment : Fragment() {
 
-    private var myAdapter = EditEstimateTemplatesAdapter()
-    private var list: ArrayList<EditEstimateTemplatesModel> = arrayListOf()
+    private var myAdapter = EditEstimateAdapter()
+    private var list: ArrayList<EditEstimateModel> = arrayListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,12 +33,12 @@ class EditEstimateFragment : Fragment() {
 
     private fun initArgument() {
         edit_estimate_add_item.setOnClickListener {
-            list.add(EditEstimateTemplatesModel("", ""))
+            list.add(EditEstimateModel(""))
+            edit_estimate_layout_result.visibility = View.VISIBLE
             myAdapter.update(list)
             myAdapter.notifyItemRangeChanged(list.size, list.size)
         }
     }
-
 
     private fun initRecyclerView() {
         edit_estimate_recycler.adapter = myAdapter

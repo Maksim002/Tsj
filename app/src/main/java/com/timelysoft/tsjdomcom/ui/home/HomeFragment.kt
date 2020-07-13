@@ -59,6 +59,10 @@ class HomeFragment : Fragment() {
         home_estimates.setOnClickListener {
             findNavController().navigate(R.id.navigation_estimate)
         }
+
+        home_expenses_receipts.setOnClickListener {
+            findNavController().navigate(R.id.navigation_expenses_receipts)
+        }
     }
 
     override fun onStart() {

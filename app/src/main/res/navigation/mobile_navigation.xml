@@ -369,4 +369,10 @@
         android:name="com.timelysoft.tsjdomcom.ui.estimate.EditEstimateFragment"
         android:label="Редактировать"
         tools:layout="@layout/fragment_edit_estimate" />
+
+    <fragment
+        android:id="@+id/navigation_expenses_receipts"
+        android:name="com.timelysoft.tsjdomcom.ui.expense.ExpensesReceiptFragment"
+        android:label="fragment_expenses_receipts"
+        tools:layout="@layout/fragment_expenses_receipts" />
 </navigation>

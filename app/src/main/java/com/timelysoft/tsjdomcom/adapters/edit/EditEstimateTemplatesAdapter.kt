@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.common.GenericRecyclerAdapter
 import com.timelysoft.tsjdomcom.common.ViewHolder
-import kotlinx.android.synthetic.main.fragment_edit_estimate.view.edit_estimate_recycler
 import kotlinx.android.synthetic.main.item_edit_estemate_template.view.*
 
 class EditEstimateTemplatesAdapter (var date: ArrayList<EditEstimateTemplatesModel> = arrayListOf()): GenericRecyclerAdapter<EditEstimateTemplatesModel>(date){
@@ -19,25 +18,25 @@ class EditEstimateTemplatesAdapter (var date: ArrayList<EditEstimateTemplatesMod
     override fun bind(item: EditEstimateTemplatesModel, holder: ViewHolder) {
         val myAdapter = EditEstimateTemplatesAdapter()
         myAdapter.items = item.list
-        holder.itemView.edit_estimate_recycler.adapter = myAdapter
-        holder.itemView.edit_estimate_name_out.setText(item.name)
-        holder.itemView.edit_estimate_sum_out.setText(item.sum)
+        holder.itemView.edit_estimate_templates_recycler.adapter = myAdapter
+        holder.itemView.edit_estimate_templates_name_out.setText(item.name)
+        holder.itemView.edit_estimate_templates_sum_out.setText(item.sum)
 
-        holder.itemView.edit_estimate_add.setOnClickListener {
+        holder.itemView.edit_estimate_templates_add.setOnClickListener {
             item.list.add(EditEstimateTemplatesModel("", ""))
             notifyItemRangeChanged(holder.adapterPosition, item.list.size)
         }
 
-        holder.itemView.edit_estimate_clear.setOnClickListener {
+        holder.itemView.edit_estimate_templates_clear.setOnClickListener {
             items.removeAt(holder.adapterPosition)
             notifyItemRemoved(holder.adapterPosition)
             notifyItemRangeChanged(holder.adapterPosition, date.size)
         }
 
-        holder.itemView.edit_estimate_sum_out.addTextChangedListener(object : TextWatcher {
+        holder.itemView.edit_estimate_templates_sum_out.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 try {
-                    item.sum = holder.itemView.edit_estimate_sum_out.text.toString()
+                    item.sum = holder.itemView.edit_estimate_templates_sum_out.text.toString()
                 } catch (e: Exception) {
                 }
             }
@@ -48,10 +47,10 @@ class EditEstimateTemplatesAdapter (var date: ArrayList<EditEstimateTemplatesMod
         })
 
 
-        holder.itemView.edit_estimate_name_out.addTextChangedListener(object : TextWatcher {
+        holder.itemView.edit_estimate_templates_name_out.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 try {
-                    item.name = holder.itemView.edit_estimate_name_out.text.toString()
+                    item.name = holder.itemView.edit_estimate_templates_name_out.text.toString()
                 } catch (e: Exception) {
                 }
             }
