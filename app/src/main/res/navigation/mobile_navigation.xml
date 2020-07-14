@@ -371,8 +371,20 @@
         tools:layout="@layout/fragment_edit_estimate" />
 
     <fragment
-        android:id="@+id/navigation_expenses_receipts"
-        android:name="com.timelysoft.tsjdomcom.ui.expense.ExpensesReceiptFragment"
-        android:label="fragment_expenses_receipts"
-        tools:layout="@layout/fragment_expenses_receipts" />
+        android:id="@+id/navigation_expense_receipts"
+        android:name="com.timelysoft.tsjdomcom.ui.expense.ExpenseReceiptFragment"
+        android:label="Расходы и приходы"
+        tools:layout="@layout/fragment_expense_receipts" />
+
+    <fragment
+        android:id="@+id/navigation_add_entry"
+        android:name="com.timelysoft.tsjdomcom.ui.expense.AddEntryFragment"
+        android:label="Добавить"
+        tools:layout="@layout/fragment_add_entry" />
+
+    <fragment
+        android:id="@+id/navigation_change"
+        android:name="com.timelysoft.tsjdomcom.ui.expense.ChangeFragment"
+        android:label="Редактировать"
+        tools:layout="@layout/fragment_change" />
 </navigation>

@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="16dp"
     android:orientation="vertical"
-    tools:context=".ui.expense.ExpensesReceiptFragment">
+    tools:context=".ui.expense.ExpenseReceiptFragment">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/at_home_address_text"
+        android:id="@+id/expense_receipts_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:textColorHint="#000"
         android:focusableInTouchMode="true"
         android:hint="ТСЖ">
 
         <AutoCompleteTextView
-            android:id="@+id/at_home_address"
+            android:id="@+id/expense_receipts_address_out"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="15dp"
             android:background="@null"
             android:drawableEnd="@drawable/ic_expend" />
 
@@ -36,18 +38,18 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Сумма приходы:"
             android:layout_weight="1"
+            android:text="Сумма приходы:"
             android:textColor="#000000"
-            android:textSize="15sp"/>
+            android:textSize="15sp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="120 000"
             android:layout_weight="1"
             android:gravity="right"
-            android:textSize="15sp"/>
+            android:text="120 000"
+            android:textSize="15sp" />
 
     </LinearLayout>
 
@@ -60,22 +62,23 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Сумма расходы:"
             android:layout_weight="1"
+            android:text="Сумма расходы:"
             android:textColor="#000000"
-            android:textSize="15sp"/>
+            android:textSize="15sp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="100 000"
             android:layout_weight="1"
             android:gravity="right"
-            android:textSize="15sp"/>
+            android:text="100 000"
+            android:textSize="15sp" />
 
     </LinearLayout>
 
     <Button
+        android:id="@+id/expanse_receipts_add_entry"
         style="@style/RoundedOrangeBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -87,8 +90,38 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Список Расходов и приходов"
         android:layout_marginTop="16dp"
-        android:textSize="15sp"/>
+        android:layout_marginBottom="8dp"
+        android:text="Платежи"
+        android:textSize="15sp" />
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        app:cardCornerRadius="8dp">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/expenses_receipts_tab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabIndicatorGravity="bottom"
+            app:tabTextColor="@color/orangeColor">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Приходы" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Расходы" />
+        </com.google.android.material.tabs.TabLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/expenses_receipts_pager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </LinearLayout>

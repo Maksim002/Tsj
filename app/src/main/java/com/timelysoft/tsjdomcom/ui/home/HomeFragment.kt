@@ -61,7 +61,7 @@ class HomeFragment : Fragment() {
         }
 
         home_expenses_receipts.setOnClickListener {
-            findNavController().navigate(R.id.navigation_expenses_receipts)
+            findNavController().navigate(R.id.navigation_expense_receipts)
         }
     }
 
