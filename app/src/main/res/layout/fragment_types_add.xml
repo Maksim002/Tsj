@@ -6,26 +6,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="16dp"
     android:orientation="vertical"
-    tools:context=".ui.residence.ReferencesResidenceChangeFragment">
+    tools:context=".ui.notifying.TypesAddFragment">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Информация в справке" />
+        android:text="Шаблон"
+        android:textStyle="bold"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="3dp"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="3dp"
         android:focusableInTouchMode="true"
-        android:hint="Кому:"
-        android:textColorHint="#000">
+        android:hint="Шаблон">
 
         <AutoCompleteTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
+            android:text="@string/types_template"
             android:textSize="15sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -33,18 +34,41 @@
     <include layout="@layout/item_divider_model" />
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/types_date"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_marginBottom="3dp"
-        android:focusableInTouchMode="true"
-        android:hint="Дата рождения:"
-        android:textColorHint="#000">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp">
 
-        <AutoCompleteTextView
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/types_date_out"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
+            android:hint="Дата"
+            android:inputType="text"
+            android:textColor="#000"
             android:textSize="15sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <include layout="@layout/item_divider_model" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/types_type"
+        android:layout_width="match_parent"
+        android:layout_marginTop="8dp"
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="true"
+        android:hint="Тип">
+
+        <AutoCompleteTextView
+            android:id="@+id/types_type_out"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:background="@null"
+            android:drawableEnd="@drawable/ic_expend" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -58,11 +82,11 @@
             style="@style/RoundedOrangeBackground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Сохранить"
+            android:layout_marginTop="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
+            android:text="Сохранить"
             android:textColor="#FFFFFF"
             android:textSize="14sp" />
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -67,6 +67,10 @@ class HomeFragment : Fragment() {
         home_references_residence.setOnClickListener {
             findNavController().navigate(R.id.navigation_reference_residence)
         }
+
+        home_notifying_residents.setOnClickListener {
+            findNavController().navigate(R.id.navigation_notifying_residents)
+        }
     }
 
     override fun onStart() {

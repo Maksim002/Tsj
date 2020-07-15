@@ -402,13 +402,31 @@
 
     <fragment
         android:id="@+id/navigation_residence_change"
-        android:name="com.timelysoft.tsjdomcom.ReferencesResidenceChangeFragment"
+        android:name="com.timelysoft.tsjdomcom.ui.residence.ReferencesResidenceChangeFragment"
         android:label="Редактировать"
         tools:layout="@layout/fragment_references_residence_change" />
 
     <fragment
         android:id="@+id/navigation_notifying_residents"
-        android:name="com.timelysoft.tsjdomcom.NotifyingResidentsFragment"
+        android:name="com.timelysoft.tsjdomcom.ui.notifying.NotifyingResidentFragment"
         android:label="Оповещение жителей"
-        tools:layout="@layout/fragment_notifying_residents" />
+        tools:layout="@layout/fragment_notifying_resident" />
+
+    <fragment
+        android:id="@+id/navigation_notification"
+        android:name="com.timelysoft.tsjdomcom.ui.notifying.NotificationFragment"
+        android:label="Оповещение"
+        tools:layout="@layout/fragment_notification" />
+
+    <fragment
+        android:id="@+id/navigation_type"
+        android:name="com.timelysoft.tsjdomcom.ui.notifying.TypesFragment"
+        android:label="Типы"
+        tools:layout="@layout/fragment_types" />
+
+    <fragment
+        android:id="@+id/navigation_types_add"
+        android:name="com.timelysoft.tsjdomcom.ui.notifying.TypesAddFragment"
+        android:label="Добавить"
+        tools:layout="@layout/fragment_types_add" />
 </navigation>

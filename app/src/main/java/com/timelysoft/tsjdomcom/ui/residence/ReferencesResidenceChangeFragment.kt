@@ -1,10 +1,11 @@
-package com.timelysoft.tsjdomcom
+package com.timelysoft.tsjdomcom.ui.residence
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.timelysoft.tsjdomcom.R
 
 class ReferencesResidenceChangeFragment : Fragment() {
 

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="16dp"
+    tools:context=".ui.notifying.NotificationFragment">
+
+    <TextView
+        android:id="@+id/notification_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Задолженность по услуге 'Членские взносы'"
+        android:textColor="#FF9116"/>
+
+    <TextView
+        android:id="@+id/notification_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Уважаемый(-ые) Бейшенкулова Ж. Ж.,Карл Фон Клаузевиц вы должны 300.00 сомов по услуге 'Членские взносы 99'..."
+        android:layout_marginTop="8dp"/>
+
+</LinearLayout>
