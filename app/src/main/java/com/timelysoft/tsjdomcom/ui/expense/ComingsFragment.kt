@@ -12,6 +12,7 @@ import com.timelysoft.tsjdomcom.adapters.expense.ComingsAdapter
 import com.timelysoft.tsjdomcom.adapters.expense.ComingsClickListener
 import com.timelysoft.tsjdomcom.adapters.expense.ComingsModel
 import kotlinx.android.synthetic.main.fragment_comings.*
+import android.content.Context as ContentContext
 
 class ComingsFragment : Fragment(), ComingsClickListener {
 

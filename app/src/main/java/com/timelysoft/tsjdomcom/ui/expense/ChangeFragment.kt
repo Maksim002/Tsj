@@ -11,13 +11,16 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.timelysoft.tsjdomcom.R
+import com.timelysoft.tsjdomcom.adapters.expense.ComingsModel
 import com.timelysoft.tsjdomcom.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_change.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 class ChangeFragment : Fragment() {
-
     private var mLastClickTime: Long = 0
+
+    private var list: ArrayList<ComingsModel> = arrayListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,23 +32,22 @@ class ChangeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getAddType()
         initArgument()
+        getAddType()
         getAddDescription()
         getAutoDatesFrom()
 
     }
 
     private fun initArgument() {
-        val list = try {
+        list = try {
             arguments!!.getSerializable("comings")
         } catch (e: java.lang.Exception) {
             ""
-        }
+        } as ArrayList<ComingsModel>
     }
 
     private fun getAddType() {
-        val list = arrayOf("зайчик", "вышел", "погулять","вода")
 
         val adapterAddType = ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, list)
         change_type_out.setAdapter(adapterAddType)
@@ -57,7 +59,7 @@ class ChangeFragment : Fragment() {
                 change_type_out.showDropDown()
                 parent.getItemAtPosition(position).toString()
                 change_type_out.clearFocus()
-            }
+        }
         change_type_out.setOnClickListener {
             change_type_out.showDropDown()
         }
@@ -77,10 +79,12 @@ class ChangeFragment : Fragment() {
         change_type_out.clearFocus()
     }
 
-    private fun getAddDescription() {
-        val list = arrayOf("зайчик", "вышел", "погулять","вода")
 
-        val adapterAddDescription = ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, list)
+    private fun getAddDescription() {
+        val list = arrayOf("зайчик", "вышел", "погулять", "вода")
+
+        val adapterAddDescription =
+            ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, list)
         change_description_out.setAdapter(adapterAddDescription)
 
         change_description_out.keyListener = null
@@ -94,19 +98,20 @@ class ChangeFragment : Fragment() {
         change_description_out.setOnClickListener {
             change_description_out.showDropDown()
         }
-        change_description_out.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
-            try {
-                if (hasFocus) {
-                    change_description_out.showDropDown()
+        change_description_out.onFocusChangeListener =
+            View.OnFocusChangeListener { view, hasFocus ->
+                try {
+                    if (hasFocus) {
+                        change_description_out.showDropDown()
+                    }
+                    if (!hasFocus && change_description_out.text!!.isNotEmpty()) {
+                        change_description.defaultHintTextColor =
+                            ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+                        change_description.isErrorEnabled = false
+                    }
+                } catch (e: Exception) {
                 }
-                if (!hasFocus && change_description_out.text!!.isNotEmpty()) {
-                    change_description.defaultHintTextColor =
-                        ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                    change_description.isErrorEnabled = false
-                }
-            } catch (e: Exception) {
             }
-        }
         change_description_out.clearFocus()
     }
 
@@ -125,10 +130,18 @@ class ChangeFragment : Fragment() {
                 change_date.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
                 val picker =
-                    DatePickerDialog(activity!!,
+                    DatePickerDialog(
+                        activity!!,
                         R.style.DatePicker, { _, year1, monthOfYear, dayOfMonth ->
-                            change_date_out.setText(MyUtils.convertDate(dayOfMonth, monthOfYear + 1, year1))
-                        }, year, month, day)
+                            change_date_out.setText(
+                                MyUtils.convertDate(
+                                    dayOfMonth,
+                                    monthOfYear + 1,
+                                    year1
+                                )
+                            )
+                        }, year, month, day
+                    )
                 picker.show()
                 change_date_out.clearFocus()
             }

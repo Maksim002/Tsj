@@ -5,13 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.timelysoft.tsjdomcom.R
+import com.timelysoft.tsjdomcom.adapters.expense.ComingsModel
 import com.timelysoft.tsjdomcom.adapters.expense.ExpenseAdapter
-import com.timelysoft.tsjdomcom.adapters.expense.ExpenseModel
+import com.timelysoft.tsjdomcom.adapters.expense.ExpenseClickListener
 import kotlinx.android.synthetic.main.fragment_expense.*
 
-class ExpenseFragment : Fragment() {
-    private var myAdapter = ExpenseAdapter()
+class ExpenseFragment : Fragment(), ExpenseClickListener {
+    private var myAdapter = ExpenseAdapter(this)
+    private val list: ArrayList<ComingsModel> = arrayListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,13 +30,18 @@ class ExpenseFragment : Fragment() {
     }
 
     private fun initRecycler() {
-        val list: ArrayList<ExpenseModel> = arrayListOf()
-        list.add(ExpenseModel(""))
-        list.add(ExpenseModel(""))
-        list.add(ExpenseModel(""))
-        list.add(ExpenseModel(""))
+        list.add(ComingsModel("Puma"))
+        list.add(ComingsModel("Panda"))
+        list.add(ComingsModel("add"))
+        list.add(ComingsModel("da da"))
 
         myAdapter.update(list)
         expense_recycler.adapter = myAdapter
+    }
+
+    override fun expenseClickListener(item: ComingsModel) {
+        val bundle = Bundle()
+        bundle.putSerializable("comings", list)
+        findNavController().navigate(R.id.navigation_change, bundle)
     }
 }

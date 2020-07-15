@@ -2,6 +2,11 @@ package com.timelysoft.tsjdomcom.adapters.expense
 
 import java.io.Serializable
 
-class ComingsModel (
+class ComingsModel(
     var address: String
-): Serializable
+) : Serializable {
+
+    override fun toString(): String {
+        return address
+    }
+}

@@ -387,4 +387,28 @@
         android:name="com.timelysoft.tsjdomcom.ui.expense.ChangeFragment"
         android:label="Редактировать"
         tools:layout="@layout/fragment_change" />
+
+    <fragment
+        android:id="@+id/navigation_reference_residence"
+        android:name="com.timelysoft.tsjdomcom.ui.residence.ReferencesResidenceFragment"
+        android:label="Справка с места жительства"
+        tools:layout="@layout/fragment_references_residence" />
+
+    <fragment
+        android:id="@+id/navigation_add_help"
+        android:name="com.timelysoft.tsjdomcom.ui.residence.AddHelpFragment"
+        android:label="Добавить"
+        tools:layout="@layout/fragment_add_help" />
+
+    <fragment
+        android:id="@+id/navigation_residence_change"
+        android:name="com.timelysoft.tsjdomcom.ReferencesResidenceChangeFragment"
+        android:label="Редактировать"
+        tools:layout="@layout/fragment_references_residence_change" />
+
+    <fragment
+        android:id="@+id/navigation_notifying_residents"
+        android:name="com.timelysoft.tsjdomcom.NotifyingResidentsFragment"
+        android:label="Оповещение жителей"
+        tools:layout="@layout/fragment_notifying_residents" />
 </navigation>
