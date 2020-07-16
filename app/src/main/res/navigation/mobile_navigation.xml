@@ -429,4 +429,22 @@
         android:name="com.timelysoft.tsjdomcom.ui.notifying.TypesAddFragment"
         android:label="Добавить"
         tools:layout="@layout/fragment_types_add" />
+
+    <fragment
+        android:id="@+id/navigation_voice"
+        android:name="com.timelysoft.tsjdomcom.ui.voice.VoiceFragment"
+        android:label="Голосование"
+        tools:layout="@layout/fragment_voice" />
+
+    <fragment
+        android:id="@+id/navigation_designer"
+        android:name="com.timelysoft.tsjdomcom.ui.voice.DesignerFragment"
+        android:label="Конструктор"
+        tools:layout="@layout/fragment_designer" />
+
+    <fragment
+        android:id="@+id/navigation_add_voice"
+        android:name="com.timelysoft.tsjdomcom.ui.voice.AddVoiceFragment"
+        android:label="Добавить"
+        tools:layout="@layout/fragment_add_voice" />
 </navigation>
