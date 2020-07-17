@@ -4,18 +4,17 @@ import android.app.DatePickerDialog
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.os.SystemClock
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.adapters.voice.AnswerChoiceAndroid
 import com.timelysoft.tsjdomcom.adapters.voice.AnswerChoiceModel
 import com.timelysoft.tsjdomcom.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_add_voice.*
 import java.util.*
-import kotlin.collections.ArrayList
 
 class AddVoiceFragment : Fragment(){
     private var mLastClickTime: Long = 0
@@ -44,7 +43,7 @@ class AddVoiceFragment : Fragment(){
 
     private fun initArgument() {
         add_voice_options.setOnClickListener {
-            list.add(AnswerChoiceModel(0, ""))
+            list.add(AnswerChoiceModel(myAdapter.items.size.plus(1), ""))
             myAdapter.update(list)
             myAdapter.notifyItemRangeChanged(list.size, list.size)
         }
