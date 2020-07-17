@@ -35,6 +35,10 @@ class VoiceFragment : Fragment() {
         voice_designer.setOnClickListener {
             findNavController().navigate(R.id.navigation_designer)
         }
+
+        voice_completion.setOnClickListener {
+            findNavController().navigate(R.id.navigation_voice_completion)
+        }
     }
 
     private fun initRecycler() {

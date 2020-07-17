@@ -23,6 +23,7 @@
            android:src="@drawable/ic_designer"/>
 
        <ImageView
+           android:id="@+id/voice_completion"
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:layout_marginLeft="20dp"

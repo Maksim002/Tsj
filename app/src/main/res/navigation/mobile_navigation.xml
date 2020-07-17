@@ -447,4 +447,10 @@
         android:name="com.timelysoft.tsjdomcom.ui.voice.AddVoiceFragment"
         android:label="Добавить"
         tools:layout="@layout/fragment_add_voice" />
+
+    <fragment
+        android:id="@+id/navigation_voice_completion"
+        android:name="com.timelysoft.tsjdomcom.ui.voice.VoiceCompletionFragment"
+        android:label="Завершенные"
+        tools:layout="@layout/fragment_voice_completion" />
 </navigation>

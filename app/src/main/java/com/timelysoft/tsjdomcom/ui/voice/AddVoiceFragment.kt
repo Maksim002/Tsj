@@ -43,7 +43,7 @@ class AddVoiceFragment : Fragment(){
 
     private fun initArgument() {
         add_voice_options.setOnClickListener {
-            list.add(AnswerChoiceModel(myAdapter.items.size.plus(1), ""))
+            list.add(AnswerChoiceModel(0, ""))
             myAdapter.update(list)
             myAdapter.notifyItemRangeChanged(list.size, list.size)
         }

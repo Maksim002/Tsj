@@ -35,10 +35,4 @@
             android:layout_height="match_parent"
             android:src="@drawable/ic_estimate_clear"/>
     </LinearLayout>
-
-    <EditText
-        android:id="@+id/invisible_text"
-        android:layout_width="match_parent"
-        android:visibility="gone"
-        android:layout_height="wrap_content" />
 </LinearLayout>
