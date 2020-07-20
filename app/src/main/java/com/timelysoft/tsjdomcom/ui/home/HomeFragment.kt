@@ -75,6 +75,18 @@ class HomeFragment : Fragment() {
         home_voice.setOnClickListener {
             findNavController().navigate(R.id.navigation_voice)
         }
+
+        home_notice.setOnClickListener {
+            findNavController().navigate(R.id.navigation_notice)
+        }
+
+        home_message.setOnClickListener {
+            findNavController().navigate(R.id.navigation_notice)
+        }
+
+        home_setting.setOnClickListener {
+            findNavController().navigate(R.id.navigation_setting)
+        }
     }
 
     override fun onStart() {

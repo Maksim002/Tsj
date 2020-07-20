@@ -465,4 +465,18 @@
         android:name="com.timelysoft.tsjdomcom.ui.voice.VotingFragment"
         android:label="Голосовать"
         tools:layout="@layout/fragment_voting" />
+
+    <fragment
+        android:id="@+id/navigation_notice"
+        android:name="com.timelysoft.tsjdomcom.ui.notice.NoticeFragment"
+        android:label="Уведомления"
+        tools:layout="@layout/fragment_notice" />
+
+    <fragment
+        android:id="@+id/navigation_setting"
+        android:name="com.timelysoft.tsjdomcom.ui.setting.SettingFragment"
+        android:label="Настройки"
+        tools:layout="@layout/fragment_setting" />
+
+
 </navigation>
