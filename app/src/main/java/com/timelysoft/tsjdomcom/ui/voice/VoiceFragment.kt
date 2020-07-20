@@ -9,12 +9,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.adapters.voice.VoiceAdapter
+import com.timelysoft.tsjdomcom.adapters.voice.VoiceListener
 import com.timelysoft.tsjdomcom.adapters.voice.VoiceModel
 import kotlinx.android.synthetic.main.fragment_voice.*
 
-class VoiceFragment : Fragment() {
+class VoiceFragment : Fragment(), VoiceListener {
 
-    private var myAdapter = VoiceAdapter()
+    private var myAdapter = VoiceAdapter(this)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,5 +51,9 @@ class VoiceFragment : Fragment() {
 
         myAdapter.update(list)
         voice_recycler.adapter = myAdapter
+    }
+
+    override fun onClickVoiceListener(item: VoiceModel) {
+        findNavController().navigate(R.id.navigation_voting)
     }
 }

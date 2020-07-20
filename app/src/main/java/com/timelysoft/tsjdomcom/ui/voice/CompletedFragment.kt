@@ -6,23 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.fragment.findNavController
 import com.timelysoft.tsjdomcom.R
-import com.timelysoft.tsjdomcom.adapters.voice.VoiceCompletionAdapter
-import com.timelysoft.tsjdomcom.adapters.voice.VoiceCompletionListener
+import com.timelysoft.tsjdomcom.adapters.voice.CompletedAdapter
 import com.timelysoft.tsjdomcom.adapters.voice.VoiceCompletionModel
-import kotlinx.android.synthetic.main.fragment_voice_completion.*
+import kotlinx.android.synthetic.main.fragment_completed.*
 
-class VoiceCompletionFragment : Fragment(), VoiceCompletionListener {
-
-    private var myAdapter = VoiceCompletionAdapter(this)
+class CompletedFragment : Fragment() {
+    private var myAdapter = CompletedAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_voice_completion, container, false)
+        return inflater.inflate(R.layout.fragment_completed, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -39,13 +36,8 @@ class VoiceCompletionFragment : Fragment(), VoiceCompletionListener {
         list.add(VoiceCompletionModel(""))
         list.add(VoiceCompletionModel(""))
         list.add(VoiceCompletionModel(""))
-        list.add(VoiceCompletionModel(""))
 
         myAdapter.update(list)
-        voice_completion_recycler.adapter = myAdapter
-    }
-
-    override fun onVoiceCompletionClickListener(item: VoiceCompletionModel) {
-        findNavController().navigate(R.id.navigation_completed)
+        completed_recycler.adapter = myAdapter
     }
 }

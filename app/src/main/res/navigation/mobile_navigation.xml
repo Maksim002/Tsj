@@ -453,4 +453,16 @@
         android:name="com.timelysoft.tsjdomcom.ui.voice.VoiceCompletionFragment"
         android:label="Завершенные"
         tools:layout="@layout/fragment_voice_completion" />
+
+    <fragment
+        android:id="@+id/navigation_completed"
+        android:name="com.timelysoft.tsjdomcom.ui.voice.CompletedFragment"
+        android:label="Завершенные"
+        tools:layout="@layout/fragment_completed" />
+
+    <fragment
+        android:id="@+id/navigation_voting"
+        android:name="com.timelysoft.tsjdomcom.ui.voice.VotingFragment"
+        android:label="Голосовать"
+        tools:layout="@layout/fragment_voting" />
 </navigation>
