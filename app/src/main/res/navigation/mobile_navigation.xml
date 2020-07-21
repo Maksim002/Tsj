@@ -478,5 +478,23 @@
         android:label="Настройки"
         tools:layout="@layout/fragment_setting" />
 
+    <fragment
+        android:id="@+id/navigation_general_information"
+        android:name="com.timelysoft.tsjdomcom.ui.setting.GeneralInformationFragment"
+        android:label="Общая информация"
+        tools:layout="@layout/fragment_general_information" />
+
+    <fragment
+        android:id="@+id/navigation_general_edit"
+        android:name="com.timelysoft.tsjdomcom.ui.setting.GeneralEditFragment"
+        android:label="Редактировать"
+        tools:layout="@layout/fragment_general_edit" />
+
+    <fragment
+        android:id="@+id/navigation_address"
+        android:name="com.timelysoft.tsjdomcom.ui.setting.AddressFragment"
+        android:label="Адрес"
+        tools:layout="@layout/fragment_address" />
+
 
 </navigation>
