@@ -496,5 +496,23 @@
         android:label="Адрес"
         tools:layout="@layout/fragment_address" />
 
+    <fragment
+        android:id="@+id/navigation_bank_details"
+        android:name="com.timelysoft.tsjdomcom.ui.setting.BankDetailsFragment"
+        android:label="Банковские реквизиты"
+        tools:layout="@layout/fragment_bank_details" />
+
+    <fragment
+        android:id="@+id/navigation_add_bank"
+        android:name="com.timelysoft.tsjdomcom.ui.setting.AddBankFragment"
+        android:label="Добавить"
+        tools:layout="@layout/fragment_add_bank" />
+
+    <fragment
+        android:id="@+id/navigation_staff"
+        android:name="com.timelysoft.tsjdomcom.ui.setting.StaffFragment"
+        android:label="Сотрудники"
+        tools:layout="@layout/fragment_staff" />
+
 
 </navigation>

@@ -150,6 +150,7 @@
     <include layout="@layout/item_divider_model"/>
 
     <TextView
+        android:id="@+id/setting_requisites"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawablePadding="16dp"
@@ -162,6 +163,7 @@
     <include layout="@layout/item_divider_model"/>
 
     <TextView
+        android:id="@+id/setting_staff"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawablePadding="16dp"

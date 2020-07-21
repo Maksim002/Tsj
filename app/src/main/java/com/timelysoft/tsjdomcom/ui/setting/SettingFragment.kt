@@ -38,6 +38,14 @@ class SettingFragment : Fragment() {
             findNavController().navigate(R.id.navigation_address)
         }
 
+        setting_requisites.setOnClickListener {
+            findNavController().navigate(R.id.navigation_bank_details)
+        }
+
+        setting_staff.setOnClickListener {
+            findNavController().navigate(R.id.navigation_staff)
+        }
+
     }
     private fun getSettingUser() {
         val list = arrayOf("зайчик", "вышел", "погулять","вода")
