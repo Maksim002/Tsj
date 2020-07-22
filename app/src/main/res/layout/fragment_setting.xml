@@ -176,6 +176,7 @@
     <include layout="@layout/item_divider_model"/>
 
     <TextView
+        android:id="@+id/staff_schedule_works"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawablePadding="16dp"

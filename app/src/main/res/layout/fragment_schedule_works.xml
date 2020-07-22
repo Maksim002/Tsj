@@ -3,13 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_margin="16dp"
+    android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context=".ui.setting.StaffFragment">
+    tools:context=".ui.setting.ScheduleWorksFragment">
 
     <Button
-        android:id="@+id/staff_add"
+        android:id="@+id/schedule_works_add"
         style="@style/RoundedOrangeBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,14 +20,14 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="СОТРУДНИКИ ТСЖ"
         android:layout_marginTop="8dp"
-        android:text="СОТРУДНИКИ ТСЖ"/>
+        android:textStyle="bold"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/staff_recycler"
-        android:layout_marginTop="8dp"
+        android:id="@+id/schedule_works_recycler"
         android:layout_width="match_parent"
+        android:layout_marginTop="8dp"
         android:layout_height="wrap_content"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
-
 </LinearLayout>

@@ -8,44 +8,45 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import com.timelysoft.tsjdomcom.R
-import com.timelysoft.tsjdomcom.adapters.setting.StaffAdapter
-import com.timelysoft.tsjdomcom.adapters.setting.StaffModel
-import kotlinx.android.synthetic.main.fragment_staff.*
+import com.timelysoft.tsjdomcom.adapters.setting.ScheduleWorksAdapter
+import com.timelysoft.tsjdomcom.adapters.setting.ScheduleWorksModel
+import kotlinx.android.synthetic.main.fragment_schedule_works.*
 
-class StaffFragment : Fragment() {
-    private var myAdapter = StaffAdapter()
+class ScheduleWorksFragment : Fragment() {
+
+    private var myAdapter = ScheduleWorksAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_staff, container, false)
+        return inflater.inflate(R.layout.fragment_schedule_works, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as AppCompatActivity).supportActionBar?.show()
+        (activity as AppCompatActivity?)!!.supportActionBar?.show()
         initArgument()
         initRecycler()
     }
 
     private fun initRecycler() {
-        val list: ArrayList<StaffModel> = arrayListOf()
-        list.add(StaffModel(""))
-        list.add(StaffModel(""))
-        list.add(StaffModel(""))
-        list.add(StaffModel(""))
+        val list: ArrayList<ScheduleWorksModel> = arrayListOf()
+        list.add(ScheduleWorksModel(""))
+        list.add(ScheduleWorksModel(""))
+        list.add(ScheduleWorksModel(""))
+        list.add(ScheduleWorksModel(""))
 
         myAdapter.update(list)
-        staff_recycler.adapter = myAdapter
+        schedule_works_recycler.adapter = myAdapter
     }
 
     private fun initArgument() {
-        staff_add.setOnClickListener { 
+        schedule_works_add.setOnClickListener {
             val bundle = Bundle()
             bundle.putInt("zero", 0)
-            findNavController().navigate(R.id.navigation_staff_add, bundle)
+            findNavController().navigate(R.id.navigation_schedule_works_add, bundle)
         }
     }
 }

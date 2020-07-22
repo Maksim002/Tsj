@@ -46,6 +46,10 @@ class SettingFragment : Fragment() {
             findNavController().navigate(R.id.navigation_staff)
         }
 
+        staff_schedule_works.setOnClickListener {
+            findNavController().navigate(R.id.navigation_schedule_works)
+        }
+
     }
     private fun getSettingUser() {
         val list = arrayOf("зайчик", "вышел", "погулять","вода")

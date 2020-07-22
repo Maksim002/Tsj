@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_at_home">
+    app:startDestination="@+id/navigation_add_news">
     <!--    app:startDestination="@+id/navigation_news">-->
 
     <fragment
@@ -514,5 +514,28 @@
         android:label="Сотрудники"
         tools:layout="@layout/fragment_staff" />
 
+    <fragment
+        android:id="@+id/navigation_staff_add"
+        android:name="com.timelysoft.tsjdomcom.ui.setting.StaffAddFragment"
+        android:label="Добавить"
+        tools:layout="@layout/fragment_staff_add" />
+
+    <fragment
+        android:id="@+id/navigation_schedule_works"
+        android:name="com.timelysoft.tsjdomcom.ui.setting.ScheduleWorksFragment"
+        android:label="График работ"
+        tools:layout="@layout/fragment_schedule_works" />
+
+    <fragment
+        android:id="@+id/navigation_schedule_works_add"
+        android:name="com.timelysoft.tsjdomcom.ui.setting.ScheduleWorksAddFragment"
+        android:label="Добавить"
+        tools:layout="@layout/fragment_schedule_works_add" />
+
+    <fragment
+        android:id="@+id/navigation_add_news"
+        android:name="com.timelysoft.tsjdomcom.ui.news.AddNewsFragment"
+        android:label="Добавить новость"
+        tools:layout="@layout/fragment_add_news" />
 
 </navigation>

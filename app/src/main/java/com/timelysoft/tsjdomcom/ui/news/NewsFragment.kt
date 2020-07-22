@@ -17,6 +17,7 @@ import com.timelysoft.tsjdomcom.ui.main.MainActivity
 import com.timelysoft.tsjdomcom.adapters.news.NewsOnItemClickListener
 import com.timelysoft.tsjdomcom.service.Status
 import com.timelysoft.tsjdomcom.service.model.news.NewsModel
+import kotlinx.android.synthetic.main.fragment_news.view.*
 
 class NewsFragment : Fragment(), NewsOnItemClickListener {
 
@@ -33,10 +34,16 @@ class NewsFragment : Fragment(), NewsOnItemClickListener {
 
         news_rv = root.findViewById(R.id.recyclerViewFile)
         viewModel = ViewModelProviders.of(this).get(NewsViewModel::class.java)
-
         (activity as AppCompatActivity).supportActionBar?.show()
         getRecyclerView()
+        initArgument(root)
         return root
+    }
+
+    private fun initArgument(root: View) {
+        root.news_add.setOnClickListener {
+            findNavController().navigate(R.id.navigation_add_news)
+        }
     }
 
     private fun getRecyclerView() {
