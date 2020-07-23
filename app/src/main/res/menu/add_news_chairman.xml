@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/fasten_file"
+        app:showAsAction="ifRoom"
+        tools:ignore="MenuTitle"
+        android:icon="@drawable/ic_fasten" />
+    <item
+        android:id="@+id/send_message"
+        app:showAsAction="always"
+        tools:ignore="MenuTitle"
+        android:icon="@drawable/ic_send" />
+</menu>

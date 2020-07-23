@@ -77,17 +77,12 @@ class AddNewsFragment : Fragment() {
 
     private fun loadFiles() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(
-                    context!!,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-                ) == PackageManager.PERMISSION_DENIED
-            ) {
+            if (ContextCompat.checkSelfPermission(context!!, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
                 val permissions = arrayOf(
                     Manifest.permission.WRITE_EXTERNAL_STORAGE,
                     Manifest.permission.READ_EXTERNAL_STORAGE
                 )
                 requestPermissions(permissions, STORAGE_PERMISION_CODE)
-
             } else {
                 getMyFile()
             }
@@ -97,9 +92,9 @@ class AddNewsFragment : Fragment() {
     }
 
     private fun getMyFile() {
-        val myFile = Intent(Intent.ACTION_GET_CONTENT)
+        val myFile = Intent(Intent.ACTION_PICK)
         myFile.setType("*/*");
-        startActivityForResult(myFile, IMAGE_PICK_CODE)
+        startActivityForResult(Intent.createChooser(myFile,"Select Picture") , IMAGE_PICK_CODE)
     }
 
     override fun onRequestPermissionsResult(
@@ -119,7 +114,7 @@ class AddNewsFragment : Fragment() {
         if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
             if (data != null) {
                 val uri = data.data!!
-                val file = File(uri.path.toString())
+                val file = File(getPath(uri))
                 val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
                 val photo = MultipartBody.Part.createFormData("File", file.name, requestFile)
                 files.add(photo)
@@ -127,9 +122,18 @@ class AddNewsFragment : Fragment() {
                 val filename = file.name
                 list.add(AddNewsModel(filename))
                 myAdapter.notifyDataSetChanged()
-
-
             }
         }
+    }
+    private fun getPath(uri: Uri): String {
+        val proj = arrayOf(MediaStore.Images.Media.DATA)
+        val loader = CursorLoader(context!!, uri, proj, null, null, null)
+        val cursor = loader.loadInBackground()
+        val columnIndex = cursor!!.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+        cursor.moveToFirst()
+        val res = cursor.getString(columnIndex)
+        cursor.close()
+        return res
+
     }
 }
