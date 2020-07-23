@@ -1,5 +1,9 @@
 package com.timelysoft.tsjdomcom.adapters.news
 
 class AddNewsModel (
-    var usl: String
-)
+    var name: String
+){
+    override fun toString(): String {
+        return this.name
+    }
+}
