@@ -49,6 +49,7 @@
                         android:textSize="10sp"
                         android:textColor="#001"
                         android:maxLines="2"
+                        android:maxLength="10"
                         android:layout_marginBottom="5dp"
                         android:gravity="center"
                         android:text="rfrfr"

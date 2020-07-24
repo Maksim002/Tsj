@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:hint="Номер счёта"
+            android:hint="Заголовок"
             android:inputType="text"
             android:textColor="#000"
             android:textSize="15sp" />
@@ -51,17 +51,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:hint="Содержание"
                 android:layout_marginBottom="5dp">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <AutoCompleteTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
-                    android:hint="Содержание"
-                    android:inputType="text"
                     android:textColor="#000"
                     android:textSize="15sp" />
-
             </com.google.android.material.textfield.TextInputLayout>
 
             <include layout="@layout/item_divider_model" />
@@ -75,21 +73,10 @@
             android:layout_weight="1"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toTopOf="@+id/add_news_add"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             tools:listitem="@layout/item_add_news" />
 
-        <Button
-            android:id="@+id/add_news_add"
-            style="@style/RoundedOrangeBackground"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Добавить"
-            android:textColor="#FFFFFF"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
