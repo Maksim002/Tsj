@@ -63,5 +63,4 @@ object AppPreferences {
                 it.putInt("licNumber", value)
             }
         }
-
 }
