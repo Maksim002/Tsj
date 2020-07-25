@@ -79,11 +79,20 @@
             android:src="@drawable/ic_add_message"/>
 
         <ImageView
-            android:id="@+id/home_setting"
+            android:id="@+id/home_chairman"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             app:layout_constraintRight_toLeftOf="@+id/home_message"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/ic_chairman"/>
+
+        <ImageView
+            android:id="@+id/home_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:layout_constraintRight_toLeftOf="@+id/home_chairman"
             app:layout_constraintTop_toTopOf="parent"
             android:src="@drawable/ic_setting"/>
 

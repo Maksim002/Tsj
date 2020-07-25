@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_add_news">
+    app:startDestination="@+id/navigation_at_home">
     <!--    app:startDestination="@+id/navigation_news">-->
 
     <fragment
@@ -537,5 +537,11 @@
         android:name="com.timelysoft.tsjdomcom.ui.news.AddNewsFragment"
         android:label="Добавить новость"
         tools:layout="@layout/fragment_add_news" />
+
+    <fragment
+        android:id="@+id/navigation_message_chairman"
+        android:name="com.timelysoft.tsjdomcom.ui.message.fragments.MessageChairmanFragment"
+        android:label="Сообщения"
+        tools:layout="@layout/fragment_message_chairman" />
 
 </navigation>
