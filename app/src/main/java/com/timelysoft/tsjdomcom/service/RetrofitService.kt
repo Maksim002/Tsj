@@ -42,9 +42,4 @@ object RetrofitService {
     fun apiService(): ApiService {
         return retrofit().create(ApiService::class.java)
     }
-
-    fun apiServiceNew(): ApiService {
-        return retrofit().create(ApiService::class.java)
-    }
-
 }

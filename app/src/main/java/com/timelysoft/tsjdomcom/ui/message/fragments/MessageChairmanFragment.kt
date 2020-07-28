@@ -17,7 +17,6 @@ import androidx.core.content.ContextCompat
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.adapters.message.MessageChairmanAdapter
 import com.timelysoft.tsjdomcom.adapters.message.MessageChairmanModel
-import com.timelysoft.tsjdomcom.adapters.news.AddNewsModel
 import kotlinx.android.synthetic.main.fragment_message_chairman.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody

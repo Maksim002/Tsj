@@ -11,23 +11,11 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-    <Button
-        android:id="@+id/user_owner"
-        style="@style/RoundedOrangeBackground"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:text="СОЗДАТЬ СОБСТВЕННИКА"
-        android:textColor="#FFFFFF"
-        android:textSize="14sp" />
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="right"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_margin="16dp"
         android:text="Список пользователей"/>
 
     <androidx.recyclerview.widget.RecyclerView

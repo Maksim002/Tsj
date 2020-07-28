@@ -197,12 +197,6 @@
         tools:layout="@layout/fragment_edit" />
 
     <fragment
-        android:id="@+id/navigation_owner"
-        android:name="com.timelysoft.tsjdomcom.ui.user.OwnerFragment"
-        android:label="Добавить"
-        tools:layout="@layout/fragment_owner" />
-
-    <fragment
         android:id="@+id/navigation_provider"
         android:name="com.timelysoft.tsjdomcom.ui.provider.ProviderFragment"
         android:label="Поставщики"

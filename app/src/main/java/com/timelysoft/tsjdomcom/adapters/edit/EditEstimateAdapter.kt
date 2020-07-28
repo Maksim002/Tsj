@@ -1,13 +1,10 @@
 package com.timelysoft.tsjdomcom.adapters.edit
 
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.common.GenericRecyclerAdapter
 import com.timelysoft.tsjdomcom.common.ViewHolder
-import com.timelysoft.tsjdomcom.ui.estimate.EditEstimateFragment
-import kotlinx.android.synthetic.main.fragment_edit_estimate.*
 import kotlinx.android.synthetic.main.item_edit_estemate.view.*
 
 class EditEstimateAdapter(var date: ArrayList<EditEstimateModel> = arrayListOf()): GenericRecyclerAdapter<EditEstimateModel>(date){

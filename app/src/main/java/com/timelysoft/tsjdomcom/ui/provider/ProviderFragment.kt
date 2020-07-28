@@ -25,9 +25,9 @@ class ProviderFragment : Fragment(), ProviderListener {
         return inflater.inflate(R.layout.fragment_provider, container, false)
     }
 
-    companion object{
-        val counterList = ArrayList<ProviderModel>()
-    }
+//    companion object{
+//        val counterList = ArrayList<ProviderModel>()
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -44,7 +44,7 @@ class ProviderFragment : Fragment(), ProviderListener {
 
     private fun initRecyclerView() {
         provider_recycler.adapter = myAdapter
-        myAdapter.update(counterList)
+//        myAdapter.update(counterList)
     }
 
     override fun editClick(position: Int) {

@@ -158,7 +158,7 @@ class HistoryFragment : Fragment() {
                     yearEnd = yearTo
                 }
                 Status.ERROR, Status.NETWORK ->{
-                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+
                 }
             }
         })

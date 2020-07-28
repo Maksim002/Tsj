@@ -5,16 +5,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.adapters.user.UserAdapter
-import com.timelysoft.tsjdomcom.adapters.user.UserModel
+import com.timelysoft.tsjdomcom.service.Status
+import com.timelysoft.tsjdomcom.service.model.user.UserChairmanModel
 import kotlinx.android.synthetic.main.fragment_user.*
 import kotlinx.android.synthetic.main.fragment_user.view.*
 
 class UserFragment : Fragment() {
-    private var myAdapter =  UserAdapter()
+    private var myAdapter = UserAdapter(ArrayList())
+
+    private lateinit var viewModel: UserViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,26 +33,24 @@ class UserFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).supportActionBar?.show()
+        viewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
         initRecyclerView()
-        initClick(view)
-    }
-
-    private fun initClick(view: View) {
-        view.user_owner.setOnClickListener {
-            findNavController().navigate(R.id.navigation_owner)
-        }
     }
 
     private fun initRecyclerView() {
-        val list: ArrayList<UserModel> = arrayListOf()
-        list.add(UserModel("", "", "Каримова Жазгуль Калбековна 1", "", "", false, ""))
-        list.add(UserModel("", "", "Каримова Жазгуль Калбековна 2", "", "", false, ""))
-        list.add(UserModel("", "", "Каримова Жазгуль Калбековна 3", "", "", false, ""))
-        list.add(UserModel("", "", "Каримова Жазгуль Калбековна 4", "", "", false, ""))
-        list.add(UserModel("", "", "Каримова Жазгуль Калбековна 5", "", "", false, ""))
-
-        myAdapter.update(list)
-
         user_recycler.adapter = myAdapter
+
+        viewModel.user().observe(viewLifecycleOwner, Observer { result ->
+            val msg = result.msg
+            val data = result.data
+            when (result.status) {
+                Status.SUCCESS -> {
+                    myAdapter.update(data!!.users as ArrayList<UserChairmanModel>)
+                }
+                Status.ERROR, Status.NETWORK -> {
+                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                }
+            }
+        })
     }
 }

@@ -1,6 +1,5 @@
 package com.timelysoft.tsjdomcom.ui.voice
 
-import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,9 +11,6 @@ import com.timelysoft.tsjdomcom.adapters.voice.VotingAdapter
 import com.timelysoft.tsjdomcom.adapters.voice.VotingListener
 import com.timelysoft.tsjdomcom.adapters.voice.VotingModel
 import kotlinx.android.synthetic.main.fragment_voting.*
-import kotlinx.android.synthetic.main.item_voting.*
-import kotlinx.android.synthetic.main.item_voting.view.*
-import kotlinx.android.synthetic.main.item_voting.view.voting_choice
 
 class VotingFragment : Fragment(), VotingListener {
 

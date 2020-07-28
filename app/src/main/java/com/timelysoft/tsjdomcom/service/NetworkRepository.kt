@@ -4,6 +4,7 @@ package com.timelysoft.tsjdomcom.service
 import androidx.lifecycle.liveData
 import com.timelysoft.tsjdomcom.service.model.ChangePasswordModel
 import com.timelysoft.tsjdomcom.service.model.RequestForConnectModel
+import com.timelysoft.tsjdomcom.service.model.user.EditModel
 import com.timelysoft.tsjdomcom.service.request.*
 import kotlinx.coroutines.Dispatchers
 import okhttp3.MultipartBody
@@ -13,7 +14,7 @@ class NetworkRepository {
     fun auth(params: Map<String, String>) = liveData(Dispatchers.IO) {
 
         try {
-            val response = RetrofitService.apiServiceNew().auth(params)
+            val response = RetrofitService.apiService().auth(params)
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
@@ -33,7 +34,7 @@ class NetworkRepository {
 
     fun news() = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().news()
+            val response = RetrofitService.apiService().news()
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
@@ -53,7 +54,7 @@ class NetworkRepository {
 
     fun messages(id: Int) = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().messages(id)
+            val response = RetrofitService.apiService().messages(id)
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
@@ -73,7 +74,7 @@ class NetworkRepository {
 
     fun message(id: Int) = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().message(id)
+            val response = RetrofitService.apiService().message(id)
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
@@ -93,7 +94,7 @@ class NetworkRepository {
 
     fun deleteMessage(id: Int) = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().deleteMessage(id)
+            val response = RetrofitService.apiService().deleteMessage(id)
             when {
                 response.isSuccessful -> {
                     emit(ResultStatus.success(null, "Ваше сообщение удалено"))
@@ -109,7 +110,7 @@ class NetworkRepository {
 
     fun addresses() = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().addresses()
+            val response = RetrofitService.apiService().addresses()
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
@@ -129,7 +130,7 @@ class NetworkRepository {
 
     fun status(id: Int) = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().status(id)
+            val response = RetrofitService.apiService().status(id)
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
@@ -149,7 +150,7 @@ class NetworkRepository {
 
     fun operations() = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().operations()
+            val response = RetrofitService.apiService().operations()
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
@@ -169,7 +170,7 @@ class NetworkRepository {
 
     fun periods() = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().periods()
+            val response = RetrofitService.apiService().periods()
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
@@ -189,7 +190,7 @@ class NetworkRepository {
 
     fun services(id: Int) = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().services(id)
+            val response = RetrofitService.apiService().services(id)
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
@@ -215,7 +216,7 @@ class NetworkRepository {
         dateTo: String
     ) = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew()
+            val response = RetrofitService.apiService()
                 .invoices(placementId, serviceId, operationId, dateFrom, dateTo)
             when {
                 response.isSuccessful -> {
@@ -236,7 +237,7 @@ class NetworkRepository {
 
     fun requests() = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().requests()
+            val response = RetrofitService.apiService().requests()
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
@@ -256,7 +257,7 @@ class NetworkRepository {
 
     fun requestTypes() = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().requestTypes()
+            val response = RetrofitService.apiService().requestTypes()
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
@@ -276,7 +277,7 @@ class NetworkRepository {
 
     fun requestAddresses() = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().requestAddresses()
+            val response = RetrofitService.apiService().requestAddresses()
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
@@ -296,7 +297,7 @@ class NetworkRepository {
 
     fun requestUpdate(body: UpdateRequest) = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().requestUpdate(body)
+            val response = RetrofitService.apiService().requestUpdate(body)
             when {
                 response.isSuccessful -> {
                         emit(ResultStatus.success(null, "Заявка обновлена"))
@@ -312,7 +313,7 @@ class NetworkRepository {
 
     fun requestAdd(body: AddRequest) = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().requestAdd(body)
+            val response = RetrofitService.apiService().requestAdd(body)
             when {
                 response.isSuccessful -> {
                     emit(ResultStatus.success(null, "Заявка добавлена"))
@@ -329,7 +330,7 @@ class NetworkRepository {
 
     fun requestGet(id: Int) = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().requestGet(id)
+            val response = RetrofitService.apiService().requestGet(id)
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
@@ -349,7 +350,7 @@ class NetworkRepository {
 
     fun requestDelete(id: Int) = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().requestDelete(id)
+            val response = RetrofitService.apiService().requestDelete(id)
             when {
                 response.isSuccessful -> {
                         emit(ResultStatus.success(null, "Ошибка при получении данных"))
@@ -365,7 +366,7 @@ class NetworkRepository {
 
     fun downloadLink(id: Int) = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().downloadLink(id)
+            val response = RetrofitService.apiService().downloadLink(id)
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
@@ -387,7 +388,7 @@ class NetworkRepository {
         liveData(Dispatchers.IO) {
             try {
                 val response =
-                    RetrofitService.apiServiceNew().sendMessageToManager(body, title, file)
+                    RetrofitService.apiService().sendMessageToManager(body, title, file)
                 when {
                     response.isSuccessful -> {
                         emit(ResultStatus.success(null, "Ваше сообщение отправлено!"))
@@ -403,7 +404,7 @@ class NetworkRepository {
 
     fun houses() = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().houses()
+            val response = RetrofitService.apiService().houses()
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
@@ -423,7 +424,7 @@ class NetworkRepository {
 
     fun placements(id: Int) = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().placements(id)
+            val response = RetrofitService.apiService().placements(id)
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
@@ -443,7 +444,7 @@ class NetworkRepository {
 
     fun persons(id: Int) = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().persons(id)
+            val response = RetrofitService.apiService().persons(id)
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
@@ -463,7 +464,7 @@ class NetworkRepository {
 
     fun messageTypes() = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().messageTypes()
+            val response = RetrofitService.apiService().messageTypes()
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
@@ -489,7 +490,7 @@ class NetworkRepository {
     ) = liveData(Dispatchers.IO) {
         try {
             val response =
-                RetrofitService.apiServiceNew().messageToPerson(personId, body, title, file)
+                RetrofitService.apiService().messageToPerson(personId, body, title, file)
             when {
                 response.isSuccessful -> {
                         emit(ResultStatus.success(null, "Ваше сообщение отправлено!"))
@@ -505,7 +506,7 @@ class NetworkRepository {
 
     fun references(id: Int) = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().references(id)
+            val response = RetrofitService.apiService().references(id)
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
@@ -525,7 +526,7 @@ class NetworkRepository {
 
     fun addReferences(certificateRequest: CertificateRequest) = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().addReferences(certificateRequest)
+            val response = RetrofitService.apiService().addReferences(certificateRequest)
             when {
                 response.isSuccessful -> {
                         emit(ResultStatus.success(null, "Данные отправлены"))
@@ -541,7 +542,7 @@ class NetworkRepository {
 
     fun updateReferences(certificateRequest: CertificateRequest) = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().updateReferences(certificateRequest)
+            val response = RetrofitService.apiService().updateReferences(certificateRequest)
             when {
                 response.isSuccessful -> {
                     emit(ResultStatus.success(null, "Данные обновлены"))
@@ -557,7 +558,7 @@ class NetworkRepository {
 
     fun reference(id: Int) = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().reference(id)
+            val response = RetrofitService.apiService().reference(id)
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
@@ -577,7 +578,7 @@ class NetworkRepository {
 
     fun relatives() = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().relatives()
+            val response = RetrofitService.apiService().relatives()
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
@@ -597,7 +598,7 @@ class NetworkRepository {
 
     fun forgotPassword(email: String) = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().forgotPassword(email)
+            val response = RetrofitService.apiService().forgotPassword(email)
             when {
                 response.isSuccessful -> {
                         emit(ResultStatus.success(null, "На ваш email отправлено пиьсмо!"))
@@ -613,7 +614,7 @@ class NetworkRepository {
 
     fun votes(typeId: Int, id: Int) = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().votes(typeId, id)
+            val response = RetrofitService.apiService().votes(typeId, id)
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
@@ -633,7 +634,7 @@ class NetworkRepository {
 
     fun votingAddress() = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().votingAddress()
+            val response = RetrofitService.apiService().votingAddress()
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
@@ -653,7 +654,7 @@ class NetworkRepository {
 
     fun reply(id: Int) = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().reply(id)
+            val response = RetrofitService.apiService().reply(id)
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
@@ -673,7 +674,7 @@ class NetworkRepository {
 
     fun votingType() = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().votingType()
+            val response = RetrofitService.apiService().votingType()
             when {
                 response.isSuccessful -> {
                         emit(ResultStatus.success(response.body()))
@@ -689,7 +690,7 @@ class NetworkRepository {
 
     fun votingVariants(id: Int) = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().votingVariants(id)
+            val response = RetrofitService.apiService().votingVariants(id)
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
@@ -709,7 +710,7 @@ class NetworkRepository {
 
     fun votingPost(body: VotingRequest) = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().votingPost(body)
+            val response = RetrofitService.apiService().votingPost(body)
             when {
                 response.isSuccessful -> {
                         emit(ResultStatus.success(null, "Ваш голос принят!"))
@@ -725,7 +726,7 @@ class NetworkRepository {
 
     fun votingDetail(id: Int) = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().votingDetail(id)
+            val response = RetrofitService.apiService().votingDetail(id)
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
@@ -745,7 +746,7 @@ class NetworkRepository {
 
     fun requestForConnect(body: RequestForConnectModel) = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().requestForConnect(body)
+            val response = RetrofitService.apiService().requestForConnect(body)
             when {
                 response.isSuccessful -> {
                         emit(ResultStatus.success(null, "Ваше заявка отправлена!"))
@@ -761,7 +762,7 @@ class NetworkRepository {
 
     fun newsDetail(id: Int) = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().newsDetail(id)
+            val response = RetrofitService.apiService().newsDetail(id)
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
@@ -781,7 +782,7 @@ class NetworkRepository {
 
     fun newsComment(id: Int) = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().newsComment(id)
+            val response = RetrofitService.apiService().newsComment(id)
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
@@ -801,7 +802,7 @@ class NetworkRepository {
 
     fun newsCommentPost(body: NewsCommentRequest) = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().newsCommentPost(body)
+            val response = RetrofitService.apiService().newsCommentPost(body)
             when {
                 response.isSuccessful -> {
                         emit(ResultStatus.success(null, "Ваши коментарии отправлены!"))
@@ -817,7 +818,7 @@ class NetworkRepository {
 
     fun newsCommentDelete(id: Int) = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().newsCommentDelete(id)
+            val response = RetrofitService.apiService().newsCommentDelete(id)
             when {
                 response.isSuccessful -> {
                         emit(ResultStatus.success(null, "Удалено!"))
@@ -833,7 +834,7 @@ class NetworkRepository {
 
     fun changePassword(model: ChangePasswordModel) = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().changePassword(model)
+            val response = RetrofitService.apiService().changePassword(model)
             when {
                 response.isSuccessful -> {
                         emit(ResultStatus.success(null, "Пароль успешно изменен"))
@@ -849,7 +850,7 @@ class NetworkRepository {
 
     fun sendFeedback(model: FeedbackRequest) = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().sendFeedback(model)
+            val response = RetrofitService.apiService().sendFeedback(model)
             when {
                 response.isSuccessful -> {
                         emit(ResultStatus.success(null, "Ваше письмо отправлено!"))
@@ -865,7 +866,7 @@ class NetworkRepository {
 
     fun sendFirebaseToken(model: FirebaseTokenModel) = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().sendFirebaseToken(model)
+            val response = RetrofitService.apiService().sendFirebaseToken(model)
             when {
                 response.isSuccessful -> {
                         emit(ResultStatus.success(null))
@@ -881,7 +882,7 @@ class NetworkRepository {
 
     fun managers(id: Int) = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().managers(id)
+            val response = RetrofitService.apiService().managers(id)
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
@@ -901,7 +902,7 @@ class NetworkRepository {
 
     fun downloadCertificate(helpId: Int, chairmanId: Int) = liveData(Dispatchers.IO) {
         try {
-            val response = RetrofitService.apiServiceNew().downloadCertificate(helpId, chairmanId)
+            val response = RetrofitService.apiService().downloadCertificate(helpId, chairmanId)
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {
@@ -910,6 +911,42 @@ class NetworkRepository {
                 }
                 else -> {
                     emit(ResultStatus.error("Ошибка проверьте данные на заполнение"))
+                }
+            }
+        } catch (e: Exception) {
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+        }
+    }
+
+    fun user() = liveData(Dispatchers.IO) {
+        try {
+            val response = RetrofitService.apiService().user()
+            when {
+                response.isSuccessful -> {
+                    if (response.body() != null) {
+                        emit(ResultStatus.success(response.body()))
+                    }else{
+                        emit(ResultStatus.error("Ошибка при получении пользователей"))
+                    }
+                }
+                else -> {
+                    emit(ResultStatus.error("Не известная ошибка"))
+                }
+            }
+        } catch (e: Exception) {
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+        }
+    }
+
+    fun edit(model: EditModel) = liveData(Dispatchers.IO) {
+        try {
+            val response = RetrofitService.apiService().edit(model)
+            when {
+                response.isSuccessful -> {
+                    emit(ResultStatus.success(null, "Ваше данные обновлены"))
+                }
+                else -> {
+                    emit(ResultStatus.error("Произошла ошибка обновлении данных"))
                 }
             }
         } catch (e: Exception) {

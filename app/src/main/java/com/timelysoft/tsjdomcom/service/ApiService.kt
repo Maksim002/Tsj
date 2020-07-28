@@ -6,6 +6,8 @@ import com.timelysoft.tsjdomcom.service.model.*
 import com.timelysoft.tsjdomcom.service.model.news.NewsCommentsModel
 import com.timelysoft.tsjdomcom.service.model.news.NewsDetailModel
 import com.timelysoft.tsjdomcom.service.model.news.NewsModel
+import com.timelysoft.tsjdomcom.service.model.user.EditModel
+import com.timelysoft.tsjdomcom.service.model.user.UserModel
 import com.timelysoft.tsjdomcom.service.model.vote.VotingDetailModel
 import com.timelysoft.tsjdomcom.service.request.*
 import okhttp3.MultipartBody
@@ -185,5 +187,11 @@ interface ApiService {
         @Path("helpId") helpId: Int,
         @Path("chairmanId") chairmanId: Int
     ): Response<String>
+
+    @GET("AssociationUsers")
+    suspend fun user(): Response<UserModel>
+
+    @POST("Voting")
+    suspend fun edit(@Body body: EditModel): Response<String>
 }
 

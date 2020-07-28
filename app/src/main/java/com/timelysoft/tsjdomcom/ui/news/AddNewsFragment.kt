@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.adapters.news.AddNewsAdapter
 import com.timelysoft.tsjdomcom.adapters.news.AddNewsModel
-import com.timelysoft.tsjdomcom.service.AppPreferences
 import kotlinx.android.synthetic.main.fragment_add_news.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
