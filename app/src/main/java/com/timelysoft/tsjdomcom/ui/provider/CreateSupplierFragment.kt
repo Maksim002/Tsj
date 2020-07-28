@@ -5,21 +5,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.timelysoft.tsjdomcom.R
-import com.timelysoft.tsjdomcom.adapters.provider.ProviderAdapter
-import com.timelysoft.tsjdomcom.adapters.provider.ProviderListener
-import com.timelysoft.tsjdomcom.adapters.provider.ProviderModel
-import com.timelysoft.tsjdomcom.service.model.MessagesPersonsModel
-import kotlinx.android.synthetic.main.fragment_create_supplier.view.*
-import kotlinx.android.synthetic.main.fragment_relative.*
-import kotlinx.android.synthetic.main.fragment_relative.view.*
-import kotlinx.android.synthetic.main.fragment_relative.view.buttonFamilies
+import com.timelysoft.tsjdomcom.service.Status
+import com.timelysoft.tsjdomcom.service.model.provider.ProviderModel
+import com.timelysoft.tsjdomcom.service.request.provider.CreateSupplier
+import com.timelysoft.tsjdomcom.service.request.provider.ProviderEdit
+import kotlinx.android.synthetic.main.fragment_create_supplier.*
 import java.lang.Exception
 
-class CreateSupplierFragment : Fragment(){
+class CreateSupplierFragment : Fragment() {
 
+    private val viewModel = ProviderViewModel()
+    private var model = CreateSupplier()
     private var position = -1
 
     override fun onCreateView(
@@ -34,59 +35,38 @@ class CreateSupplierFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).supportActionBar?.show()
         initArguments()
-        initClick(view)
-    }
-
-    private fun initClick(view: View) {
-
-        if (position != -1){
-          view.create_supplier_name_out.setText(ProviderFragment.counterList[position].title)
-            view.create_supplier_organization_out.setText(ProviderFragment.counterList[position].type)
-            view.create_supplier_address_out.setText(ProviderFragment.counterList[position].address)
-            view.create_supplier_inn_out.setText(ProviderFragment.counterList[position].inn)
-            view.create_supplier_okpo_out.setText(ProviderFragment.counterList[position].okpo)
-            view.create_supplier_bik_out.setText(ProviderFragment.counterList[position].telephone)
-            view.create_supplier_account_out.setText(ProviderFragment.counterList[position].account)
-            view.create_supplier_telephone_out.setText(ProviderFragment.counterList[position].delet)
-            view.create_supplier_email_out.setText(ProviderFragment.counterList[position].eit)
-        }
-
-        view.owner_save.setOnClickListener {
-
-                if (position == -1){
-                    ProviderFragment.counterList.add(ProviderModel(0,
-                        view.create_supplier_name_out.text.toString(),
-                        view.create_supplier_organization_out.text.toString(),
-                        view.create_supplier_address_out.text.toString(),
-                        view.create_supplier_inn_out.text.toString(),
-                        view.create_supplier_okpo_out.text.toString(),
-                        view.create_supplier_bik_out.text.toString(),
-                        view.create_supplier_account_out.text.toString(),
-                        view.create_supplier_telephone_out.text.toString(),
-                        view.create_supplier_email_out.text.toString()))
-                }else{
-                    ProviderFragment.counterList[position] = ProviderModel(0,
-                        view.create_supplier_name_out.text.toString(),
-                        view.create_supplier_organization_out.text.toString(),
-                        view.create_supplier_address_out.text.toString(),
-                        view.create_supplier_inn_out.text.toString(),
-                        view.create_supplier_okpo_out.text.toString(),
-                        view.create_supplier_bik_out.text.toString(),
-                        view.create_supplier_account_out.text.toString(),
-                        view.create_supplier_telephone_out.text.toString(),
-                        view.create_supplier_email_out.text.toString())
-                }
-                findNavController().popBackStack()
-        }
     }
 
     private fun initArguments() {
         position = try {
-           arguments!!.getInt("position")
-       } catch (e: Exception) {
+            arguments!!.getInt("position")
+        } catch (e: Exception) {
             -1
-       }
+        }
 
+        owner_save.setOnClickListener {
+            model.address = create_supplier_address_out.text.toString()
+            model.name = create_supplier_name_out.text.toString()
+            model.organizationType = create_supplier_organization_out.text.toString()
+            model.tin = create_supplier_inn_out.text.toString()
+            model.okpo = create_supplier_okpo_out.text.toString()
+            model.bic = create_supplier_bik_out.text.toString()
+            model.checkingAccount = create_supplier_account_out.text.toString()
+            model.phone = create_supplier_telephone_out.text.toString()
+            model.email = create_supplier_email_out.text.toString()
+            viewModel.createSupplier(model).observe(viewLifecycleOwner, Observer { result ->
+                val msg = result.msg
+                when (result.status) {
+                    Status.SUCCESS -> {
+                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                        findNavController().popBackStack()
+                    }
+                    Status.ERROR, Status.NETWORK -> {
+                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            })
+        }
     }
 
     override fun onStart() {

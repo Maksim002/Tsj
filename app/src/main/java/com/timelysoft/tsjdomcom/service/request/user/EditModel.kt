@@ -1,4 +1,4 @@
-package com.timelysoft.tsjdomcom.service.model.user
+package com.timelysoft.tsjdomcom.service.request.user
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

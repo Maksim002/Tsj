@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.service.Status
-import com.timelysoft.tsjdomcom.service.model.user.EditModel
+import com.timelysoft.tsjdomcom.service.request.user.EditModel
 import com.timelysoft.tsjdomcom.service.model.user.UserChairmanModel
 import kotlinx.android.synthetic.main.fragment_edit.*
 
@@ -46,8 +46,15 @@ class EditFragment : Fragment() {
         edit_surname_out.setText(date.name.substring(8, 14))
         edit_patronymic_out.setText(date.name.substring(14, 20))
 
-        val model = EditModel(edit_name_out.text.toString(), edit_patronymic_out.text.toString(),edit_surname_out.text.toString(),edit_password_out.text.toString(),
-            edit_repeat_password_out.text.toString(), date.id, date.email)
+        val model = EditModel(
+            edit_name_out.text.toString(),
+            edit_patronymic_out.text.toString(),
+            edit_surname_out.text.toString(),
+            edit_password_out.text.toString(),
+            edit_repeat_password_out.text.toString(),
+            date.id,
+            date.email
+        )
 
         edit_save.setOnClickListener {
             viewModel.edit(model).observe(viewLifecycleOwner, Observer { result ->

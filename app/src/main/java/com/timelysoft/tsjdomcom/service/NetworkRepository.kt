@@ -4,8 +4,10 @@ package com.timelysoft.tsjdomcom.service
 import androidx.lifecycle.liveData
 import com.timelysoft.tsjdomcom.service.model.ChangePasswordModel
 import com.timelysoft.tsjdomcom.service.model.RequestForConnectModel
-import com.timelysoft.tsjdomcom.service.model.user.EditModel
+import com.timelysoft.tsjdomcom.service.request.user.EditModel
 import com.timelysoft.tsjdomcom.service.request.*
+import com.timelysoft.tsjdomcom.service.request.provider.CreateSupplier
+import com.timelysoft.tsjdomcom.service.request.provider.ProviderEdit
 import kotlinx.coroutines.Dispatchers
 import okhttp3.MultipartBody
 
@@ -947,6 +949,74 @@ class NetworkRepository {
                 }
                 else -> {
                     emit(ResultStatus.error("Произошла ошибка обновлении данных"))
+                }
+            }
+        } catch (e: Exception) {
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+        }
+    }
+
+    fun provider() = liveData(Dispatchers.IO) {
+        try {
+            val response = RetrofitService.apiService().provider()
+            when {
+                response.isSuccessful -> {
+                    if (response.body() != null) {
+                        emit(ResultStatus.success(response.body()))
+                    }else{
+                        emit(ResultStatus.error("Ошибка при получении поставщика"))
+                    }
+                }
+                else -> {
+                    emit(ResultStatus.error("Не известная ошибка"))
+                }
+            }
+        } catch (e: Exception) {
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+        }
+    }
+
+    fun createSupplier(model: CreateSupplier) = liveData(Dispatchers.IO) {
+        try {
+            val response = RetrofitService.apiService().createSupplier(model)
+            when {
+                response.isSuccessful -> {
+                    emit(ResultStatus.success(null, "Поставщик добавлен успешно"))
+                }
+                else -> {
+                    emit(ResultStatus.error("Произошла ошибка при добавлении поставщика"))
+                }
+            }
+        } catch (e: Exception) {
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+        }
+    }
+
+    fun providerDelete(id: Int) = liveData(Dispatchers.IO) {
+        try {
+            val response = RetrofitService.apiService().providerDelete(id)
+            when {
+                response.isSuccessful -> {
+                    emit(ResultStatus.success(null, "Поставщик удалён"))
+                }
+                else -> {
+                    emit(ResultStatus.error("Произошла ошибка при удалении"))
+                }
+            }
+        } catch (e: Exception) {
+            emit(ResultStatus.netwrok("Проблеммы с подключением интернета", null))
+        }
+    }
+
+    fun providerEdit(model: ProviderEdit) = liveData(Dispatchers.IO) {
+        try {
+            val response = RetrofitService.apiService().providerEdit(model)
+            when {
+                response.isSuccessful -> {
+                    emit(ResultStatus.success(null, "Поставщик добавлен успешно"))
+                }
+                else -> {
+                    emit(ResultStatus.error("Произошла ошибка при добавлении поставщика"))
                 }
             }
         } catch (e: Exception) {

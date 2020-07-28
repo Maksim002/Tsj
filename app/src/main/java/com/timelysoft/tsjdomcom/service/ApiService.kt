@@ -6,10 +6,13 @@ import com.timelysoft.tsjdomcom.service.model.*
 import com.timelysoft.tsjdomcom.service.model.news.NewsCommentsModel
 import com.timelysoft.tsjdomcom.service.model.news.NewsDetailModel
 import com.timelysoft.tsjdomcom.service.model.news.NewsModel
-import com.timelysoft.tsjdomcom.service.model.user.EditModel
+import com.timelysoft.tsjdomcom.service.model.provider.ProviderModel
+import com.timelysoft.tsjdomcom.service.request.user.EditModel
 import com.timelysoft.tsjdomcom.service.model.user.UserModel
 import com.timelysoft.tsjdomcom.service.model.vote.VotingDetailModel
 import com.timelysoft.tsjdomcom.service.request.*
+import com.timelysoft.tsjdomcom.service.request.provider.CreateSupplier
+import com.timelysoft.tsjdomcom.service.request.provider.ProviderEdit
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.*
@@ -193,5 +196,17 @@ interface ApiService {
 
     @POST("Voting")
     suspend fun edit(@Body body: EditModel): Response<String>
+
+    @GET("Providers")
+    suspend fun provider(): Response<ArrayList<ProviderModel>>
+
+    @POST("Providers")
+    suspend fun createSupplier(@Body body: CreateSupplier): Response<String>
+
+    @DELETE("Providers/{id}")
+    suspend fun providerDelete(@Path("id") id: Int): Response<String>
+
+    @POST("Requests")
+    suspend fun providerEdit(@Body body: ProviderEdit): Response<Unit>
 }
 

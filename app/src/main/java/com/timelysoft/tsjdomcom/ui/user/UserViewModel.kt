@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.timelysoft.tsjdomcom.service.NetworkRepository
 import com.timelysoft.tsjdomcom.service.ResultStatus
-import com.timelysoft.tsjdomcom.service.model.user.EditModel
+import com.timelysoft.tsjdomcom.service.request.user.EditModel
 import com.timelysoft.tsjdomcom.service.model.user.UserModel
 
 class UserViewModel : ViewModel(){
