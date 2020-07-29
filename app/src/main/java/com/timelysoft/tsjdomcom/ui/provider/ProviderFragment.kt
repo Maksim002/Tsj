@@ -42,6 +42,10 @@ class ProviderFragment : Fragment(), ProviderListener {
         provider_new_provider.setOnClickListener {
             findNavController().navigate(R.id.navigation_create_supplier)
         }
+
+        provider_shield_provider.setOnClickListener {
+            findNavController().navigate(R.id.navigation_supplier_accounts)
+        }
     }
 
     private fun initRecyclerView() {

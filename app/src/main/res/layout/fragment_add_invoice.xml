@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_margin="16dp"
+    tools:context=".ui.provider.AddInvoiceFragment">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/add_invoice_provider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        android:focusableInTouchMode="true"
+        android:hint="Поставщик">
+
+        <AutoCompleteTextView
+            android:id="@+id/add_invoice_provider_out"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:drawableEnd="@drawable/ic_expend"
+            android:textSize="15dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <include layout="@layout/item_divider_model" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/add_invoice_service"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        android:layout_marginTop="8dp"
+        android:focusableInTouchMode="true"
+        android:hint="Услуга">
+
+        <AutoCompleteTextView
+            android:id="@+id/add_invoice_service_out"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:background="@null"
+            android:textSize="15dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <include layout="@layout/item_divider_model" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/add_invoice_at_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/add_invoice_at_date_out"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="На дату"
+            android:inputType="text"
+            android:textColor="#000"
+            android:textSize="15sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <include layout="@layout/item_divider_model" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/add_invoice_meter_reading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        android:layout_marginTop="8dp"
+        android:focusableInTouchMode="true"
+        android:hint="Показания счётчика">
+
+        <AutoCompleteTextView
+            android:id="@+id/add_invoice_meter_reading_out"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:background="@null"
+            android:textSize="15dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <include layout="@layout/item_divider_model" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/add_invoice_for_payment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        android:layout_marginTop="8dp"
+        android:focusableInTouchMode="true"
+        android:hint="К оплате:">
+
+        <AutoCompleteTextView
+            android:id="@+id/add_invoice_for_payment_out"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:background="@null"
+            android:textSize="15dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <include layout="@layout/item_divider_model" />
+
+    <TextView
+        android:id="@+id/add_invoice_add_file"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:drawableEnd="@drawable/ic_add_file_provider"
+        android:layout_marginBottom="3dp"
+        android:text="Прикрепить файлы"/>
+
+    <include layout="@layout/item_divider_model" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textSize="15dp"
+        android:text="Файлы"
+        android:textColor="#001"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/add_invoice_recycler"
+        android:layout_width="match_parent"
+        android:layout_marginTop="8dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/add_invoice_save"
+            style="@style/RoundedOrangeBackground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:text="Сохранить"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

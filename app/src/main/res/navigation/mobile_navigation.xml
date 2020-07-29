@@ -538,4 +538,16 @@
         android:label="Сообщения"
         tools:layout="@layout/fragment_message_chairman" />
 
+    <fragment
+        android:id="@+id/navigation_supplier_accounts"
+        android:name="com.timelysoft.tsjdomcom.ui.provider.SupplierAccountsFragment"
+        android:label="Счета поставщиков"
+        tools:layout="@layout/fragment_supplier_accounts" />
+
+    <fragment
+        android:id="@+id/navigation_add_invoice"
+        android:name="com.timelysoft.tsjdomcom.ui.provider.AddInvoiceFragment"
+        android:label="Добавить счёт"
+        tools:layout="@layout/fragment_add_invoice" />
+
 </navigation>
