@@ -8,17 +8,20 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.service.Status
-import com.timelysoft.tsjdomcom.service.request.user.EditModel
-import com.timelysoft.tsjdomcom.service.model.user.UserChairmanModel
+import com.timelysoft.tsjdomcom.service.request.user.Edit
 import kotlinx.android.synthetic.main.fragment_edit.*
+import java.lang.Exception
 
 class EditFragment : Fragment() {
 
     private var viewModel = UserViewModel()
+    private lateinit var model: Edit
 
-    private lateinit var date: UserChairmanModel
+    private lateinit var password: String
+    private lateinit var confirmPassword: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,35 +38,41 @@ class EditFragment : Fragment() {
     }
 
     private fun initArgument() {
-        date = try {
-            arguments!!.getSerializable("user")
-        }catch (e: Exception){
-            null
-        } as UserChairmanModel
+        val editId = try {
+            arguments!!.getInt("editId")
+        } catch (e: Exception) {
+            0
+        }
 
-        edit_email_out.setText(date.email)
-        edit_name_out.setText(date.name.substring(0, 8))
-        edit_surname_out.setText(date.name.substring(8, 14))
-        edit_patronymic_out.setText(date.name.substring(14, 20))
-
-        val model = EditModel(
-            edit_name_out.text.toString(),
-            edit_patronymic_out.text.toString(),
-            edit_surname_out.text.toString(),
-            edit_password_out.text.toString(),
-            edit_repeat_password_out.text.toString(),
-            date.id,
-            date.email
-        )
-
+        viewModel.editId(editId).observe(viewLifecycleOwner, Observer { result ->
+            val msg = result.msg
+            val data = result.data
+            when (result.status) {
+                Status.SUCCESS -> {
+                    edit_surname_out.setText(data!!.person!!.lastName)
+                    edit_name_out.setText(data.person!!.firstName)
+                    edit_patronymic_out.setText(data.person!!.middleName)
+                    edit_email_out.setText(data.person!!.email)
+                    edit_password_out.setText(data.person!!.newPassword)
+                    edit_repeat_password_out.setText(data.person!!.confirmPassword)
+                }
+                Status.ERROR, Status.NETWORK -> {
+                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                }
+            }
+        })
         edit_save.setOnClickListener {
+            model = Edit(edit_name_out.text.toString(), edit_patronymic_out.text.toString(), edit_surname_out.text.toString(), edit_password_out.text.toString(), edit_repeat_password_out.text.toString(),
+                editId, edit_email_out.text.toString())
+
             viewModel.edit(model).observe(viewLifecycleOwner, Observer { result ->
                 val msg = result.msg
-                when(result.status){
-                    Status.SUCCESS ->{
+                when (result.status) {
+                    Status.SUCCESS -> {
                         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                        findNavController().popBackStack()
                     }
-                    Status.ERROR, Status.NETWORK ->{
+                    Status.ERROR, Status.NETWORK -> {
                         Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
                     }
                 }

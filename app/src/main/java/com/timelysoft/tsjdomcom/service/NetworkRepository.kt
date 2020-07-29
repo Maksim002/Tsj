@@ -4,10 +4,10 @@ package com.timelysoft.tsjdomcom.service
 import androidx.lifecycle.liveData
 import com.timelysoft.tsjdomcom.service.model.ChangePasswordModel
 import com.timelysoft.tsjdomcom.service.model.RequestForConnectModel
-import com.timelysoft.tsjdomcom.service.request.user.EditModel
 import com.timelysoft.tsjdomcom.service.request.*
 import com.timelysoft.tsjdomcom.service.request.provider.CreateSupplier
 import com.timelysoft.tsjdomcom.service.request.provider.ProviderEdit
+import com.timelysoft.tsjdomcom.service.request.user.Edit
 import kotlinx.coroutines.Dispatchers
 import okhttp3.MultipartBody
 
@@ -940,7 +940,7 @@ class NetworkRepository {
         }
     }
 
-    fun edit(model: EditModel) = liveData(Dispatchers.IO) {
+    fun edit(model: Edit) = liveData(Dispatchers.IO) {
         try {
             val response = RetrofitService.apiService().edit(model)
             when {
@@ -1017,6 +1017,46 @@ class NetworkRepository {
                 }
                 else -> {
                     emit(ResultStatus.error("Произошла ошибка при обновлении данных"))
+                }
+            }
+        } catch (e: Exception) {
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+        }
+    }
+
+    fun providerId(id: Int) = liveData(Dispatchers.IO) {
+        try {
+            val response = RetrofitService.apiService().providerId(id)
+            when {
+                response.isSuccessful -> {
+                    if (response.body() != null) {
+                        emit(ResultStatus.success(response.body()))
+                    }else{
+                        emit(ResultStatus.error("Ошибка при получении поставщика"))
+                    }
+                }
+                else -> {
+                    emit(ResultStatus.error("Не известная ошибка"))
+                }
+            }
+        } catch (e: Exception) {
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+        }
+    }
+
+    fun editId(id: Int) = liveData(Dispatchers.IO) {
+        try {
+            val response = RetrofitService.apiService().editId(id)
+            when {
+                response.isSuccessful -> {
+                    if (response.body() != null) {
+                        emit(ResultStatus.success(response.body()))
+                    }else{
+                        emit(ResultStatus.error("Ошибка при получении пользователя"))
+                    }
+                }
+                else -> {
+                    emit(ResultStatus.error("Не известная ошибка"))
                 }
             }
         } catch (e: Exception) {

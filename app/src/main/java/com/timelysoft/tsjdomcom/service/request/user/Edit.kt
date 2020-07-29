@@ -3,7 +3,7 @@ package com.timelysoft.tsjdomcom.service.request.user
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class EditModel (
+class Edit (
     @SerializedName("FirstName")
     @Expose
     var firstName: String,
@@ -31,4 +31,5 @@ class EditModel (
     @SerializedName("Email")
     @Expose
     var email: String
+
 )

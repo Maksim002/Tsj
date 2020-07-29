@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.timelysoft.tsjdomcom.service.NetworkRepository
 import com.timelysoft.tsjdomcom.service.ResultStatus
+import com.timelysoft.tsjdomcom.service.model.provider.ProviderIdModel
 import com.timelysoft.tsjdomcom.service.model.provider.ProviderModel
 import com.timelysoft.tsjdomcom.service.request.provider.CreateSupplier
 import com.timelysoft.tsjdomcom.service.request.provider.ProviderEdit
@@ -25,5 +26,9 @@ class ProviderViewModel : ViewModel(){
 
     fun providerEdit(model: ProviderEdit): LiveData<ResultStatus<Nothing>>{
         return repository.providerEdit(model)
+    }
+
+    fun providerId(id: Int): LiveData<ResultStatus<ProviderIdModel>>{
+        return repository.providerId(id)
     }
 }

@@ -21,6 +21,9 @@ class CreateSupplierFragment : Fragment() {
 
     private var viewModel = ProviderViewModel()
     private var position = -1
+    private var providerId: Int = 0
+
+    private var model = ProviderEdit()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,8 +47,45 @@ class CreateSupplierFragment : Fragment() {
         }
 
         if (position != -1){
-            val model = ProviderEdit()
+            providerId = try {
+                arguments!!.getInt("providerId")
+            } catch (e: Exception) {
+                0
+            }
+            viewModel.providerId(providerId).observe(viewLifecycleOwner, Observer {result ->
+                val msg = result.msg
+                val data = result.data
+                when (result.status) {
+                    Status.SUCCESS -> {
+                        create_supplier_address_out.setText(data!!.address)
+                        create_supplier_name_out.setText(data.name)
+                        create_supplier_organization_out.setText(data.organizationType)
+                        create_supplier_inn_out.setText(data.tin)
+                        create_supplier_okpo_out.setText(data.okpo)
+                        create_supplier_bik_out.setText(data.bic)
+                        create_supplier_account_out.setText(data.checkingAccount)
+                        create_supplier_telephone_out.setText(data.phone)
+                        create_supplier_email_out.setText(data.email)
+                        model.id = data.id
+
+                    }
+                    Status.ERROR, Status.NETWORK -> {
+                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            })
             owner_save.setOnClickListener {
+                model.id
+                model.address = create_supplier_address_out.text.toString()
+                model.name = create_supplier_name_out.text.toString()
+                model.organizationType = create_supplier_organization_out.text.toString()
+                model.tin = create_supplier_inn_out.text.toString()
+                model.okpo = create_supplier_okpo_out.text.toString()
+                model.bic = create_supplier_bik_out.text.toString()
+                model.checkingAccount = create_supplier_account_out.text.toString()
+                model.phone = create_supplier_telephone_out.text.toString()
+                model.email = create_supplier_email_out.text.toString()
+
                 viewModel.providerEdit(model).observe(viewLifecycleOwner, Observer { result ->
                     val msg = result.msg
                     when (result.status) {

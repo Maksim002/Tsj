@@ -66,7 +66,7 @@ class ProviderFragment : Fragment(), ProviderListener {
     override fun editClick(position: Int, item: ProviderModel) {
         val bundle = Bundle()
         bundle.putInt("position", position)
-        bundle.putSerializable("provider", item)
+        bundle.putInt("providerId", item.id)
         findNavController().navigate(R.id.navigation_create_supplier, bundle)
     }
 

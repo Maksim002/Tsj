@@ -9,14 +9,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.fragment.findNavController
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.adapters.user.UserAdapter
 import com.timelysoft.tsjdomcom.service.Status
 import com.timelysoft.tsjdomcom.service.model.user.UserChairmanModel
 import com.timelysoft.tsjdomcom.ui.main.MainActivity
 import kotlinx.android.synthetic.main.fragment_user.*
-import kotlinx.android.synthetic.main.fragment_user.view.*
 
 class UserFragment : Fragment() {
     private var myAdapter = UserAdapter(ArrayList())
@@ -47,6 +45,7 @@ class UserFragment : Fragment() {
             when (result.status) {
                 Status.SUCCESS -> {
                     myAdapter.update(data!!.users as ArrayList<UserChairmanModel>)
+                    myAdapter.notifyDataSetChanged()
                     MainActivity.alert.hide()
                 }
                 Status.ERROR, Status.NETWORK -> {

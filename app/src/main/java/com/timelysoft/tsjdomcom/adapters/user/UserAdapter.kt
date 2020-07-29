@@ -25,7 +25,7 @@ class UserAdapter(item: ArrayList<UserChairmanModel> = arrayListOf()): GenericRe
 
         holder.itemView.user_to_change.setOnClickListener {
             val bundle = Bundle()
-            bundle.putSerializable("user", item)
+            bundle.putInt("editId", item.id)
             it.findNavController().navigate(R.id.navigation_edit, bundle)
         }
     }
