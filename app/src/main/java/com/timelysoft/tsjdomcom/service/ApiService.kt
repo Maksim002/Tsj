@@ -6,6 +6,7 @@ import com.timelysoft.tsjdomcom.service.model.*
 import com.timelysoft.tsjdomcom.service.model.news.NewsCommentsModel
 import com.timelysoft.tsjdomcom.service.model.news.NewsDetailModel
 import com.timelysoft.tsjdomcom.service.model.news.NewsModel
+import com.timelysoft.tsjdomcom.service.model.provider.ProviderIdModel
 import com.timelysoft.tsjdomcom.service.model.provider.ProviderModel
 import com.timelysoft.tsjdomcom.service.request.user.EditModel
 import com.timelysoft.tsjdomcom.service.model.user.UserModel
@@ -208,5 +209,8 @@ interface ApiService {
 
     @POST("Requests")
     suspend fun providerEdit(@Body body: ProviderEdit): Response<Unit>
+
+    @GET("Providers/{id}")
+    suspend fun providerId(@Path("id") id: Int): Response<ArrayList<ProviderIdModel>>
 }
 

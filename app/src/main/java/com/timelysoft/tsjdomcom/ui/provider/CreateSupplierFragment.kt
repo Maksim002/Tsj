@@ -19,8 +19,7 @@ import java.lang.Exception
 
 class CreateSupplierFragment : Fragment() {
 
-    private val viewModel = ProviderViewModel()
-    private var model = CreateSupplier()
+    private var viewModel = ProviderViewModel()
     private var position = -1
 
     override fun onCreateView(
@@ -44,28 +43,49 @@ class CreateSupplierFragment : Fragment() {
             -1
         }
 
-        owner_save.setOnClickListener {
-            model.address = create_supplier_address_out.text.toString()
-            model.name = create_supplier_name_out.text.toString()
-            model.organizationType = create_supplier_organization_out.text.toString()
-            model.tin = create_supplier_inn_out.text.toString()
-            model.okpo = create_supplier_okpo_out.text.toString()
-            model.bic = create_supplier_bik_out.text.toString()
-            model.checkingAccount = create_supplier_account_out.text.toString()
-            model.phone = create_supplier_telephone_out.text.toString()
-            model.email = create_supplier_email_out.text.toString()
-            viewModel.createSupplier(model).observe(viewLifecycleOwner, Observer { result ->
-                val msg = result.msg
-                when (result.status) {
-                    Status.SUCCESS -> {
-                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
-                        findNavController().popBackStack()
+        if (position != -1){
+            val model = ProviderEdit()
+            owner_save.setOnClickListener {
+                viewModel.providerEdit(model).observe(viewLifecycleOwner, Observer { result ->
+                    val msg = result.msg
+                    when (result.status) {
+                        Status.SUCCESS -> {
+                            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                            findNavController().popBackStack()
+                        }
+                        Status.ERROR, Status.NETWORK -> {
+                            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                        }
                     }
-                    Status.ERROR, Status.NETWORK -> {
-                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                })
+            }
+        }
+
+        if (position == -1) {
+            owner_save.setOnClickListener {
+                val model = CreateSupplier()
+                model.address = create_supplier_address_out.text.toString()
+                model.name = create_supplier_name_out.text.toString()
+                model.organizationType = create_supplier_organization_out.text.toString()
+                model.tin = create_supplier_inn_out.text.toString()
+                model.okpo = create_supplier_okpo_out.text.toString()
+                model.bic = create_supplier_bik_out.text.toString()
+                model.checkingAccount = create_supplier_account_out.text.toString()
+                model.phone = create_supplier_telephone_out.text.toString()
+                model.email = create_supplier_email_out.text.toString()
+                viewModel.createSupplier(model).observe(viewLifecycleOwner, Observer { result ->
+                    val msg = result.msg
+                    when (result.status) {
+                        Status.SUCCESS -> {
+                            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                            findNavController().popBackStack()
+                        }
+                        Status.ERROR, Status.NETWORK -> {
+                            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                        }
                     }
-                }
-            })
+                })
+            }
         }
     }
 

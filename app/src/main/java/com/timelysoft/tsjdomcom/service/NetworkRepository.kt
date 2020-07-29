@@ -1013,10 +1013,10 @@ class NetworkRepository {
             val response = RetrofitService.apiService().providerEdit(model)
             when {
                 response.isSuccessful -> {
-                    emit(ResultStatus.success(null, "Поставщик добавлен успешно"))
+                    emit(ResultStatus.success(null, "Данные поставщика обновлены"))
                 }
                 else -> {
-                    emit(ResultStatus.error("Произошла ошибка при добавлении поставщика"))
+                    emit(ResultStatus.error("Произошла ошибка при обновлении данных"))
                 }
             }
         } catch (e: Exception) {
