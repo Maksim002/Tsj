@@ -7,7 +7,9 @@ import com.timelysoft.tsjdomcom.service.model.news.NewsCommentsModel
 import com.timelysoft.tsjdomcom.service.model.news.NewsDetailModel
 import com.timelysoft.tsjdomcom.service.model.news.NewsModel
 import com.timelysoft.tsjdomcom.service.model.provider.ProviderIdModel
+import com.timelysoft.tsjdomcom.service.model.provider.ProviderInvoices
 import com.timelysoft.tsjdomcom.service.model.provider.ProviderModel
+import com.timelysoft.tsjdomcom.service.model.provider.SupplierAccountsModel
 import com.timelysoft.tsjdomcom.service.model.user.EditIdModel
 import com.timelysoft.tsjdomcom.service.model.user.UserModel
 import com.timelysoft.tsjdomcom.service.model.vote.VotingDetailModel
@@ -216,5 +218,15 @@ interface ApiService {
 
     @GET("AssociationUsers/{id}")
     suspend fun editId(@Path("id") id: Int): Response<EditIdModel>
+
+    @GET("ProviderInvoices")
+    suspend fun supplierAccounts(
+        @Query("from")dataFrom: String,
+        @Query("to")dataTo: String,
+        @Query("providerId")providerId: Int
+    ): Response<ArrayList<SupplierAccountsModel>>
+
+    @GET("ProviderInvoices/Providers")
+    suspend fun providerInvoices(): Response<ArrayList<ProviderInvoices>>
 }
 

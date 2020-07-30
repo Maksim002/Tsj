@@ -1,13 +1,12 @@
 package com.timelysoft.tsjdomcom.utils
 
-import android.R.attr.label
+
 import android.app.Activity
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getSystemService
 import java.util.regex.Pattern
 
@@ -35,8 +34,7 @@ object MyUtils {
 
     fun toServerDate(date: String): String {
         return date.substring(6) + "-" + date.substring(3, 5) + "-" + date.substring(
-            0,
-            2
+            0, 2
         ) + "T00:00:00+06:00"
     }
 

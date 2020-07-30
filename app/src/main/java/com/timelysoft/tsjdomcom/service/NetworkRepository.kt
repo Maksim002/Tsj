@@ -1063,4 +1063,44 @@ class NetworkRepository {
             emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
+
+    fun supplierAccounts(dataFrom: String, dataTo: String, providerId: Int) = liveData(Dispatchers.IO) {
+        try {
+            val response = RetrofitService.apiService().supplierAccounts(dataFrom, dataTo, providerId)
+            when {
+                response.isSuccessful -> {
+                    if (response.body() != null) {
+                        emit(ResultStatus.success(response.body()))
+                    } else {
+                        emit(ResultStatus.error("Ошибка при получении данных"))
+                    }
+                }
+                else -> {
+                    emit(ResultStatus.error("Не известная ошибка"))
+                }
+            }
+        } catch (e: Exception) {
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+        }
+    }
+
+    fun providerInvoices() = liveData(Dispatchers.IO) {
+        try {
+            val response = RetrofitService.apiService().providerInvoices()
+            when {
+                response.isSuccessful -> {
+                    if (response.body() != null) {
+                        emit(ResultStatus.success(response.body()))
+                    } else {
+                        emit(ResultStatus.error("Ошибка при получении данных"))
+                    }
+                }
+                else -> {
+                    emit(ResultStatus.error("Не известная ошибка"))
+                }
+            }
+        } catch (e: Exception) {
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+        }
+    }
 }

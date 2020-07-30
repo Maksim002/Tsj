@@ -28,6 +28,7 @@
                 android:textSize="15sp"/>
 
             <TextView
+                android:id="@+id/supplier_accounts_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -51,6 +52,7 @@
                 android:textSize="15sp"/>
 
             <TextView
+                android:id="@+id/supplier_accounts_name_service"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -74,6 +76,7 @@
                 android:textSize="15sp"/>
 
             <TextView
+                android:id="@+id/supplier_accounts_data"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -97,6 +100,7 @@
                 android:textSize="15sp"/>
 
             <TextView
+                android:id="@+id/supplier_accounts_counter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -120,6 +124,7 @@
                 android:textSize="15sp"/>
 
             <TextView
+                android:id="@+id/supplier_accounts_sum"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

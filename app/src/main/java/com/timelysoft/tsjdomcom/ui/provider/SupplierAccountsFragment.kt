@@ -10,22 +10,27 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.adapters.provider.SupplierAccountsAdapter
-import com.timelysoft.tsjdomcom.adapters.provider.SupplierAccountsModel
+import com.timelysoft.tsjdomcom.service.Status
+import com.timelysoft.tsjdomcom.service.model.provider.ProviderInvoices
 import com.timelysoft.tsjdomcom.utils.MyUtils
-import kotlinx.android.synthetic.main.fragment_add_counter_all.*
 import kotlinx.android.synthetic.main.fragment_supplier_accounts.*
-import kotlinx.android.synthetic.main.fragment_user_request.*
 import java.util.*
 import kotlin.collections.ArrayList
 
 class SupplierAccountsFragment : Fragment() {
+    private var viewModel = ProviderViewModel()
     private val myAdapter = SupplierAccountsAdapter()
 
     private var mLastClickTime: Long = 0
+    private var providerId: Int = 0
+
+    private lateinit var dataFrom: String
+    private lateinit var dataTo: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,16 +54,26 @@ class SupplierAccountsFragment : Fragment() {
         supplier_accounts_add_invoice.setOnClickListener {
             findNavController().navigate(R.id.navigation_add_invoice)
         }
+
+        supplier_accounts_search.setOnClickListener {
+            viewModel.supplierAccounts(dataFrom, dataTo, providerId)
+                .observe(viewLifecycleOwner, androidx.lifecycle.Observer { result ->
+                    val msg = result.msg
+                    val data = result.data
+                    when (result.status) {
+                        Status.SUCCESS -> {
+                            myAdapter.update(data!!)
+                            myAdapter.notifyDataSetChanged()
+                        }
+                        Status.ERROR, Status.NETWORK -> {
+                            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                })
+        }
     }
 
     private fun initRecycler() {
-        val list: ArrayList<SupplierAccountsModel> = arrayListOf()
-        list.add(SupplierAccountsModel(""))
-        list.add(SupplierAccountsModel(""))
-        list.add(SupplierAccountsModel(""))
-        list.add(SupplierAccountsModel(""))
-
-        myAdapter.update(list)
         supplier_accounts_recycler.adapter = myAdapter
     }
 
@@ -76,16 +91,24 @@ class SupplierAccountsFragment : Fragment() {
                 mLastClickTime = SystemClock.elapsedRealtime();
                 supplier_accounts_from.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                val picker =
-                    DatePickerDialog(activity!!,
-                        R.style.DatePicker, { _, year1, monthOfYear, dayOfMonth ->
-                            supplier_accounts_from_out.setText(MyUtils.convertDate(dayOfMonth, monthOfYear + 1, year1))
-                        }, year, month, day)
+                val picker = DatePickerDialog(
+                    activity!!, R.style.DatePicker, { _, year1, monthOfYear, dayOfMonth ->
+                        supplier_accounts_from_out.setText(
+                            MyUtils.convertDate(
+                                dayOfMonth,
+                                monthOfYear,
+                                year1
+                            )
+                        )
+                        dataFrom = (MyUtils.convertDate(year1, monthOfYear, dayOfMonth))
+                    }, year, month, day
+                )
                 picker.show()
                 supplier_accounts_from_out.clearFocus()
             }
         }
     }
+
     private fun getAutoDatesTo() {
         val myCalendar = Calendar.getInstance()
         val year = myCalendar.get(Calendar.YEAR)
@@ -102,12 +125,18 @@ class SupplierAccountsFragment : Fragment() {
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
                 supplier_accounts_to.defaultHintTextColor = col
 
-                val picker =
-                    DatePickerDialog(activity!!,
-                        R.style.DatePicker, { _, year1, monthOfYear, dayOfMonth ->
-                            supplier_accounts_to_out.setText(MyUtils.convertDate(dayOfMonth, monthOfYear + 1, year1))
-                        }, year, month, day
-                    )
+                val picker = DatePickerDialog(
+                    activity!!, R.style.DatePicker, { _, year1, monthOfYear, dayOfMonth ->
+                        supplier_accounts_to_out.setText(
+                            MyUtils.convertDate(
+                                dayOfMonth,
+                                monthOfYear,
+                                year1
+                            )
+                        )
+                        dataTo = (MyUtils.convertDate(year1, monthOfYear, dayOfMonth))
+                    }, year, month, day
+                )
                 picker.show()
                 supplier_accounts_to_out.clearFocus()
             }
@@ -115,10 +144,24 @@ class SupplierAccountsFragment : Fragment() {
     }
 
     private fun getSupplierAccounts() {
-        val list = arrayOf("зайчик", "вышел", "погулять","вода")
+        var list:  ArrayList<ProviderInvoices> = arrayListOf()
 
-        val adapterSupplierAccounts = ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, list)
-        supplier_accounts_provider_out.setAdapter(adapterSupplierAccounts)
+        viewModel.providerInvoices().observe(viewLifecycleOwner, androidx.lifecycle.Observer { result->
+            val msg = result.msg
+            val data = result.data
+            when(result.status){
+                Status.SUCCESS ->{
+                    val adapterSupplierAccounts = data?.let {
+                        ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, it) }
+                    supplier_accounts_provider_out.setAdapter(adapterSupplierAccounts)
+
+                    list = data as ArrayList<ProviderInvoices>
+                }
+                Status.NETWORK, Status.ERROR ->{
+                    Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
 
         supplier_accounts_provider_out.keyListener = null
         ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
@@ -127,23 +170,25 @@ class SupplierAccountsFragment : Fragment() {
                 supplier_accounts_provider_out.showDropDown()
                 parent.getItemAtPosition(position).toString()
                 supplier_accounts_provider_out.clearFocus()
+                providerId = list[position].id
             }
         supplier_accounts_provider_out.setOnClickListener {
             supplier_accounts_provider_out.showDropDown()
         }
-        supplier_accounts_provider_out.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
-            try {
-                if (hasFocus) {
-                    supplier_accounts_provider_out.showDropDown()
+        supplier_accounts_provider_out.onFocusChangeListener =
+            View.OnFocusChangeListener { view, hasFocus ->
+                try {
+                    if (hasFocus) {
+                        supplier_accounts_provider_out.showDropDown()
+                    }
+                    if (!hasFocus && supplier_accounts_provider_out.text!!.isNotEmpty()) {
+                        supplier_accounts_provider.defaultHintTextColor =
+                            ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+                        supplier_accounts_provider.isErrorEnabled = false
+                    }
+                } catch (e: Exception) {
                 }
-                if (!hasFocus && supplier_accounts_provider_out.text!!.isNotEmpty()) {
-                    supplier_accounts_provider.defaultHintTextColor =
-                        ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                    supplier_accounts_provider.isErrorEnabled = false
-                }
-            } catch (e: Exception) {
             }
-        }
         supplier_accounts_provider_out.clearFocus()
     }
 }

@@ -20,9 +20,6 @@ class EditFragment : Fragment() {
     private var viewModel = UserViewModel()
     private lateinit var model: Edit
 
-    private lateinit var password: String
-    private lateinit var confirmPassword: String
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,7 +38,7 @@ class EditFragment : Fragment() {
         val editId = try {
             arguments!!.getInt("editId")
         } catch (e: Exception) {
-            0
+            null!!
         }
 
         viewModel.editId(editId).observe(viewLifecycleOwner, Observer { result ->

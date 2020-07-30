@@ -20,14 +20,14 @@
         android:id="@+id/edit_surname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="Фамилия"
         android:layout_marginTop="@dimen/marginHorizontal">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <AutoCompleteTextView
             android:id="@+id/edit_surname_out"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:hint="Фамилия"
             android:inputType="text"
             android:textSize="15sp" />
 
@@ -39,15 +39,15 @@
         android:id="@+id/edit_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="Имя"
         android:layout_marginTop="@dimen/marginHorizontal">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <AutoCompleteTextView
             android:id="@+id/edit_name_out"
             android:layout_width="match_parent"
             android:textSize="15sp"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:hint="Имя"
             android:inputType="text" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -58,15 +58,15 @@
         android:id="@+id/edit_patronymic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="Отчество"
         android:layout_marginTop="@dimen/marginHorizontal">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <AutoCompleteTextView
             android:id="@+id/edit_patronymic_out"
             android:layout_width="match_parent"
             android:textSize="15sp"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:hint="Отчество"
             android:inputType="text" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -76,16 +76,16 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edit_email"
         android:layout_width="match_parent"
+        android:hint="Email"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/marginHorizontal">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <AutoCompleteTextView
             android:id="@+id/edit_email_out"
             android:layout_width="match_parent"
             android:textSize="15sp"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:hint="Email"
             android:inputType="textEmailAddress" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -96,15 +96,15 @@
         android:id="@+id/edit_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="Пароль"
         android:layout_marginTop="@dimen/marginHorizontal">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <AutoCompleteTextView
             android:id="@+id/edit_password_out"
             android:layout_width="match_parent"
             android:textSize="15sp"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:hint="Пароль"
             android:inputType="number" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -115,15 +115,15 @@
         android:id="@+id/edit_repeat_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="Повторите пароль"
         android:layout_marginTop="@dimen/marginHorizontal">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <AutoCompleteTextView
             android:id="@+id/edit_repeat_password_out"
             android:layout_width="match_parent"
             android:textSize="15sp"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:hint="Повторите пароль"
             android:inputType="number" />
 
     </com.google.android.material.textfield.TextInputLayout>

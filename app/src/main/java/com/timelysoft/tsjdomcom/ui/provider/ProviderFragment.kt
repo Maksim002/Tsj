@@ -23,6 +23,8 @@ class ProviderFragment : Fragment(), ProviderListener {
 
     private var viewModel = ProviderViewModel()
 
+    private var providerId: Int = 0
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
