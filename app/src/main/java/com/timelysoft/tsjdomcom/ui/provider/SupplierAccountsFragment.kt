@@ -15,16 +15,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.adapters.provider.SupplierAccountsAdapter
+import com.timelysoft.tsjdomcom.adapters.provider.SupplierAccountsListener
 import com.timelysoft.tsjdomcom.service.Status
 import com.timelysoft.tsjdomcom.service.model.provider.ProviderInvoices
+import com.timelysoft.tsjdomcom.service.model.provider.SupplierAccountsModel
 import com.timelysoft.tsjdomcom.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_supplier_accounts.*
 import java.util.*
 import kotlin.collections.ArrayList
 
-class SupplierAccountsFragment : Fragment() {
+class SupplierAccountsFragment : Fragment(), SupplierAccountsListener {
     private var viewModel = ProviderViewModel()
-    private val myAdapter = SupplierAccountsAdapter()
+    private val myAdapter = SupplierAccountsAdapter(this)
 
     private var mLastClickTime: Long = 0
     private var providerId: Int = 0
@@ -77,6 +79,20 @@ class SupplierAccountsFragment : Fragment() {
         supplier_accounts_recycler.adapter = myAdapter
     }
 
+    override fun supplierAccountsOnClick(item: SupplierAccountsModel) {
+        viewModel.supplierAccountsDelete(providerId).observe(this, androidx.lifecycle.Observer { result ->
+            val msg = result.msg
+            when (result.status) {
+                Status.SUCCESS -> {
+                    Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                }
+                Status.ERROR, Status.NETWORK -> {
+                    Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
+    }
+
     private fun getAutoDatesFrom() {
         val myCalendar = Calendar.getInstance()
         val year = myCalendar.get(Calendar.YEAR)
@@ -96,11 +112,11 @@ class SupplierAccountsFragment : Fragment() {
                         supplier_accounts_from_out.setText(
                             MyUtils.convertDate(
                                 dayOfMonth,
-                                monthOfYear,
+                                monthOfYear + 1,
                                 year1
                             )
                         )
-                        dataFrom = (MyUtils.convertDate(year1, monthOfYear, dayOfMonth))
+                        dataFrom = (MyUtils.convertDateServer(year1, monthOfYear + 1, dayOfMonth))
                     }, year, month, day
                 )
                 picker.show()
@@ -130,11 +146,11 @@ class SupplierAccountsFragment : Fragment() {
                         supplier_accounts_to_out.setText(
                             MyUtils.convertDate(
                                 dayOfMonth,
-                                monthOfYear,
+                                monthOfYear + 1,
                                 year1
                             )
                         )
-                        dataTo = (MyUtils.convertDate(year1, monthOfYear, dayOfMonth))
+                        dataTo = (MyUtils.convertDateServer(year1, monthOfYear + 1, dayOfMonth))
                     }, year, month, day
                 )
                 picker.show()

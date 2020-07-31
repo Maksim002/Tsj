@@ -41,8 +41,8 @@
             android:id="@+id/add_invoice_service_out"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
             android:background="@null"
+            android:inputType="text"
             android:textSize="15dp" />
 
     </com.google.android.material.textfield.TextInputLayout>

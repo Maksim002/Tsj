@@ -6,10 +6,7 @@ import com.timelysoft.tsjdomcom.service.model.*
 import com.timelysoft.tsjdomcom.service.model.news.NewsCommentsModel
 import com.timelysoft.tsjdomcom.service.model.news.NewsDetailModel
 import com.timelysoft.tsjdomcom.service.model.news.NewsModel
-import com.timelysoft.tsjdomcom.service.model.provider.ProviderIdModel
-import com.timelysoft.tsjdomcom.service.model.provider.ProviderInvoices
-import com.timelysoft.tsjdomcom.service.model.provider.ProviderModel
-import com.timelysoft.tsjdomcom.service.model.provider.SupplierAccountsModel
+import com.timelysoft.tsjdomcom.service.model.provider.*
 import com.timelysoft.tsjdomcom.service.model.user.EditIdModel
 import com.timelysoft.tsjdomcom.service.model.user.UserModel
 import com.timelysoft.tsjdomcom.service.model.vote.VotingDetailModel
@@ -228,5 +225,23 @@ interface ApiService {
 
     @GET("ProviderInvoices/Providers")
     suspend fun providerInvoices(): Response<ArrayList<ProviderInvoices>>
+
+    @DELETE("ProviderInvoices/{id}")
+    suspend fun supplierAccountsDelete(@Path("id") id: Int): Response<String>
+
+    @GET("ProviderInvoices/{id}")
+    suspend fun providerInvoicesId(@Path("id") id: Int): Response<ProviderInvoicesIdModel>
+
+    @Multipart
+    @PUT("ProviderInvoices")
+    suspend fun providerInvoicesEdit(
+        @Query("id") id: Int,
+        @Query("service") service: String,
+        @Query("providerId") providerId: Int,
+        @Query("date") date: String,
+        @Query("countersValue") countersValue: Int,
+        @Query("paymentAmount") paymentAmount: Int,
+        @Part file: ArrayList<MultipartBody.Part>
+    ): Response<Unit>
 }
 

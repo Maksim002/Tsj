@@ -141,6 +141,7 @@
             android:orientation="horizontal">
 
             <ImageView
+                android:id="@+id/supplier_accounts_delete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_counter_delete"
@@ -148,6 +149,7 @@
                 android:layout_weight="1"/>
 
             <ImageView
+                android:id="@+id/supplier_accounts_change"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_change"

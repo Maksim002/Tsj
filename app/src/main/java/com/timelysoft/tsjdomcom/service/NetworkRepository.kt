@@ -1103,4 +1103,58 @@ class NetworkRepository {
             emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
+
+    fun supplierAccountsDelete(id: Int) = liveData(Dispatchers.IO) {
+        try {
+            val response = RetrofitService.apiService().supplierAccountsDelete(id)
+            when {
+                response.isSuccessful -> {
+                    emit(ResultStatus.success(null, "Поставщик удалён"))
+                }
+                else -> {
+                    emit(ResultStatus.error("Произошла ошибка при удалении"))
+                }
+            }
+        } catch (e: Exception) {
+            emit(ResultStatus.netwrok("Проблеммы с подключением интернета", null))
+        }
+    }
+
+    fun providerInvoicesId(id: Int) = liveData(Dispatchers.IO) {
+        try {
+            val response = RetrofitService.apiService().providerInvoicesId(id)
+            when {
+                response.isSuccessful -> {
+                    if (response.body() != null) {
+                        emit(ResultStatus.success(response.body()))
+                    } else {
+                        emit(ResultStatus.error("Ошибка при получении данных"))
+                    }
+                }
+                else -> {
+                    emit(ResultStatus.error("Не известная ошибка"))
+                }
+            }
+        } catch (e: Exception) {
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+        }
+    }
+
+    fun providerInvoicesEdit(id: Int, service: String, providerId: Int, date: String, countersValue: Int, paymentAmount: Int, file: ArrayList<MultipartBody.Part>
+    ) = liveData(Dispatchers.IO) {
+        try {
+            val response =
+                RetrofitService.apiService().providerInvoicesEdit(id, service, providerId, date, countersValue, paymentAmount, file)
+            when {
+                response.isSuccessful -> {
+                    emit(ResultStatus.success(null, "Ваше сообщение отправлено!"))
+                }
+                else -> {
+                    emit(ResultStatus.error("Не известная ошибка"))
+                }
+            }
+        } catch (e: Exception) {
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+        }
+    }
 }

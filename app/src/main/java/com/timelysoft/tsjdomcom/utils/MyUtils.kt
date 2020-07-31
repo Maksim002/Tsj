@@ -38,6 +38,31 @@ object MyUtils {
         ) + "T00:00:00+06:00"
     }
 
+    fun convertDateServer( year: Int , month: Int, day: Int): String {
+        var date = ""
+
+        date += if (year < 10) {
+            "0" + year
+        } else {
+            year.toString()
+        }
+        date += "."
+
+        date += if (month <= 7) {
+            "0" + month + "."
+
+        } else {
+            month.toString() + "."
+        }
+
+        date += if(day < 10){
+            "0" + day
+        }else{
+            day.toString()
+        }
+        return date
+    }
+
     fun convertDate(day: Int, month: Int, year: Int): String {
         var date = ""
 
