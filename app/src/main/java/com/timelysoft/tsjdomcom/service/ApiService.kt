@@ -243,5 +243,16 @@ interface ApiService {
         @Query("paymentAmount") paymentAmount: Int,
         @Part file: ArrayList<MultipartBody.Part>
     ): Response<Unit>
+
+    @Multipart
+    @POST("ProviderInvoices")
+    suspend fun addInvoice(
+        @Query("service") service: String,
+        @Query("providerId") providerId: Int,
+        @Query("date") date: String,
+        @Query("countersValue") countersValue: String,
+        @Query("paymentAmount") paymentAmount: String,
+        @Part file: ArrayList<MultipartBody.Part>
+    ): Response<Unit>
 }
 

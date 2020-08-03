@@ -178,7 +178,6 @@ class SupplierAccountsFragment : Fragment(), SupplierAccountsListener {
                 }
             }
         })
-
         supplier_accounts_provider_out.keyListener = null
         ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
         supplier_accounts_provider_out.onItemClickListener =

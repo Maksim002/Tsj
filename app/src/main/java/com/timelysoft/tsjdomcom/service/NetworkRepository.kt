@@ -4,6 +4,7 @@ package com.timelysoft.tsjdomcom.service
 import androidx.lifecycle.liveData
 import com.timelysoft.tsjdomcom.service.model.ChangePasswordModel
 import com.timelysoft.tsjdomcom.service.model.RequestForConnectModel
+import com.timelysoft.tsjdomcom.service.model.provider.FileModel
 import com.timelysoft.tsjdomcom.service.request.*
 import com.timelysoft.tsjdomcom.service.request.provider.CreateSupplier
 import com.timelysoft.tsjdomcom.service.request.provider.ProviderEdit
@@ -1145,6 +1146,23 @@ class NetworkRepository {
         try {
             val response =
                 RetrofitService.apiService().providerInvoicesEdit(id, service, providerId, date, countersValue, paymentAmount, file)
+            when {
+                response.isSuccessful -> {
+                    emit(ResultStatus.success(null, "Ваше сообщение отправлено!"))
+                }
+                else -> {
+                    emit(ResultStatus.error("Не известная ошибка"))
+                }
+            }
+        } catch (e: Exception) {
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+        }
+    }
+
+    fun addInvoice(service: String, providerId: Int, date: String, countersValue: String, paymentAmount: String, file: ArrayList<MultipartBody.Part>) = liveData(Dispatchers.IO) {
+        try {
+            val response =
+                RetrofitService.apiService().addInvoice(service, providerId, date, countersValue, paymentAmount, file)
             when {
                 response.isSuccessful -> {
                     emit(ResultStatus.success(null, "Ваше сообщение отправлено!"))

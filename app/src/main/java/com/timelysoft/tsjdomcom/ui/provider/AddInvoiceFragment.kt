@@ -2,19 +2,28 @@ package com.timelysoft.tsjdomcom.ui.provider
 
 import android.Manifest
 import android.app.Activity
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.ColorStateList
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
+import android.os.SystemClock
 import android.provider.MediaStore
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.loader.content.CursorLoader
 import androidx.navigation.fragment.findNavController
@@ -22,13 +31,21 @@ import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.adapters.provider.AddInvoiceAdapter
 import com.timelysoft.tsjdomcom.service.Status
 import com.timelysoft.tsjdomcom.service.model.provider.FileModel
+import com.timelysoft.tsjdomcom.service.model.provider.ProviderInvoices
 import com.timelysoft.tsjdomcom.service.model.provider.ProviderInvoicesIdModel
+import com.timelysoft.tsjdomcom.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_add_invoice.*
+import kotlinx.android.synthetic.main.fragment_supplier_accounts.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import java.io.ByteArrayOutputStream
 import java.io.File
-import java.lang.Exception
+import java.io.FileOutputStream
+import java.io.InputStream
+import java.util.*
+import kotlin.collections.ArrayList
+
 
 class AddInvoiceFragment : Fragment() {
     private val STORAGE_PERMISION_CODE: Int = 1
@@ -40,6 +57,10 @@ class AddInvoiceFragment : Fragment() {
     private var position: Int = 0
     private var model = ProviderInvoicesIdModel()
     private var list: ArrayList<FileModel> = arrayListOf()
+    private var mLastClickTime: Long = 0
+    private lateinit var bitmap: Bitmap
+    private var providerId: Int = 0
+    private lateinit var dataTo: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,6 +75,8 @@ class AddInvoiceFragment : Fragment() {
         initArgument()
         check()
         initRecycler()
+        getInvoiceProvider()
+        getInvoiceAtDate()
     }
 
     private fun initArgument() {
@@ -72,6 +95,29 @@ class AddInvoiceFragment : Fragment() {
         } catch (e: Exception) {
             0
         }
+
+        add_invoice_save.setOnClickListener {
+            viewModel.addInvoice(
+                add_invoice_service_out.text.toString(),
+                providerId,
+                add_invoice_at_date_out.text.toString(),
+                add_invoice_meter_reading_out.text.toString(),
+                add_invoice_for_payment_out.text.toString(),
+                files
+            ).observe(viewLifecycleOwner, Observer { result ->
+                val msg = result.msg
+                when (result.status) {
+                    Status.SUCCESS -> {
+                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                        findNavController().popBackStack()
+                    }
+                    Status.ERROR, Status.NETWORK -> {
+                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            })
+        }
+
 
         if (position != -1) {
             viewModel.providerInvoicesId(supplierAccountsId)
@@ -96,8 +142,7 @@ class AddInvoiceFragment : Fragment() {
                             model.service = data.service
                             model.files = data.files
 
-                            list = model.files as  ArrayList<FileModel>
-
+                            list = model.files as ArrayList<FileModel>
 
                             myAdapter.update(data.files as ArrayList<FileModel>)
                         }
@@ -106,23 +151,29 @@ class AddInvoiceFragment : Fragment() {
                         }
                     }
                 })
-        }
 
-        add_invoice_save.setOnClickListener {
-
-            viewModel.providerInvoicesEdit(model.id, model.service, model.providerId, model.date, model.countersValue, model.paymentAmount, files
-            ).observe(viewLifecycleOwner, Observer { result ->
-                val msg = result.msg
-                when (result.status) {
-                    Status.SUCCESS -> {
-                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
-                        findNavController().popBackStack()
+            add_invoice_save.setOnClickListener {
+                viewModel.providerInvoicesEdit(
+                    model.id,
+                    model.service,
+                    model.providerId,
+                    model.date,
+                    model.countersValue,
+                    model.paymentAmount,
+                    files
+                ).observe(viewLifecycleOwner, Observer { result ->
+                    val msg = result.msg
+                    when (result.status) {
+                        Status.SUCCESS -> {
+                            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                            findNavController().popBackStack()
+                        }
+                        Status.ERROR, Status.NETWORK -> {
+                            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                        }
                     }
-                    Status.ERROR, Status.NETWORK -> {
-                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
-                    }
-                }
-            })
+                })
+            }
         }
     }
 
@@ -175,11 +226,12 @@ class AddInvoiceFragment : Fragment() {
             if (data != null) {
                 val uri = data.data!!
                 val file = File(getPath(uri))
-                val requestFile = file.asRequestBody("file/*".toMediaTypeOrNull())
-                val photo = MultipartBody.Part.createFormData("File", file.name, requestFile)
+                val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
+                val photo = MultipartBody.Part.createFormData("image", file.name, requestFile)
                 files.add(photo)
-                names.add(photo.toString())
+                names.add(file.name)
 
+                // todo Нужно добовлять фаел
                 if (position != -1) {
                     list.add(FileModel(file.name, uri.toString()))
                     myAdapter.update(list)
@@ -207,6 +259,111 @@ class AddInvoiceFragment : Fragment() {
     private fun check() {
         if (position != -1) {
             (activity as AppCompatActivity).supportActionBar?.title = "Редактировать"
+        }
+    }
+
+//    inner class GetImageFromURL(var image: ImageView): AsyncTask<String, Void, Bitmap>() {
+//        lateinit var myBitmap: Bitmap
+//
+//        override fun doInBackground(vararg usl: String?): Bitmap {
+//            val urldispley = usl[0]
+//            try {
+//                val srt: InputStream = java.net.URL(urldispley).openStream()
+//                myBitmap = BitmapFactory.decodeStream(srt)
+//            }catch (e: Exception){
+//                e.printStackTrace()
+//            }
+//            return myBitmap
+//        }
+//
+//        override fun onPostExecute(result: Bitmap?) {
+//            super.onPostExecute(result)
+//            image.setImageBitmap(result)
+//            bitmap = myBitmap
+//        }
+
+    private fun getInvoiceProvider() {
+        var list: ArrayList<ProviderInvoices> = arrayListOf()
+
+        viewModel.providerInvoices()
+            .observe(viewLifecycleOwner, androidx.lifecycle.Observer { result ->
+                val msg = result.msg
+                val data = result.data
+                when (result.status) {
+                    Status.SUCCESS -> {
+                        val adapterInvoiceProvider = data?.let {
+                            ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, it)
+                        }
+                        add_invoice_provider_out.setAdapter(adapterInvoiceProvider)
+
+                        list = data as ArrayList<ProviderInvoices>
+                    }
+                    Status.NETWORK, Status.ERROR -> {
+                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            })
+
+        add_invoice_provider_out.keyListener = null
+        ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+        add_invoice_provider_out.onItemClickListener =
+            AdapterView.OnItemClickListener { parent, _, position, _ ->
+                add_invoice_provider_out.showDropDown()
+                parent.getItemAtPosition(position).toString()
+                add_invoice_provider_out.clearFocus()
+                providerId = list[position].id
+            }
+        add_invoice_provider_out.setOnClickListener {
+            add_invoice_provider_out.showDropDown()
+        }
+        add_invoice_provider_out.onFocusChangeListener =
+            View.OnFocusChangeListener { view, hasFocus ->
+                try {
+                    if (hasFocus) {
+                        add_invoice_provider_out.showDropDown()
+                    }
+                    if (!hasFocus && add_invoice_provider_out.text!!.isNotEmpty()) {
+                        add_invoice_provider.defaultHintTextColor =
+                            ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+                        add_invoice_provider.isErrorEnabled = false
+                    }
+                } catch (e: Exception) {
+                }
+            }
+        add_invoice_provider_out.clearFocus()
+    }
+
+    private fun getInvoiceAtDate() {
+        val myCalendar = Calendar.getInstance()
+        val year = myCalendar.get(Calendar.YEAR)
+        val month = myCalendar.get(Calendar.MARCH)
+        val day = myCalendar.get(Calendar.DAY_OF_MONTH)
+        add_invoice_at_date_out.keyListener = null;
+        add_invoice_at_date_out.setOnFocusChangeListener setOnClickListener@{ _, hasFocus ->
+            if (hasFocus) {
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
+                    return@setOnClickListener
+                }
+                mLastClickTime = SystemClock.elapsedRealtime();
+                val col =
+                    ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+                add_invoice_at_date.defaultHintTextColor = col
+
+                val picker = DatePickerDialog(
+                    activity!!, R.style.DatePicker, { _, year1, monthOfYear, dayOfMonth ->
+                        add_invoice_at_date_out.setText(
+                            MyUtils.convertDate(
+                                dayOfMonth,
+                                monthOfYear + 1,
+                                year1
+                            )
+                        )
+                        dataTo = (MyUtils.convertDateServer(year1, monthOfYear + 1, dayOfMonth))
+                    }, year, month, day
+                )
+                picker.show()
+                add_invoice_at_date_out.clearFocus()
+            }
         }
     }
 }

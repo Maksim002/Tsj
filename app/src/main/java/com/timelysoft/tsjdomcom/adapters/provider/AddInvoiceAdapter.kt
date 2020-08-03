@@ -1,5 +1,6 @@
 package com.timelysoft.tsjdomcom.adapters.provider
 
+import android.graphics.drawable.BitmapDrawable
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -7,9 +8,8 @@ import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.common.GenericRecyclerAdapter
 import com.timelysoft.tsjdomcom.common.ViewHolder
 import com.timelysoft.tsjdomcom.service.model.provider.FileModel
-import com.timelysoft.tsjdomcom.service.model.provider.ProviderInvoicesIdModel
 import kotlinx.android.synthetic.main.item_add_invoice.view.*
-import kotlinx.android.synthetic.main.item_spinner_adapter.view.*
+
 
 class AddInvoiceAdapter (item: ArrayList<FileModel> = arrayListOf()): GenericRecyclerAdapter<FileModel>(item){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
