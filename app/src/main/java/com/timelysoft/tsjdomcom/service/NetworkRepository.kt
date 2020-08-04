@@ -1165,7 +1165,67 @@ class NetworkRepository {
                 RetrofitService.apiService().addInvoice(service, providerId, date, countersValue, paymentAmount, file)
             when {
                 response.isSuccessful -> {
-                    emit(ResultStatus.success(null, "Ваше сообщение отправлено!"))
+                    emit(ResultStatus.success(null, "Данные успешно обновлены"))
+                }
+                else -> {
+                    emit(ResultStatus.error("Не известная ошибка"))
+                }
+            }
+        } catch (e: Exception) {
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+        }
+    }
+
+    fun listUser(dataFrom: String, dataTo: String, typeId: Int) = liveData(Dispatchers.IO) {
+        try {
+            val response = RetrofitService.apiService().listUser(dataFrom, dataTo, typeId)
+            when {
+                response.isSuccessful -> {
+                    if (response.body() != null) {
+                        emit(ResultStatus.success(response.body()))
+                    } else {
+                        emit(ResultStatus.error("Ошибка при получении данных"))
+                    }
+                }
+                else -> {
+                    emit(ResultStatus.error("Не известная ошибка"))
+                }
+            }
+        } catch (e: Exception) {
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+        }
+    }
+
+    fun listUserType() = liveData(Dispatchers.IO) {
+        try {
+            val response = RetrofitService.apiService().listUserType()
+            when {
+                response.isSuccessful -> {
+                    if (response.body() != null) {
+                        emit(ResultStatus.success(response.body()))
+                    } else {
+                        emit(ResultStatus.error("Ошибка при получении данных"))
+                    }
+                }
+                else -> {
+                    emit(ResultStatus.error("Не известная ошибка"))
+                }
+            }
+        } catch (e: Exception) {
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+        }
+    }
+
+    fun userRequestSave(dataFrom: String, dataTo: String, typeId: Int) = liveData(Dispatchers.IO) {
+        try {
+            val response = RetrofitService.apiService().userRequestSave(dataFrom, dataTo, typeId)
+            when {
+                response.isSuccessful -> {
+                    if (response.body() != null) {
+                        emit(ResultStatus.success(response.body()))
+                    } else {
+                        emit(ResultStatus.error("Ошибка при получении данных"))
+                    }
                 }
                 else -> {
                     emit(ResultStatus.error("Не известная ошибка"))

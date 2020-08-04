@@ -16,8 +16,6 @@
         android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent">
 
-
-
         <fr.ganfra.materialspinner.MaterialSpinner
             android:id="@+id/bid_add_type"
             android:layout_width="match_parent"
@@ -29,9 +27,7 @@
             app:ms_floatingLabelText="Тип заявки"
             app:ms_highlightColor="@color/orangeColor"
             app:ms_hint="Тип заявки"
-            app:ms_hintColor="@color/grayColor"
-
-            />
+            app:ms_hintColor="@color/grayColor" />
 
 
         <com.google.android.material.textfield.TextInputLayout

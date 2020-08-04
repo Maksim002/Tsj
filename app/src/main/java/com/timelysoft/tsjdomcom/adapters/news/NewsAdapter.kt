@@ -15,7 +15,8 @@ class NewsAdapter(item: ArrayList<NewsModel>, listener: NewsOnItemClickListener)
     override fun bind(item: NewsModel, holder: ViewHolder) {
         holder.itemView.titleF.text = item.title
         holder.itemView.addressF.text = MyUtils.toMyDateTime(item.postDate)
-        holder.itemView.setOnClickListener { listener.newsItemOnClicked(item) }
+        holder.itemView.setOnClickListener {
+            listener.newsItemOnClicked(item) }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

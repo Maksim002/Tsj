@@ -12,17 +12,18 @@
         android:id="@+id/user_request_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/marginHorizontal">
+        android:layout_marginBottom="3dp"
+        android:focusableInTouchMode="true"
+        android:hint="Тип заявки">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <AutoCompleteTextView
             android:id="@+id/user_request_type_out"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:hint="Тип заявки"
-            android:inputType="text"
-            android:textColor="#000"
-            android:textSize="15sp" />
+            app:ms_floatingLabelText="Тип заявки"
+            android:drawableEnd="@drawable/ic_expend"
+            android:textSize="15dp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

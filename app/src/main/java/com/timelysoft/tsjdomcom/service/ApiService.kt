@@ -7,6 +7,8 @@ import com.timelysoft.tsjdomcom.service.model.news.NewsCommentsModel
 import com.timelysoft.tsjdomcom.service.model.news.NewsDetailModel
 import com.timelysoft.tsjdomcom.service.model.news.NewsModel
 import com.timelysoft.tsjdomcom.service.model.provider.*
+import com.timelysoft.tsjdomcom.service.model.request.UserRequestModel
+import com.timelysoft.tsjdomcom.service.model.request.UserRequestTypeModel
 import com.timelysoft.tsjdomcom.service.model.user.EditIdModel
 import com.timelysoft.tsjdomcom.service.model.user.UserModel
 import com.timelysoft.tsjdomcom.service.model.vote.VotingDetailModel
@@ -254,5 +256,22 @@ interface ApiService {
         @Query("paymentAmount") paymentAmount: String,
         @Part file: ArrayList<MultipartBody.Part>
     ): Response<Unit>
+
+    @GET("Requests/Chairman")
+    suspend fun listUser(
+        @Query("from")dataFrom: String,
+        @Query("to")dataTo: String,
+        @Query("typeId")typeId: Int
+    ): Response<ArrayList<UserRequestModel>>
+
+    @GET("Requests/Types")
+    suspend fun listUserType(): Response<ArrayList<UserRequestTypeModel>>
+
+    @GET("Requests/Chairman/Download")
+    suspend fun userRequestSave(
+        @Query("from")dataFrom: String,
+        @Query("to")dataTo: String,
+        @Query("typeId")typeId: Int
+    ): Response<String>
 }
 

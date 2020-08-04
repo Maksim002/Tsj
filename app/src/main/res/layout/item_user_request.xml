@@ -31,6 +31,7 @@
                 android:textStyle="bold" />
 
             <ImageView
+                android:id="@+id/user_request_save"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -40,6 +41,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/user_request_text_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -61,60 +63,7 @@
                 android:textColor="#828282"/>
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:text="30.05.2020"
-                android:textSize="15sp"
-                android:textColor="#333333"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Решение:"
-                android:layout_weight="1"
-                android:textSize="15sp"
-                android:textColor="#828282"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:text="Что тут?"
-                android:textSize="15sp"
-                android:textColor="#333333"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Решение:"
-                android:layout_weight="1"
-                android:textSize="15sp"
-                android:textColor="#828282"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Активен"
-                android:layout_weight="1"
-                android:textSize="15sp"
-                android:textColor="#219653"/>
-
-            <TextView
+                android:id="@+id/user_request_data_from"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
@@ -132,19 +81,89 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Поставщик:"
+                android:text="Решение:"
                 android:layout_weight="1"
                 android:textSize="15sp"
                 android:textColor="#828282"/>
 
             <TextView
+                android:id="@+id/user_request_decision"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.7"
+                android:layout_weight="1"
                 android:gravity="right"
-                android:text="Имя Фамилия Поставщика"
+                android:text="Что тут?"
                 android:textSize="15sp"
                 android:textColor="#333333"/>
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Статус:"
+                android:layout_weight="1"
+                android:textSize="15sp"
+                android:textColor="#828282"/>
+
+            <TextView
+                android:id="@+id/user_request_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Активен"
+                android:gravity="right"
+                android:layout_weight="0.3"
+                android:textSize="15sp"
+                android:textColor="#219653"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Дата выполнения"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/user_request_data_to"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:gravity="right"
+                android:text="30.05.2020"
+                android:textSize="15sp"
+                android:textColor="#333333"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="20dp"
+                android:src="@drawable/ic_link_owner"/>
+
+            <ImageView
+                android:id="@+id/user_request_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/ic_view"/>
+        </LinearLayout>
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>

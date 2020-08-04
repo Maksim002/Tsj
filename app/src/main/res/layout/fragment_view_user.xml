@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.request.ViewUserFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Вопрос"
+            android:textStyle="bold" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/view_user_creature"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginHorizontal"
+            android:layout_marginBottom="3dp"
+            android:hint="Дата создания">
+
+            <AutoCompleteTextView
+                android:id="@+id/view_user_creature_out"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:inputType="text"
+                android:textSize="15sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <include layout="@layout/item_divider_model" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/view_user_owner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginHorizontal"
+            android:layout_marginBottom="3dp"
+            android:hint="Собственник">
+
+            <AutoCompleteTextView
+                android:id="@+id/view_user_owner_out"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:inputType="text"
+                android:textSize="15sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <include layout="@layout/item_divider_model" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/view_user_entrance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginHorizontal"
+            android:layout_marginBottom="3dp"
+            android:hint="Подъезд">
+
+            <AutoCompleteTextView
+                android:id="@+id/view_user_entrance_out"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:inputType="text"
+                android:textSize="15sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <include layout="@layout/item_divider_model" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/view_user_floor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginHorizontal"
+            android:layout_marginBottom="3dp"
+            android:hint="Этаж">
+
+            <AutoCompleteTextView
+                android:id="@+id/view_user_floor_out"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:inputType="text"
+                android:textSize="15sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <include layout="@layout/item_divider_model" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/view_user_apartment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginHorizontal"
+            android:layout_marginBottom="3dp"
+            android:hint="Номер квартиры">
+
+            <AutoCompleteTextView
+                android:id="@+id/view_user_apartment_out"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:inputType="text"
+                android:textSize="15sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <include layout="@layout/item_divider_model" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/view_user_home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginHorizontal"
+            android:layout_marginBottom="3dp"
+            android:hint="Дом">
+
+            <AutoCompleteTextView
+                android:id="@+id/view_user_home_out"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:inputType="text"
+                android:textSize="15sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <include layout="@layout/item_divider_model" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/view_user_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginHorizontal"
+            android:layout_marginBottom="3dp"
+            android:hint="Дом">
+
+            <AutoCompleteTextView
+                android:id="@+id/view_user_description_out"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:inputType="text"
+                android:textSize="15sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <include layout="@layout/item_divider_model" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="19dp"
+            android:text="Решение"
+            android:textStyle="bold" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/view_user_decision"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginHorizontal"
+            android:layout_marginBottom="3dp"
+            android:hint="Решение">
+
+            <AutoCompleteTextView
+                android:id="@+id/view_user_decision_out"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:inputType="text"
+                android:textSize="15sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <include layout="@layout/item_divider_model" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/view_user_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginHorizontal"
+            android:layout_marginBottom="3dp"
+            android:hint="Дата выполнения">
+
+            <AutoCompleteTextView
+                android:id="@+id/view_user_data_out"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:inputType="text"
+                android:textSize="15sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <include layout="@layout/item_divider_model" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/view_user_application"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginHorizontal"
+            android:layout_marginBottom="3dp"
+            android:hint="Статус заявки">
+
+            <AutoCompleteTextView
+                android:id="@+id/view_user_application_out"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:inputType="text"
+                android:textSize="15sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <include layout="@layout/item_divider_model" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
