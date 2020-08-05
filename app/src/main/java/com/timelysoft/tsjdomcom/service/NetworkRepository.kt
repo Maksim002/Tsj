@@ -5,6 +5,7 @@ import androidx.lifecycle.liveData
 import com.timelysoft.tsjdomcom.service.model.ChangePasswordModel
 import com.timelysoft.tsjdomcom.service.model.RequestForConnectModel
 import com.timelysoft.tsjdomcom.service.model.provider.FileModel
+import com.timelysoft.tsjdomcom.service.model.request.UserRequestEdit
 import com.timelysoft.tsjdomcom.service.request.*
 import com.timelysoft.tsjdomcom.service.request.provider.CreateSupplier
 import com.timelysoft.tsjdomcom.service.request.provider.ProviderEdit
@@ -1148,7 +1149,7 @@ class NetworkRepository {
                 RetrofitService.apiService().providerInvoicesEdit(id, service, providerId, date, countersValue, paymentAmount, file)
             when {
                 response.isSuccessful -> {
-                    emit(ResultStatus.success(null, "Ваше сообщение отправлено!"))
+                    emit(ResultStatus.success(null, "Ваши данные обновлены!"))
                 }
                 else -> {
                     emit(ResultStatus.error("Не известная ошибка"))
@@ -1176,7 +1177,7 @@ class NetworkRepository {
         }
     }
 
-    fun listUser(dataFrom: String, dataTo: String, typeId: Int) = liveData(Dispatchers.IO) {
+    fun listUser(dataFrom: String, dataTo: String, typeId: Int?) = liveData(Dispatchers.IO) {
         try {
             val response = RetrofitService.apiService().listUser(dataFrom, dataTo, typeId)
             when {
@@ -1216,9 +1217,103 @@ class NetworkRepository {
         }
     }
 
-    fun userRequestSave(dataFrom: String, dataTo: String, typeId: Int) = liveData(Dispatchers.IO) {
+    fun userRequestSave(dataFrom: String, dataTo: String, typeId: Int?) = liveData(Dispatchers.IO) {
         try {
             val response = RetrofitService.apiService().userRequestSave(dataFrom, dataTo, typeId)
+            when {
+                response.isSuccessful -> {
+                    if (response.body() != null) {
+                        emit(ResultStatus.success(response.body()))
+                    } else {
+                        emit(ResultStatus.error("Ошибка при получении данных"))
+                    }
+                }
+                else -> {
+                    emit(ResultStatus.error("Не известная ошибка"))
+                }
+            }
+        } catch (e: Exception) {
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+        }
+    }
+
+    fun listUserView(vieWId: Int) = liveData(Dispatchers.IO) {
+        try {
+            val response = RetrofitService.apiService().listUserView(vieWId)
+            when {
+                response.isSuccessful -> {
+                    if (response.body() != null) {
+                        emit(ResultStatus.success(response.body()))
+                    } else {
+                        emit(ResultStatus.error("Ошибка при получении данных"))
+                    }
+                }
+                else -> {
+                    emit(ResultStatus.error("Не известная ошибка"))
+                }
+            }
+        } catch (e: Exception) {
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+        }
+    }
+
+    fun userRequestEdit(body: UserRequestEdit) = liveData(Dispatchers.IO) {
+        try {
+            val response =
+                RetrofitService.apiService().userRequestEdit(body)
+            when {
+                response.isSuccessful -> {
+                    emit(ResultStatus.success(null, "Ваши данные обновлены!"))
+                }
+                else -> {
+                    emit(ResultStatus.error("Не известная ошибка"))
+                }
+            }
+        } catch (e: Exception) {
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+        }
+    }
+
+    fun listUserStatus() = liveData(Dispatchers.IO) {
+        try {
+            val response = RetrofitService.apiService().listUserStatus()
+            when {
+                response.isSuccessful -> {
+                    if (response.body() != null) {
+                        emit(ResultStatus.success(response.body()))
+                    } else {
+                        emit(ResultStatus.error("Ошибка при получении данных"))
+                    }
+                }
+                else -> {
+                    emit(ResultStatus.error("Не известная ошибка"))
+                }
+            }
+        } catch (e: Exception) {
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+        }
+    }
+
+    fun linkSupplier(id: Int, pid: Int) = liveData(Dispatchers.IO) {
+        try {
+            val response =
+                RetrofitService.apiService().linkSupplier(id, pid)
+            when {
+                response.isSuccessful -> {
+                    emit(ResultStatus.success(null, "Привязка к поставщику успешна"))
+                }
+                else -> {
+                    emit(ResultStatus.error("Не известная ошибка"))
+                }
+            }
+        } catch (e: Exception) {
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+        }
+    }
+
+    fun userRequestProvider() = liveData(Dispatchers.IO) {
+        try {
+            val response = RetrofitService.apiService().userRequestProvider()
             when {
                 response.isSuccessful -> {
                     if (response.body() != null) {

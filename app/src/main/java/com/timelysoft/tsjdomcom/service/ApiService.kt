@@ -7,8 +7,7 @@ import com.timelysoft.tsjdomcom.service.model.news.NewsCommentsModel
 import com.timelysoft.tsjdomcom.service.model.news.NewsDetailModel
 import com.timelysoft.tsjdomcom.service.model.news.NewsModel
 import com.timelysoft.tsjdomcom.service.model.provider.*
-import com.timelysoft.tsjdomcom.service.model.request.UserRequestModel
-import com.timelysoft.tsjdomcom.service.model.request.UserRequestTypeModel
+import com.timelysoft.tsjdomcom.service.model.request.*
 import com.timelysoft.tsjdomcom.service.model.user.EditIdModel
 import com.timelysoft.tsjdomcom.service.model.user.UserModel
 import com.timelysoft.tsjdomcom.service.model.vote.VotingDetailModel
@@ -261,17 +260,37 @@ interface ApiService {
     suspend fun listUser(
         @Query("from")dataFrom: String,
         @Query("to")dataTo: String,
-        @Query("typeId")typeId: Int
+        @Query("typeId")typeId: Int?
     ): Response<ArrayList<UserRequestModel>>
 
-    @GET("Requests/Types")
+    @GET("Requests/Types/WithAll")
     suspend fun listUserType(): Response<ArrayList<UserRequestTypeModel>>
 
     @GET("Requests/Chairman/Download")
     suspend fun userRequestSave(
         @Query("from")dataFrom: String,
         @Query("to")dataTo: String,
-        @Query("typeId")typeId: Int
+        @Query("typeId")typeId: Int?
     ): Response<String>
+
+    @GET("Requests/Chairman/{id}")
+    suspend fun listUserView(
+        @Path("id") id: Int
+    ): Response<ListUserView>
+
+    @PUT("Requests/Chairman")
+    suspend fun userRequestEdit(@Body body: UserRequestEdit): Response<Unit>
+
+    @GET("Requests/Chairman/Statuses")
+    suspend fun listUserStatus(): Response<ArrayList<ListUserStatus>>
+
+    @PATCH("Requests/Chairman/{id}/Providers")
+    suspend fun linkSupplier(
+        @Path("id") id: Int,
+        @Query("pid") pid: Int
+    ): Response<Unit>
+
+    @GET("Requests/Chairman/Providers")
+    suspend fun userRequestProvider(): Response<ArrayList<ProviderInvoices>>
 }
 

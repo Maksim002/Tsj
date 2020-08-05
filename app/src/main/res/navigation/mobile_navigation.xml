@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/view_user_fragment">
+    app:startDestination="@+id/navigation_user_request">
     <!--    app:startDestination="@+id/navigation_news">-->
 
     <fragment
@@ -555,5 +555,4 @@
         android:name="com.timelysoft.tsjdomcom.ui.request.ViewUserFragment"
         android:label="Заявки пользователей"
         tools:layout="@layout/fragment_view_user" />
-
 </navigation>

@@ -25,9 +25,9 @@ import com.timelysoft.tsjdomcom.adapters.request.UserRequestAdapter
 import com.timelysoft.tsjdomcom.adapters.request.UserRequestListener
 import com.timelysoft.tsjdomcom.service.Status
 import com.timelysoft.tsjdomcom.service.model.request.UserRequestTypeModel
+import com.timelysoft.tsjdomcom.ui.message.fragments.MessageBottomSheet
 import com.timelysoft.tsjdomcom.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_user_request.*
-import kotlinx.android.synthetic.main.item_user_request.*
 import java.util.*
 
 class UserRequestFragment : Fragment(), UserRequestListener {
@@ -35,7 +35,7 @@ class UserRequestFragment : Fragment(), UserRequestListener {
     private val STORAGE_PERMISION_CODE: Int = 1000
 
     private var mLastClickTime: Long = 0
-    private var typeId: Int = 0
+    private var typeId: Int? = null
     private lateinit var dataFrom: String
     private lateinit var dataTo: String
 
@@ -86,6 +86,11 @@ class UserRequestFragment : Fragment(), UserRequestListener {
             //pickImageFromGallery()
             downloadFile(url)
         }
+    }
+
+    override fun userRequestClickOwner(id: Int, position: Int) {
+        val userBottomSheet = UserBottomSheet(id)
+        userBottomSheet.show(fragmentManager!!, "UserBottomSheet")
     }
 
     private fun downloadFile(downloadUrl: String) {
@@ -223,7 +228,6 @@ class UserRequestFragment : Fragment(), UserRequestListener {
 
     private fun getRequestUser() {
         var list: ArrayList<UserRequestTypeModel> = arrayListOf()
-        val cats = arrayListOf("q")
         viewModel.listUserType().observe(viewLifecycleOwner, androidx.lifecycle.Observer { result ->
             val msg = result.msg
             val data = result.data
@@ -248,7 +252,7 @@ class UserRequestFragment : Fragment(), UserRequestListener {
                 user_request_type_out.showDropDown()
                 parent.getItemAtPosition(position).toString()
                 user_request_type_out.clearFocus()
-                typeId = list[position].requestTypeId
+                typeId = list[position].id
             }
         user_request_type_out.setOnClickListener {
             user_request_type_out.showDropDown()

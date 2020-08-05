@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.request.ViewUserFragment">
 
     <LinearLayout
@@ -12,6 +13,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/view_user_question"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Вопрос"
@@ -143,7 +145,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/marginHorizontal"
             android:layout_marginBottom="3dp"
-            android:hint="Дом">
+            android:hint="Описание заявки">
 
             <AutoCompleteTextView
                 android:id="@+id/view_user_description_out"
@@ -205,24 +207,37 @@
         <include layout="@layout/item_divider_model" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/view_user_application"
+            android:id="@+id/view_user_data_status"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/marginHorizontal"
+            android:layout_marginTop="8dp"
             android:layout_marginBottom="3dp"
+            android:focusableInTouchMode="true"
             android:hint="Статус заявки">
 
             <AutoCompleteTextView
-                android:id="@+id/view_user_application_out"
+                android:id="@+id/view_user_data_status_out"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"
-                android:inputType="text"
-                android:textSize="15sp" />
+                app:ms_floatingLabelText="Тип заявки"
+                android:drawableEnd="@drawable/ic_expend"
+                android:textSize="15dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <include layout="@layout/item_divider_model" />
+
+        <Button
+            android:id="@+id/view_user_save"
+            style="@style/RoundedOrangeBackground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="Сохранить"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

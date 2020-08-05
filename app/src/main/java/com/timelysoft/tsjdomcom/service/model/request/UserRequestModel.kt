@@ -1,7 +1,6 @@
 package com.timelysoft.tsjdomcom.service.model.request
 
 import com.google.gson.annotations.SerializedName
-import java.io.Serializable
 
 class UserRequestModel (
     @SerializedName("ProviderName")
