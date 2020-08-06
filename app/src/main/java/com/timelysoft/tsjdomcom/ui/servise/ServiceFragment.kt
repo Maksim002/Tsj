@@ -5,15 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.adapters.service.ServiceAdapter
-import com.timelysoft.tsjdomcom.adapters.service.ServiceModel
+import com.timelysoft.tsjdomcom.service.Status
 import kotlinx.android.synthetic.main.fragment_service.*
 import kotlinx.android.synthetic.main.fragment_service.view.*
 
 class ServiceFragment : Fragment() {
+    private var viewModel = ServiceViewModel()
 
     private var myAdapter = ServiceAdapter()
 
@@ -43,15 +46,18 @@ class ServiceFragment : Fragment() {
     }
 
     private fun initRecycler(view: View) {
-
-        val list: ArrayList<ServiceModel> = arrayListOf()
-        list.add(ServiceModel(""))
-        list.add(ServiceModel(""))
-        list.add(ServiceModel(""))
-        list.add(ServiceModel(""))
-        list.add(ServiceModel(""))
-
-        myAdapter.update(list)
-            view.service_recycler.adapter = myAdapter
+        view.service_recycler.adapter = myAdapter
+        viewModel.listService().observe(viewLifecycleOwner, Observer { result->
+            val msg = result.msg
+            val data = result.data
+            when(result.status){
+                Status.SUCCESS ->{
+                    println()
+                }
+                Status.ERROR, Status.NETWORK ->{
+                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                }
+            }
+        })
     }
 }

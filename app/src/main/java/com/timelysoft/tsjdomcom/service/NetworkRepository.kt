@@ -1330,4 +1330,64 @@ class NetworkRepository {
             emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
+
+    fun listService() = liveData(Dispatchers.IO) {
+        try {
+            val response = RetrofitService.apiService().listService()
+            when {
+                response.isSuccessful -> {
+                    if (response.body() != null) {
+                        emit(ResultStatus.success(response.body()))
+                    } else {
+                        emit(ResultStatus.error("Ошибка при получении данных"))
+                    }
+                }
+                else -> {
+                    emit(ResultStatus.error("Не известная ошибка"))
+                }
+            }
+        } catch (e: Exception) {
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+        }
+    }
+
+    fun invoicesIssued(dataFrom: String, dataTo: String) = liveData(Dispatchers.IO) {
+        try {
+            val response = RetrofitService.apiService().invoicesIssued(dataFrom, dataTo)
+            when {
+                response.isSuccessful -> {
+                    if (response.body() != null) {
+                        emit(ResultStatus.success(response.body()))
+                    } else {
+                        emit(ResultStatus.error("Ошибка при получении данных"))
+                    }
+                }
+                else -> {
+                    emit(ResultStatus.error("Не известная ошибка"))
+                }
+            }
+        } catch (e: Exception) {
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+        }
+    }
+
+    fun paymentDefaultPeriod() = liveData(Dispatchers.IO) {
+        try {
+            val response = RetrofitService.apiService().paymentDefaultPeriod()
+            when {
+                response.isSuccessful -> {
+                    if (response.body() != null) {
+                        emit(ResultStatus.success(response.body()))
+                    } else {
+                        emit(ResultStatus.error("Ошибка при получении данных"))
+                    }
+                }
+                else -> {
+                    emit(ResultStatus.error("Не известная ошибка"))
+                }
+            }
+        } catch (e: Exception) {
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+        }
+    }
 }

@@ -6,8 +6,12 @@ import com.timelysoft.tsjdomcom.service.model.*
 import com.timelysoft.tsjdomcom.service.model.news.NewsCommentsModel
 import com.timelysoft.tsjdomcom.service.model.news.NewsDetailModel
 import com.timelysoft.tsjdomcom.service.model.news.NewsModel
+import com.timelysoft.tsjdomcom.service.model.payment.InvoicesIssuedModel
+import com.timelysoft.tsjdomcom.service.model.payment.PaymentDefaultPeriodModel
 import com.timelysoft.tsjdomcom.service.model.provider.*
 import com.timelysoft.tsjdomcom.service.model.request.*
+import com.timelysoft.tsjdomcom.service.model.service.AssociationServiceModel
+import com.timelysoft.tsjdomcom.service.model.service.Service
 import com.timelysoft.tsjdomcom.service.model.user.EditIdModel
 import com.timelysoft.tsjdomcom.service.model.user.UserModel
 import com.timelysoft.tsjdomcom.service.model.vote.VotingDetailModel
@@ -219,9 +223,9 @@ interface ApiService {
 
     @GET("ProviderInvoices")
     suspend fun supplierAccounts(
-        @Query("from")dataFrom: String,
-        @Query("to")dataTo: String,
-        @Query("providerId")providerId: Int
+        @Query("from") dataFrom: String,
+        @Query("to") dataTo: String,
+        @Query("providerId") providerId: Int
     ): Response<ArrayList<SupplierAccountsModel>>
 
     @GET("ProviderInvoices/Providers")
@@ -258,9 +262,9 @@ interface ApiService {
 
     @GET("Requests/Chairman")
     suspend fun listUser(
-        @Query("from")dataFrom: String,
-        @Query("to")dataTo: String,
-        @Query("typeId")typeId: Int?
+        @Query("from") dataFrom: String,
+        @Query("to") dataTo: String,
+        @Query("typeId") typeId: Int?
     ): Response<ArrayList<UserRequestModel>>
 
     @GET("Requests/Types/WithAll")
@@ -268,9 +272,9 @@ interface ApiService {
 
     @GET("Requests/Chairman/Download")
     suspend fun userRequestSave(
-        @Query("from")dataFrom: String,
-        @Query("to")dataTo: String,
-        @Query("typeId")typeId: Int?
+        @Query("from") dataFrom: String,
+        @Query("to") dataTo: String,
+        @Query("typeId") typeId: Int?
     ): Response<String>
 
     @GET("Requests/Chairman/{id}")
@@ -292,5 +296,17 @@ interface ApiService {
 
     @GET("Requests/Chairman/Providers")
     suspend fun userRequestProvider(): Response<ArrayList<ProviderInvoices>>
+
+    @GET("AssociationServices")
+    suspend fun listService(): Response<AssociationServiceModel>
+
+    @GET("Invoices")
+    suspend fun invoicesIssued(
+        @Query("from") dataFrom: String,
+        @Query("to") dataTo: String
+    ): Response<ArrayList<InvoicesIssuedModel>>
+
+    @GET("Invoices/DefaultPeriod")
+    suspend fun paymentDefaultPeriod(): Response<PaymentDefaultPeriodModel>
 }
 

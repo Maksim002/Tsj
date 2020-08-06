@@ -7,9 +7,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
-import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
 import android.os.SystemClock
@@ -19,7 +17,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -35,14 +32,10 @@ import com.timelysoft.tsjdomcom.service.model.provider.ProviderInvoices
 import com.timelysoft.tsjdomcom.service.model.provider.ProviderInvoicesIdModel
 import com.timelysoft.tsjdomcom.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_add_invoice.*
-import kotlinx.android.synthetic.main.fragment_supplier_accounts.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
-import java.io.ByteArrayOutputStream
 import java.io.File
-import java.io.FileOutputStream
-import java.io.InputStream
 import java.util.*
 import kotlin.collections.ArrayList
 

@@ -25,7 +25,6 @@ import com.timelysoft.tsjdomcom.adapters.request.UserRequestAdapter
 import com.timelysoft.tsjdomcom.adapters.request.UserRequestListener
 import com.timelysoft.tsjdomcom.service.Status
 import com.timelysoft.tsjdomcom.service.model.request.UserRequestTypeModel
-import com.timelysoft.tsjdomcom.ui.message.fragments.MessageBottomSheet
 import com.timelysoft.tsjdomcom.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_user_request.*
 import java.util.*

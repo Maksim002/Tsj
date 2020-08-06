@@ -4,24 +4,28 @@ import android.app.DatePickerDialog
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.os.SystemClock
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.adapters.lssued.InvoicesIssuedAdapter
-import com.timelysoft.tsjdomcom.adapters.lssued.InvoicesLssuedModel
+import com.timelysoft.tsjdomcom.service.Status
+import com.timelysoft.tsjdomcom.service.model.payment.InvoicesIssuedModel
 import com.timelysoft.tsjdomcom.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_invoices_issued.*
 import java.util.*
-import kotlin.collections.ArrayList
+
 
 class InvoicesIssuedFragment : Fragment() {
-
+    private var viewModel = PaymentViewModel()
     private var myAdapter = InvoicesIssuedAdapter()
 
     private var mLastClickTime: Long = 0
+    private var dataFrom: String = ""
+    private var dataTo: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,18 +40,44 @@ class InvoicesIssuedFragment : Fragment() {
         (activity as AppCompatActivity).supportActionBar?.show()
         getAutoDatesFrom()
         getAutoDatesTo()
-        initRecyclerView()
+        initArgument()
+    }
+
+    private fun initArgument() {
+        viewModel.paymentDefaultPeriod().observe(viewLifecycleOwner, androidx.lifecycle.Observer { result->
+            val msg = result.msg
+            val data = result.data
+            when(result.status){
+                Status.SUCCESS ->{
+                    dataFrom = data!!.from
+                    dataTo = data.to
+                    invoices_issued_date_from_out.setText(MyUtils.toMyDate(dataFrom))
+                    invoices_issued_date_to_out.setText(MyUtils.toMyDate(dataTo))
+                    initRecyclerView()
+                }
+                Status.NETWORK, Status.ERROR->{
+                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                }
+            }
+        })
+
     }
 
     private fun initRecyclerView() {
-        val list:  ArrayList<InvoicesLssuedModel> = arrayListOf()
-        list.add(InvoicesLssuedModel(""))
-        list.add(InvoicesLssuedModel(""))
-        list.add(InvoicesLssuedModel(""))
-        list.add(InvoicesLssuedModel(""))
-
-        myAdapter.update(list)
         invoices_issued_recycler.adapter = myAdapter
+        viewModel.invoicesIssued(dataFrom, dataTo).observe(viewLifecycleOwner, androidx.lifecycle.Observer {result ->
+            val msg = result.msg
+            val data = result.data
+            when(result.status){
+                Status.SUCCESS ->{
+                    myAdapter.update(data as ArrayList<InvoicesIssuedModel>)
+                    myAdapter.notifyDataSetChanged()
+                }
+                Status.NETWORK, Status.ERROR->{
+                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                }
+            }
+        })
     }
 
     private fun getAutoDatesFrom() {
@@ -64,13 +94,25 @@ class InvoicesIssuedFragment : Fragment() {
                 mLastClickTime = SystemClock.elapsedRealtime();
                 invoices_issued_date_from.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                val picker =
-                    DatePickerDialog(activity!!,
-                        R.style.DatePicker, { _, year1, monthOfYear, dayOfMonth ->
-                            invoices_issued_date_from_out.setText(MyUtils.convertDate(dayOfMonth, monthOfYear + 1, year1))
-                        }, year, month, day)
+                val picker = DatePickerDialog(
+                    activity!!, R.style.DatePicker, { _, year1, monthOfYear, dayOfMonth ->
+                            invoices_issued_date_from_out.setText(
+                                MyUtils.convertDate(
+                                    dayOfMonth,
+                                    monthOfYear + 1,
+                                    year1
+                                )
+                            )
+
+                        dataFrom = (MyUtils.convertDateServer(year1, monthOfYear + 1, dayOfMonth))
+                    }, year, month, day
+                )
                 picker.show()
                 invoices_issued_date_from_out.clearFocus()
+                picker.getButton(DatePickerDialog.BUTTON_POSITIVE).setOnClickListener {
+                    initRecyclerView()
+                    picker.dismiss()
+                }
             }
         }
     }
@@ -89,13 +131,18 @@ class InvoicesIssuedFragment : Fragment() {
                 val col =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
                 invoices_issued_date_to.defaultHintTextColor = col
-
-                val picker =
-                    DatePickerDialog(activity!!,
-                        R.style.DatePicker, { _, year1, monthOfYear, dayOfMonth ->
-                            invoices_issued_date_to_out.setText(MyUtils.convertDate(dayOfMonth, monthOfYear + 1, year1))
-                        }, year, month, day
-                    )
+                val picker = DatePickerDialog(
+                    activity!!, R.style.DatePicker, { _, year1, monthOfYear, dayOfMonth ->
+                        invoices_issued_date_to_out.setText(
+                            MyUtils.convertDate(
+                                dayOfMonth,
+                                monthOfYear + 1,
+                                year1
+                            )
+                        )
+                        dataTo = (MyUtils.convertDateServer(year1, monthOfYear + 1, dayOfMonth))
+                    }, year, month, day
+                )
                 picker.show()
                 invoices_issued_date_to_out.clearFocus()
             }
