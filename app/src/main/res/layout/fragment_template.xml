@@ -243,6 +243,7 @@
         android:text="@string/template"/>
 
     <Button
+        android:id="@+id/template_choose"
         style="@style/RoundedGreenBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -261,6 +262,7 @@
         android:textSize="14sp" />
 
     <Button
+        android:id="@+id/template_download"
         style="@style/RoundedOrangeBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

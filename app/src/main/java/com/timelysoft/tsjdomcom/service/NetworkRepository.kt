@@ -6,6 +6,7 @@ import com.timelysoft.tsjdomcom.service.model.ChangePasswordModel
 import com.timelysoft.tsjdomcom.service.model.RequestForConnectModel
 import com.timelysoft.tsjdomcom.service.model.provider.FileModel
 import com.timelysoft.tsjdomcom.service.model.request.UserRequestEdit
+import com.timelysoft.tsjdomcom.service.model.service.CreateServiceModel
 import com.timelysoft.tsjdomcom.service.request.*
 import com.timelysoft.tsjdomcom.service.request.provider.CreateSupplier
 import com.timelysoft.tsjdomcom.service.request.provider.ProviderEdit
@@ -1381,6 +1382,99 @@ class NetworkRepository {
                     } else {
                         emit(ResultStatus.error("Ошибка при получении данных"))
                     }
+                }
+                else -> {
+                    emit(ResultStatus.error("Не известная ошибка"))
+                }
+            }
+        } catch (e: Exception) {
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+        }
+    }
+
+    fun createService(body: CreateServiceModel) = liveData(Dispatchers.IO) {
+        try {
+            val response = RetrofitService.apiService().createService(body)
+            when {
+                response.isSuccessful -> {
+                    emit(ResultStatus.success(null, "Новый тип услуг создан"))
+                }
+                else -> {
+                    emit(ResultStatus.error("Произошла ошибка при создании"))
+                }
+            }
+        } catch (e: Exception) {
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+        }
+    }
+
+    fun createPeriodService() = liveData(Dispatchers.IO) {
+        try {
+            val response = RetrofitService.apiService().createPeriodService()
+            when {
+                response.isSuccessful -> {
+                    if (response.body() != null) {
+                        emit(ResultStatus.success(response.body()))
+                    } else {
+                        emit(ResultStatus.error("Ошибка при получении данных"))
+                    }
+                }
+                else -> {
+                    emit(ResultStatus.error("Не известная ошибка"))
+                }
+            }
+        } catch (e: Exception) {
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+        }
+    }
+
+    fun createTypeService() = liveData(Dispatchers.IO) {
+        try {
+            val response = RetrofitService.apiService().createTypeService()
+            when {
+                response.isSuccessful -> {
+                    if (response.body() != null) {
+                        emit(ResultStatus.success(response.body()))
+                    } else {
+                        emit(ResultStatus.error("Ошибка при получении данных"))
+                    }
+                }
+                else -> {
+                    emit(ResultStatus.error("Не известная ошибка"))
+                }
+            }
+        } catch (e: Exception) {
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+        }
+    }
+
+    fun paymentDownloadTemplate() = liveData(Dispatchers.IO) {
+        try {
+            val response = RetrofitService.apiService().paymentDownloadTemplate()
+            when {
+                response.isSuccessful -> {
+                    if (response.body() != null) {
+                        emit(ResultStatus.success(response.body()))
+                    } else {
+                        emit(ResultStatus.error("Ошибка при получении данных"))
+                    }
+                }
+                else -> {
+                    emit(ResultStatus.error("Не известная ошибка"))
+                }
+            }
+        } catch (e: Exception) {
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+        }
+    }
+
+    fun paymentDownloadSave(file: ArrayList<MultipartBody.Part>) = liveData(Dispatchers.IO) {
+        try {
+            val response =
+                RetrofitService.apiService().paymentDownloadSave(file)
+            when {
+                response.isSuccessful -> {
+                    emit(ResultStatus.success(null, "Выбранный файл загружен"))
                 }
                 else -> {
                     emit(ResultStatus.error("Не известная ошибка"))

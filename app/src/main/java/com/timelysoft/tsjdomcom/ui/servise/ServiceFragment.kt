@@ -49,15 +49,15 @@ class ServiceFragment : Fragment() {
 
     private fun initRecycler(view: View) {
         view.service_recycler.adapter = myAdapter
-        viewModel.listService().observe(viewLifecycleOwner, Observer { result->
+        viewModel.listService().observe(viewLifecycleOwner, Observer { result ->
             val msg = result.msg
             val data = result.data
-            when(result.status){
-                Status.SUCCESS ->{
-                 myAdapter.update(data!!.services as ArrayList<ServiceModel>)
+            when (result.status) {
+                Status.SUCCESS -> {
+                    myAdapter.update(data!!.services as ArrayList<ServiceModel>)
                     myAdapter.notifyDataSetChanged()
                 }
-                Status.ERROR, Status.NETWORK ->{
+                Status.ERROR, Status.NETWORK -> {
                     Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
                 }
             }

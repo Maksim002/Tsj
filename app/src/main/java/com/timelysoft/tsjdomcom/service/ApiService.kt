@@ -11,6 +11,9 @@ import com.timelysoft.tsjdomcom.service.model.payment.PaymentDefaultPeriodModel
 import com.timelysoft.tsjdomcom.service.model.provider.*
 import com.timelysoft.tsjdomcom.service.model.request.*
 import com.timelysoft.tsjdomcom.service.model.service.AssociationServicesModel
+import com.timelysoft.tsjdomcom.service.model.service.CreateServiceModel
+import com.timelysoft.tsjdomcom.service.model.service.CreateTypeService
+import com.timelysoft.tsjdomcom.service.model.service.PeriodServiceModel
 import com.timelysoft.tsjdomcom.service.model.user.EditIdModel
 import com.timelysoft.tsjdomcom.service.model.user.UserModel
 import com.timelysoft.tsjdomcom.service.model.vote.VotingDetailModel
@@ -307,5 +310,21 @@ interface ApiService {
 
     @GET("Invoices/DefaultPeriod")
     suspend fun paymentDefaultPeriod(): Response<PaymentDefaultPeriodModel>
+
+    @POST("AssociationServices")
+    suspend fun createService(@Body body: CreateServiceModel): Response<Unit>
+
+    @GET("AssociationServices/Periods")
+    suspend fun createPeriodService(): Response<ArrayList<PeriodServiceModel>>
+
+    @GET("AssociationServices/Types")
+    suspend fun createTypeService(): Response<ArrayList<CreateTypeService>>
+
+    @GET("Invoices/BaseTemplate")
+    suspend fun paymentDownloadTemplate(): Response<String>
+
+    @PUT("Invoices/Template")
+    suspend fun paymentDownloadSave(
+        @Part file: ArrayList<MultipartBody.Part>): Response<Unit>
 }
 
