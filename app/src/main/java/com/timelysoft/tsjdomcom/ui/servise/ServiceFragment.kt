@@ -12,6 +12,8 @@ import androidx.navigation.fragment.findNavController
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.adapters.service.ServiceAdapter
 import com.timelysoft.tsjdomcom.service.Status
+import com.timelysoft.tsjdomcom.service.model.service.AssociationServicesModel
+import com.timelysoft.tsjdomcom.service.model.service.ServiceModel
 import kotlinx.android.synthetic.main.fragment_service.*
 import kotlinx.android.synthetic.main.fragment_service.view.*
 
@@ -52,7 +54,8 @@ class ServiceFragment : Fragment() {
             val data = result.data
             when(result.status){
                 Status.SUCCESS ->{
-                    println()
+                 myAdapter.update(data!!.services as ArrayList<ServiceModel>)
+                    myAdapter.notifyDataSetChanged()
                 }
                 Status.ERROR, Status.NETWORK ->{
                     Toast.makeText(context, msg, Toast.LENGTH_LONG).show()

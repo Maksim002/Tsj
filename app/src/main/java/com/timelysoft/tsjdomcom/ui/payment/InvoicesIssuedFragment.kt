@@ -105,14 +105,11 @@ class InvoicesIssuedFragment : Fragment() {
                             )
 
                         dataFrom = (MyUtils.convertDateServer(year1, monthOfYear + 1, dayOfMonth))
+                        initRecyclerView()
                     }, year, month, day
                 )
                 picker.show()
                 invoices_issued_date_from_out.clearFocus()
-                picker.getButton(DatePickerDialog.BUTTON_POSITIVE).setOnClickListener {
-                    initRecyclerView()
-                    picker.dismiss()
-                }
             }
         }
     }
@@ -141,6 +138,7 @@ class InvoicesIssuedFragment : Fragment() {
                             )
                         )
                         dataTo = (MyUtils.convertDateServer(year1, monthOfYear + 1, dayOfMonth))
+                        initRecyclerView()
                     }, year, month, day
                 )
                 picker.show()

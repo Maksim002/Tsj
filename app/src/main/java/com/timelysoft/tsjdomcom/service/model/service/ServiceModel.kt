@@ -3,53 +3,53 @@ package com.timelysoft.tsjdomcom.service.model.service
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class Service (
+class ServiceModel (
     @SerializedName("ServicePaidName")
     @Expose
-    var servicePaidName: String? = null,
+    var servicePaidName: String = "",
 
     @SerializedName("PeriodName")
     @Expose
-    var periodName: String? = null,
+    var periodName: String = "",
 
     @SerializedName("IsEditableAndCloseable")
     @Expose
-    var isEditableAndCloseable: Boolean? = null,
+    var isEditableAndCloseable: Boolean?,
 
     @SerializedName("Id")
     @Expose
-    var id: Int? = null,
+    var id: Int = 0,
 
     @SerializedName("PeriodId")
     @Expose
-    var periodId: Int? = null,
+    var periodId: Int = 0,
 
     @SerializedName("ServicePaidId")
     @Expose
-    var servicePaidId: Int? = null,
+    var servicePaidId: Int = 0,
 
     @SerializedName("IsActive")
     @Expose
-    var isActive: Boolean? = null,
+    var isActive: Boolean?,
 
     @SerializedName("IsDependent")
     @Expose
-    var isDependent: Boolean? = null,
+    var isDependent: Boolean?,
 
     @SerializedName("IsVolumeMultiplier")
     @Expose
-    var isVolumeMultiplier: Boolean? = null,
+    var isVolumeMultiplier: Boolean?,
 
     @SerializedName("IsCounter")
     @Expose
-    var isCounter: Boolean? = null,
+    var isCounter: Boolean?,
 
     @SerializedName("Name")
     @Expose
-    var name: String? = null,
+    var name: String? = "",
 
     @SerializedName("Tariff")
     @Expose
-    var tariff: Int? = null
+    var tariff: Double = 0.0
 
 )

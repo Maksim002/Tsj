@@ -3,13 +3,13 @@ package com.timelysoft.tsjdomcom.service.model.service
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class AssociationServiceModel (
+class AssociationServicesModel (
     @SerializedName("Association")
     @Expose
-    var association: Association,
+    var association: AssociationModel? = null,
 
     @SerializedName("Services")
     @Expose
-    var services: List<Service> = arrayListOf()
+    var services: List<ServiceModel> = arrayListOf()
 
 )

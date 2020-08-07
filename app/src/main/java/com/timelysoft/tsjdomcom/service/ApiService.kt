@@ -10,8 +10,7 @@ import com.timelysoft.tsjdomcom.service.model.payment.InvoicesIssuedModel
 import com.timelysoft.tsjdomcom.service.model.payment.PaymentDefaultPeriodModel
 import com.timelysoft.tsjdomcom.service.model.provider.*
 import com.timelysoft.tsjdomcom.service.model.request.*
-import com.timelysoft.tsjdomcom.service.model.service.AssociationServiceModel
-import com.timelysoft.tsjdomcom.service.model.service.Service
+import com.timelysoft.tsjdomcom.service.model.service.AssociationServicesModel
 import com.timelysoft.tsjdomcom.service.model.user.EditIdModel
 import com.timelysoft.tsjdomcom.service.model.user.UserModel
 import com.timelysoft.tsjdomcom.service.model.vote.VotingDetailModel
@@ -298,7 +297,7 @@ interface ApiService {
     suspend fun userRequestProvider(): Response<ArrayList<ProviderInvoices>>
 
     @GET("AssociationServices")
-    suspend fun listService(): Response<AssociationServiceModel>
+    suspend fun listService(): Response<AssociationServicesModel>
 
     @GET("Invoices")
     suspend fun invoicesIssued(
