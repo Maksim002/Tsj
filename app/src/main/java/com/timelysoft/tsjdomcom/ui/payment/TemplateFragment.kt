@@ -42,19 +42,20 @@ class TemplateFragment : Fragment() {
     private fun initArgument() {
         template_choose.setOnClickListener {
             //todo Доболение файла
-//            viewModel.paymentDownloadSave().observe(viewLifecycleOwner, Observer { result->
-//                val msg = result.msg
-//                val data = result.data
-//                when (result.status) {
-//                    Status.SUCCESS -> {
-//
-//                    }
-//                    Status.ERROR, Status.NETWORK -> {
-//                        Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
-//                    }
-//                }
-//            })
+            viewModel.paymentDownloadSave().observe(viewLifecycleOwner, Observer { result->
+                val msg = result.msg
+                val data = result.data
+                when (result.status) {
+                    Status.SUCCESS -> {
+
+                    }
+                    Status.ERROR, Status.NETWORK -> {
+                        Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                    }
+                }
+            })
         }
+
 
         template_download.setOnClickListener {
             viewModel.paymentDownloadTemplate().observe(viewLifecycleOwner, Observer { result->

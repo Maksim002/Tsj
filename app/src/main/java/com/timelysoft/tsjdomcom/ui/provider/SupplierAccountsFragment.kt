@@ -170,7 +170,6 @@ class SupplierAccountsFragment : Fragment(), SupplierAccountsListener {
                     val adapterSupplierAccounts = data?.let {
                         ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, it) }
                     supplier_accounts_provider_out.setAdapter(adapterSupplierAccounts)
-
                     list = data as ArrayList<ProviderInvoices>
                 }
                 Status.NETWORK, Status.ERROR ->{

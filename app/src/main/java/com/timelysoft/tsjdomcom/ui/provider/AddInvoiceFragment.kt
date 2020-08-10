@@ -24,34 +24,41 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.loader.content.CursorLoader
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.transition.Transition
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.adapters.provider.AddInvoiceAdapter
+import com.timelysoft.tsjdomcom.adapters.provider.AddInvoiceListener
 import com.timelysoft.tsjdomcom.service.Status
 import com.timelysoft.tsjdomcom.service.model.provider.FileModel
 import com.timelysoft.tsjdomcom.service.model.provider.ProviderInvoices
 import com.timelysoft.tsjdomcom.service.model.provider.ProviderInvoicesIdModel
 import com.timelysoft.tsjdomcom.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_add_invoice.*
+import kotlinx.android.synthetic.main.item_add_invoice.*
+import kotlinx.android.synthetic.main.item_add_invoice.view.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
-import java.io.File
+import java.io.*
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 
-class AddInvoiceFragment : Fragment() {
+class AddInvoiceFragment : Fragment(), AddInvoiceListener {
     private val STORAGE_PERMISION_CODE: Int = 1
     private val IMAGE_PICK_CODE = 10
     private var files = ArrayList<MultipartBody.Part>()
     private var names = ArrayList<String>()
-    private val myAdapter = AddInvoiceAdapter()
+    private val myAdapter = AddInvoiceAdapter(this)
     private var viewModel = ProviderViewModel()
     private var position: Int = 0
     private var model = ProviderInvoicesIdModel()
     private var list: ArrayList<FileModel> = arrayListOf()
     private var mLastClickTime: Long = 0
-    private lateinit var bitmap: Bitmap
     private var providerId: Int = 0
     private lateinit var dataTo: String
 
@@ -70,6 +77,10 @@ class AddInvoiceFragment : Fragment() {
         initRecycler()
         getInvoiceProvider()
         getInvoiceAtDate()
+    }
+
+    companion object {
+        var myImage: HashMap<String, Bitmap> = hashMapOf()
     }
 
     private fun initArgument() {
@@ -93,7 +104,7 @@ class AddInvoiceFragment : Fragment() {
             viewModel.addInvoice(
                 add_invoice_service_out.text.toString(),
                 providerId,
-                add_invoice_at_date_out.text.toString(),
+                dataTo,
                 add_invoice_meter_reading_out.text.toString(),
                 add_invoice_for_payment_out.text.toString(),
                 files
@@ -146,6 +157,10 @@ class AddInvoiceFragment : Fragment() {
                 })
 
             add_invoice_save.setOnClickListener {
+                files.clear()
+                myImage.forEach {
+                    files.add(buildImageBodyPart(it.key, it.value))
+                }
                 viewModel.providerInvoicesEdit(
                     model.id,
                     model.service,
@@ -170,9 +185,13 @@ class AddInvoiceFragment : Fragment() {
         }
     }
 
+    override fun clearClickListener(position: Int, item: FileModel) {
+        myImage.remove(item.name)
+        myAdapter.items.removeAt(position)
+    }
+
     private fun initRecycler() {
         add_invoice_recycler.adapter = myAdapter
-
     }
 
     private fun loadFiles() {
@@ -201,11 +220,7 @@ class AddInvoiceFragment : Fragment() {
         startActivityForResult(Intent.createChooser(myFile, "Select Picture"), IMAGE_PICK_CODE)
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             getMyFile()
         } else {
@@ -255,25 +270,40 @@ class AddInvoiceFragment : Fragment() {
         }
     }
 
-//    inner class GetImageFromURL(var image: ImageView): AsyncTask<String, Void, Bitmap>() {
-//        lateinit var myBitmap: Bitmap
-//
-//        override fun doInBackground(vararg usl: String?): Bitmap {
-//            val urldispley = usl[0]
-//            try {
-//                val srt: InputStream = java.net.URL(urldispley).openStream()
-//                myBitmap = BitmapFactory.decodeStream(srt)
-//            }catch (e: Exception){
-//                e.printStackTrace()
-//            }
-//            return myBitmap
-//        }
-//
-//        override fun onPostExecute(result: Bitmap?) {
-//            super.onPostExecute(result)
-//            image.setImageBitmap(result)
-//            bitmap = myBitmap
-//        }
+    private fun buildImageBodyPart(fileName: String, bitmap: Bitmap): MultipartBody.Part {
+        val leftImageFile = convertBitmapToFile(fileName, bitmap)
+        val reqFile = RequestBody.create("image/*".toMediaTypeOrNull(), leftImageFile)
+        return MultipartBody.Part.createFormData(fileName, leftImageFile.name, reqFile)
+    }
+
+    //convert bitmap to MultipartBody.Part
+    private fun convertBitmapToFile(fileName: String, bitmap: Bitmap): File {
+        //create a file to write bitmap data
+        val file = File(context!!.cacheDir, fileName)
+        file.createNewFile()
+        //Convert bitmap to byte array
+        val bos = ByteArrayOutputStream()
+        bitmap.compress(
+            Bitmap.CompressFormat.PNG, 0 /*ignored for PNG*/, bos
+        )
+        val bitMapData = bos.toByteArray()
+        //write the bytes in file
+        var fos: FileOutputStream? = null
+        try {
+            fos = FileOutputStream(file)
+        } catch (e: FileNotFoundException) {
+            e.printStackTrace()
+        }
+        try {
+            fos?.write(bitMapData)
+            fos?.flush()
+            fos?.close()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+
+        return file
+    }
 
     private fun getInvoiceProvider() {
         var list: ArrayList<ProviderInvoices> = arrayListOf()
