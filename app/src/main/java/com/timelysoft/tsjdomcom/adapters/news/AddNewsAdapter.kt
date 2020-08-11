@@ -8,7 +8,7 @@ import com.timelysoft.tsjdomcom.common.ViewHolder
 import kotlinx.android.synthetic.main.item_add_news.view.*
 
 
-class AddNewsAdapter (item: ArrayList<AddNewsModel> = arrayListOf()): GenericRecyclerAdapter<AddNewsModel>(item){
+class AddNewsAdapter (var listener: AddNewsListener ,item: ArrayList<AddNewsModel> = arrayListOf()): GenericRecyclerAdapter<AddNewsModel>(item){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return super.onCreateViewHolder(parent, R.layout.item_add_news)
@@ -19,7 +19,7 @@ class AddNewsAdapter (item: ArrayList<AddNewsModel> = arrayListOf()): GenericRec
 
 
         holder.itemView.add_news_clear.setOnClickListener {
-            items.removeAt(holder.adapterPosition)
+            listener.addNewsClick(holder.adapterPosition, item.name)
             notifyItemRemoved(holder.adapterPosition)
             notifyItemChanged(holder.adapterPosition, items.size)
         }

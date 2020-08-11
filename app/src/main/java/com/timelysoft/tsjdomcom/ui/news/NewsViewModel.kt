@@ -10,6 +10,9 @@ import com.timelysoft.tsjdomcom.service.model.news.NewsCommentsModel
 import com.timelysoft.tsjdomcom.service.model.news.NewsDetailModel
 import com.timelysoft.tsjdomcom.service.model.news.NewsModel
 import com.timelysoft.tsjdomcom.service.request.NewsCommentRequest
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -37,4 +40,13 @@ class NewsViewModel : ViewModel() {
         return repository.newsCommentDelete(id)
     }
 
+    fun newsAddMessage(file: ArrayList<MultipartBody.Part>?, content: String, title: String): LiveData<ResultStatus<Nothing>>{
+        if (file!!.isEmpty()) file.add(addEmptyFile())
+        return repository.newsAddMessage(file, content, title)
+    }
+
+    private fun addEmptyFile(): MultipartBody.Part {
+        val empty: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), "")
+        return MultipartBody.Part.createFormData("empty", "", empty)
+    }
 }

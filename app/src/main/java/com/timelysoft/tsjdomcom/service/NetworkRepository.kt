@@ -1484,4 +1484,42 @@ class NetworkRepository {
             emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
+
+    fun counterListDebts() = liveData(Dispatchers.IO) {
+        try {
+            val response = RetrofitService.apiService().counterListDebts()
+            when {
+                response.isSuccessful -> {
+                    if (response.body() != null) {
+                        emit(ResultStatus.success(response.body()))
+                    } else {
+                        emit(ResultStatus.error("Ошибка при получении данных"))
+                    }
+                }
+                else -> {
+                    emit(ResultStatus.error("Не известная ошибка"))
+                }
+            }
+        } catch (e: Exception) {
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+        }
+    }
+
+    fun newsAddMessage(file: ArrayList<MultipartBody.Part>?, content: String, title: String) = liveData(Dispatchers.IO) {
+        try {
+            val response =
+                RetrofitService.apiService().newsAddMessage(file, content, title)
+            when {
+                response.isSuccessful -> {
+                    emit(ResultStatus.success(null, "Ваше письмо отправлено!"))
+                }
+                else -> {
+                    emit(ResultStatus.error("Не известная ошибка"))
+                }
+            }
+        } catch (e: Exception) {
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+        }
+    }
+
 }

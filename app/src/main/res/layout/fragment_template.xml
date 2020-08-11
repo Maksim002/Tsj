@@ -253,6 +253,7 @@
         android:textSize="14sp" />
 
     <Button
+        android:id="@+id/template_approve_template"
         style="@style/RoundedOrangeBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

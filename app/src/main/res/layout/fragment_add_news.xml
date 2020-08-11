@@ -15,12 +15,14 @@
         android:textStyle="bold" />
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/add_news_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="5dp">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/add_news_title_out"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
@@ -48,6 +50,7 @@
             app:layout_constraintBottom_toTopOf="@+id/add_news_recycler">
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/add_news_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -55,6 +58,7 @@
                 android:layout_marginBottom="5dp">
 
                 <AutoCompleteTextView
+                    android:id="@+id/add_news_content_out"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"

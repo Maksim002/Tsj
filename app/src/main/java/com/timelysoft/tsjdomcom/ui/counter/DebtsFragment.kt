@@ -5,13 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.adapters.debts.DebtsAdapter
-import com.timelysoft.tsjdomcom.adapters.debts.DebtsModel
+import com.timelysoft.tsjdomcom.service.Status
+import com.timelysoft.tsjdomcom.service.model.counter.DebtModel
+import com.timelysoft.tsjdomcom.ui.main.MainActivity
 import kotlinx.android.synthetic.main.fragment_debts.*
 
 class DebtsFragment : Fragment() {
+    private var viewModel = CounterViewModel()
 
     private var myAdapter = DebtsAdapter()
 
@@ -30,14 +35,21 @@ class DebtsFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
-        val list: ArrayList<DebtsModel> = arrayListOf()
-        list.add(DebtsModel(""))
-        list.add(DebtsModel(""))
-        list.add(DebtsModel(""))
-        list.add(DebtsModel(""))
-        list.add(DebtsModel(""))
-
-        myAdapter.update(list)
+        MainActivity.alert.show()
         debts_recycler.adapter = myAdapter
+        viewModel.counterListDebts().observe(viewLifecycleOwner, Observer { result ->
+            val msg = result.msg
+            val data = result.data
+            when(result.status){
+                Status.SUCCESS ->{
+                    myAdapter.update(data!!.debts as ArrayList<DebtModel>)
+                    myAdapter.notifyDataSetChanged()
+                    MainActivity.alert.hide()
+                }
+                Status.NETWORK, Status.ERROR ->{
+                    Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
     }
 }

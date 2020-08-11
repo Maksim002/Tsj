@@ -3,6 +3,7 @@ package com.timelysoft.tsjdomcom.service
 import com.timelysoft.tsjdomcom.service.model.MessageItemModel
 import com.timelysoft.tsjdomcom.service.model.VoteModel
 import com.timelysoft.tsjdomcom.service.model.*
+import com.timelysoft.tsjdomcom.service.model.counter.DebtsModel
 import com.timelysoft.tsjdomcom.service.model.news.NewsCommentsModel
 import com.timelysoft.tsjdomcom.service.model.news.NewsDetailModel
 import com.timelysoft.tsjdomcom.service.model.news.NewsModel
@@ -323,8 +324,20 @@ interface ApiService {
     @GET("Invoices/BaseTemplate")
     suspend fun paymentDownloadTemplate(): Response<String>
 
+    @Multipart
     @PUT("Invoices/Template")
     suspend fun paymentDownloadSave(
         @Part file: ArrayList<MultipartBody.Part>): Response<Unit>
+
+    @GET("PaymentManagement/Debts")
+    suspend fun counterListDebts(): Response<DebtsModel>
+
+    @Multipart
+    @POST("News")
+    suspend fun newsAddMessage(
+        @Part file: ArrayList<MultipartBody.Part>?,
+        @Query ("content") content: String,
+        @Query ("title") title: String
+    ): Response<Unit>
 }
 
