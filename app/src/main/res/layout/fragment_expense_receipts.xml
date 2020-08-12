@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:textColorHint="#000"
         android:focusableInTouchMode="true"
-        android:hint="ТСЖ">
+        android:hint="Выберите ТСЖ">
 
         <AutoCompleteTextView
             android:id="@+id/expense_receipts_address_out"

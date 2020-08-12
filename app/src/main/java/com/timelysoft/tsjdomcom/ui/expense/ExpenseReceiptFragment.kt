@@ -9,14 +9,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.adapters.expense.ExpensesReceiptPager
+import com.timelysoft.tsjdomcom.adapters.news.NewsAdapter
+import com.timelysoft.tsjdomcom.service.Status
+import com.timelysoft.tsjdomcom.service.model.news.NewsModel
+import com.timelysoft.tsjdomcom.ui.main.MainActivity
 import kotlinx.android.synthetic.main.fragment_expense_receipts.*
 
 
 class ExpenseReceiptFragment : Fragment() {
+    private var viewModel = ExpenseViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,10 +54,20 @@ class ExpenseReceiptFragment : Fragment() {
     }
 
     private fun getAddAddress() {
-        val list = arrayOf("зайчик", "вышел", "погулять","вода")
-
-        val adapterAddAddress = ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, list)
-        expense_receipts_address_out.setAdapter(adapterAddAddress)
+        viewModel.expenseListTSJ().observe(viewLifecycleOwner, Observer { result->
+            val msg = result.msg
+            val data = result.data
+            MainActivity.alert.hide()
+            when(result.status){
+                Status.SUCCESS ->{
+                    val adapterAddAddress = ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, data!!)
+                    expense_receipts_address_out.setAdapter(adapterAddAddress)
+                }
+                Status.ERROR, Status.NETWORK ->{
+                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                }
+            }
+        })
 
         expense_receipts_address_out.keyListener = null
         ColorStateList.valueOf(resources.getColor(R.color.colorAccent))

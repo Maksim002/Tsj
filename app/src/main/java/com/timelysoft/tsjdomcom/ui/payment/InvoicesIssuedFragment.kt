@@ -14,6 +14,7 @@ import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.adapters.lssued.InvoicesIssuedAdapter
 import com.timelysoft.tsjdomcom.service.Status
 import com.timelysoft.tsjdomcom.service.model.payment.InvoicesIssuedModel
+import com.timelysoft.tsjdomcom.ui.main.MainActivity
 import com.timelysoft.tsjdomcom.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_invoices_issued.*
 import java.util.*
@@ -44,6 +45,7 @@ class InvoicesIssuedFragment : Fragment() {
     }
 
     private fun initArgument() {
+        MainActivity.alert.show()
         viewModel.paymentDefaultPeriod().observe(viewLifecycleOwner, androidx.lifecycle.Observer { result->
             val msg = result.msg
             val data = result.data
@@ -72,6 +74,7 @@ class InvoicesIssuedFragment : Fragment() {
                 Status.SUCCESS ->{
                     myAdapter.update(data as ArrayList<InvoicesIssuedModel>)
                     myAdapter.notifyDataSetChanged()
+                    MainActivity.alert.hide()
                 }
                 Status.NETWORK, Status.ERROR->{
                     Toast.makeText(context, msg, Toast.LENGTH_LONG).show()

@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.common.GenericRecyclerAdapter
 import com.timelysoft.tsjdomcom.common.ViewHolder
+import com.timelysoft.tsjdomcom.service.model.payment.PaymentReportModel
 
 class PaymentReportAdapter (item: ArrayList<PaymentReportModel> = arrayListOf()): GenericRecyclerAdapter<PaymentReportModel>(item){
 

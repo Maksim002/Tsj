@@ -4,11 +4,11 @@ import com.timelysoft.tsjdomcom.service.model.MessageItemModel
 import com.timelysoft.tsjdomcom.service.model.VoteModel
 import com.timelysoft.tsjdomcom.service.model.*
 import com.timelysoft.tsjdomcom.service.model.counter.DebtsModel
+import com.timelysoft.tsjdomcom.service.model.expense.ExpenseListTSJModel
 import com.timelysoft.tsjdomcom.service.model.news.NewsCommentsModel
 import com.timelysoft.tsjdomcom.service.model.news.NewsDetailModel
 import com.timelysoft.tsjdomcom.service.model.news.NewsModel
-import com.timelysoft.tsjdomcom.service.model.payment.InvoicesIssuedModel
-import com.timelysoft.tsjdomcom.service.model.payment.PaymentDefaultPeriodModel
+import com.timelysoft.tsjdomcom.service.model.payment.*
 import com.timelysoft.tsjdomcom.service.model.provider.*
 import com.timelysoft.tsjdomcom.service.model.request.*
 import com.timelysoft.tsjdomcom.service.model.service.AssociationServicesModel
@@ -34,7 +34,7 @@ interface ApiService {
     @POST("Token")
     suspend fun auth(@FieldMap params: Map<String, String>): Response<AuthModel>
 
-    @GET("News")
+    @GET("News/Chairman")
     suspend fun news(): Response<List<NewsModel>>
 
     @GET("Messages")
@@ -339,5 +339,38 @@ interface ApiService {
         @Query ("content") content: String,
         @Query ("title") title: String
     ): Response<Unit>
+
+    @GET("PaymentManagement/Association")
+    suspend fun paymentInformationTsj(): Response<InformationTsjModel>
+
+    @GET("PaymentManagement/UnbalancedPayments")
+    suspend fun paymentPaymentReport(
+        @Query ("from") from: String,
+        @Query ("to") to: String,
+        @Query ("serviceId") serviceId: Int?
+    ): Response<ArrayList<PaymentReportModel>>
+
+    @GET("PaymentManagement/Services")
+    suspend fun paymentListService(): Response<ArrayList<ListServiceModel>>
+
+    @GET("PaymentManagement/DefaultPeriod")
+    suspend fun paymentDateDefault(): Response<DefaultPeriodModel>
+
+    @GET("PaymentManagement/AllPayments")
+    suspend fun paymentListPayment(
+        @Query ("from") from: String,
+        @Query ("to") to: String,
+        @Query ("serviceId") serviceId: Int?
+    ): Response<ArrayList<PaymentReportModel>>
+
+    @GET("PaymentManagement/UnbalancedPayments/Download")
+    suspend fun paymentSave(
+        @Query ("from") from: String,
+        @Query ("to") to: String,
+        @Query ("serviceId") serviceId: Int?
+    ): Response<String>
+
+    @GET("CreditAndDebitSlips/Associations")
+    suspend fun expenseListTSJ(): Response<ArrayList<ExpenseListTSJModel>>
 }
 

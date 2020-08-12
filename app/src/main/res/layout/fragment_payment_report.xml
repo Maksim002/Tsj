@@ -13,6 +13,7 @@
         android:orientation="vertical">
 
         <Button
+            android:id="@+id/payment_report_payment"
             style="@style/RoundedOrangeBackground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,6 +35,7 @@
                 android:textSize="15sp" />
 
             <TextView
+                android:id="@+id/payment_report_tsj"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -59,6 +61,7 @@
                 android:textSize="15sp" />
 
             <TextView
+                android:id="@+id/payment_report_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.3"
@@ -70,82 +73,68 @@
 
         <include layout="@layout/item_divider_model" />
 
-        <LinearLayout
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/payment_report_data_from"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:orientation="horizontal">
+            android:layout_marginTop="@dimen/marginHorizontal">
 
-            <TextView
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/payment_report_data_from_out"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Период от:"
+                android:background="@null"
+                android:hint="Период от"
+                android:inputType="text"
+                android:textColor="#000"
                 android:textSize="15sp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.3"
-                android:gravity="right"
-                android:text="02.06.2020"
-                android:textColor="#121212"
-                android:textSize="15sp" />
-        </LinearLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <include layout="@layout/item_divider_model" />
 
-        <LinearLayout
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/payment_report_data_to"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:orientation="horizontal">
+            android:layout_marginTop="@dimen/marginHorizontal">
 
-            <TextView
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/payment_report_data_to_out"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Период до:"
+                android:background="@null"
+                android:hint="Период до"
+                android:inputType="text"
+                android:textColor="#000"
                 android:textSize="15sp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.3"
-                android:gravity="right"
-                android:text="21.06.2020"
-                android:textColor="#121212"
-                android:textSize="15sp" />
-        </LinearLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <include layout="@layout/item_divider_model" />
 
-        <LinearLayout
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/payment_report_tape"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:orientation="horizontal">
+            android:layout_marginTop="@dimen/marginHorizontal">
 
-            <TextView
+            <AutoCompleteTextView
+                android:id="@+id/payment_report_tape_out"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Услуга:"
+                android:background="@null"
+                android:drawableEnd="@drawable/ic_expend"
+                android:hint="Тип услуги"
+                android:inputType="text"
                 android:textSize="15sp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.3"
-                android:gravity="right"
-                android:text="По всем услугам"
-                android:textColor="#121212"
-                android:textSize="15sp" />
-        </LinearLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <include layout="@layout/item_divider_model" />
 
         <Button
+            android:id="@+id/payment_report_save"
             style="@style/RoundedGreenBackground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

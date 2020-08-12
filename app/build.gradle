@@ -25,6 +25,12 @@ android {
     androidExtensions {
         experimental = true
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     kotlinOptions {
         jvmTarget = "1.8"
     }
@@ -84,6 +90,9 @@ dependencies {
 
     //spinner
     implementation 'com.github.ganfra:material-spinner:2.0.0'
+
+    //MaterialFilePicker
+    implementation 'com.nbsp:materialfilepicker:1.9.1'
 
 }
 apply plugin: 'com.google.gms.google-services'

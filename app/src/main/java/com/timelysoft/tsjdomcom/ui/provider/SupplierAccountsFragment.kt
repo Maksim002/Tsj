@@ -19,6 +19,7 @@ import com.timelysoft.tsjdomcom.adapters.provider.SupplierAccountsListener
 import com.timelysoft.tsjdomcom.service.Status
 import com.timelysoft.tsjdomcom.service.model.provider.ProviderInvoices
 import com.timelysoft.tsjdomcom.service.model.provider.SupplierAccountsModel
+import com.timelysoft.tsjdomcom.ui.main.MainActivity
 import com.timelysoft.tsjdomcom.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_supplier_accounts.*
 import java.util.*
@@ -58,6 +59,7 @@ class SupplierAccountsFragment : Fragment(), SupplierAccountsListener {
         }
 
         supplier_accounts_search.setOnClickListener {
+            MainActivity.alert.show()
             viewModel.supplierAccounts(dataFrom, dataTo, providerId)
                 .observe(viewLifecycleOwner, androidx.lifecycle.Observer { result ->
                     val msg = result.msg
@@ -66,6 +68,7 @@ class SupplierAccountsFragment : Fragment(), SupplierAccountsListener {
                         Status.SUCCESS -> {
                             myAdapter.update(data!!)
                             myAdapter.notifyDataSetChanged()
+                            MainActivity.alert.hide()
                         }
                         Status.ERROR, Status.NETWORK -> {
                             Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
@@ -160,6 +163,7 @@ class SupplierAccountsFragment : Fragment(), SupplierAccountsListener {
     }
 
     private fun getSupplierAccounts() {
+        MainActivity.alert.show()
         var list:  ArrayList<ProviderInvoices> = arrayListOf()
 
         viewModel.providerInvoices().observe(viewLifecycleOwner, androidx.lifecycle.Observer { result->
@@ -171,6 +175,7 @@ class SupplierAccountsFragment : Fragment(), SupplierAccountsListener {
                         ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, it) }
                     supplier_accounts_provider_out.setAdapter(adapterSupplierAccounts)
                     list = data as ArrayList<ProviderInvoices>
+                    MainActivity.alert.hide()
                 }
                 Status.NETWORK, Status.ERROR ->{
                     Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
