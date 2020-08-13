@@ -4,7 +4,9 @@ import com.timelysoft.tsjdomcom.service.model.MessageItemModel
 import com.timelysoft.tsjdomcom.service.model.VoteModel
 import com.timelysoft.tsjdomcom.service.model.*
 import com.timelysoft.tsjdomcom.service.model.counter.DebtsModel
+import com.timelysoft.tsjdomcom.service.model.expense.ExpenseExpensesReceiptsModel
 import com.timelysoft.tsjdomcom.service.model.expense.ExpenseListTSJModel
+import com.timelysoft.tsjdomcom.service.model.expense.ExpenseListTypeModel
 import com.timelysoft.tsjdomcom.service.model.news.NewsCommentsModel
 import com.timelysoft.tsjdomcom.service.model.news.NewsDetailModel
 import com.timelysoft.tsjdomcom.service.model.news.NewsModel
@@ -372,5 +374,11 @@ interface ApiService {
 
     @GET("CreditAndDebitSlips/Associations")
     suspend fun expenseListTSJ(): Response<ArrayList<ExpenseListTSJModel>>
+
+    @GET("CreditAndDebitSlips/Types")
+    suspend fun expenseListType(): Response<ArrayList<ExpenseListTypeModel>>
+
+    @GET("CreditAndDebitSlips")
+    suspend fun expenseExpensesReceipts(@Query("id") id: Int): Response<ExpenseExpensesReceiptsModel>
 }
 

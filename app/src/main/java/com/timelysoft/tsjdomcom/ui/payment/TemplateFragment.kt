@@ -3,17 +3,13 @@ package com.timelysoft.tsjdomcom.ui.payment
 import android.Manifest
 import android.app.Activity
 import android.app.DownloadManager
-import android.content.ContentUris
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.database.Cursor
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
-import android.provider.DocumentsContract
-import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,10 +21,7 @@ import com.nbsp.materialfilepicker.MaterialFilePicker
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.service.Status
 import kotlinx.android.synthetic.main.fragment_template.*
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import java.io.File
 import java.util.regex.Pattern
 
 
@@ -107,105 +100,23 @@ class TemplateFragment : Fragment() {
     }
 
     private fun getMyFile() {
-        val myFile = Intent(Intent.ACTION_GET_CONTENT)
-        myFile.setType("*/*")
-        startActivityForResult(Intent.createChooser(myFile, "Select Picture"), FILE_PICK_CODE)
+        MaterialFilePicker()
+            .withActivity(activity)
+            .withRequestCode(STORAGE_PERMISION_CODE)
+            .withHiddenFiles(false)
+            .withFilter(Pattern.compile(".*\\.pdf$"))
+            .withTitle("Select PDF file")
+            .start()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK && requestCode == FILE_PICK_CODE) {
             // todo работа excel  uri to moltipad bodi
             if (data != null) {
-                val uri: Uri = data.data!!
-                val file = File(uri.toString())
-                val requestFile = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), data.toString())
-                val multipartBody = MultipartBody.Part.createFormData("file", file.name, requestFile)
-                files.add(multipartBody)
+
             }
         }
     }
-
-//    fun getFilePath(context: Context, uri: Uri): String? {
-//        var tempUri = uri
-//        var selection: String? = null
-//        var selectionArgs: Array<String>? = null
-//
-//        val projection = arrayOf(
-//            MediaStore.Files.FileColumns.DATA,
-//            MediaStore.Files.FileColumns.TITLE,
-//            MediaStore.Files.FileColumns.MIME_TYPE
-//        )
-//        // Uri is different in versions after KITKAT (Android 4.4), we need to
-//        when {
-//            isExternalStorageDocument(tempUri) -> {
-//                val docId = DocumentsContract.getDocumentId(tempUri)
-//                val split = docId.split(":").toTypedArray()
-//                return Environment.getExternalStorageDirectory().toString() + "/" + split[1]
-//            }
-//            isDownloadsDocument(tempUri) -> {
-//                val id = DocumentsContract.getDocumentId(tempUri)
-//                tempUri = ContentUris.withAppendedId(
-//                    Uri.parse("content://downloads/public_downloads"),
-//                    java.lang.Long.valueOf(id)
-//                )
-//            }
-//            isMediaDocument(tempUri) -> {
-//                val docId = DocumentsContract.getDocumentId(tempUri)
-//                val split = docId.split(":").toTypedArray()
-//                when (split[0]) {
-//                    "image" -> {
-//                        tempUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-//                    }
-//                    "video" -> {
-//                        tempUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-//                    }
-//                    "audio" -> {
-//                        tempUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
-//                    }
-//                }
-//                selection = "_id=?"
-//                selectionArgs = arrayOf(
-//                    split[1]
-//                )
-//            }
-//        }
-//        if ("content".equals(tempUri.scheme, ignoreCase = true)) {
-//            if (isGooglePhotosUri(tempUri)) {
-//                return tempUri.lastPathSegment
-//            }
-//            var cursor: Cursor? = null
-//            try {
-//                cursor = context.contentResolver
-//                    .query(tempUri, projection, selection, selectionArgs, null)
-//                val columnIndex: Int = cursor!!.getColumnIndexOrThrow(MediaStore.Files.FileColumns.DATE_MODIFIED + " desc")
-//                if (cursor.moveToFirst()) {
-//                    return cursor.getString(columnIndex)
-//                }
-//            } catch (e: Exception) {
-//                e.printStackTrace()
-//            }
-//        } else if ("file".equals(tempUri.scheme, ignoreCase = true)) {
-//            return tempUri.path
-//        }
-//        return null
-//    }
-//
-//    private fun isExternalStorageDocument(uri: Uri): Boolean {
-//        return "com.android.externalstorage.documents" == uri.authority
-//    }
-//
-//    private fun isDownloadsDocument(uri: Uri): Boolean {
-//        return "com.android.providers.downloads.documents" == uri.authority
-//    }
-//
-//    private fun isMediaDocument(uri: Uri): Boolean {
-//        return "com.android.providers.media.documents" == uri.authority
-//    }
-//
-//    private fun isGooglePhotosUri(uri: Uri): Boolean {
-//        return "com.google.android.apps.photos.content" == uri.authority
-//    }
-
 
         private fun downloadTemplate(url: String) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

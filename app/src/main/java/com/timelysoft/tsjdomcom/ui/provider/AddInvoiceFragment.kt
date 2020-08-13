@@ -34,6 +34,7 @@ import com.timelysoft.tsjdomcom.service.Status
 import com.timelysoft.tsjdomcom.service.model.provider.FileModel
 import com.timelysoft.tsjdomcom.service.model.provider.ProviderInvoices
 import com.timelysoft.tsjdomcom.service.model.provider.ProviderInvoicesIdModel
+import com.timelysoft.tsjdomcom.ui.main.MainActivity
 import com.timelysoft.tsjdomcom.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_add_invoice.*
 import kotlinx.android.synthetic.main.item_add_invoice.*
@@ -124,6 +125,7 @@ class AddInvoiceFragment : Fragment(), AddInvoiceListener {
 
 
         if (position != -1) {
+            MainActivity.alert.show()
             viewModel.providerInvoicesId(supplierAccountsId)
                 .observe(viewLifecycleOwner, Observer { result ->
                     val msg = result.msg
@@ -149,6 +151,7 @@ class AddInvoiceFragment : Fragment(), AddInvoiceListener {
                             list = model.files as ArrayList<FileModel>
 
                             myAdapter.update(data.files as ArrayList<FileModel>)
+                            MainActivity.alert.hide()
                         }
                         Status.ERROR, Status.NETWORK -> {
                             Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
@@ -157,6 +160,7 @@ class AddInvoiceFragment : Fragment(), AddInvoiceListener {
                 })
 
             add_invoice_save.setOnClickListener {
+                MainActivity.alert.show()
                 files.clear()
                 myImage.forEach {
                     files.add(buildImageBodyPart(it.key, it.value))
@@ -175,6 +179,7 @@ class AddInvoiceFragment : Fragment(), AddInvoiceListener {
                         Status.SUCCESS -> {
                             Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
                             findNavController().popBackStack()
+                            MainActivity.alert.hide()
                         }
                         Status.ERROR, Status.NETWORK -> {
                             Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()

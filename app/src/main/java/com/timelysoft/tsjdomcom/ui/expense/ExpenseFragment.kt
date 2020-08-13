@@ -5,16 +5,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.timelysoft.tsjdomcom.R
-import com.timelysoft.tsjdomcom.adapters.expense.ComingsModel
 import com.timelysoft.tsjdomcom.adapters.expense.ExpenseAdapter
 import com.timelysoft.tsjdomcom.adapters.expense.ExpenseClickListener
+import com.timelysoft.tsjdomcom.service.Status
+import com.timelysoft.tsjdomcom.service.model.expense.SlipModel
+import com.timelysoft.tsjdomcom.ui.main.MainActivity
+import kotlinx.android.synthetic.main.fragment_comings.*
 import kotlinx.android.synthetic.main.fragment_expense.*
 
-class ExpenseFragment : Fragment(), ExpenseClickListener {
+class ExpenseFragment(var positionType: Int) : Fragment(), ExpenseClickListener {
+    private var viewModel = ExpenseViewModel()
     private var myAdapter = ExpenseAdapter(this)
-    private val list: ArrayList<ComingsModel> = arrayListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,18 +35,24 @@ class ExpenseFragment : Fragment(), ExpenseClickListener {
     }
 
     private fun initRecycler() {
-        list.add(ComingsModel("Puma"))
-        list.add(ComingsModel("Panda"))
-        list.add(ComingsModel("add"))
-        list.add(ComingsModel("da da"))
-
-        myAdapter.update(list)
+        MainActivity.alert.show()
         expense_recycler.adapter = myAdapter
+        viewModel.expenseExpensesReceipts(positionType).observe(viewLifecycleOwner, Observer { result->
+            val msg = result.msg
+            val data = result.data
+            when(result.status){
+                Status.SUCCESS ->{
+                    myAdapter.update(data!!.slips as ArrayList<SlipModel>)
+                    MainActivity.alert.hide()
+                }
+                Status.ERROR, Status.NETWORK ->{
+                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                }
+            }
+        })
     }
 
-    override fun expenseClickListener(item: ComingsModel) {
-        val bundle = Bundle()
-        bundle.putSerializable("comings", list)
-        findNavController().navigate(R.id.navigation_change, bundle)
+    override fun expenseClickListener(item: SlipModel) {
+        findNavController().navigate(R.id.navigation_change)
     }
 }

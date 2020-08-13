@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.timelysoft.tsjdomcom.R
-import com.timelysoft.tsjdomcom.adapters.expense.ComingsModel
+import com.timelysoft.tsjdomcom.service.model.expense.SlipModel
 import com.timelysoft.tsjdomcom.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_change.*
 import java.util.*
@@ -19,8 +19,9 @@ import kotlin.collections.ArrayList
 
 class ChangeFragment : Fragment() {
     private var mLastClickTime: Long = 0
+    private var number: Int = 0
 
-    private var list: ArrayList<ComingsModel> = arrayListOf()
+    private var list: ArrayList<SlipModel> = arrayListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,11 +41,11 @@ class ChangeFragment : Fragment() {
     }
 
     private fun initArgument() {
-        list = try {
-            arguments!!.getSerializable("comings")
-        } catch (e: java.lang.Exception) {
-            ""
-        } as ArrayList<ComingsModel>
+        number = try {
+            arguments!!.getInt("number")
+        }catch (e: Exception){
+            0
+        }
     }
 
     private fun getAddType() {

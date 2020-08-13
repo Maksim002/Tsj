@@ -1,5 +1,7 @@
 package com.timelysoft.tsjdomcom.adapters.expense
 
+import com.timelysoft.tsjdomcom.service.model.expense.SlipModel
+
 interface ExpenseClickListener {
-    fun expenseClickListener(item : ComingsModel)
+    fun expenseClickListener(item : SlipModel)
 }

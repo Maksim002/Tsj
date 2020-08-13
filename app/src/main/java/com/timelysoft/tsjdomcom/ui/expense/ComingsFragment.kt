@@ -5,17 +5,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.adapters.expense.ComingsAdapter
 import com.timelysoft.tsjdomcom.adapters.expense.ComingsClickListener
-import com.timelysoft.tsjdomcom.adapters.expense.ComingsModel
+import com.timelysoft.tsjdomcom.service.Status
+import com.timelysoft.tsjdomcom.service.model.expense.SlipModel
+import com.timelysoft.tsjdomcom.ui.main.MainActivity
 import kotlinx.android.synthetic.main.fragment_comings.*
 
-class ComingsFragment : Fragment(), ComingsClickListener {
-
+class ComingsFragment(var positionType: Int) : Fragment(), ComingsClickListener {
+    private var viewModel = ExpenseViewModel()
     private var myAdapter = ComingsAdapter(this)
-    private val list: ArrayList<ComingsModel> = arrayListOf()
+    private var number: Int = 1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,21 +31,34 @@ class ComingsFragment : Fragment(), ComingsClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecycler()
+        initArgument()
+    }
+
+    private fun initArgument() {
+
     }
 
     private fun initRecycler() {
-        list.add(ComingsModel("Да"))
-        list.add(ComingsModel("нет"))
-        list.add(ComingsModel("оно"))
-        list.add(ComingsModel("они"))
-
-        myAdapter.update(list)
+        MainActivity.alert.show()
         comings_recycler.adapter = myAdapter
+        viewModel.expenseExpensesReceipts(positionType).observe(viewLifecycleOwner, Observer { result->
+            val msg = result.msg
+            val data = result.data
+            when(result.status){
+                Status.SUCCESS ->{
+                    myAdapter.update(data!!.slips as ArrayList<SlipModel>)
+                    MainActivity.alert.hide()
+                }
+                Status.ERROR, Status.NETWORK ->{
+                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                }
+            }
+        })
     }
 
-    override fun comingsOnClickListener(item: ComingsModel) {
+    override fun comingsOnClickListener(item: SlipModel) {
         val bundle = Bundle()
-        bundle.putSerializable("comings", list)
-        findNavController().navigate(R.id.navigation_change, bundle)
+        bundle.putInt("number", number)
+        findNavController().navigate(R.id.navigation_change)
     }
 }

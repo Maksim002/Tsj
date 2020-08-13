@@ -1,6 +1,7 @@
 package com.timelysoft.tsjdomcom.adapters.expense
 
 
+import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
@@ -9,15 +10,15 @@ import com.timelysoft.tsjdomcom.ui.expense.ComingsFragment
 import com.timelysoft.tsjdomcom.ui.expense.ExpenseFragment
 import java.util.ArrayList
 
-class ExpensesReceiptPager(fm: FragmentManager): FragmentStatePagerAdapter(fm) {
+class ExpensesReceiptPager(var positionType: Int, fm: FragmentManager): FragmentStatePagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment {
         return when (position){
             0->{
-                ComingsFragment()
+                ComingsFragment(positionType)
             }
             else ->{
-                return ExpenseFragment()
+                return ExpenseFragment(positionType)
             }
         }
     }

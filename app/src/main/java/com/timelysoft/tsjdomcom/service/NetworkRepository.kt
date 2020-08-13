@@ -1661,4 +1661,44 @@ class NetworkRepository {
             emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
         }
     }
+
+    fun expenseListType() = liveData(Dispatchers.IO) {
+        try {
+            val response = RetrofitService.apiService().expenseListType()
+            when {
+                response.isSuccessful -> {
+                    if (response.body() != null) {
+                        emit(ResultStatus.success(response.body()))
+                    } else {
+                        emit(ResultStatus.error("Ошибка при получении типов"))
+                    }
+                }
+                else -> {
+                    emit(ResultStatus.error("Не известная ошибка"))
+                }
+            }
+        } catch (e: Exception) {
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+        }
+    }
+
+    fun expenseExpensesReceipts(id: Int) = liveData(Dispatchers.IO) {
+        try {
+            val response = RetrofitService.apiService().expenseExpensesReceipts(id)
+            when {
+                response.isSuccessful -> {
+                    if (response.body() != null) {
+                        emit(ResultStatus.success(response.body()))
+                    } else {
+                        emit(ResultStatus.error("Ошибка при получении типов"))
+                    }
+                }
+                else -> {
+                    emit(ResultStatus.error("Не известная ошибка"))
+                }
+            }
+        } catch (e: Exception) {
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+        }
+    }
 }

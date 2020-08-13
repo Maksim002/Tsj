@@ -10,6 +10,7 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
+        android:id="@+id/comings_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp"
@@ -96,7 +97,7 @@
                 android:id="@+id/comings_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.3"
+                android:layout_weight="0.4"
                 android:gravity="right"
                 android:text="Беляева Светлана Владимировна"
                 android:textColor="#000" />
@@ -118,7 +119,7 @@
                 android:id="@+id/comings_debate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.3"
+                android:layout_weight="0.4"
                 android:gravity="right"
                 android:text="Расходы на обслуживание"
                 android:textColor="#000" />

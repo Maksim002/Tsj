@@ -17,6 +17,8 @@ import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.adapters.expense.ExpensesReceiptPager
 import com.timelysoft.tsjdomcom.adapters.news.NewsAdapter
 import com.timelysoft.tsjdomcom.service.Status
+import com.timelysoft.tsjdomcom.service.model.expense.ExpenseListTSJModel
+import com.timelysoft.tsjdomcom.service.model.expense.ExpenseListTypeModel
 import com.timelysoft.tsjdomcom.service.model.news.NewsModel
 import com.timelysoft.tsjdomcom.ui.main.MainActivity
 import kotlinx.android.synthetic.main.fragment_expense_receipts.*
@@ -24,6 +26,10 @@ import kotlinx.android.synthetic.main.fragment_expense_receipts.*
 
 class ExpenseReceiptFragment : Fragment() {
     private var viewModel = ExpenseViewModel()
+    private var myValid: Int = 0
+    private var positionType: Int = 0
+    private var list: ArrayList<ExpenseListTypeModel> = arrayListOf()
+    val bundle = Bundle()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,32 +42,63 @@ class ExpenseReceiptFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).supportActionBar?.show()
-        initPager()
         getAddAddress()
         initArgument()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        initVisibility()
+    }
+
+    private fun initVisibility() {
+        if (myValid == 0){
+            expense_layout_recycler.visibility = View.GONE
+        }else{
+            expense_layout_recycler.visibility = View.VISIBLE
+            initPager()
+        }
     }
 
     private fun initArgument() {
         expanse_receipts_add_entry.setOnClickListener {
             findNavController().navigate(R.id.navigation_add_entry)
         }
+
+        viewModel.expenseListType().observe(viewLifecycleOwner, Observer { result->
+            val msg = result.msg
+            val data = result.data
+            when(result.status){
+                Status.SUCCESS ->{
+                    list = data!!
+                    MainActivity.alert.hide()
+                }
+                Status.ERROR, Status.NETWORK ->{
+                    Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                }
+            }
+        })
     }
 
     private fun initPager() {
-        val fragmentAdapter = ExpensesReceiptPager(childFragmentManager)
+        val fragmentAdapter = ExpensesReceiptPager(positionType, childFragmentManager)
         expenses_receipts_pager.adapter = fragmentAdapter
         expenses_receipts_tab.setupWithViewPager(expenses_receipts_pager)
     }
 
     private fun getAddAddress() {
+        MainActivity.alert.show()
+        var list: ArrayList<ExpenseListTSJModel> = arrayListOf()
         viewModel.expenseListTSJ().observe(viewLifecycleOwner, Observer { result->
             val msg = result.msg
             val data = result.data
-            MainActivity.alert.hide()
             when(result.status){
                 Status.SUCCESS ->{
                     val adapterAddAddress = ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, data!!)
                     expense_receipts_address_out.setAdapter(adapterAddAddress)
+                    positionType = data.size
+                    list = data
+                    MainActivity.alert.hide()
                 }
                 Status.ERROR, Status.NETWORK ->{
                     Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
@@ -76,6 +113,8 @@ class ExpenseReceiptFragment : Fragment() {
                 expense_receipts_address_out.showDropDown()
                 parent.getItemAtPosition(position).toString()
                 expense_receipts_address_out.clearFocus()
+                myValid = list[position].id!!
+                initVisibility()
             }
         expense_receipts_address_out.setOnClickListener {
             expense_receipts_address_out.showDropDown()
