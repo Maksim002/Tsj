@@ -37,6 +37,7 @@ class ExpenseFragment(var positionType: Int) : Fragment(), ExpenseClickListener 
     private fun initRecycler() {
         MainActivity.alert.show()
         expense_recycler.adapter = myAdapter
+        myAdapter.notifyDataSetChanged()
         viewModel.expenseExpensesReceipts(positionType).observe(viewLifecycleOwner, Observer { result->
             val msg = result.msg
             val data = result.data
@@ -51,8 +52,9 @@ class ExpenseFragment(var positionType: Int) : Fragment(), ExpenseClickListener 
             }
         })
     }
-
     override fun expenseClickListener(item: SlipModel) {
-        findNavController().navigate(R.id.navigation_change)
+        val bundle = Bundle()
+        bundle.putInt("comingsId", item.id!!)
+        findNavController().navigate(R.id.navigation_change, bundle)
     }
 }

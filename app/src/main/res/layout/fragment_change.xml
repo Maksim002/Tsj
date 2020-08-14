@@ -13,16 +13,16 @@
         android:text="Данные документа"/>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/change_type"
+        android:id="@+id/change_provider"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="3dp"
         android:focusableInTouchMode="true"
-        android:hint="Тип">
+        android:hint="Поставщик">
 
         <AutoCompleteTextView
-            android:id="@+id/change_type_out"
+            android:id="@+id/change_provider_out"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="15dp"
@@ -34,6 +34,7 @@
     <include layout="@layout/item_divider_model" />
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/change_sum"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -42,6 +43,7 @@
         android:hint="Сумма">
 
         <AutoCompleteTextView
+            android:id="@+id/change_sum_out"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
@@ -73,24 +75,6 @@
     <include layout="@layout/item_divider_model" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="3dp"
-        android:focusableInTouchMode="true"
-        android:hint="Поставщик">
-
-        <AutoCompleteTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:textSize="15sp" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <include layout="@layout/item_divider_model" />
-
-    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/change_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -101,6 +85,26 @@
 
         <AutoCompleteTextView
             android:id="@+id/change_description_out"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:textSize="15sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <include layout="@layout/item_divider_model" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/change_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="3dp"
+        android:focusableInTouchMode="true"
+        android:hint="Тип">
+
+        <AutoCompleteTextView
+            android:id="@+id/change_type_out"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="15dp"

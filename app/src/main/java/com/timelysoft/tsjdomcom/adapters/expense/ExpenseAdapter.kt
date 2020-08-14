@@ -8,6 +8,7 @@ import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.common.GenericRecyclerAdapter
 import com.timelysoft.tsjdomcom.common.ViewHolder
 import com.timelysoft.tsjdomcom.service.model.expense.SlipModel
+import com.timelysoft.tsjdomcom.utils.MyUtils
 import kotlinx.android.synthetic.main.item_comings.view.*
 import kotlinx.android.synthetic.main.item_expense.view.*
 
@@ -24,7 +25,7 @@ class ExpenseAdapter (var listener: ExpenseClickListener, item: ArrayList<SlipMo
         holder.itemView.expense_provider.text = item.managerName
         holder.itemView.expense_coming.text = item.typeName
         holder.itemView.expense_sum.text = item.amount.toString()
-        holder.itemView.expense_data.text = item.onDate
+        holder.itemView.expense_data.text = MyUtils.toMyDate(item.onDate!!)
         holder.itemView.expense_description.text = item.description
 
         holder.itemView.expense_change.setOnClickListener {

@@ -11,6 +11,7 @@ import com.timelysoft.tsjdomcom.common.ViewHolder
 import com.timelysoft.tsjdomcom.service.model.expense.SlipModel
 import com.timelysoft.tsjdomcom.ui.expense.ComingsFragment
 import com.timelysoft.tsjdomcom.ui.main.MainActivity
+import com.timelysoft.tsjdomcom.utils.MyUtils
 import kotlinx.android.synthetic.main.item_comings.view.*
 
 class ComingsAdapter (var listener: ComingsClickListener,item: ArrayList<SlipModel> = arrayListOf()): GenericRecyclerAdapter<SlipModel>(item){
@@ -26,7 +27,7 @@ class ComingsAdapter (var listener: ComingsClickListener,item: ArrayList<SlipMod
         holder.itemView.comings_name.text = item.managerName
         holder.itemView.comings_coming.text = item.typeName
         holder.itemView.comings_sum.text = item.amount.toString()
-        holder.itemView.comings_date.text = item.onDate
+        holder.itemView.comings_date.text = MyUtils.toMyDate(item.onDate!!)
         holder.itemView.comings_debate.text = item.description
 
         holder.itemView.comings_change.setOnClickListener {

@@ -4,9 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.timelysoft.tsjdomcom.service.NetworkRepository
 import com.timelysoft.tsjdomcom.service.ResultStatus
-import com.timelysoft.tsjdomcom.service.model.expense.ExpenseExpensesReceiptsModel
-import com.timelysoft.tsjdomcom.service.model.expense.ExpenseListTSJModel
-import com.timelysoft.tsjdomcom.service.model.expense.ExpenseListTypeModel
+import com.timelysoft.tsjdomcom.service.model.expense.*
 
 class ExpenseViewModel : ViewModel(){
     private val repository = NetworkRepository()
@@ -21,5 +19,21 @@ class ExpenseViewModel : ViewModel(){
 
     fun expenseExpensesReceipts(id: Int): LiveData<ResultStatus<ExpenseExpensesReceiptsModel>> {
         return repository.expenseExpensesReceipts(id)
+    }
+
+    fun comingDocument(id: Int): LiveData<ResultStatus<ComingDocumentModel>> {
+        return repository.comingDocument(id)
+    }
+
+    fun changeListType(): LiveData<ResultStatus<ArrayList<ChangeListType>>> {
+        return repository.changeListType()
+    }
+
+    fun changeListManagers(): LiveData<ResultStatus<ArrayList<ChangeListManagers>>> {
+        return repository.changeListManagers()
+    }
+
+    fun userChangeEdit(body: ChangeEditModel): LiveData<ResultStatus<Nothing>> {
+        return repository.userChangeEdit(body)
     }
 }

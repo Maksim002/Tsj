@@ -12,6 +12,7 @@ abstract class GenericRecyclerAdapter<T>(var items: ArrayList<T>) : RecyclerView
     fun update(items: ArrayList<T>) {
         this.items = items
         notifyItemRangeChanged(items.size ,items.size)
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int = items.count()

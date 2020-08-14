@@ -4,6 +4,7 @@ package com.timelysoft.tsjdomcom.service
 import androidx.lifecycle.liveData
 import com.timelysoft.tsjdomcom.service.model.ChangePasswordModel
 import com.timelysoft.tsjdomcom.service.model.RequestForConnectModel
+import com.timelysoft.tsjdomcom.service.model.expense.ChangeEditModel
 import com.timelysoft.tsjdomcom.service.model.provider.FileModel
 import com.timelysoft.tsjdomcom.service.model.request.UserRequestEdit
 import com.timelysoft.tsjdomcom.service.model.service.CreateServiceModel
@@ -1692,6 +1693,83 @@ class NetworkRepository {
                     } else {
                         emit(ResultStatus.error("Ошибка при получении типов"))
                     }
+                }
+                else -> {
+                    emit(ResultStatus.error("Не известная ошибка"))
+                }
+            }
+        } catch (e: Exception) {
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+        }
+    }
+
+    fun comingDocument(id: Int) = liveData(Dispatchers.IO) {
+        try {
+            val response = RetrofitService.apiService().comingDocument(id)
+            when {
+                response.isSuccessful -> {
+                    if (response.body() != null) {
+                        emit(ResultStatus.success(response.body()))
+                    } else {
+                        emit(ResultStatus.error("Ошибка при получении типов"))
+                    }
+                }
+                else -> {
+                    emit(ResultStatus.error("Не известная ошибка"))
+                }
+            }
+        } catch (e: Exception) {
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+        }
+    }
+
+    fun changeListType() = liveData(Dispatchers.IO) {
+        try {
+            val response = RetrofitService.apiService().changeListType()
+            when {
+                response.isSuccessful -> {
+                    if (response.body() != null) {
+                        emit(ResultStatus.success(response.body()))
+                    } else {
+                        emit(ResultStatus.error("Ошибка при получении типов"))
+                    }
+                }
+                else -> {
+                    emit(ResultStatus.error("Не известная ошибка"))
+                }
+            }
+        } catch (e: Exception) {
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+        }
+    }
+
+    fun changeListManagers() = liveData(Dispatchers.IO) {
+        try {
+            val response = RetrofitService.apiService().changeListManagers()
+            when {
+                response.isSuccessful -> {
+                    if (response.body() != null) {
+                        emit(ResultStatus.success(response.body()))
+                    } else {
+                        emit(ResultStatus.error("Ошибка при получении типов"))
+                    }
+                }
+                else -> {
+                    emit(ResultStatus.error("Не известная ошибка"))
+                }
+            }
+        } catch (e: Exception) {
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+        }
+    }
+
+    fun userChangeEdit(body: ChangeEditModel) = liveData(Dispatchers.IO) {
+        try {
+            val response =
+                RetrofitService.apiService().userChangeEdit(body)
+            when {
+                response.isSuccessful -> {
+                    emit(ResultStatus.success(null, "Ваши данные обновлены"))
                 }
                 else -> {
                     emit(ResultStatus.error("Не известная ошибка"))

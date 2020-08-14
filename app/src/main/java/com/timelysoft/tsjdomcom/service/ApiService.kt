@@ -4,9 +4,7 @@ import com.timelysoft.tsjdomcom.service.model.MessageItemModel
 import com.timelysoft.tsjdomcom.service.model.VoteModel
 import com.timelysoft.tsjdomcom.service.model.*
 import com.timelysoft.tsjdomcom.service.model.counter.DebtsModel
-import com.timelysoft.tsjdomcom.service.model.expense.ExpenseExpensesReceiptsModel
-import com.timelysoft.tsjdomcom.service.model.expense.ExpenseListTSJModel
-import com.timelysoft.tsjdomcom.service.model.expense.ExpenseListTypeModel
+import com.timelysoft.tsjdomcom.service.model.expense.*
 import com.timelysoft.tsjdomcom.service.model.news.NewsCommentsModel
 import com.timelysoft.tsjdomcom.service.model.news.NewsDetailModel
 import com.timelysoft.tsjdomcom.service.model.news.NewsModel
@@ -380,5 +378,17 @@ interface ApiService {
 
     @GET("CreditAndDebitSlips")
     suspend fun expenseExpensesReceipts(@Query("id") id: Int): Response<ExpenseExpensesReceiptsModel>
+
+    @GET("CreditAndDebitSlips/{id}")
+    suspend fun comingDocument(@Path("id") id: Int): Response<ComingDocumentModel>
+
+    @GET("CreditAndDebitSlips/Types")
+    suspend fun changeListType(): Response<ArrayList<ChangeListType>>
+
+    @GET("CreditAndDebitSlips/Managers")
+    suspend fun changeListManagers(): Response<ArrayList<ChangeListManagers>>
+
+    @PUT("CreditAndDebitSlips")
+    suspend fun userChangeEdit(@Body body: ChangeEditModel): Response<Unit>
 }
 

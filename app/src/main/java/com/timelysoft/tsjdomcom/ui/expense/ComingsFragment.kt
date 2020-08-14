@@ -19,7 +19,6 @@ import kotlinx.android.synthetic.main.fragment_comings.*
 class ComingsFragment(var positionType: Int) : Fragment(), ComingsClickListener {
     private var viewModel = ExpenseViewModel()
     private var myAdapter = ComingsAdapter(this)
-    private var number: Int = 1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,11 +30,6 @@ class ComingsFragment(var positionType: Int) : Fragment(), ComingsClickListener 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecycler()
-        initArgument()
-    }
-
-    private fun initArgument() {
-
     }
 
     private fun initRecycler() {
@@ -47,6 +41,7 @@ class ComingsFragment(var positionType: Int) : Fragment(), ComingsClickListener 
             when(result.status){
                 Status.SUCCESS ->{
                     myAdapter.update(data!!.slips as ArrayList<SlipModel>)
+                    myAdapter.notifyDataSetChanged()
                     MainActivity.alert.hide()
                 }
                 Status.ERROR, Status.NETWORK ->{
@@ -58,7 +53,7 @@ class ComingsFragment(var positionType: Int) : Fragment(), ComingsClickListener 
 
     override fun comingsOnClickListener(item: SlipModel) {
         val bundle = Bundle()
-        bundle.putInt("number", number)
-        findNavController().navigate(R.id.navigation_change)
+        bundle.putInt("comingsId", item.id!!)
+        findNavController().navigate(R.id.navigation_change, bundle)
     }
 }
