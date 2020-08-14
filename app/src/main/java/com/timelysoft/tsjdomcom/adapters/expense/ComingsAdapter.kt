@@ -21,9 +21,6 @@ class ComingsAdapter (var listener: ComingsClickListener,item: ArrayList<SlipMod
     }
 
     override fun bind(item: SlipModel, holder: ViewHolder) {
-        if (item.amountType != 2){
-            holder.itemView.comings_layout.visibility = View.GONE
-        }
         holder.itemView.comings_name.text = item.managerName
         holder.itemView.comings_coming.text = item.typeName
         holder.itemView.comings_sum.text = item.amount.toString()

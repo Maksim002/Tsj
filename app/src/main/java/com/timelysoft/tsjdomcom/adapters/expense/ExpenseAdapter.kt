@@ -19,9 +19,6 @@ class ExpenseAdapter (var listener: ExpenseClickListener, item: ArrayList<SlipMo
     }
 
     override fun bind(item: SlipModel, holder: ViewHolder) {
-        if (item.amountType != 1){
-            holder.itemView.expense_layout.visibility = View.GONE
-        }
         holder.itemView.expense_provider.text = item.managerName
         holder.itemView.expense_coming.text = item.typeName
         holder.itemView.expense_sum.text = item.amount.toString()

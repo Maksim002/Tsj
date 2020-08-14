@@ -26,7 +26,6 @@ import kotlinx.android.synthetic.main.fragment_expense_receipts.*
 
 class ExpenseReceiptFragment : Fragment() {
     private var viewModel = ExpenseViewModel()
-    private var myValid: Int = 0
     private var positionType: Int = 0
     private var list: ArrayList<ExpenseListTypeModel> = arrayListOf()
     val bundle = Bundle()
@@ -48,17 +47,12 @@ class ExpenseReceiptFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        initVisibility()
+        if (positionType != 0){
+            expense_layout_recycler.visibility = View.VISIBLE
+        }
+        initPager()
     }
 
-    private fun initVisibility() {
-        if (myValid == 0){
-            expense_layout_recycler.visibility = View.GONE
-        }else{
-            expense_layout_recycler.visibility = View.VISIBLE
-            initPager()
-        }
-    }
 
     private fun initArgument() {
         expanse_receipts_add_entry.setOnClickListener {
@@ -96,7 +90,6 @@ class ExpenseReceiptFragment : Fragment() {
                 Status.SUCCESS ->{
                     val adapterAddAddress = ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, data!!)
                     expense_receipts_address_out.setAdapter(adapterAddAddress)
-                    positionType = data.size
                     list = data
                     MainActivity.alert.hide()
                 }
@@ -113,8 +106,9 @@ class ExpenseReceiptFragment : Fragment() {
                 expense_receipts_address_out.showDropDown()
                 parent.getItemAtPosition(position).toString()
                 expense_receipts_address_out.clearFocus()
-                myValid = list[position].id!!
-                initVisibility()
+                positionType = list[position].id!!
+                expense_layout_recycler.visibility = View.VISIBLE
+                initPager()
             }
         expense_receipts_address_out.setOnClickListener {
             expense_receipts_address_out.showDropDown()

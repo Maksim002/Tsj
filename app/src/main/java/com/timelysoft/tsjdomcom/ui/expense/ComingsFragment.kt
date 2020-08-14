@@ -29,6 +29,10 @@ class ComingsFragment(var positionType: Int) : Fragment(), ComingsClickListener 
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    override fun onStart() {
+        super.onStart()
         initRecycler()
     }
 
@@ -40,7 +44,9 @@ class ComingsFragment(var positionType: Int) : Fragment(), ComingsClickListener 
             val data = result.data
             when(result.status){
                 Status.SUCCESS ->{
-                    myAdapter.update(data!!.slips as ArrayList<SlipModel>)
+                    myAdapter.update(data!!.slips!!.filter {
+                        it.amountType == 2
+                    } as ArrayList<SlipModel>)
                     myAdapter.notifyDataSetChanged()
                     MainActivity.alert.hide()
                 }

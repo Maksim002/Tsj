@@ -31,6 +31,10 @@ class ExpenseFragment(var positionType: Int) : Fragment(), ExpenseClickListener 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    override fun onStart() {
+        super.onStart()
         initRecycler()
     }
 
@@ -43,7 +47,9 @@ class ExpenseFragment(var positionType: Int) : Fragment(), ExpenseClickListener 
             val data = result.data
             when(result.status){
                 Status.SUCCESS ->{
-                    myAdapter.update(data!!.slips as ArrayList<SlipModel>)
+                    myAdapter.update(data!!.slips!!.filter {
+                        it.amountType == 1
+                    } as ArrayList<SlipModel>)
                     MainActivity.alert.hide()
                 }
                 Status.ERROR, Status.NETWORK ->{
