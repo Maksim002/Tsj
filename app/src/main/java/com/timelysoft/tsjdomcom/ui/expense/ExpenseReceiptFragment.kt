@@ -49,6 +49,7 @@ class ExpenseReceiptFragment : Fragment() {
             expense_layout_recycler.visibility = View.VISIBLE
         }
         initPager()
+
     }
 
     private fun initArgument() {
@@ -97,6 +98,7 @@ class ExpenseReceiptFragment : Fragment() {
         })
 
         expense_receipts_address_out.keyListener = null
+        expense_receipts_address.defaultHintTextColor =
         ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
         expense_receipts_address_out.onItemClickListener =
             AdapterView.OnItemClickListener { parent, _, position, _ ->

@@ -62,6 +62,8 @@ class ExpenseFragment(var positionType: Int) : Fragment(), ExpenseClickListener 
     override fun expenseClickListener(item: SlipModel) {
         val bundle = Bundle()
         bundle.putInt("comingsId", item.id!!)
+        bundle.putString("managerName", item.managerName)
+        bundle.putString("typeName", item.typeName)
         findNavController().navigate(R.id.navigation_change, bundle)
     }
 
