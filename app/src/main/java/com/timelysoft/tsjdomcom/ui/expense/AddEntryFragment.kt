@@ -10,15 +10,28 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.findNavController
 import com.timelysoft.tsjdomcom.R
+import com.timelysoft.tsjdomcom.service.Status
+import com.timelysoft.tsjdomcom.service.model.expense.ChangeListManagers
+import com.timelysoft.tsjdomcom.service.model.expense.ChangeListType
+import com.timelysoft.tsjdomcom.service.model.expense.EntryAddModel
+import com.timelysoft.tsjdomcom.ui.main.MainActivity
 import com.timelysoft.tsjdomcom.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_add_entry.*
+import kotlinx.android.synthetic.main.fragment_change.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 class AddEntryFragment : Fragment() {
-
+    private var viewModel = ExpenseViewModel()
     private var mLastClickTime: Long = 0
+    private var typeId: Int = 0
+    private var providerId: Int = 0
+    private lateinit var model: EntryAddModel
+    private var data: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,13 +47,47 @@ class AddEntryFragment : Fragment() {
         getAddType()
         getAutoDatesFrom()
         getAddDescription()
+        iniRequest()
+    }
+
+    private fun iniRequest() {
+        expanse_receipts_add_entry.setOnClickListener {
+            MainActivity.alert.show()
+            val amount  = add_entry_sum.text.toString()
+            model = EntryAddModel(providerId, amount.toInt(), typeId, data, add_entry_description.text.toString())
+            viewModel.entryAdd(model).observe(viewLifecycleOwner, androidx.lifecycle.Observer { result->
+                val msg = result.msg
+                when (result.status) {
+                    Status.SUCCESS -> {
+                        findNavController().popBackStack()
+                        Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                    }
+                    Status.ERROR, Status.NETWORK -> {
+                        Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                    }
+                }
+                MainActivity.alert.hide()
+            })
+        }
+
     }
 
     private fun getAddType() {
-        val list = arrayOf("зайчик", "вышел", "погулять","вода")
-
-        val adapterAddType = ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, list)
-        add_entry_type_out.setAdapter(adapterAddType)
+        var list: ArrayList<ChangeListType> = arrayListOf()
+        viewModel.changeListType().observe(viewLifecycleOwner, androidx.lifecycle.Observer { result ->
+                val msg = result.msg
+                val data = result.data
+                when (result.status) {
+                    Status.SUCCESS -> {
+                        val adapterAddType = ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, data!!)
+                        add_entry_type_out.setAdapter(adapterAddType)
+                        list = data
+                    }
+                    Status.ERROR, Status.NETWORK -> {
+                        Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                    }
+                }
+            })
 
         add_entry_type_out.keyListener = null
         ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
@@ -49,6 +96,7 @@ class AddEntryFragment : Fragment() {
                 add_entry_type_out.showDropDown()
                 parent.getItemAtPosition(position).toString()
                 add_entry_type_out.clearFocus()
+                typeId = list[position].id!!
             }
         add_entry_type_out.setOnClickListener {
             add_entry_type_out.showDropDown()
@@ -70,36 +118,48 @@ class AddEntryFragment : Fragment() {
     }
 
     private fun getAddDescription() {
-        val list = arrayOf("зайчик", "вышел", "погулять","вода")
-
-        val adapterAddDescription = ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, list)
-        add_entry_type_description_out.setAdapter(adapterAddDescription)
-
-        add_entry_type_description_out.keyListener = null
+        var list: ArrayList<ChangeListManagers> = arrayListOf()
+        viewModel.changeListManagers()
+            .observe(viewLifecycleOwner, androidx.lifecycle.Observer { result ->
+                val msg = result.msg
+                val data = result.data
+                when (result.status) {
+                    Status.SUCCESS -> {
+                        val adapterChangeProvider = ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, data!!)
+                        add_entry_type_provider_out.setAdapter(adapterChangeProvider)
+                        list = data
+                    }
+                    Status.ERROR, Status.NETWORK -> {
+                        Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                    }
+                }
+            })
+        add_entry_type_provider_out.keyListener = null
         ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-        add_entry_type_description_out.onItemClickListener =
+        add_entry_type_provider_out.onItemClickListener =
             AdapterView.OnItemClickListener { parent, _, position, _ ->
-                add_entry_type_description_out.showDropDown()
+                add_entry_type_provider_out.showDropDown()
                 parent.getItemAtPosition(position).toString()
-                add_entry_type_description_out.clearFocus()
+                add_entry_type_provider_out.clearFocus()
+                providerId = list[position].id!!
             }
-        add_entry_type_description_out.setOnClickListener {
-            add_entry_type_description_out.showDropDown()
+        add_entry_type_provider_out.setOnClickListener {
+            add_entry_type_provider_out.showDropDown()
         }
-        add_entry_type_description_out.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
+        add_entry_type_provider_out.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
             try {
                 if (hasFocus) {
-                    add_entry_type_description_out.showDropDown()
+                    add_entry_type_provider_out.showDropDown()
                 }
-                if (!hasFocus && add_entry_type_description_out.text!!.isNotEmpty()) {
-                    add_entry_type_description.defaultHintTextColor =
+                if (!hasFocus && add_entry_type_provider_out.text!!.isNotEmpty()) {
+                    add_entry_type_provider.defaultHintTextColor =
                         ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                    add_entry_type_description.isErrorEnabled = false
+                    add_entry_type_provider.isErrorEnabled = false
                 }
             } catch (e: Exception) {
             }
         }
-        add_entry_type_description_out.clearFocus()
+        add_entry_type_provider_out.clearFocus()
     }
 
     private fun getAutoDatesFrom() {
@@ -116,10 +176,9 @@ class AddEntryFragment : Fragment() {
                 mLastClickTime = SystemClock.elapsedRealtime();
                 add_entry_date.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                val picker =
-                    DatePickerDialog(activity!!,
-                        R.style.DatePicker, { _, year1, monthOfYear, dayOfMonth ->
+                val picker = DatePickerDialog(activity!!, R.style.DatePicker, { _, year1, monthOfYear, dayOfMonth ->
                             add_entry_date_out.setText(MyUtils.convertDate(dayOfMonth, monthOfYear + 1, year1))
+                    data = (MyUtils.convertDateServer(year1, monthOfYear + 1, dayOfMonth))
                         }, year, month, day)
                 picker.show()
                 add_entry_date_out.clearFocus()

@@ -32,15 +32,7 @@ class ComingsAdapter (var listener: ComingsClickListener,item: ArrayList<SlipMod
         }
 
         holder.itemView.comings_delete.setOnClickListener {
-            val builder = AlertDialog.Builder(it.context)
-            builder.setMessage("Действительно ли вы\n" + "желаете удалить элемент?")
-
-            builder.setPositiveButton("Да") { dialog, which ->
-            }
-
-            builder.setNegativeButton("Нет") { dialog, which ->
-            }
-            builder.show()
+            listener.comingsOnClickListener(item, holder.adapterPosition)
         }
     }
 }

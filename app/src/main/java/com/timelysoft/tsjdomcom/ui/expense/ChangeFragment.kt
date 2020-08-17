@@ -31,8 +31,8 @@ class ChangeFragment : Fragment() {
     private var model = ChangeEditModel()
     private var amountType: Int = 0
     private var managerId: Int = 0
-
-    private var list: ArrayList<SlipModel> = arrayListOf()
+    private var managerName: String = ""
+    private var typeName: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,6 +58,10 @@ class ChangeFragment : Fragment() {
             ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
         change_description.defaultHintTextColor =
             ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+        change_provider.defaultHintTextColor =
+            ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+        change_type.defaultHintTextColor =
+            ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
     }
 
     private fun initArgument() {
@@ -65,6 +69,18 @@ class ChangeFragment : Fragment() {
             arguments!!.getInt("comingsId")
         } catch (e: Exception) {
             0
+        }
+
+        typeName = try {
+            arguments!!.getString("typeName").toString()
+        }catch (e: Exception){
+            ""
+        }
+
+        managerName = try {
+            arguments!!.getString("managerName").toString()
+        }catch (e: Exception){
+           ""
         }
 
         MainActivity.alert.show()
@@ -77,17 +93,19 @@ class ChangeFragment : Fragment() {
                         change_sum_out.setText(data!!.amount.toString())
                         change_date_out.setText(MyUtils.toMyDate(data.onDate))
                         change_description_out.setText(data.description)
+                        change_provider_out.setText(managerName)
+                        change_type_out.setText(typeName)
 
                         model.amount = data.amount
                         model.onDate = data.onDate
                         model.description = data.description
                         model.id = data.id
-                        MainActivity.alert.hide()
                     }
                     Status.ERROR, Status.NETWORK -> {
                         Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
                     }
                 }
+                MainActivity.alert.hide()
             })
 
         change_save.setOnClickListener {
@@ -242,8 +260,7 @@ class ChangeFragment : Fragment() {
                                     year1
                                 )
                             )
-                            dataChange =
-                                (MyUtils.convertDateServer(year1, monthOfYear + 1, dayOfMonth))
+                            dataChange = (MyUtils.convertDateServer(year1, monthOfYear + 1, dayOfMonth))
                         }, year, month, day
                     )
                 picker.show()

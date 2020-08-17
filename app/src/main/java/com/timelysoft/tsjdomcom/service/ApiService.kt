@@ -390,5 +390,11 @@ interface ApiService {
 
     @PUT("CreditAndDebitSlips")
     suspend fun userChangeEdit(@Body body: ChangeEditModel): Response<Unit>
+
+    @DELETE("CreditAndDebitSlips/{id}")
+    suspend fun comingDelete(@Path("id") id: Int): Response<String>
+
+    @POST("CreditAndDebitSlips")
+    suspend fun entryAdd(@Body body: EntryAddModel): Response<Unit>
 }
 

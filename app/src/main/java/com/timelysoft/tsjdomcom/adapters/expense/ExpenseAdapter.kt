@@ -30,15 +30,7 @@ class ExpenseAdapter (var listener: ExpenseClickListener, item: ArrayList<SlipMo
         }
 
         holder.itemView.expense_delete.setOnClickListener {
-            val builder = AlertDialog.Builder(it.context)
-            builder.setMessage("Действительно ли вы\n" + "желаете удалить элемент?")
-
-            builder.setPositiveButton("Да") { dialog, which ->
-            }
-
-            builder.setNegativeButton("Нет") { dialog, which ->
-            }
-            builder.show()
+            listener.expenseClickListener(item, holder.adapterPosition)
         }
     }
 }

@@ -5,6 +5,7 @@ import androidx.lifecycle.liveData
 import com.timelysoft.tsjdomcom.service.model.ChangePasswordModel
 import com.timelysoft.tsjdomcom.service.model.RequestForConnectModel
 import com.timelysoft.tsjdomcom.service.model.expense.ChangeEditModel
+import com.timelysoft.tsjdomcom.service.model.expense.EntryAddModel
 import com.timelysoft.tsjdomcom.service.model.provider.FileModel
 import com.timelysoft.tsjdomcom.service.model.request.UserRequestEdit
 import com.timelysoft.tsjdomcom.service.model.service.CreateServiceModel
@@ -1770,6 +1771,39 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     emit(ResultStatus.success(null, "Ваши данные обновлены"))
+                }
+                else -> {
+                    emit(ResultStatus.error("Не известная ошибка"))
+                }
+            }
+        } catch (e: Exception) {
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+        }
+    }
+
+    fun comingDelete(id: Int) = liveData(Dispatchers.IO) {
+        try {
+            val response = RetrofitService.apiService().comingDelete(id)
+            when {
+                response.isSuccessful -> {
+                    emit(ResultStatus.success(null, "Удалено!"))
+                }
+                else -> {
+                    emit(ResultStatus.error("Вы уже удалили"))
+                }
+            }
+        } catch (e: Exception) {
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+        }
+    }
+
+    fun entryAdd(model: EntryAddModel) = liveData(Dispatchers.IO) {
+        try {
+            val response =
+                RetrofitService.apiService().entryAdd(model)
+            when {
+                response.isSuccessful -> {
+                    emit(ResultStatus.success(null, "Новый документ добавлен"))
                 }
                 else -> {
                     emit(ResultStatus.error("Не известная ошибка"))

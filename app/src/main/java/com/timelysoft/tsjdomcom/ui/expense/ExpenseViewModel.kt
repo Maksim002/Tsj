@@ -36,4 +36,12 @@ class ExpenseViewModel : ViewModel(){
     fun userChangeEdit(body: ChangeEditModel): LiveData<ResultStatus<Nothing>> {
         return repository.userChangeEdit(body)
     }
+
+    fun comingDelete(id: Int): LiveData<ResultStatus<Nothing>> {
+        return repository.comingDelete(id)
+    }
+
+    fun entryAdd(model: EntryAddModel): LiveData<ResultStatus<Nothing>> {
+        return repository.entryAdd(model)
+    }
 }

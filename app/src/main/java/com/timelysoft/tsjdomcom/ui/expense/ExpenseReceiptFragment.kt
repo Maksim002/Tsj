@@ -1,6 +1,5 @@
 package com.timelysoft.tsjdomcom.ui.expense
 
-
 import android.content.res.ColorStateList
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -22,7 +21,6 @@ import com.timelysoft.tsjdomcom.service.model.expense.ExpenseListTypeModel
 import com.timelysoft.tsjdomcom.service.model.news.NewsModel
 import com.timelysoft.tsjdomcom.ui.main.MainActivity
 import kotlinx.android.synthetic.main.fragment_expense_receipts.*
-
 
 class ExpenseReceiptFragment : Fragment() {
     private var viewModel = ExpenseViewModel()
@@ -53,7 +51,6 @@ class ExpenseReceiptFragment : Fragment() {
         initPager()
     }
 
-
     private fun initArgument() {
         expanse_receipts_add_entry.setOnClickListener {
             findNavController().navigate(R.id.navigation_add_entry)
@@ -65,12 +62,12 @@ class ExpenseReceiptFragment : Fragment() {
             when(result.status){
                 Status.SUCCESS ->{
                     list = data!!
-                    MainActivity.alert.hide()
                 }
                 Status.ERROR, Status.NETWORK ->{
                     Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
                 }
             }
+            MainActivity.alert.hide()
         })
     }
 
@@ -91,12 +88,12 @@ class ExpenseReceiptFragment : Fragment() {
                     val adapterAddAddress = ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, data!!)
                     expense_receipts_address_out.setAdapter(adapterAddAddress)
                     list = data
-                    MainActivity.alert.hide()
                 }
                 Status.ERROR, Status.NETWORK ->{
                     Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
                 }
             }
+            MainActivity.alert.hide()
         })
 
         expense_receipts_address_out.keyListener = null

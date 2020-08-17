@@ -1,5 +1,6 @@
 package com.timelysoft.tsjdomcom.ui.expense
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -62,5 +63,32 @@ class ExpenseFragment(var positionType: Int) : Fragment(), ExpenseClickListener 
         val bundle = Bundle()
         bundle.putInt("comingsId", item.id!!)
         findNavController().navigate(R.id.navigation_change, bundle)
+    }
+
+    override fun expenseClickListener(item: SlipModel, position: Int) {
+        MainActivity.alert.show()
+        val builder = AlertDialog.Builder(context)
+        builder.setMessage("Действительно ли вы\n" + "желаете удалить элемент?")
+        builder.setPositiveButton("Да") { dialog, which ->
+            viewModel.comingDelete(item.id!!).observe(this, Observer { result->
+                val msg = result.msg
+                when(result.status){
+                    Status.SUCCESS ->{
+                        myAdapter.items.removeAt(position)
+                        myAdapter.notifyItemRemoved(position)
+                        myAdapter.notifyItemChanged(position, myAdapter.items)
+                        Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                    }
+                    Status.ERROR, Status.NETWORK ->{
+                        Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                    }
+                }
+                MainActivity.alert.hide()
+            })
+        }
+        builder.setNegativeButton("Нет") { dialog, which ->
+            dialog.dismiss()
+        }
+        builder.show()
     }
 }
