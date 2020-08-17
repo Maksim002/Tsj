@@ -17,12 +17,15 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import com.nbsp.materialfilepicker.MaterialFilePicker
+import com.aditya.filebrowser.Constants
+import com.aditya.filebrowser.FileChooser
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.service.Status
 import kotlinx.android.synthetic.main.fragment_template.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import java.util.regex.Pattern
+import okhttp3.RequestBody.Companion.asRequestBody
+import java.io.File
 
 
 class TemplateFragment : Fragment() {
@@ -43,18 +46,22 @@ class TemplateFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initArgument()
+        initRequest()
     }
 
     private fun initArgument() {
         template_choose.setOnClickListener {
             loadFiles()
         }
+    }
 
+    private fun initRequest() {
         template_approve_template.setOnClickListener {
             viewModel.paymentDownloadSave(files).observe(viewLifecycleOwner, Observer { result ->
                 val msg = result.msg
                 when (result.status) {
                     Status.SUCCESS -> {
+                        Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
                     }
                     Status.ERROR, Status.NETWORK -> {
                         Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
@@ -100,20 +107,20 @@ class TemplateFragment : Fragment() {
     }
 
     private fun getMyFile() {
-        MaterialFilePicker()
-            .withActivity(activity)
-            .withRequestCode(STORAGE_PERMISION_CODE)
-            .withHiddenFiles(false)
-            .withFilter(Pattern.compile(".*\\.pdf$"))
-            .withTitle("Select PDF file")
-            .start()
+        val i2 = Intent(context, FileChooser::class.java)
+        i2.putExtra(Constants.SELECTION_MODE, Constants.SELECTION_MODES.SINGLE_SELECTION)
+        i2.putExtra(Constants.ALLOWED_FILE_EXTENSIONS, "xls;xlsx");
+        startActivityForResult(i2, FILE_PICK_CODE)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode == Activity.RESULT_OK && requestCode == FILE_PICK_CODE) {
-            // todo работа excel  uri to moltipad bodi
-            if (data != null) {
-
+        if (requestCode == FILE_PICK_CODE && resultCode == Activity.RESULT_OK) {
+            val path = data?.data
+            if (path != null) {
+                val file = File(path.path!!)
+                val requestFile = file.asRequestBody("*/*".toMediaTypeOrNull())
+                val myfile = MultipartBody.Part.createFormData("File", file.name, requestFile)
+                files.add(myfile)
             }
         }
     }
