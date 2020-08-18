@@ -3,6 +3,7 @@ package com.timelysoft.tsjdomcom.service
 import com.timelysoft.tsjdomcom.service.model.MessageItemModel
 import com.timelysoft.tsjdomcom.service.model.VoteModel
 import com.timelysoft.tsjdomcom.service.model.*
+import com.timelysoft.tsjdomcom.service.model.counter.DebtsInformationTsjModel
 import com.timelysoft.tsjdomcom.service.model.counter.DebtsModel
 import com.timelysoft.tsjdomcom.service.model.expense.*
 import com.timelysoft.tsjdomcom.service.model.news.NewsCommentsModel
@@ -396,5 +397,11 @@ interface ApiService {
 
     @POST("CreditAndDebitSlips")
     suspend fun entryAdd(@Body body: EntryAddModel): Response<Unit>
+
+    @GET("PaymentManagement/Association")
+    suspend fun debtsInformationTsj(): Response<DebtsInformationTsjModel>
+
+    @GET("PaymentManagement/Debts/Download")
+    suspend fun debtsSaveExcel(): Response<String>
 }
 

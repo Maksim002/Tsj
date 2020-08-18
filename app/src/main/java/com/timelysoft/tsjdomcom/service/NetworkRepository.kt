@@ -1632,7 +1632,7 @@ class NetworkRepository {
                     if (response.body() != null) {
                         emit(ResultStatus.success(response.body()))
                     } else {
-                        emit(ResultStatus.error("загрузка началось"))
+                        emit(ResultStatus.error("Загрузка началось"))
                     }
                 }
                 else -> {
@@ -1804,6 +1804,46 @@ class NetworkRepository {
             when {
                 response.isSuccessful -> {
                     emit(ResultStatus.success(null, "Новый документ добавлен"))
+                }
+                else -> {
+                    emit(ResultStatus.error("Не известная ошибка"))
+                }
+            }
+        } catch (e: Exception) {
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+        }
+    }
+
+    fun debtsInformationTsj() = liveData(Dispatchers.IO) {
+        try {
+            val response = RetrofitService.apiService().debtsInformationTsj()
+            when {
+                response.isSuccessful -> {
+                    if (response.body() != null) {
+                        emit(ResultStatus.success(response.body()))
+                    } else {
+                        emit(ResultStatus.error("Ошибка при получении данных"))
+                    }
+                }
+                else -> {
+                    emit(ResultStatus.error("Не известная ошибка"))
+                }
+            }
+        } catch (e: Exception) {
+            emit(ResultStatus.netwrok("Проблеммы с подключение интернета", null))
+        }
+    }
+
+    fun debtsSaveExcel() = liveData(Dispatchers.IO) {
+        try {
+            val response = RetrofitService.apiService().debtsSaveExcel()
+            when {
+                response.isSuccessful -> {
+                    if (response.body() != null) {
+                        emit(ResultStatus.success(response.body()))
+                    } else {
+                        emit(ResultStatus.error("Загрузка началось"))
+                    }
                 }
                 else -> {
                     emit(ResultStatus.error("Не известная ошибка"))
