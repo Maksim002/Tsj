@@ -61,11 +61,13 @@ class InvoicesIssuedFragment : Fragment() {
                     Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
                 }
             }
+            MainActivity.alert.hide()
         })
 
     }
 
     private fun initRecyclerView() {
+        MainActivity.alert.show()
         invoices_issued_recycler.adapter = myAdapter
         viewModel.invoicesIssued(dataFrom, dataTo).observe(viewLifecycleOwner, androidx.lifecycle.Observer {result ->
             val msg = result.msg
@@ -74,12 +76,12 @@ class InvoicesIssuedFragment : Fragment() {
                 Status.SUCCESS ->{
                     myAdapter.update(data as ArrayList<InvoicesIssuedModel>)
                     myAdapter.notifyDataSetChanged()
-                    MainActivity.alert.hide()
                 }
                 Status.NETWORK, Status.ERROR->{
                     Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
                 }
             }
+            MainActivity.alert.hide()
         })
     }
 

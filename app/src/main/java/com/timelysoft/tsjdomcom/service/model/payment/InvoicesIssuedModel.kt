@@ -10,7 +10,7 @@ class InvoicesIssuedModel (
 
     @SerializedName("Sum")
     @Expose
-    var sum: Int = 0,
+    var sum: Double = 0.0,
 
     @SerializedName("OnDate")
     @Expose
