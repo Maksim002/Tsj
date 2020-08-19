@@ -12,6 +12,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
 import androidx.navigation.fragment.findNavController
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.service.Status
@@ -21,6 +22,7 @@ import com.timelysoft.tsjdomcom.service.model.expense.EntryAddModel
 import com.timelysoft.tsjdomcom.ui.main.MainActivity
 import com.timelysoft.tsjdomcom.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_add_entry.*
+import kotlinx.android.synthetic.main.fragment_add_invoice.*
 import kotlinx.android.synthetic.main.fragment_change.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -48,38 +50,53 @@ class AddEntryFragment : Fragment() {
         getAutoDatesFrom()
         getAddDescription()
         iniRequest()
+        hintText()
     }
 
     private fun iniRequest() {
         expanse_receipts_add_entry.setOnClickListener {
-            MainActivity.alert.show()
-            val amount  = add_entry_sum.text.toString()
-            model = EntryAddModel(providerId, amount.toInt(), typeId, data, add_entry_description.text.toString())
-            viewModel.entryAdd(model).observe(viewLifecycleOwner, androidx.lifecycle.Observer { result->
-                val msg = result.msg
-                when (result.status) {
-                    Status.SUCCESS -> {
-                        findNavController().popBackStack()
-                        Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
-                    }
-                    Status.ERROR, Status.NETWORK -> {
-                        Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
-                    }
-                }
-                MainActivity.alert.hide()
-            })
+            if (validate()) {
+                MainActivity.alert.show()
+                val amount = add_entry_sum_out.text.toString()
+                model = EntryAddModel(
+                    providerId,
+                    amount.toInt(),
+                    typeId,
+                    data,
+                    add_entry_description_out.text.toString()
+                )
+                viewModel.entryAdd(model)
+                    .observe(viewLifecycleOwner, androidx.lifecycle.Observer { result ->
+                        val msg = result.msg
+                        when (result.status) {
+                            Status.SUCCESS -> {
+                                findNavController().popBackStack()
+                                Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                            }
+                            Status.ERROR, Status.NETWORK -> {
+                                Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                            }
+                        }
+                        MainActivity.alert.hide()
+                    })
+            }
         }
 
     }
 
     private fun getAddType() {
         var list: ArrayList<ChangeListType> = arrayListOf()
-        viewModel.changeListType().observe(viewLifecycleOwner, androidx.lifecycle.Observer { result ->
+        viewModel.changeListType()
+            .observe(viewLifecycleOwner, androidx.lifecycle.Observer { result ->
                 val msg = result.msg
                 val data = result.data
                 when (result.status) {
                     Status.SUCCESS -> {
-                        val adapterAddType = ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, data!!)
+                        val adapterAddType = ArrayAdapter(
+                            context!!,
+                            android.R.layout.simple_dropdown_item_1line,
+                            data!!
+                        )
                         add_entry_type_out.setAdapter(adapterAddType)
                         list = data
                     }
@@ -125,7 +142,11 @@ class AddEntryFragment : Fragment() {
                 val data = result.data
                 when (result.status) {
                     Status.SUCCESS -> {
-                        val adapterChangeProvider = ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, data!!)
+                        val adapterChangeProvider = ArrayAdapter(
+                            context!!,
+                            android.R.layout.simple_dropdown_item_1line,
+                            data!!
+                        )
                         add_entry_type_provider_out.setAdapter(adapterChangeProvider)
                         list = data
                     }
@@ -146,19 +167,20 @@ class AddEntryFragment : Fragment() {
         add_entry_type_provider_out.setOnClickListener {
             add_entry_type_provider_out.showDropDown()
         }
-        add_entry_type_provider_out.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
-            try {
-                if (hasFocus) {
-                    add_entry_type_provider_out.showDropDown()
+        add_entry_type_provider_out.onFocusChangeListener =
+            View.OnFocusChangeListener { view, hasFocus ->
+                try {
+                    if (hasFocus) {
+                        add_entry_type_provider_out.showDropDown()
+                    }
+                    if (!hasFocus && add_entry_type_provider_out.text!!.isNotEmpty()) {
+                        add_entry_type_provider.defaultHintTextColor =
+                            ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+                        add_entry_type_provider.isErrorEnabled = false
+                    }
+                } catch (e: Exception) {
                 }
-                if (!hasFocus && add_entry_type_provider_out.text!!.isNotEmpty()) {
-                    add_entry_type_provider.defaultHintTextColor =
-                        ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                    add_entry_type_provider.isErrorEnabled = false
-                }
-            } catch (e: Exception) {
             }
-        }
         add_entry_type_provider_out.clearFocus()
     }
 
@@ -176,13 +198,85 @@ class AddEntryFragment : Fragment() {
                 mLastClickTime = SystemClock.elapsedRealtime();
                 add_entry_date.defaultHintTextColor =
                     ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-                val picker = DatePickerDialog(activity!!, R.style.DatePicker, { _, year1, monthOfYear, dayOfMonth ->
-                            add_entry_date_out.setText(MyUtils.convertDate(dayOfMonth, monthOfYear + 1, year1))
-                    data = (MyUtils.convertDateServer(year1, monthOfYear + 1, dayOfMonth))
-                        }, year, month, day)
+                val picker = DatePickerDialog(
+                    activity!!,
+                    R.style.DatePicker,
+                    { _, year1, monthOfYear, dayOfMonth ->
+                        add_entry_date_out.setText(
+                            MyUtils.convertDate(
+                                dayOfMonth,
+                                monthOfYear + 1,
+                                year1
+                            )
+                        )
+                        data = (MyUtils.convertDateServer(year1, monthOfYear + 1, dayOfMonth))
+                    },
+                    year,
+                    month,
+                    day
+                )
                 picker.show()
                 add_entry_date_out.clearFocus()
             }
         }
+    }
+
+    private fun hintText() {
+        add_entry_sum_out.addTextChangedListener {
+            add_entry_sum.isErrorEnabled = false
+            add_entry_sum.defaultHintTextColor =
+                ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+        }
+
+        add_entry_date_out.addTextChangedListener {
+            add_entry_date.isErrorEnabled = false
+            add_entry_date.defaultHintTextColor =
+                ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+        }
+
+        add_entry_description_out.addTextChangedListener {
+            add_entry_description.isErrorEnabled = false
+            add_entry_description.defaultHintTextColor =
+                ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+        }
+    }
+
+    private fun validate(): Boolean {
+        var valid = true
+        if (add_entry_type_provider_out.text!!.toString().isEmpty()) {
+            add_entry_type_provider.error = "Поле не должно быть пустым"
+            valid = false
+        } else {
+            add_entry_type_provider.isErrorEnabled = false
+        }
+
+        if (add_entry_sum_out.text!!.toString().isEmpty()) {
+            add_entry_sum.error = "Поле не должно быть пустым"
+            valid = false
+        } else {
+            add_entry_sum.isErrorEnabled = false
+        }
+
+        if (add_entry_date_out.text!!.toString().isEmpty()) {
+            add_entry_date.error = "Поле не должно быть пустым"
+            valid = false
+        } else {
+            add_entry_date.isErrorEnabled = false
+        }
+
+        if (add_entry_description_out.text!!.toString().isEmpty()) {
+            add_entry_description.error = "Поле не должно быть пустым"
+            valid = false
+        } else {
+            add_entry_description.isErrorEnabled = false
+        }
+
+        if (add_entry_type_out.text!!.toString().isEmpty()) {
+            add_entry_type.error = "Поле не должно быть пустым"
+            valid = false
+        } else {
+            add_entry_type.isErrorEnabled = false
+        }
+        return valid
     }
 }

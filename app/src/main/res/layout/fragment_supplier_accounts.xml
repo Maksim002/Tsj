@@ -117,4 +117,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+    <include
+        android:id="@+id/supplier_accounts_owner"
+        android:visibility="gone"
+        layout="@layout/item_focus" />
 </LinearLayout>

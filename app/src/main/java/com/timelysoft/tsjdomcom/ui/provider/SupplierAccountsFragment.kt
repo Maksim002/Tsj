@@ -12,6 +12,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
 import androidx.navigation.fragment.findNavController
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.adapters.provider.SupplierAccountsAdapter
@@ -21,6 +22,8 @@ import com.timelysoft.tsjdomcom.service.model.provider.ProviderInvoices
 import com.timelysoft.tsjdomcom.service.model.provider.SupplierAccountsModel
 import com.timelysoft.tsjdomcom.ui.main.MainActivity
 import com.timelysoft.tsjdomcom.utils.MyUtils
+import kotlinx.android.synthetic.main.fragment_add_invoice.*
+import kotlinx.android.synthetic.main.fragment_history.*
 import kotlinx.android.synthetic.main.fragment_supplier_accounts.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -51,6 +54,7 @@ class SupplierAccountsFragment : Fragment(), SupplierAccountsListener {
         getSupplierAccounts()
         initRecycler()
         initArgument()
+        hintText()
     }
 
     private fun initArgument() {
@@ -59,22 +63,24 @@ class SupplierAccountsFragment : Fragment(), SupplierAccountsListener {
         }
 
         supplier_accounts_search.setOnClickListener {
-            MainActivity.alert.show()
-            viewModel.supplierAccounts(dataFrom, dataTo, providerId)
-                .observe(viewLifecycleOwner, androidx.lifecycle.Observer { result ->
-                    val msg = result.msg
-                    val data = result.data
-                    when (result.status) {
-                        Status.SUCCESS -> {
-                            myAdapter.update(data!!)
-                            myAdapter.notifyDataSetChanged()
-                            MainActivity.alert.hide()
+            if (validate()) {
+                MainActivity.alert.show()
+                viewModel.supplierAccounts(dataFrom, dataTo, providerId)
+                    .observe(viewLifecycleOwner, androidx.lifecycle.Observer { result ->
+                        val msg = result.msg
+                        val data = result.data
+                        when (result.status) {
+                            Status.SUCCESS -> {
+                                myAdapter.update(data!!)
+                                myAdapter.notifyDataSetChanged()
+                                MainActivity.alert.hide()
+                            }
+                            Status.ERROR, Status.NETWORK -> {
+                                Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                            }
                         }
-                        Status.ERROR, Status.NETWORK -> {
-                            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                })
+                    })
+            }
         }
     }
 
@@ -83,17 +89,18 @@ class SupplierAccountsFragment : Fragment(), SupplierAccountsListener {
     }
 
     override fun supplierAccountsOnClick(item: SupplierAccountsModel) {
-        viewModel.supplierAccountsDelete(providerId).observe(this, androidx.lifecycle.Observer { result ->
-            val msg = result.msg
-            when (result.status) {
-                Status.SUCCESS -> {
-                    Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+        viewModel.supplierAccountsDelete(providerId)
+            .observe(this, androidx.lifecycle.Observer { result ->
+                val msg = result.msg
+                when (result.status) {
+                    Status.SUCCESS -> {
+                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                    }
+                    Status.ERROR, Status.NETWORK -> {
+                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                    }
                 }
-                Status.ERROR, Status.NETWORK -> {
-                    Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
-                }
-            }
-        })
+            })
     }
 
     private fun getAutoDatesFrom() {
@@ -164,24 +171,26 @@ class SupplierAccountsFragment : Fragment(), SupplierAccountsListener {
 
     private fun getSupplierAccounts() {
         MainActivity.alert.show()
-        var list:  ArrayList<ProviderInvoices> = arrayListOf()
+        var list: ArrayList<ProviderInvoices> = arrayListOf()
 
-        viewModel.providerInvoices().observe(viewLifecycleOwner, androidx.lifecycle.Observer { result->
-            val msg = result.msg
-            val data = result.data
-            when(result.status){
-                Status.SUCCESS ->{
-                    val adapterSupplierAccounts = data?.let {
-                        ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, it) }
-                    supplier_accounts_provider_out.setAdapter(adapterSupplierAccounts)
-                    list = data as ArrayList<ProviderInvoices>
-                    MainActivity.alert.hide()
+        viewModel.providerInvoices()
+            .observe(viewLifecycleOwner, androidx.lifecycle.Observer { result ->
+                val msg = result.msg
+                val data = result.data
+                when (result.status) {
+                    Status.SUCCESS -> {
+                        val adapterSupplierAccounts = data?.let {
+                            ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, it)
+                        }
+                        supplier_accounts_provider_out.setAdapter(adapterSupplierAccounts)
+                        list = data as ArrayList<ProviderInvoices>
+                        MainActivity.alert.hide()
+                    }
+                    Status.NETWORK, Status.ERROR -> {
+                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                    }
                 }
-                Status.NETWORK, Status.ERROR ->{
-                    Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
-                }
-            }
-        })
+            })
         supplier_accounts_provider_out.keyListener = null
         ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
         supplier_accounts_provider_out.onItemClickListener =
@@ -209,5 +218,41 @@ class SupplierAccountsFragment : Fragment(), SupplierAccountsListener {
                 }
             }
         supplier_accounts_provider_out.clearFocus()
+    }
+
+    private fun hintText() {
+        supplier_accounts_from_out.addTextChangedListener {
+            supplier_accounts_from.isErrorEnabled = false
+        }
+
+        supplier_accounts_to_out.addTextChangedListener {
+            supplier_accounts_to.isErrorEnabled = false
+        }
+        supplier_accounts_owner.requestFocus()
+    }
+
+    private fun validate(): Boolean {
+        var valid = true
+        if (supplier_accounts_provider_out.text.toString().isEmpty()) {
+            supplier_accounts_provider.error = "Выберите поставщика"
+            valid = false
+        } else {
+            supplier_accounts_provider.isErrorEnabled = false
+        }
+
+        if (supplier_accounts_from_out.text.toString().isEmpty()) {
+            supplier_accounts_from.error = "Выберите дата от"
+            valid = false
+        } else {
+            supplier_accounts_from.isErrorEnabled = false
+        }
+
+        if (supplier_accounts_to_out.text.toString().isEmpty()) {
+            supplier_accounts_to.error = "Выберите дата до"
+            valid = false
+        } else {
+            supplier_accounts_to.isErrorEnabled = false
+        }
+        return valid
     }
 }

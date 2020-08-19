@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
@@ -16,10 +17,11 @@ import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.service.Status
 import com.timelysoft.tsjdomcom.service.model.provider.ProviderInvoices
 import com.timelysoft.tsjdomcom.ui.main.MainActivity
+import kotlinx.android.synthetic.main.fragment_add_invoice.*
 import kotlinx.android.synthetic.main.fragment_user_bottom_sheet.*
 import java.util.ArrayList
 
-class UserBottomSheet (private var userid: Int): BottomSheetDialogFragment(){
+class UserBottomSheet(private var userid: Int) : BottomSheetDialogFragment() {
     private lateinit var viewModel: RequestViewModel
     private var typeId: Int = 0
 
@@ -40,43 +42,47 @@ class UserBottomSheet (private var userid: Int): BottomSheetDialogFragment(){
 
     private fun initArgument() {
         user_request_bottom_save.setOnClickListener {
-            MainActivity.alert.show()
-            viewModel.linkSupplier(userid, typeId).observe(viewLifecycleOwner, Observer { result->
-                val msg = result.msg
-                when(result.status){
-                    Status.SUCCESS->{
-                        dismiss()
-                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
-                        findNavController().popBackStack()
-                    }
-                    Status.NETWORK, Status.ERROR ->{
-                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
-                    }
-                }
-            })
-            MainActivity.alert.hide()
+            if (validate()) {
+                MainActivity.alert.show()
+                viewModel.linkSupplier(userid, typeId)
+                    .observe(viewLifecycleOwner, Observer { result ->
+                        val msg = result.msg
+                        when (result.status) {
+                            Status.SUCCESS -> {
+                                dismiss()
+                                Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                                findNavController().popBackStack()
+                            }
+                            Status.NETWORK, Status.ERROR -> {
+                                Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    })
+                MainActivity.alert.hide()
+            }
         }
     }
 
     private fun getUserRequestBottomSheet() {
         var list: ArrayList<ProviderInvoices> = arrayListOf()
-        viewModel.userRequestProvider().observe(viewLifecycleOwner, androidx.lifecycle.Observer { result ->
-            val msg = result.msg
-            val data = result.data
-            when (result.status) {
-                Status.SUCCESS -> {
-                    val adapterUserBottomSheet = data?.let {
-                        ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, it)
-                    }
-                    user_request_bottom_type_out.setAdapter(adapterUserBottomSheet)
+        viewModel.userRequestProvider()
+            .observe(viewLifecycleOwner, androidx.lifecycle.Observer { result ->
+                val msg = result.msg
+                val data = result.data
+                when (result.status) {
+                    Status.SUCCESS -> {
+                        val adapterUserBottomSheet = data?.let {
+                            ArrayAdapter(context!!, android.R.layout.simple_dropdown_item_1line, it)
+                        }
+                        user_request_bottom_type_out.setAdapter(adapterUserBottomSheet)
 
-                    list = data as ArrayList<ProviderInvoices>
+                        list = data as ArrayList<ProviderInvoices>
+                    }
+                    Status.NETWORK, Status.ERROR -> {
+                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                    }
                 }
-                Status.NETWORK, Status.ERROR -> {
-                    Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
-                }
-            }
-        })
+            })
         user_request_bottom_type_out.keyListener = null
         ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
         user_request_bottom_type_out.onItemClickListener =
@@ -104,5 +110,17 @@ class UserBottomSheet (private var userid: Int): BottomSheetDialogFragment(){
                 }
             }
         user_request_bottom_type_out.clearFocus()
+    }
+
+    private fun validate(): Boolean {
+        var valid = true
+        if (user_request_bottom_type_out.text!!.toString().isEmpty()) {
+            user_request_bottom_type.error = "Поле не должно быть пустым"
+            valid = false
+        } else {
+            user_request_bottom_type.isErrorEnabled = false
+        }
+
+        return valid
     }
 }

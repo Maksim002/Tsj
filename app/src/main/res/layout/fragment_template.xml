@@ -248,7 +248,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="ВЫБРАТЬ ФАЕЛ EXCEL"
+        android:text="ВЫБРАТЬ ФАЙЛ EXCEL"
         android:textColor="#FFFFFF"
         android:textSize="14sp" />
 
@@ -268,7 +268,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="СКАЧАТЬ ПРИРЕМ ШАБЛОНА"
+        android:text="СКАЧАТЬ ПРИМЕР ШАБЛОНА"
         android:textColor="#FFFFFF"
         android:textSize="14sp" />
 </LinearLayout>

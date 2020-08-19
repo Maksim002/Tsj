@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -17,6 +18,8 @@ import com.timelysoft.tsjdomcom.service.model.provider.ProviderInvoices
 import com.timelysoft.tsjdomcom.service.model.service.CreateServiceModel
 import com.timelysoft.tsjdomcom.service.model.service.CreateTypeService
 import com.timelysoft.tsjdomcom.service.model.service.PeriodServiceModel
+import com.timelysoft.tsjdomcom.ui.main.MainActivity
+import kotlinx.android.synthetic.main.fragment_add_invoice.*
 import kotlinx.android.synthetic.main.fragment_create_service.*
 import kotlinx.android.synthetic.main.fragment_supplier_accounts.*
 
@@ -39,6 +42,7 @@ class CreateServiceFragment : Fragment() {
         initArgument()
         getCreateServiceCompany()
         getCreateServiceType()
+        hintText()
     }
 
     private fun initArgument() {
@@ -52,29 +56,33 @@ class CreateServiceFragment : Fragment() {
             model.isCounter = isChecked
         }
         create_service_save.setOnClickListener {
-            model.name = create_service_name_out.text.toString()
+            if (validate()) {
+                MainActivity.alert.show()
+                model.name = create_service_name_out.text.toString()
 
-            try {
-                val rate: Int = Integer.valueOf(create_service_rate.text.toString())
-                model.tariff = rate
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-
-            model.periodId = periodId
-            model.servicePaidId = typeId
-            viewModel.createService(model).observe(viewLifecycleOwner, Observer { result ->
-                val msg = result.msg
-                when (result.status) {
-                    Status.SUCCESS -> {
-                        Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
-                        findNavController().popBackStack()
-                    }
-                    Status.ERROR, Status.NETWORK -> {
-                        Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
-                    }
+                try {
+                    val rate: Int = Integer.valueOf(create_service_rate_out.text.toString())
+                    model.tariff = rate
+                } catch (e: Exception) {
+                    e.printStackTrace()
                 }
-            })
+
+                model.periodId = periodId
+                model.servicePaidId = typeId
+                viewModel.createService(model).observe(viewLifecycleOwner, Observer { result ->
+                    val msg = result.msg
+                    when (result.status) {
+                        Status.SUCCESS -> {
+                            Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                            findNavController().popBackStack()
+                        }
+                        Status.ERROR, Status.NETWORK -> {
+                            Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+                        }
+                    }
+                    MainActivity.alert.hide()
+                })
+            }
         }
     }
 
@@ -175,5 +183,51 @@ class CreateServiceFragment : Fragment() {
                 }
             }
         create_service_type_out.clearFocus()
+    }
+
+    private fun hintText() {
+        create_service_name_out.addTextChangedListener {
+            create_service_name.isErrorEnabled = false
+            create_service_name.defaultHintTextColor =
+                ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+        }
+
+        create_service_rate_out.addTextChangedListener {
+            create_service_rate.isErrorEnabled = false
+            create_service_rate.defaultHintTextColor =
+                ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+        }
+    }
+
+    private fun validate(): Boolean {
+        var valid = true
+        if (create_service_name_out.text!!.toString().isEmpty()) {
+            create_service_name.error = "Поле не должно быть пустым"
+            valid = false
+        } else {
+            create_service_name.isErrorEnabled = false
+        }
+
+        if (create_service_rate_out.text!!.toString().isEmpty()) {
+            create_service_rate.error = "Поле не должно быть пустым"
+            valid = false
+        } else {
+            create_service_rate.isErrorEnabled = false
+        }
+
+        if (create_service_company_out.text!!.toString().isEmpty()) {
+            create_service_company.error = "Поле не должно быть пустым"
+            valid = false
+        } else {
+            create_service_company.isErrorEnabled = false
+        }
+
+        if (create_service_type_out.text!!.toString().isEmpty()) {
+            create_service_type.error = "Поле не должно быть пустым"
+            valid = false
+        } else {
+            create_service_type.isErrorEnabled = false
+        }
+        return valid
     }
 }

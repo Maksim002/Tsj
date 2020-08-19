@@ -34,6 +34,7 @@
     <include layout="@layout/item_divider_model" />
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/add_entry_sum"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -42,7 +43,7 @@
         android:hint="Сумма">
 
         <AutoCompleteTextView
-            android:id="@+id/add_entry_sum"
+            android:id="@+id/add_entry_sum_out"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
@@ -75,6 +76,7 @@
     <include layout="@layout/item_divider_model" />
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/add_entry_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -83,7 +85,7 @@
         android:hint="Описание">
 
         <AutoCompleteTextView
-            android:id="@+id/add_entry_description"
+            android:id="@+id/add_entry_description_out"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"

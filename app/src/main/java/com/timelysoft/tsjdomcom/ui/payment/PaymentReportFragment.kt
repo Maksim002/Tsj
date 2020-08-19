@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.adapters.report.PaymentReportAdapter
@@ -20,6 +21,7 @@ import com.timelysoft.tsjdomcom.service.model.payment.PaymentReportModel
 import com.timelysoft.tsjdomcom.service.model.service.PeriodServiceModel
 import com.timelysoft.tsjdomcom.ui.main.MainActivity
 import com.timelysoft.tsjdomcom.utils.MyUtils
+import kotlinx.android.synthetic.main.fragment_add_invoice.*
 import kotlinx.android.synthetic.main.fragment_create_service.*
 import kotlinx.android.synthetic.main.fragment_payment_report.*
 import kotlinx.android.synthetic.main.fragment_user_request.*
@@ -86,6 +88,7 @@ class PaymentReportFragment : Fragment() {
         })
 
         payment_report_payment.setOnClickListener {
+            MainActivity.alert.show()
             viewModel.paymentListPayment(dataFrom, dataTo, periodId)
                 .observe(viewLifecycleOwner, Observer { result ->
                     val msg = result.msg
@@ -94,12 +97,12 @@ class PaymentReportFragment : Fragment() {
                         Status.SUCCESS -> {
                             myAdapter.update(data!!)
                             myAdapter.notifyDataSetChanged()
-                            MainActivity.alert.hide()
                         }
                         Status.ERROR, Status.NETWORK -> {
                             Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
                         }
                     }
+                    MainActivity.alert.hide()
                 })
         }
 
@@ -224,7 +227,8 @@ class PaymentReportFragment : Fragment() {
             })
         payment_report_tape_out.keyListener = null
         ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
-        payment_report_tape_out.onItemClickListener = AdapterView.OnItemClickListener { parent, _, position, _ ->
+        payment_report_tape_out.onItemClickListener =
+            AdapterView.OnItemClickListener { parent, _, position, _ ->
                 payment_report_tape_out.showDropDown()
                 parent.getItemAtPosition(position).toString()
                 payment_report_tape_out.clearFocus()
@@ -248,5 +252,15 @@ class PaymentReportFragment : Fragment() {
                 }
             }
         payment_report_tape_out.clearFocus()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        hintText()
+    }
+
+    private fun hintText() {
+        payment_report_data_from.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+        payment_report_data_to.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
     }
 }

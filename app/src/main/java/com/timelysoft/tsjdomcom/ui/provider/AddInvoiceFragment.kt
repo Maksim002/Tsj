@@ -20,13 +20,12 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.isNotEmpty
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.loader.content.CursorLoader
 import androidx.navigation.fragment.findNavController
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.SimpleTarget
-import com.bumptech.glide.request.transition.Transition
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.adapters.provider.AddInvoiceAdapter
 import com.timelysoft.tsjdomcom.adapters.provider.AddInvoiceListener
@@ -37,8 +36,7 @@ import com.timelysoft.tsjdomcom.service.model.provider.ProviderInvoicesIdModel
 import com.timelysoft.tsjdomcom.ui.main.MainActivity
 import com.timelysoft.tsjdomcom.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_add_invoice.*
-import kotlinx.android.synthetic.main.item_add_invoice.*
-import kotlinx.android.synthetic.main.item_add_invoice.view.*
+import kotlinx.android.synthetic.main.new_message_chairman.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -46,7 +44,6 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.*
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
 
 class AddInvoiceFragment : Fragment(), AddInvoiceListener {
@@ -61,7 +58,7 @@ class AddInvoiceFragment : Fragment(), AddInvoiceListener {
     private var list: ArrayList<FileModel> = arrayListOf()
     private var mLastClickTime: Long = 0
     private var providerId: Int = 0
-    private lateinit var dataTo: String
+    private var dataTo: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -78,6 +75,11 @@ class AddInvoiceFragment : Fragment(), AddInvoiceListener {
         initRecycler()
         getInvoiceProvider()
         getInvoiceAtDate()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        hintText()
     }
 
     companion object {
@@ -102,76 +104,14 @@ class AddInvoiceFragment : Fragment(), AddInvoiceListener {
         }
 
         add_invoice_save.setOnClickListener {
-            viewModel.addInvoice(
-                add_invoice_service_out.text.toString(),
-                providerId,
-                dataTo,
-                add_invoice_meter_reading_out.text.toString(),
-                add_invoice_for_payment_out.text.toString(),
-                files
-            ).observe(viewLifecycleOwner, Observer { result ->
-                val msg = result.msg
-                when (result.status) {
-                    Status.SUCCESS -> {
-                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
-                        findNavController().popBackStack()
-                    }
-                    Status.ERROR, Status.NETWORK -> {
-                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
-                    }
-                }
-            })
-        }
-
-
-        if (position != -1) {
-            MainActivity.alert.show()
-            viewModel.providerInvoicesId(supplierAccountsId)
-                .observe(viewLifecycleOwner, Observer { result ->
-                    val msg = result.msg
-                    val data = result.data
-                    when (result.status) {
-                        Status.SUCCESS -> {
-
-                            add_invoice_provider_out.setText(data!!.providerName)
-                            add_invoice_service_out.setText(data.service)
-                            add_invoice_at_date_out.setText(data.date)
-                            add_invoice_meter_reading_out.setText(data.countersValue.toString())
-                            add_invoice_for_payment_out.setText(data.paymentAmount.toString())
-
-                            model.id = data.id
-                            model.providerId = data.providerId
-                            model.providerName = data.providerName
-                            model.paymentAmount = data.paymentAmount
-                            model.countersValue = data.countersValue
-                            model.date = data.date
-                            model.service = data.service
-                            model.files = data.files
-
-                            list = model.files as ArrayList<FileModel>
-
-                            myAdapter.update(data.files as ArrayList<FileModel>)
-                            MainActivity.alert.hide()
-                        }
-                        Status.ERROR, Status.NETWORK -> {
-                            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                })
-
-            add_invoice_save.setOnClickListener {
+            if (validate()) {
                 MainActivity.alert.show()
-                files.clear()
-                myImage.forEach {
-                    files.add(buildImageBodyPart(it.key, it.value))
-                }
-                viewModel.providerInvoicesEdit(
-                    model.id,
-                    model.service,
-                    model.providerId,
-                    model.date,
-                    model.countersValue,
-                    model.paymentAmount,
+                viewModel.addInvoice(
+                    add_invoice_service_out.text.toString(),
+                    providerId,
+                    dataTo,
+                    add_invoice_meter_reading_out.text.toString(),
+                    add_invoice_for_payment_out.text.toString(),
                     files
                 ).observe(viewLifecycleOwner, Observer { result ->
                     val msg = result.msg
@@ -179,13 +119,79 @@ class AddInvoiceFragment : Fragment(), AddInvoiceListener {
                         Status.SUCCESS -> {
                             Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
                             findNavController().popBackStack()
-                            MainActivity.alert.hide()
                         }
                         Status.ERROR, Status.NETWORK -> {
                             Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
                         }
                     }
+                    MainActivity.alert.hide()
                 })
+            }
+        }
+
+        if (position != -1) {
+                MainActivity.alert.show()
+                viewModel.providerInvoicesId(supplierAccountsId)
+                    .observe(viewLifecycleOwner, Observer { result ->
+                        val msg = result.msg
+                        val data = result.data
+                        when (result.status) {
+                            Status.SUCCESS -> {
+                                add_invoice_provider_out.setText(data!!.providerName)
+                                add_invoice_service_out.setText(data.service)
+                                add_invoice_at_date_out.setText(data.date)
+                                add_invoice_meter_reading_out.setText(data.countersValue.toString())
+                                add_invoice_for_payment_out.setText(data.paymentAmount.toString())
+
+                                model.id = data.id
+                                model.providerId = data.providerId
+                                model.providerName = data.providerName
+                                model.paymentAmount = data.paymentAmount
+                                model.countersValue = data.countersValue
+                                model.date = data.date
+                                model.service = data.service
+                                model.files = data.files
+
+                                list = model.files as ArrayList<FileModel>
+
+                                myAdapter.update(data.files as ArrayList<FileModel>)
+                                MainActivity.alert.hide()
+                            }
+                            Status.ERROR, Status.NETWORK -> {
+                                Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                })
+
+            add_invoice_save.setOnClickListener {
+                if (validate()) {
+                    MainActivity.alert.show()
+                    files.clear()
+                    myImage.forEach {
+                        files.add(buildImageBodyPart(it.key, it.value))
+                    }
+                    viewModel.providerInvoicesEdit(
+                        model.id,
+                        model.service,
+                        model.providerId,
+                        model.date,
+                        model.countersValue,
+                        model.paymentAmount,
+                        files
+                    ).observe(viewLifecycleOwner, Observer { result ->
+                        val msg = result.msg
+                        when (result.status) {
+                            Status.SUCCESS -> {
+                                Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                                findNavController().popBackStack()
+                                MainActivity.alert.hide()
+                            }
+                            Status.ERROR, Status.NETWORK -> {
+                                Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    })
+                }
             }
         }
     }
@@ -225,7 +231,11 @@ class AddInvoiceFragment : Fragment(), AddInvoiceListener {
         startActivityForResult(Intent.createChooser(myFile, "Select Picture"), IMAGE_PICK_CODE)
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             getMyFile()
         } else {
@@ -393,5 +403,67 @@ class AddInvoiceFragment : Fragment(), AddInvoiceListener {
                 add_invoice_at_date_out.clearFocus()
             }
         }
+    }
+
+    private fun hintText() {
+        add_invoice_service_out.addTextChangedListener {
+            add_invoice_service.isErrorEnabled = false
+            add_invoice_service.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+        }
+
+        add_invoice_at_date_out.addTextChangedListener {
+            add_invoice_at_date.isErrorEnabled = false
+            add_invoice_at_date.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+        }
+
+        add_invoice_meter_reading_out.addTextChangedListener {
+            add_invoice_meter_reading.isErrorEnabled = false
+            add_invoice_meter_reading.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+        }
+
+        add_invoice_for_payment_out.addTextChangedListener {
+            add_invoice_for_payment.isErrorEnabled = false
+            add_invoice_for_payment.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+        }
+        add_invoice_owner.requestFocus()
+    }
+
+    private fun validate(): Boolean {
+        var valid = true
+        if (add_invoice_provider_out.text!!.toString().isEmpty()) {
+            add_invoice_provider.error = "Поле не должно быть пустым"
+            valid = false
+        } else {
+            add_invoice_provider.isErrorEnabled = false
+        }
+
+        if (add_invoice_service_out.text.toString().isEmpty()) {
+            add_invoice_service.error = "Поле не должно быть пустым"
+            valid = false
+        } else {
+            add_invoice_service.isErrorEnabled = false
+        }
+
+        if (add_invoice_at_date_out.text.toString().isEmpty()) {
+            add_invoice_at_date.error = "Поле не должно быть пустым"
+            valid = false
+        } else {
+            add_invoice_at_date.isErrorEnabled = false
+        }
+
+        if (add_invoice_meter_reading_out.text.toString().isEmpty()) {
+            add_invoice_meter_reading.error = "Поле не должно быть пустым"
+            valid = false
+        } else {
+            add_invoice_meter_reading.isErrorEnabled = false
+        }
+
+        if (add_invoice_for_payment_out.text.toString().isEmpty()) {
+            add_invoice_for_payment.error = "Поле не должно быть пустым"
+            valid = false
+        } else {
+            add_invoice_for_payment.isErrorEnabled = false
+        }
+        return valid
     }
 }

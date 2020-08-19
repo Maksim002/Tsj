@@ -16,6 +16,7 @@ import com.timelysoft.tsjdomcom.service.Status
 import com.timelysoft.tsjdomcom.service.model.payment.InvoicesIssuedModel
 import com.timelysoft.tsjdomcom.ui.main.MainActivity
 import com.timelysoft.tsjdomcom.utils.MyUtils
+import kotlinx.android.synthetic.main.fragment_add_invoice.*
 import kotlinx.android.synthetic.main.fragment_invoices_issued.*
 import java.util.*
 
@@ -150,5 +151,11 @@ class InvoicesIssuedFragment : Fragment() {
                 invoices_issued_date_to_out.clearFocus()
             }
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        invoices_issued_date_from.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+        invoices_issued_date_to.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
     }
 }

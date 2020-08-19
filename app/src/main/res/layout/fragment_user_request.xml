@@ -60,6 +60,11 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <include layout="@layout/item_divider_model" />
+
+            <include
+                android:id="@+id/user_request_owner"
+                android:visibility="gone"
+                layout="@layout/item_focus" />
         </LinearLayout>
 
         <LinearLayout

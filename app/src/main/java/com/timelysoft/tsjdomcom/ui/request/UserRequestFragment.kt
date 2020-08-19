@@ -19,12 +19,14 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.timelysoft.tsjdomcom.R
 import com.timelysoft.tsjdomcom.adapters.request.UserRequestAdapter
 import com.timelysoft.tsjdomcom.adapters.request.UserRequestListener
 import com.timelysoft.tsjdomcom.service.Status
 import com.timelysoft.tsjdomcom.service.model.request.UserRequestTypeModel
+import com.timelysoft.tsjdomcom.ui.main.MainActivity
 import com.timelysoft.tsjdomcom.utils.MyUtils
 import kotlinx.android.synthetic.main.fragment_user_request.*
 import java.util.*
@@ -57,6 +59,7 @@ class UserRequestFragment : Fragment(), UserRequestListener {
         getAutoRequestTo()
         getRequestUser()
         initRecycler()
+        hintText()
     }
 
     override fun userRequestClick(item: Int) {
@@ -128,34 +131,39 @@ class UserRequestFragment : Fragment(), UserRequestListener {
 
     private fun initRecycler() {
         history_show.setOnClickListener {
-            viewModel.listUser(dataFrom, dataTo, typeId)
-                .observe(viewLifecycleOwner, androidx.lifecycle.Observer { result ->
-                    val msg = result.msg
-                    val data = result.data
-                    when (result.status) {
-                        Status.SUCCESS -> {
-                            myAdapter.update(data!!)
-                            myAdapter.notifyDataSetChanged()
+            if (validate()) {
+                MainActivity.alert.show()
+                viewModel.listUser(dataFrom, dataTo, typeId)
+                    .observe(viewLifecycleOwner, androidx.lifecycle.Observer { result ->
+                        val msg = result.msg
+                        val data = result.data
+                        when (result.status) {
+                            Status.SUCCESS -> {
+                                myAdapter.update(data!!)
+                                myAdapter.notifyDataSetChanged()
+                            }
+                            Status.ERROR, Status.NETWORK -> {
+                                Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                            }
                         }
-                        Status.ERROR, Status.NETWORK -> {
-                            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                })
-            user_request_recycler.adapter = myAdapter
+                    })
+                user_request_recycler.adapter = myAdapter
 
-            viewModel.userRequestSave(dataFrom, dataTo, typeId).observe(viewLifecycleOwner, androidx.lifecycle.Observer { result->
-                val msg = result.msg
-                val data = result.data
-                when (result.status) {
-                    Status.SUCCESS -> {
-                        url = data.toString()
-                    }
-                    Status.ERROR, Status.NETWORK -> {
-                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
-                    }
-                }
-            })
+                viewModel.userRequestSave(dataFrom, dataTo, typeId)
+                    .observe(viewLifecycleOwner, androidx.lifecycle.Observer { result ->
+                        val msg = result.msg
+                        val data = result.data
+                        when (result.status) {
+                            Status.SUCCESS -> {
+                                url = data.toString()
+                            }
+                            Status.ERROR, Status.NETWORK -> {
+                                Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                        MainActivity.alert.hide()
+                    })
+            }
         }
     }
 
@@ -271,5 +279,45 @@ class UserRequestFragment : Fragment(), UserRequestListener {
                 }
             }
         user_request_type_out.clearFocus()
+    }
+
+    private fun hintText() {
+        user_request_date_from_out.addTextChangedListener {
+            user_request_date_from.isErrorEnabled = false
+            user_request_date_from.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+        }
+
+        user_request_date_before_out.addTextChangedListener {
+            user_request_date_before.isErrorEnabled = false
+            user_request_date_before.defaultHintTextColor = ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
+        }
+
+        user_request_owner.requestFocus()
+    }
+
+    private fun validate(): Boolean {
+        var valid = true
+        if (user_request_type_out.text!!.toString().isEmpty()) {
+            user_request_type.error = "Выберите тип заявки"
+            valid = false
+        } else {
+            user_request_type.isErrorEnabled = false
+        }
+
+        if (user_request_date_from_out.text!!.toString().isEmpty()) {
+            user_request_date_from.error = "Выберите дату от"
+            valid = false
+        } else {
+            user_request_date_from.isErrorEnabled = false
+        }
+
+        if (user_request_date_before_out.text!!.toString().isEmpty()) {
+            user_request_date_before.error = "Выберите дату до"
+            valid = false
+        } else {
+            user_request_date_before.isErrorEnabled = false
+        }
+
+        return valid
     }
 }

@@ -7,7 +7,9 @@ import com.timelysoft.tsjdomcom.service.ResultStatus
 import com.timelysoft.tsjdomcom.service.model.provider.*
 import com.timelysoft.tsjdomcom.service.request.provider.CreateSupplier
 import com.timelysoft.tsjdomcom.service.request.provider.ProviderEdit
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 class ProviderViewModel : ViewModel(){
     private val repository = NetworkRepository()
@@ -49,10 +51,17 @@ class ProviderViewModel : ViewModel(){
     }
 
     fun providerInvoicesEdit(id: Int, service: String, providerId: Int, date: String, countersValue: Int, paymentAmount: Int, file: ArrayList<MultipartBody.Part>): LiveData<ResultStatus<Nothing>> {
+        if (file.isEmpty()) file.add(addEmptyFile())
         return repository.providerInvoicesEdit(id, service, providerId, date, countersValue, paymentAmount, file)
     }
 
     fun addInvoice(service: String, providerId: Int, date: String, countersValue: String, paymentAmount: String, file: ArrayList<MultipartBody.Part>): LiveData<ResultStatus<Nothing>> {
+        if (file.isEmpty()) file.add(addEmptyFile())
         return repository.addInvoice(service, providerId, date, countersValue, paymentAmount, file)
+    }
+
+    private fun addEmptyFile(): MultipartBody.Part {
+        val empty: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), "")
+        return MultipartBody.Part.createFormData("empty", "", empty)
     }
 }

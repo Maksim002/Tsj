@@ -25,6 +25,7 @@
             android:layout_width="match_parent"
             android:textSize="15sp"
             android:background="@null"
+            android:layout_marginBottom="8dp"
             android:layout_height="wrap_content"
             android:hint="Название услуги"
             android:inputType="text" />
@@ -56,30 +57,23 @@
 
     <include layout="@layout/item_divider_model"/>
 
-    <LinearLayout
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/create_service_rate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="16dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.3"
-            android:text="Значение тарифа" />
+        android:hint="Значение тарифа"
+        android:layout_marginTop="@dimen/marginHorizontal">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/create_service_rate"
+            android:id="@+id/create_service_rate_out"
             android:layout_width="match_parent"
             android:textSize="15sp"
-            android:gravity="right"
-            android:layout_weight="1"
             android:background="@null"
+            android:layout_marginBottom="8dp"
             android:layout_height="wrap_content"
-            android:hint="0.0"
-            android:inputType="number" />
-    </LinearLayout>
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <include layout="@layout/item_divider_model"/>
 
@@ -117,6 +111,7 @@
             android:layout_width="match_parent"
             android:textSize="15sp"
             android:background="@null"
+            android:layout_marginBottom="8dp"
             android:layout_height="wrap_content"
             android:drawableEnd="@drawable/ic_expend"
             android:hint="Период услуги"
@@ -160,6 +155,7 @@
             android:layout_width="match_parent"
             android:textSize="15sp"
             android:background="@null"
+            android:layout_marginBottom="8dp"
             android:drawableEnd="@drawable/ic_expend"
             android:layout_height="wrap_content"
             android:hint="Тип услуги"

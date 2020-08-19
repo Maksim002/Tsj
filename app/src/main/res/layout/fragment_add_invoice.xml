@@ -82,7 +82,7 @@
             android:id="@+id/add_invoice_meter_reading_out"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
+            android:inputType="number"
             android:background="@null"
             android:textSize="15dp" />
 
@@ -103,7 +103,7 @@
             android:id="@+id/add_invoice_for_payment_out"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
+            android:inputType="number"
             android:background="@null"
             android:textSize="15dp" />
 
@@ -161,4 +161,9 @@
             android:textColor="#FFFFFF"
             android:textSize="14sp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <include
+        android:id="@+id/add_invoice_owner"
+        android:visibility="gone"
+        layout="@layout/item_focus" />
 </LinearLayout>
