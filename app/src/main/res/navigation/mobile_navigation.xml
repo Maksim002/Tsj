@@ -551,8 +551,14 @@
         tools:layout="@layout/fragment_add_invoice" />
 
     <fragment
-        android:id="@+id/view_user_fragment"
+        android:id="@+id/navigation_view_user"
         android:name="com.timelysoft.tsjdomcom.ui.request.ViewUserFragment"
         android:label="Заявки пользователей"
         tools:layout="@layout/fragment_view_user" />
+
+    <fragment
+        android:id="@+id/navigation_messages_chairman"
+        android:name="com.timelysoft.tsjdomcom.ui.message.MessagesChairmanFragment"
+        android:label="Сообщения"
+        tools:layout="@layout/fragment_messages_chairman" />
 </navigation>

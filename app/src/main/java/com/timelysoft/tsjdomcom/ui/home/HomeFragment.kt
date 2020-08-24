@@ -89,7 +89,7 @@ class HomeFragment : Fragment() {
         }
 
         home_chairman.setOnClickListener {
-            findNavController().navigate(R.id.navigation_message_chairman)
+            findNavController().navigate(R.id.navigation_messages_chairman)
         }
     }
 

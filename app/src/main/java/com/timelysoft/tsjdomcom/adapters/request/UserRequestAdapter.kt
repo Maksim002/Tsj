@@ -42,7 +42,7 @@ class UserRequestAdapter (var listener: UserRequestListener , item: ArrayList<Us
         holder.itemView.user_request_view.setOnClickListener {
             val bundle = Bundle()
             bundle.putInt("userRequestId", item.id)
-            it.findNavController().navigate(R.id.view_user_fragment, bundle)
+            it.findNavController().navigate(R.id.navigation_view_user, bundle)
         }
     }
 }

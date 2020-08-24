@@ -106,12 +106,12 @@ class TemplateFragment : Fragment() {
         }
     }
 
-    private fun getMyFile() {
-        val i2 = Intent(context, FileChooser::class.java)
-        i2.putExtra(Constants.SELECTION_MODE, Constants.SELECTION_MODES.SINGLE_SELECTION)
-        i2.putExtra(Constants.ALLOWED_FILE_EXTENSIONS, "xls;xlsx");
-        startActivityForResult(i2, FILE_PICK_CODE)
-    }
+   private fun getMyFile() {
+       val i2 = Intent(context, FileChooser::class.java)
+       i2.putExtra(Constants.SELECTION_MODE, Constants.SELECTION_MODES.SINGLE_SELECTION)
+       i2.putExtra(Constants.ALLOWED_FILE_EXTENSIONS, "xls;xlsx");
+       startActivityForResult(i2, FILE_PICK_CODE)
+   }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == FILE_PICK_CODE && resultCode == Activity.RESULT_OK) {
@@ -177,7 +177,6 @@ class TemplateFragment : Fragment() {
             STORAGE_PERMISION_CODE -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     downloadFile(url)
-                    getMyFile()
                 } else {
                     //permission from popup denied
                     Toast.makeText(context, "Нет разрешений", Toast.LENGTH_SHORT).show()
